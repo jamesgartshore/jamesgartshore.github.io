@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About James Gartshore | Tech help and poster design in Bridlington</title>
+    <meta name="author" content="James Gartshore">
+    <meta name="description" content="James Gartshore is a Bridlington volunteer sharing free tech tips and designing posters for local people and groups.">
+    <link rel="canonical" href="https://jamesgartshore.github.io/about/">
+    
+    <script type="application/ld+json">
+    {"@context": "https://schema.org", "@type": "Person", "homeLocation": {"@type": "Place", "name": "Bridlington, East Riding of Yorkshire"}, "knowsAbout": ["Digital inclusion", "Online safety", "Poster and social media design", "Python", "Flask", "HTML", "CSS", "JavaScript"], "name": "James Gartshore", "url": "https://jamesgartshore.github.io/about/"}
+    </script>
+
+    <style>
+        :root {
+            --blue: #005EB8;
+            --dark-blue: #002D5E;
+            --green: #00703c;
+            --bg: #f3f6f9;
+            --text: #212b32;
+            --muted: #4c6272;
+            --border: #d8dee4;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        a { color: var(--blue); }
+
+        header {
+            background: var(--blue);
+            color: white;
+            padding: 22px 16px;
+        }
+
+        header .inner, main, footer .inner {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        header a { color: white; text-decoration: none; }
+        header .brand { font-size: 30px; font-weight: 800; }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        nav a { border-bottom: 2px solid transparent; }
+        nav a:hover { border-bottom-color: white; }
+
+        .byline { color: var(--muted); font-size: 15px; }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .design-grid figure {
+            margin: 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .design-grid img { display: block; width: 100%; height: auto; }
+
+        .design-grid figcaption {
+            padding: 10px 14px;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .skills li {
+            background: #e8f1fa;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 15px;
+            padding: 6px 14px;
+            border-radius: 999px;
+        }
+
+        header p { margin: 4px 0 0; opacity: 0.9; }
+
+        main { padding: 28px 16px 48px; }
+
+        .post-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .post-card {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 18px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .post-card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .post-card h2 {
+            margin: 0 0 6px;
+            font-size: 22px;
+            line-height: 1.25;
+            color: var(--dark-blue);
+        }
+
+        .post-card p { margin: 0; color: var(--muted); font-size: 16px; }
+
+        time { color: var(--muted); font-size: 15px; }
+
+        article {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        article h1 {
+            margin: 0 0 6px;
+            color: var(--dark-blue);
+            line-height: 1.2;
+        }
+
+        article img {
+            display: block;
+            width: 100%;
+            max-width: 640px;
+            height: auto;
+            margin: 22px auto;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .back { display: inline-block; margin-bottom: 16px; }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 20px 16px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .post-card { grid-template-columns: 1fr; }
+            article { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="inner">
+            <a class="brand" href="../">James Gartshore</a>
+            <p>Free, friendly tech tips and poster design for Bridlington and the East Riding</p>
+            <nav>
+                <a href="../">Tech tips</a>
+                <a href="../designs/">Design examples</a>
+                <a href="../about/">About me</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        
+    <article>
+        <h1>Hi, I'm James</h1>
+
+        <p>I live in Bridlington and volunteer with a local tech support group, helping people with their phones, computers and getting online. In 2026 I was shortlisted in the Time2Volunteer Awards for this work.</p>
+
+        <p>I started this site to share free, plain-English tech tips that anyone can use, from spotting scam texts to making your phone easier to see. You'll find the same tips on Nextdoor, where I post as James Gartshore.</p>
+
+        <p>I also design posters for free for local people, groups and events, sized properly for Facebook, Nextdoor or printing. You can see some examples on the <a href="../designs/">design examples</a> page.</p>
+
+        <h2>What I do</h2>
+        <ul class="skills">
+            <li>Tech support and teaching</li>
+            <li>Online safety and scam awareness</li>
+            <li>Poster and social media design</li>
+            <li>Python and Flask</li>
+            <li>HTML, CSS and JavaScript</li>
+            <li>Building small web tools</li>
+        </ul>
+
+        <p>This site, and the tool I use to make and schedule my posters, are things I built myself.</p>
+
+        <h2>Get in touch</h2>
+        <p>The easiest way to reach me is to message <strong>James Gartshore</strong> on Nextdoor.</p>
+    </article>
+
+    </main>
+    <footer>
+        <div class="inner">&copy; 2026 James Gartshore &middot; Free tech tips for Bridlington and beyond. Feel free to share.</div>
+    </footer>
+</body>
+</html>

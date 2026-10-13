@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>James Gartshore: free tech tips for Bridlington</title>
+    <meta name="author" content="James Gartshore">
+    <meta name="description" content="Free, friendly tech tips and poster design for Bridlington and the East Riding">
+    <link rel="canonical" href="https://jamesgartshore.github.io/">
+    
+    <style>
+        :root {
+            --blue: #005EB8;
+            --dark-blue: #002D5E;
+            --green: #00703c;
+            --bg: #f3f6f9;
+            --text: #212b32;
+            --muted: #4c6272;
+            --border: #d8dee4;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        a { color: var(--blue); }
+
+        header {
+            background: var(--blue);
+            color: white;
+            padding: 22px 16px;
+        }
+
+        header .inner, main, footer .inner {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        header a { color: white; text-decoration: none; }
+        header .brand { font-size: 30px; font-weight: 800; }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        nav a { border-bottom: 2px solid transparent; }
+        nav a:hover { border-bottom-color: white; }
+
+        .byline { color: var(--muted); font-size: 15px; }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .design-grid figure {
+            margin: 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .design-grid img { display: block; width: 100%; height: auto; }
+
+        .design-grid figcaption {
+            padding: 10px 14px;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .skills li {
+            background: #e8f1fa;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 15px;
+            padding: 6px 14px;
+            border-radius: 999px;
+        }
+
+        header p { margin: 4px 0 0; opacity: 0.9; }
+
+        main { padding: 28px 16px 48px; }
+
+        .post-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .post-card {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 18px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .post-card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .post-card h2 {
+            margin: 0 0 6px;
+            font-size: 22px;
+            line-height: 1.25;
+            color: var(--dark-blue);
+        }
+
+        .post-card p { margin: 0; color: var(--muted); font-size: 16px; }
+
+        time { color: var(--muted); font-size: 15px; }
+
+        article {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        article h1 {
+            margin: 0 0 6px;
+            color: var(--dark-blue);
+            line-height: 1.2;
+        }
+
+        article img {
+            display: block;
+            width: 100%;
+            max-width: 640px;
+            height: auto;
+            margin: 22px auto;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .back { display: inline-block; margin-bottom: 16px; }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 20px 16px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .post-card { grid-template-columns: 1fr; }
+            article { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="inner">
+            <a class="brand" href="./">James Gartshore</a>
+            <p>Free, friendly tech tips and poster design for Bridlington and the East Riding</p>
+            <nav>
+                <a href="./">Tech tips</a>
+                <a href="./designs/">Design examples</a>
+                <a href="./about/">About me</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        
+    <div class="post-list">
+        
+        <a class="post-card" href="dyspraxia-day2/">
+            <img src="images/dyspraxia-day2.png" alt="Poster: Dyspraxia: tools to stay organised" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Dyspraxia: tools to stay organised</h2>
+                <time datetime="2026-10-13">13 October 2026</time>
+                <p>Hi everyone, it&#39;s day two of Dyspraxia Awareness Week, and today I wanted to share some free tools that help with staying organised.</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="phone-emergency/">
+            <img src="images/phone-emergency.png" alt="Poster: Your phone could help in an emergency" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Your phone could help in an emergency</h2>
+                <time datetime="2026-10-13">13 October 2026</time>
+                <p>Hi everyone, today is the International Day for Disaster Risk Reduction, so I wanted to share a few features on your phone that could really help in an...</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="arthritis-day/">
+            <img src="images/arthritis-day.png" alt="Poster: Sore hands? Let your phone and laptop do the work" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Sore hands? Let your phone and laptop do the work</h2>
+                <time datetime="2026-10-12">12 October 2026</time>
+                <p>Hi everyone, today is World Arthritis Day, so I wanted to share some features on your phone and laptop that can make life a lot easier if you have...</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="dyspraxia-week/">
+            <img src="images/dyspraxia-week.png" alt="Poster: Tech that helps kids learn, not lean on it" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Tech that helps kids learn, not lean on it</h2>
+                <time datetime="2026-10-12">12 October 2026</time>
+                <p>Hi everyone, this week is Dyspraxia Awareness Week, so I wanted to share some ways technology can help children with dyspraxia. The idea is to use tech...</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="mental-health-day/">
+            <img src="images/mental-health-day.png" alt="Poster: Make your phone work for your wellbeing" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Make your phone work for your wellbeing</h2>
+                <time datetime="2026-10-11">11 October 2026</time>
+                <p>Hi everyone, World Mental Health Day was on 10 October, so I wanted to share a few simple things your phone can already do to help you feel a bit...</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="online-communities/">
+            <img src="images/online-communities.png" alt="Poster: Whatever you love, there&#39;s a community for it" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Whatever you love, there&#39;s a community for it</h2>
+                <time datetime="2026-10-11">11 October 2026</time>
+                <p>Hi everyone, I wanted to share something that a lot of people don&#39;t realise is out there.</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="find-bad-app/">
+            <img src="images/find-bad-app.png" alt="Poster: Ads popping up out of nowhere?" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Ads popping up out of nowhere?</h2>
+                <time datetime="2026-10-10">10 October 2026</time>
+                <p>Hi everyone, following on from my post about scary pop-up adverts, here&#39;s what to do if ads keep appearing on your Android phone even when you&#39;re not...</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="scary-popup-ads/">
+            <img src="images/scary-popup-ads.png" alt="Poster: Scary pop-up on your phone? It&#39;s just an advert" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Scary pop-up on your phone? It&#39;s just an advert</h2>
+                <time datetime="2026-10-09">09 October 2026</time>
+                <p>Hi everyone, I wanted to share a tip about those scary pop-ups that sometimes appear on phones.</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="satnav/">
+            <img src="images/satnav.png" alt="Poster: Is your sat nav out of date?" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Is your sat nav out of date?</h2>
+                <time datetime="2026-10-08">08 October 2026</time>
+                <p>Hi everyone, here&#39;s a quick tip for anyone who still uses a sat nav in the car.</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="pc-safety/">
+            <img src="images/pc-safety.png" alt="Poster: Simple facts to keep your computer safe" loading="lazy" width="180" height="180">
+            <div>
+                <h2>Simple facts to keep your computer safe</h2>
+                <time datetime="2026-10-07">07 October 2026</time>
+                <p>Hi everyone, I wanted to share a few tips about keeping your computer safe, because a lot of people end up paying for antivirus they don&#39;t actually need.</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="qr/">
+            <img src="images/qr.png" alt="Poster: What is a QR code?" loading="lazy" width="180" height="180">
+            <div>
+                <h2>What is a QR code?</h2>
+                <time datetime="2026-10-06">06 October 2026</time>
+                <p>Hi everyone, I just wanted to share a quick tip about QR codes.</p>
+            </div>
+        </a>
+        
+    </div>
+
+    </main>
+    <footer>
+        <div class="inner">&copy; 2026 James Gartshore &middot; Free tech tips for Bridlington and beyond. Feel free to share.</div>
+    </footer>
+</body>
+</html>
