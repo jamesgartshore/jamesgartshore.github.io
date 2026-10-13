@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free drop-in tech help at Bridlington North Library | James Gartshore</title>
+    <meta name="author" content="James Gartshore">
+    <meta name="description" content="Free drop-in tech help at Bridlington North Library, Martongate, Bridlington. Next session: Thursday 15 October, 9:30am to 11:30am. Bring your phone, laptop or tablet, no need to book.">
+    <link rel="canonical" href="https://jamesgartshore.github.io/sessions/bridlington-north-library/">
+    <link rel="alternate" type="application/rss+xml" title="James Gartshore" href="https://jamesgartshore.github.io/feed.xml">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23005EB8'/%3E%3Ctext x='32' y='45' font-family='Arial' font-weight='bold' font-size='36' text-anchor='middle' fill='white'%3EJG%3C/text%3E%3C/svg%3E">
+    
+    
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "endDate": "2026-10-15T11:30", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "eventStatus": "https://schema.org/EventScheduled", "isAccessibleForFree": true, "location": {"@type": "Place", "address": {"@type": "PostalAddress", "addressCountry": "GB", "postalCode": "YO16 6YD", "streetAddress": "Martongate, Bridlington"}, "name": "Bridlington North Library"}, "name": "Free drop-in tech help at Bridlington North Library", "organizer": {"@type": "Organization", "name": "Let\u0027s Tech Together"}, "startDate": "2026-10-15T09:30"}</script>
+    
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "endDate": "2026-11-12T11:30", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "eventStatus": "https://schema.org/EventScheduled", "isAccessibleForFree": true, "location": {"@type": "Place", "address": {"@type": "PostalAddress", "addressCountry": "GB", "postalCode": "YO16 6YD", "streetAddress": "Martongate, Bridlington"}, "name": "Bridlington North Library"}, "name": "Free drop-in tech help at Bridlington North Library", "organizer": {"@type": "Organization", "name": "Let\u0027s Tech Together"}, "startDate": "2026-11-12T09:30"}</script>
+    
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "endDate": "2026-12-10T11:30", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "eventStatus": "https://schema.org/EventScheduled", "isAccessibleForFree": true, "location": {"@type": "Place", "address": {"@type": "PostalAddress", "addressCountry": "GB", "postalCode": "YO16 6YD", "streetAddress": "Martongate, Bridlington"}, "name": "Bridlington North Library"}, "name": "Free drop-in tech help at Bridlington North Library", "organizer": {"@type": "Organization", "name": "Let\u0027s Tech Together"}, "startDate": "2026-12-10T09:30"}</script>
+    
+
+    <style>
+        :root {
+            --blue: #005EB8;
+            --dark-blue: #002D5E;
+            --green: #00703c;
+            --bg: #f3f6f9;
+            --text: #212b32;
+            --muted: #4c6272;
+            --border: #d8dee4;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        a { color: var(--blue); }
+
+        header {
+            background: var(--blue);
+            color: white;
+            padding: 22px 16px;
+        }
+
+        header .inner, main, footer .inner {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        header a { color: white; text-decoration: none; }
+        header .brand { font-size: 30px; font-weight: 800; }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        nav a { border-bottom: 2px solid transparent; }
+        nav a:hover { border-bottom-color: white; }
+
+        .byline { color: var(--muted); font-size: 15px; }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+        }
+
+        /* Search and topic filter on the tips page */
+        .finder { margin-bottom: 22px; }
+
+        .finder input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 18px;
+            font-family: inherit;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .finder input:focus { outline: none; border-color: var(--blue); }
+
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .topic {
+            background: white;
+            color: var(--dark-blue);
+            border: 2px solid var(--border);
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .topic.active {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+
+        .results { color: var(--muted); font-size: 15px; margin: 10px 0 0; min-height: 1em; }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+
+        .topic-tag {
+            background: #e8f1fa;
+            color: var(--dark-blue);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 999px;
+        }
+
+        .post-card[hidden] { display: none; }
+
+        a.topic-tag { text-decoration: none; }
+        a.topic-tag:hover { text-decoration: underline; }
+
+        /* Share buttons on each tip */
+        .share {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 24px 22px;
+            margin-top: 20px;
+        }
+
+        .share h2 { margin: 0 0 4px; font-size: 21px; color: var(--dark-blue); }
+        .share p { margin: 0 0 14px; color: var(--muted); }
+
+        .share-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .share-btn[hidden] { display: none; }
+        .share-btn.whatsapp { background: #1a7f43; }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.email { background: var(--dark-blue); }
+        .share-btn.copy, .share-btn.native { background: #e8f1fa; color: var(--dark-blue); }
+
+        /* Topic lists */
+        .browse {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-top: 28px;
+        }
+
+        .browse h2 { margin: 0 0 8px; font-size: 20px; color: var(--dark-blue); }
+        .browse ul { margin: 0; padding-left: 20px; }
+        .browse li { margin: 4px 0; }
+        .browse span { color: var(--muted); font-size: 15px; }
+
+        .topic-intro { margin-bottom: 20px; }
+        .topic-intro .count { color: var(--muted); font-size: 15px; margin-bottom: 0; }
+
+        .in-short {
+            background: #e8f1fa;
+            border-left: 6px solid var(--blue);
+            border-radius: 0 10px 10px 0;
+            padding: 6px 22px 10px;
+            margin: 20px 0;
+        }
+
+        .in-short h2 { margin: 10px 0 6px; font-size: 20px; color: var(--dark-blue); }
+        .in-short ul { margin: 0; padding-left: 20px; }
+        .in-short li { margin-bottom: 6px; }
+        .in-short .where { color: var(--muted); font-size: 16px; }
+
+        .related { margin-top: 32px; }
+        .related h2 { color: var(--dark-blue); }
+        .post-card h3 { margin: 0 0 6px; font-size: 19px; color: var(--dark-blue); line-height: 1.25; }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .design-grid figure {
+            margin: 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .design-grid img { display: block; width: 100%; height: auto; }
+
+        .design-grid figcaption {
+            padding: 10px 14px;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .skills li {
+            background: #e8f1fa;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 15px;
+            padding: 6px 14px;
+            border-radius: 999px;
+        }
+
+        header p { margin: 4px 0 0; opacity: 0.9; }
+
+        main { padding: 28px 16px 48px; }
+
+        .post-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .post-card {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 18px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .post-card img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
+            align-self: start;  /* don't stretch to the card's height, which crops the sides */
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .post-card h2 {
+            margin: 0 0 6px;
+            font-size: 22px;
+            line-height: 1.25;
+            color: var(--dark-blue);
+        }
+
+        .post-card p { margin: 0; color: var(--muted); font-size: 16px; }
+
+        time { color: var(--muted); font-size: 15px; }
+
+        article {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        article h1 {
+            margin: 0 0 6px;
+            color: var(--dark-blue);
+            line-height: 1.2;
+        }
+
+        article img {
+            display: block;
+            width: 100%;
+            max-width: 640px;
+            height: auto;
+            margin: 22px auto;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .back { display: inline-block; margin-bottom: 16px; }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 20px 16px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* Accessibility: visible keyboard focus and a skip link */
+        a:focus-visible, button:focus-visible, input:focus-visible {
+            outline: 3px solid #ffbf47;
+            outline-offset: 2px;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            background: #ffbf47;
+            color: #000;
+            padding: 10px 16px;
+            font-weight: 700;
+            z-index: 100;
+        }
+
+        .skip-link:focus { left: 8px; top: 8px; }
+
+        /* Text size button: zooms the page content, remembered on this device */
+        .text-size {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            font-size: 15px;
+        }
+
+        .text-size button {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 6px;
+            padding: 2px 10px;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .text-size button[aria-pressed="true"] { background: white; color: var(--blue); }
+        html[data-text="large"] main, html[data-text="large"] footer { zoom: 1.15; }
+        html[data-text="larger"] main, html[data-text="larger"] footer { zoom: 1.3; }
+
+        /* Email sign-up box */
+        .subscribe {
+            background: var(--dark-blue);
+            color: white;
+            border-radius: 12px;
+            padding: 18px 24px;
+            margin-top: 28px;
+        }
+
+        .subscribe h2 { margin: 0 0 4px; font-size: 21px; }
+        .subscribe p { margin: 0 0 12px; opacity: 0.9; }
+
+        .subscribe a {
+            display: inline-block;
+            background: #ffbf47;
+            color: #000;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        /* Get help page */
+        .urgent {
+            background: #fde8e6;
+            border-left: 6px solid #d5281b;
+            border-radius: 0 10px 10px 0;
+            padding: 6px 20px;
+            margin: 18px 0;
+        }
+
+        .urgent h2 { margin: 10px 0 0; font-size: 19px; color: #a41a10; }
+        .urgent p { margin: 4px 0 10px; font-size: 22px; }
+
+        .help-jump {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 10px;
+            margin: 18px 0 8px;
+        }
+
+        .help-jump a {
+            background: #e8f1fa;
+            color: var(--dark-blue);
+            font-weight: 600;
+            text-decoration: none;
+            padding: 12px 14px;
+            border-radius: 10px;
+        }
+
+        .help-jump a:hover { background: #d3e5f6; }
+        .help-section { border-top: 1px solid var(--border); margin-top: 22px; }
+        .help-section h2 { color: var(--dark-blue); margin-bottom: 6px; }
+        .help-section li { margin-bottom: 6px; }
+        .help-note { background: #f3f6f9; border-radius: 10px; padding: 14px 18px; margin-top: 26px; }
+
+        /* Where to find me volunteering */
+        .not-official {
+            background: #fff8e1;
+            border-left: 6px solid #f2c200;
+            border-radius: 0 10px 10px 0;
+            padding: 12px 18px;
+            margin: 18px 0;
+            font-size: 16px;
+        }
+
+        .session-list { list-style: none; padding: 0; margin: 0; }
+
+        .session-list li {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .session-date { font-weight: 700; color: var(--dark-blue); min-width: 230px; }
+        .session-time { color: var(--muted); min-width: 150px; }
+
+        .venue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 14px;
+        }
+
+        .venue-card {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: #e8f1fa;
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .venue-card strong { color: var(--dark-blue); font-size: 19px; }
+        .venue-card .next { color: var(--green); font-weight: 600; font-size: 15px; }
+
+        .map-link {
+            display: inline-block;
+            background: var(--blue);
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        /* Tech words explained */
+        .page-search {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 18px;
+            font-family: inherit;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .letters { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+
+        .letters a {
+            min-width: 38px;
+            text-align: center;
+            padding: 6px 0;
+            background: #e8f1fa;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .letter-group h2 { color: var(--dark-blue); border-bottom: 2px solid var(--border); margin-bottom: 8px; }
+        .letter-group[hidden], .word[hidden] { display: none; }
+        .glossary dl { margin: 0; }
+        .glossary .word { padding: 8px 0; }
+        .glossary dt { font-weight: 700; color: var(--dark-blue); }
+        .glossary dd { margin: 2px 0 0; }
+
+        @media (max-width: 600px) {
+            .post-card { grid-template-columns: 1fr; }
+            article { padding: 18px; }
+        }
+    </style>
+    <script>
+        // Apply the saved text size before the page draws, so it doesn't jump.
+        try { const t = localStorage.getItem('textSize'); if (t) document.documentElement.dataset.text = t; } catch (e) {}
+    </script>
+    
+    <script data-goatcounter="https://jamesgartshore.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header>
+        <div class="inner">
+            <a class="brand" href="../../">James Gartshore</a>
+            <p>Free, friendly tech tips and poster design for Bridlington and the East Riding</p>
+            <nav aria-label="Main">
+                <a href="../../">Tech tips</a>
+                <a href="../../help/">Get help</a>
+                <a href="../../sessions/">Find me</a>
+                <a href="../../glossary/">Tech words</a>
+                <a href="../../designs/">Design examples</a>
+                <a href="../../about/">About me</a>
+                <a href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Nextdoor</a>
+            </nav>
+            <div class="text-size" role="group" aria-label="Text size">
+                <span>Text size:</span>
+                <button type="button" data-size="" aria-label="Normal text">A</button>
+                <button type="button" data-size="large" aria-label="Large text">A+</button>
+                <button type="button" data-size="larger" aria-label="Largest text">A++</button>
+            </div>
+        </div>
+    </header>
+    <main id="main">
+        
+    <a class="back" href="../">&larr; All sessions</a>
+    <article>
+        <h1>Free drop-in tech help at Bridlington North Library</h1>
+        
+
+        <p>Let&#39;s Tech Together runs free drop-in tech help sessions at Bridlington North Library, and I volunteer at them. Bring along your phone, laptop, iPad or tablet, whether something isn't working, you'd like to learn something new, or you just have a question. You don't need to bring a device to ask something. It's free, there's no need to book, and there are no stupid questions.</p>
+
+            <aside class="not-official">
+        <strong>Please note:</strong> this website and everything on it are my own personal project. They are not run by, connected to or endorsed by Let&#39;s Tech Together, and these are not official Let&#39;s Tech Together pages. I'm simply showing where you can find me when I'm volunteering at their free drop-in sessions. For official information, please contact Let&#39;s Tech Together directly. Dates can change, so it's worth checking with them before you travel.
+    </aside>
+
+        <h2>Upcoming dates</h2>
+        
+        <ul class="session-list">
+            
+            <li><span class="session-date">Thursday 15 October</span> <span class="session-time">9:30am to 11:30am</span></li>
+            
+            <li><span class="session-date">Thursday 12 November</span> <span class="session-time">9:30am to 11:30am</span></li>
+            
+            <li><span class="session-date">Thursday 10 December</span> <span class="session-time">9:30am to 11:30am</span></li>
+            
+        </ul>
+        
+
+        <h2>How to find it</h2>
+        <p><strong>Bridlington North Library</strong><br>Martongate, Bridlington<br>YO16 6YD</p>
+        <p>There&#39;s a free car park behind the library, a bus stop a short walk away, and a level entrance with automatic doors.</p>
+        <p><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Bridlington+North+Library%2C+Martongate%2C+Bridlington%2C+YO16+6YD" target="_blank" rel="noopener">Open in Google Maps</a></p>
+
+        <h2>Other places you can find me</h2>
+        <ul>
+            
+            <li><a href="../bridlington-central-library/">Bridlington Central Library</a>: next on Thursday 29 October</li>
+            
+            <li><a href="../hutton-sra/">Hutton SRA</a>: next on Wednesday 4 November</li>
+            
+        </ul>
+    </article>
+
+
+        
+    </main>
+    <footer>
+        <div class="inner">&copy; 2026 James Gartshore &middot; Free tech tips for Bridlington and beyond. Feel free to share.
+            &middot; <a href="../../help/">Get help</a>
+            &middot; <a href="https://jamesgartshore.github.io/feed.xml">RSS feed</a>
+            &middot; <a href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Find me on Nextdoor</a></div>
+    </footer>
+    <script>
+        // Text size buttons
+        (function () {
+            const buttons = document.querySelectorAll('.text-size button');
+            const current = () => document.documentElement.dataset.text || '';
+            const mark = () => buttons.forEach(b => b.setAttribute('aria-pressed', b.dataset.size === current()));
+            buttons.forEach(b => b.addEventListener('click', () => {
+                if (b.dataset.size) document.documentElement.dataset.text = b.dataset.size;
+                else delete document.documentElement.dataset.text;
+                try { localStorage.setItem('textSize', b.dataset.size); } catch (e) {}
+                mark();
+            }));
+            mark();
+        })();
+    </script>
+</body>
+</html>

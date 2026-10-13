@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://jamesgartshore.github.io/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://jamesgartshore.github.io/sessions/</loc></url>
+  <url><loc>https://jamesgartshore.github.io/help/</loc></url>
+  <url><loc>https://jamesgartshore.github.io/glossary/</loc></url>
   <url><loc>https://jamesgartshore.github.io/about/</loc></url>
   <url><loc>https://jamesgartshore.github.io/designs/</loc></url>
+  <url><loc>https://jamesgartshore.github.io/sessions/bridlington-north-library/</loc></url>
+  <url><loc>https://jamesgartshore.github.io/sessions/bridlington-central-library/</loc></url>
+  <url><loc>https://jamesgartshore.github.io/sessions/hutton-sra/</loc></url>
   <url><loc>https://jamesgartshore.github.io/topics/scams-and-staying-safe/</loc><lastmod>2026-10-10</lastmod></url>
   <url><loc>https://jamesgartshore.github.io/topics/health-and-wellbeing/</loc><lastmod>2026-10-13</lastmod></url>
   <url><loc>https://jamesgartshore.github.io/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-11</lastmod></url>

@@ -2,6 +2,8 @@
 
 > Free, plain-English tech tips on phones, computers, scams and getting online, written for people in Bridlington, Driffield and across the East Riding of Yorkshire. Written by James Gartshore, who lives in Bridlington, England, and volunteers with a local tech support group. The tips are a separate, spare-time project.
 
+- [Get help](https://jamesgartshore.github.io/help/): free UK help lines and services by problem (scams, hands-on tech help, access needs, money, wellbeing).
+- [Tech words explained](https://jamesgartshore.github.io/glossary/): plain-English meanings of common tech words.
 - [About James Gartshore](https://jamesgartshore.github.io/about/): who writes the tips, and where to find hands-on help.
 - [Poster design examples](https://jamesgartshore.github.io/designs/): free posters designed for local people and groups.
 
