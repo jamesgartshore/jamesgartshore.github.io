@@ -149,8 +149,8 @@
         a.topic-tag { text-decoration: none; }
         a.topic-tag:hover { text-decoration: underline; }
 
-        /* Share buttons on each tip */
-        .share {
+        /* "Found this useful? Share it" box (neutral names so ad blockers don't hide it) */
+        .pass-it-on {
             background: white;
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -158,12 +158,12 @@
             margin-top: 20px;
         }
 
-        .share h2 { margin: 0 0 4px; font-size: 21px; color: var(--dark-blue); }
-        .share p { margin: 0 0 14px; color: var(--muted); }
+        .pass-it-on h2 { margin: 0 0 4px; font-size: 21px; color: var(--dark-blue); }
+        .pass-it-on p { margin: 0 0 14px; color: var(--muted); }
 
-        .share-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+        .pass-links { display: flex; flex-wrap: wrap; gap: 10px; }
 
-        .share-btn {
+        .pass-link {
             display: inline-flex;
             align-items: center;
             padding: 10px 18px;
@@ -173,15 +173,14 @@
             font-size: 16px;
             font-weight: 700;
             color: white;
-            text-decoration: none;
             cursor: pointer;
         }
 
-        .share-btn[hidden] { display: none; }
-        .share-btn.whatsapp { background: #1a7f43; }
-        .share-btn.facebook { background: #1877f2; }
-        .share-btn.email { background: var(--dark-blue); }
-        .share-btn.copy, .share-btn.native { background: #e8f1fa; color: var(--dark-blue); }
+        .pass-link[hidden] { display: none; }
+        .pl-green { background: #1a7f43; }
+        .pl-blue { background: #1877f2; }
+        .pl-navy { background: var(--dark-blue); }
+        .pl-light { background: #e8f1fa; color: var(--dark-blue); }
 
         /* Topic lists */
         .browse {
@@ -596,35 +595,42 @@
     </article>
 
     
-    <section class="share" aria-label="Share this tip">
+    
+    <section class="pass-it-on" aria-label="Pass this tip on">
         <h2>Found this useful? Share it</h2>
         <p>Pass it on to family and friends who might find it helpful too.</p>
-        <div class="share-buttons">
-            <a class="share-btn whatsapp" href="https://wa.me/?text=Make%20your%20phone%20work%20for%20your%20wellbeing%20https%3A//jamesgartshore.github.io/mental-health-day/" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//jamesgartshore.github.io/mental-health-day/" target="_blank" rel="noopener">Facebook</a>
-            <a class="share-btn email" href="mailto:?subject=Make%20your%20phone%20work%20for%20your%20wellbeing&amp;body=I%20thought%20you%20might%20find%20this%20useful%3A%20https%3A//jamesgartshore.github.io/mental-health-day/">Email</a>
-            <button type="button" class="share-btn copy" data-url="https://jamesgartshore.github.io/mental-health-day/">Copy link</button>
-            <button type="button" class="share-btn native" data-url="https://jamesgartshore.github.io/mental-health-day/" data-title="Make your phone work for your wellbeing" hidden>More options</button>
+        <div class="pass-links">
+            <button type="button" class="pass-link pl-green" data-open="https://wa.me/?text=Make%20your%20phone%20work%20for%20your%20wellbeing%20https%3A//jamesgartshore.github.io/mental-health-day/">WhatsApp</button>
+            <button type="button" class="pass-link pl-blue" data-open="https://www.facebook.com/sharer/sharer.php?u=https%3A//jamesgartshore.github.io/mental-health-day/">Facebook</button>
+            <button type="button" class="pass-link pl-navy" data-mail="mailto:?subject=Make%20your%20phone%20work%20for%20your%20wellbeing&amp;body=I%20thought%20you%20might%20find%20this%20useful%3A%20https%3A//jamesgartshore.github.io/mental-health-day/">Email</button>
+            <button type="button" class="pass-link pl-light" data-copy="https://jamesgartshore.github.io/mental-health-day/">Copy link</button>
+            <button type="button" class="pass-link pl-light" data-native="https://jamesgartshore.github.io/mental-health-day/" data-title="Make your phone work for your wellbeing" hidden>More options</button>
         </div>
     </section>
     <script>
-        // Copy link, and the phone's own share menu where the browser supports it.
         (function () {
-            const copy = document.querySelector('.share-btn.copy');
+            document.querySelectorAll('.pass-link[data-open]').forEach(b => b.addEventListener('click', () => {
+                window.open(b.dataset.open, '_blank', 'noopener');
+            }));
+            document.querySelectorAll('.pass-link[data-mail]').forEach(b => b.addEventListener('click', () => {
+                window.location.href = b.dataset.mail;
+            }));
+            const copy = document.querySelector('.pass-link[data-copy]');
             copy.addEventListener('click', async () => {
                 try {
-                    await navigator.clipboard.writeText(copy.dataset.url);
+                    await navigator.clipboard.writeText(copy.dataset.copy);
                     copy.textContent = 'Link copied!';
                 } catch (err) {
-                    window.prompt('Copy this link:', copy.dataset.url);
+                    window.prompt('Copy this link:', copy.dataset.copy);
                 }
                 setTimeout(() => { copy.textContent = 'Copy link'; }, 2000);
             });
-            const native = document.querySelector('.share-btn.native');
+            // The phone's own menu (Messages, Messenger and so on) where the browser supports it.
+            const more = document.querySelector('.pass-link[data-native]');
             if (navigator.share) {
-                native.hidden = false;
-                native.addEventListener('click', () => {
-                    navigator.share({title: native.dataset.title, url: native.dataset.url}).catch(() => {});
+                more.hidden = false;
+                more.addEventListener('click', () => {
+                    navigator.share({title: more.dataset.title, url: more.dataset.native}).catch(() => {});
                 });
             }
         })();
