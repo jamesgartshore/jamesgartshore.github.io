@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting online and staying connected: free tech tips | James Gartshore</title>
+    <meta name="author" content="James Gartshore">
+    <meta name="description" content="Getting started online, learning new skills for free, and staying in touch with family, friends and local communities.">
+    <link rel="canonical" href="https://jamesgartshore.github.io/topics/getting-online-and-staying-connected/">
+    <link rel="alternate" type="application/rss+xml" title="James Gartshore" href="https://jamesgartshore.github.io/feed.xml">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23005EB8'/%3E%3Ctext x='32' y='45' font-family='Arial' font-weight='bold' font-size='36' text-anchor='middle' fill='white'%3EJG%3C/text%3E%3C/svg%3E">
+    
+    <script type="application/ld+json">
+    {"@context": "https://schema.org", "@type": "CollectionPage", "author": {"@type": "Person", "name": "James Gartshore", "url": "https://jamesgartshore.github.io/about/"}, "description": "Getting started online, learning new skills for free, and staying in touch with family, friends and local communities.", "name": "Getting online and staying connected", "url": "https://jamesgartshore.github.io/topics/getting-online-and-staying-connected/"}
+    </script>
+
+    <style>
+        :root {
+            --blue: #005EB8;
+            --dark-blue: #002D5E;
+            --green: #00703c;
+            --bg: #f3f6f9;
+            --text: #212b32;
+            --muted: #4c6272;
+            --border: #d8dee4;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        a { color: var(--blue); }
+
+        header {
+            background: var(--blue);
+            color: white;
+            padding: 22px 16px;
+        }
+
+        header .inner, main, footer .inner {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        header a { color: white; text-decoration: none; }
+        header .brand { font-size: 30px; font-weight: 800; }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        nav a { border-bottom: 2px solid transparent; }
+        nav a:hover { border-bottom-color: white; }
+
+        .byline { color: var(--muted); font-size: 15px; }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+        }
+
+        /* Search and topic filter on the tips page */
+        .finder { margin-bottom: 22px; }
+
+        .finder input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 18px;
+            font-family: inherit;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .finder input:focus { outline: none; border-color: var(--blue); }
+
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .topic {
+            background: white;
+            color: var(--dark-blue);
+            border: 2px solid var(--border);
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .topic.active {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+
+        .results { color: var(--muted); font-size: 15px; margin: 10px 0 0; min-height: 1em; }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+
+        .topic-tag {
+            background: #e8f1fa;
+            color: var(--dark-blue);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 999px;
+        }
+
+        .post-card[hidden] { display: none; }
+
+        a.topic-tag { text-decoration: none; }
+        a.topic-tag:hover { text-decoration: underline; }
+
+        /* Share buttons on each tip */
+        .share {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 24px 22px;
+            margin-top: 20px;
+        }
+
+        .share h2 { margin: 0 0 4px; font-size: 21px; color: var(--dark-blue); }
+        .share p { margin: 0 0 14px; color: var(--muted); }
+
+        .share-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .share-btn[hidden] { display: none; }
+        .share-btn.whatsapp { background: #1a7f43; }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.email { background: var(--dark-blue); }
+        .share-btn.copy, .share-btn.native { background: #e8f1fa; color: var(--dark-blue); }
+
+        /* Topic lists */
+        .browse {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-top: 28px;
+        }
+
+        .browse h2 { margin: 0 0 8px; font-size: 20px; color: var(--dark-blue); }
+        .browse ul { margin: 0; padding-left: 20px; }
+        .browse li { margin: 4px 0; }
+        .browse span { color: var(--muted); font-size: 15px; }
+
+        .topic-intro { margin-bottom: 20px; }
+        .topic-intro .count { color: var(--muted); font-size: 15px; margin-bottom: 0; }
+
+        .in-short {
+            background: #e8f1fa;
+            border-left: 6px solid var(--blue);
+            border-radius: 0 10px 10px 0;
+            padding: 6px 22px 10px;
+            margin: 20px 0;
+        }
+
+        .in-short h2 { margin: 10px 0 6px; font-size: 20px; color: var(--dark-blue); }
+        .in-short ul { margin: 0; padding-left: 20px; }
+        .in-short li { margin-bottom: 6px; }
+        .in-short .where { color: var(--muted); font-size: 16px; }
+
+        .related { margin-top: 32px; }
+        .related h2 { color: var(--dark-blue); }
+        .post-card h3 { margin: 0 0 6px; font-size: 19px; color: var(--dark-blue); line-height: 1.25; }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .design-grid figure {
+            margin: 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .design-grid img { display: block; width: 100%; height: auto; }
+
+        .design-grid figcaption {
+            padding: 10px 14px;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .skills li {
+            background: #e8f1fa;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 15px;
+            padding: 6px 14px;
+            border-radius: 999px;
+        }
+
+        header p { margin: 4px 0 0; opacity: 0.9; }
+
+        main { padding: 28px 16px 48px; }
+
+        .post-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .post-card {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 18px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .post-card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .post-card h2 {
+            margin: 0 0 6px;
+            font-size: 22px;
+            line-height: 1.25;
+            color: var(--dark-blue);
+        }
+
+        .post-card p { margin: 0; color: var(--muted); font-size: 16px; }
+
+        time { color: var(--muted); font-size: 15px; }
+
+        article {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        article h1 {
+            margin: 0 0 6px;
+            color: var(--dark-blue);
+            line-height: 1.2;
+        }
+
+        article img {
+            display: block;
+            width: 100%;
+            max-width: 640px;
+            height: auto;
+            margin: 22px auto;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .back { display: inline-block; margin-bottom: 16px; }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 20px 16px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .post-card { grid-template-columns: 1fr; }
+            article { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="inner">
+            <a class="brand" href="../../">James Gartshore</a>
+            <p>Free, friendly tech tips and poster design for Bridlington and the East Riding</p>
+            <nav>
+                <a href="../../">Tech tips</a>
+                <a href="../../designs/">Design examples</a>
+                <a href="../../about/">About me</a>
+                <a href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Nextdoor</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        
+    <a class="back" href="../../">&larr; All tips</a>
+    <article class="topic-intro">
+        <h1>Getting online and staying connected</h1>
+        <p>Getting started online, learning new skills for free, and staying in touch with family, friends and local communities.</p>
+        <p class="count">2 tips, newest first.</p>
+    </article>
+
+    <div class="post-list topic-posts">
+        
+        <a class="post-card" href="../../online-communities/">
+            <img src="../../images/thumbs/online-communities.jpg" alt="Poster: Whatever you love, there&#39;s a community for it" loading="lazy" width="360" height="360">
+            
+            <div>
+                <h2>Whatever you love, there&#39;s a community for it</h2>
+                <time datetime="2026-10-11">11 October 2026</time>
+                <p>I wanted to share something that a lot of people don&#39;t realise is out there.</p>
+            </div>
+        </a>
+        
+        <a class="post-card" href="../../qr/">
+            <img src="../../images/thumbs/qr.jpg" alt="Poster: What is a QR code?" loading="lazy" width="360" height="360">
+            
+            <div>
+                <h2>What is a QR code?</h2>
+                <time datetime="2026-10-06">06 October 2026</time>
+                <p>I just wanted to share a quick tip about QR codes.</p>
+            </div>
+        </a>
+        
+    </div>
+
+    <section class="browse">
+        <h2>Other topics</h2>
+        <ul>
+            
+            <li><a href="../../topics/scams-and-staying-safe/">Scams and staying safe</a> <span>(3)</span></li>
+            
+            <li><a href="../../topics/health-and-wellbeing/">Health and wellbeing</a> <span>(4)</span></li>
+            
+            <li><a href="../../topics/everyday-tech/">Everyday tech</a> <span>(2)</span></li>
+            
+        </ul>
+    </section>
+
+    </main>
+    <footer>
+        <div class="inner">&copy; 2026 James Gartshore &middot; Free tech tips for Bridlington and beyond. Feel free to share. &middot; <a href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Find me on Nextdoor</a></div>
+    </footer>
+</body>
+</html>

@@ -129,6 +129,60 @@
 
         .post-card[hidden] { display: none; }
 
+        a.topic-tag { text-decoration: none; }
+        a.topic-tag:hover { text-decoration: underline; }
+
+        /* Share buttons on each tip */
+        .share {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 24px 22px;
+            margin-top: 20px;
+        }
+
+        .share h2 { margin: 0 0 4px; font-size: 21px; color: var(--dark-blue); }
+        .share p { margin: 0 0 14px; color: var(--muted); }
+
+        .share-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .share-btn[hidden] { display: none; }
+        .share-btn.whatsapp { background: #1a7f43; }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.email { background: var(--dark-blue); }
+        .share-btn.copy, .share-btn.native { background: #e8f1fa; color: var(--dark-blue); }
+
+        /* Topic lists */
+        .browse {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-top: 28px;
+        }
+
+        .browse h2 { margin: 0 0 8px; font-size: 20px; color: var(--dark-blue); }
+        .browse ul { margin: 0; padding-left: 20px; }
+        .browse li { margin: 4px 0; }
+        .browse span { color: var(--muted); font-size: 15px; }
+
+        .topic-intro { margin-bottom: 20px; }
+        .topic-intro .count { color: var(--muted); font-size: 15px; margin-bottom: 0; }
+
         .in-short {
             background: #e8f1fa;
             border-left: 6px solid var(--blue);

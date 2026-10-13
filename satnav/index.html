@@ -146,6 +146,60 @@
 
         .post-card[hidden] { display: none; }
 
+        a.topic-tag { text-decoration: none; }
+        a.topic-tag:hover { text-decoration: underline; }
+
+        /* Share buttons on each tip */
+        .share {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 24px 22px;
+            margin-top: 20px;
+        }
+
+        .share h2 { margin: 0 0 4px; font-size: 21px; color: var(--dark-blue); }
+        .share p { margin: 0 0 14px; color: var(--muted); }
+
+        .share-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .share-btn[hidden] { display: none; }
+        .share-btn.whatsapp { background: #1a7f43; }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.email { background: var(--dark-blue); }
+        .share-btn.copy, .share-btn.native { background: #e8f1fa; color: var(--dark-blue); }
+
+        /* Topic lists */
+        .browse {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-top: 28px;
+        }
+
+        .browse h2 { margin: 0 0 8px; font-size: 20px; color: var(--dark-blue); }
+        .browse ul { margin: 0; padding-left: 20px; }
+        .browse li { margin: 4px 0; }
+        .browse span { color: var(--muted); font-size: 15px; }
+
+        .topic-intro { margin-bottom: 20px; }
+        .topic-intro .count { color: var(--muted); font-size: 15px; margin-bottom: 0; }
+
         .in-short {
             background: #e8f1fa;
             border-left: 6px solid var(--blue);
@@ -302,7 +356,7 @@
         <span class="byline">By <a href="../about/">James Gartshore</a> &middot;
             <time datetime="2026-10-08">08 October 2026</time>
             
-            &middot; <span class="topic-tag">Everyday tech</span></span>
+            &middot; <a class="topic-tag" href="../topics/everyday-tech/">Everyday tech</a></span>
         
         <section class="in-short">
             <h2>In short</h2>
@@ -334,6 +388,41 @@
         <p>If you&#39;re not sure how to update yours, comment below and I&#39;ll do my best to help. Feel free to pass this on to anyone who might find it useful.</p>
         
     </article>
+
+    
+    <section class="share" aria-label="Share this tip">
+        <h2>Found this useful? Share it</h2>
+        <p>Pass it on to family and friends who might find it helpful too.</p>
+        <div class="share-buttons">
+            <a class="share-btn whatsapp" href="https://wa.me/?text=Is%20your%20sat%20nav%20out%20of%20date%3F%20https%3A//jamesgartshore.github.io/satnav/" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//jamesgartshore.github.io/satnav/" target="_blank" rel="noopener">Facebook</a>
+            <a class="share-btn email" href="mailto:?subject=Is%20your%20sat%20nav%20out%20of%20date%3F&amp;body=I%20thought%20you%20might%20find%20this%20useful%3A%20https%3A//jamesgartshore.github.io/satnav/">Email</a>
+            <button type="button" class="share-btn copy" data-url="https://jamesgartshore.github.io/satnav/">Copy link</button>
+            <button type="button" class="share-btn native" data-url="https://jamesgartshore.github.io/satnav/" data-title="Is your sat nav out of date?" hidden>More options</button>
+        </div>
+    </section>
+    <script>
+        // Copy link, and the phone's own share menu where the browser supports it.
+        (function () {
+            const copy = document.querySelector('.share-btn.copy');
+            copy.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(copy.dataset.url);
+                    copy.textContent = 'Link copied!';
+                } catch (err) {
+                    window.prompt('Copy this link:', copy.dataset.url);
+                }
+                setTimeout(() => { copy.textContent = 'Copy link'; }, 2000);
+            });
+            const native = document.querySelector('.share-btn.native');
+            if (navigator.share) {
+                native.hidden = false;
+                native.addEventListener('click', () => {
+                    navigator.share({title: native.dataset.title, url: native.dataset.url}).catch(() => {});
+                });
+            }
+        })();
+    </script>
 
     
     <section class="related">
