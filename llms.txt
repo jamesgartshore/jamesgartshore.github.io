@@ -2,40 +2,40 @@
 
 > Free, plain-English tech tips on phones, computers, scams and getting online, written for people in Bridlington, Driffield and across the East Riding of Yorkshire. Written by James Gartshore, who lives in Bridlington, England, and volunteers with a local tech support group. The tips are a separate, spare-time project.
 
-- [Get help](https://jamesgartshore.github.io/help/): free UK help lines and services by problem (scams, hands-on tech help, access needs, money, wellbeing).
-- [Tech words explained](https://jamesgartshore.github.io/glossary/): plain-English meanings of common tech words.
-- [About James Gartshore](https://jamesgartshore.github.io/about/): who writes the tips, and where to find hands-on help.
-- [Poster design examples](https://jamesgartshore.github.io/designs/): free posters designed for local people and groups.
+- [Get help](https://jamesgartshore.co.uk/help/): free UK help lines and services by problem (scams, hands-on tech help, access needs, money, wellbeing).
+- [Tech words explained](https://jamesgartshore.co.uk/glossary/): plain-English meanings of common tech words.
+- [About James Gartshore](https://jamesgartshore.co.uk/about/): who writes the tips, and where to find hands-on help.
+- [Poster design examples](https://jamesgartshore.co.uk/designs/): free posters designed for local people and groups.
 
-## [Scams and staying safe](https://jamesgartshore.github.io/topics/scams-and-staying-safe/)
+## [Scams and staying safe](https://jamesgartshore.co.uk/topics/scams-and-staying-safe/)
 
 Free tips to spot, block and report scams by text, phone call, email and online, plus simple ways to keep your phone and computer safe.
 
-- [Ads popping up out of nowhere?](https://jamesgartshore.github.io/find-bad-app/): Following on from my post about scary pop-up adverts, here's what to do if ads keep appearing on your Android phone even when you're not using any app.
-- [Scary pop-up on your phone? It's just an advert](https://jamesgartshore.github.io/scary-popup-ads/): I wanted to share a tip about those scary pop-ups that sometimes appear on phones.
-- [Simple facts to keep your computer safe](https://jamesgartshore.github.io/pc-safety/): I wanted to share a few tips about keeping your computer safe, because a lot of people end up paying for antivirus they don't actually need.
+- [Ads popping up out of nowhere?](https://jamesgartshore.co.uk/find-bad-app/): Following on from my post about scary pop-up adverts, here's what to do if ads keep appearing on your Android phone even when you're not using any app.
+- [Scary pop-up on your phone? It's just an advert](https://jamesgartshore.co.uk/scary-popup-ads/): I wanted to share a tip about those scary pop-ups that sometimes appear on phones.
+- [Simple facts to keep your computer safe](https://jamesgartshore.co.uk/pc-safety/): I wanted to share a few tips about keeping your computer safe, because a lot of people end up paying for antivirus they don't actually need.
 
-## [Health and wellbeing](https://jamesgartshore.github.io/topics/health-and-wellbeing/)
+## [Health and wellbeing](https://jamesgartshore.co.uk/topics/health-and-wellbeing/)
 
 Free apps and phone features that help with health, accessibility and wellbeing, from Medical ID to tools for sight loss and dyspraxia.
 
-- [Dyspraxia: when handwriting is hard](https://jamesgartshore.github.io/dyspraxia-day3/): It's day three of Dyspraxia Awareness Week, and today's tips are for anyone who finds handwriting hard.
-- [Dyspraxia: tools to stay organised](https://jamesgartshore.github.io/dyspraxia-day2/): It's day two of Dyspraxia Awareness Week, and today I wanted to share some free tools that help with staying organised.
-- [Sore hands? Let your phone and laptop do the work](https://jamesgartshore.github.io/arthritis-day/): Today is World Arthritis Day, so I wanted to share some features on your phone and laptop that can make life a lot easier if you have sore, stiff or...
-- [Tech that helps kids learn, not lean on it](https://jamesgartshore.github.io/dyspraxia-week/): This week is Dyspraxia Awareness Week, so I wanted to share some ways technology can help children with dyspraxia. The idea is to use tech to help them...
-- [Make your phone work for your wellbeing](https://jamesgartshore.github.io/mental-health-day/): World Mental Health Day was on 10 October, so I wanted to share a few simple things your phone can already do to help you feel a bit calmer and more...
+- [Dyspraxia: when handwriting is hard](https://jamesgartshore.co.uk/dyspraxia-day3/): It's day three of Dyspraxia Awareness Week, and today's tips are for anyone who finds handwriting hard.
+- [Dyspraxia: tools to stay organised](https://jamesgartshore.co.uk/dyspraxia-day2/): It's day two of Dyspraxia Awareness Week, and today I wanted to share some free tools that help with staying organised.
+- [Sore hands? Let your phone and laptop do the work](https://jamesgartshore.co.uk/arthritis-day/): Today is World Arthritis Day, so I wanted to share some features on your phone and laptop that can make life a lot easier if you have sore, stiff or...
+- [Tech that helps kids learn, not lean on it](https://jamesgartshore.co.uk/dyspraxia-week/): This week is Dyspraxia Awareness Week, so I wanted to share some ways technology can help children with dyspraxia. The idea is to use tech to help them...
+- [Make your phone work for your wellbeing](https://jamesgartshore.co.uk/mental-health-day/): World Mental Health Day was on 10 October, so I wanted to share a few simple things your phone can already do to help you feel a bit calmer and more...
 
-## [Getting online and staying connected](https://jamesgartshore.github.io/topics/getting-online-and-staying-connected/)
+## [Getting online and staying connected](https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/)
 
 Getting started online, learning new skills for free, and staying in touch with family, friends and local communities.
 
-- [Whatever you love, there's a community for it](https://jamesgartshore.github.io/online-communities/): I wanted to share something that a lot of people don't realise is out there.
-- [What is a QR code?](https://jamesgartshore.github.io/qr/): I just wanted to share a quick tip about QR codes.
+- [Whatever you love, there's a community for it](https://jamesgartshore.co.uk/online-communities/): I wanted to share something that a lot of people don't realise is out there.
+- [What is a QR code?](https://jamesgartshore.co.uk/qr/): I just wanted to share a quick tip about QR codes.
 
-## [Everyday tech](https://jamesgartshore.github.io/topics/everyday-tech/)
+## [Everyday tech](https://jamesgartshore.co.uk/topics/everyday-tech/)
 
 Handy tips for everyday technology, from phones and sat navs to old devices and emergency features.
 
-- [Your phone could help in an emergency](https://jamesgartshore.github.io/phone-emergency/): Today is the International Day for Disaster Risk Reduction, so I wanted to share a few features on your phone that could really help in an emergency....
-- [Is your sat nav out of date?](https://jamesgartshore.github.io/satnav/): Here's a quick tip for anyone who still uses a sat nav in the car.
+- [Your phone could help in an emergency](https://jamesgartshore.co.uk/phone-emergency/): Today is the International Day for Disaster Risk Reduction, so I wanted to share a few features on your phone that could really help in an emergency....
+- [Is your sat nav out of date?](https://jamesgartshore.co.uk/satnav/): Here's a quick tip for anyone who still uses a sat nav in the car.
 

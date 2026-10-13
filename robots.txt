@@ -63,4 +63,4 @@ Disallow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://jamesgartshore.github.io/sitemap.xml
+Sitemap: https://jamesgartshore.co.uk/sitemap.xml
