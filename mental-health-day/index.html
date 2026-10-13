@@ -48,7 +48,8 @@
     {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "item": "https://jamesgartshore.github.io/", "name": "James Gartshore", "position": 1}, {"@type": "ListItem", "item": "https://jamesgartshore.github.io/topics/health-and-wellbeing/", "name": "Health and wellbeing", "position": 2}, {"@type": "ListItem", "name": "Make your phone work for your wellbeing", "position": 3}]}
     </script>
 
-    <link rel="stylesheet" href="../style.css?v=72fec56c">
+    <link rel="stylesheet" href="../style.css?v=ee98b3ac">
+    <script src="../site.js?v=6b240d77" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -81,7 +82,7 @@
         <div class="header-inner">
             <div class="header-top">
                 <a class="brand" href="../">
-                    <img class="brand-mark" src="../icon-192.png" alt="" width="48" height="48">
+                    <img class="brand-mark" src="../logo.webp" alt="" width="48" height="48">
                     <span class="brand-text">
                         <span class="brand-name">James Gartshore</span>
                         <span class="brand-sub">Free, friendly tech tips and poster design for Bridlington and the East Riding</span>
@@ -105,8 +106,9 @@
                     <li><a href="../help/">Get help</a></li>
                     <li><a href="../sessions/">Find me</a></li>
                     <li><a href="../glossary/">Tech words</a></li>
-                    <li><a href="../designs/">Design examples</a></li>
+                    <li><a href="../designs/">Designs</a></li>
                     <li><a href="../about/">About me</a></li>
+                    <li><a href="../contact/">Contact</a></li>
                     <li><a class="nav-external" href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Nextdoor<span class="visually-hidden"> (opens in a new tab)</span></a></li>
                 </ul>
             </nav>
@@ -232,49 +234,6 @@
     </article>
 
 
-    <script>
-        // "Listen to this tip": reads the title, the "In short" list and the post aloud using the
-        // browser's built-in voice (no account or app needed). Hidden if the browser can't speak.
-        (function () {
-            const btn = document.getElementById('listen-btn');
-            if (!('speechSynthesis' in window)) return;
-            btn.hidden = false;
-            const label = btn.querySelector('span');
-            const article = document.querySelector('article');
-
-            function textToRead() {
-                const parts = [article.querySelector('h1').textContent];
-                article.querySelectorAll('.in-short li, article > p').forEach(el => parts.push(el.textContent));
-                return parts.map(t => t.replace(/\s+/g, ' ').trim()).filter(Boolean);
-            }
-
-            function stop() {
-                speechSynthesis.cancel();
-                btn.setAttribute('aria-pressed', 'false');
-                label.textContent = 'Listen to this tip';
-            }
-
-            btn.addEventListener('click', () => {
-                if (btn.getAttribute('aria-pressed') === 'true') { stop(); return; }
-                speechSynthesis.cancel();
-                const voices = speechSynthesis.getVoices();
-                const voice = voices.find(v => v.lang === 'en-GB') || voices.find(v => v.lang.startsWith('en'));
-                const chunks = textToRead();
-                chunks.forEach((text, i) => {
-                    const u = new SpeechSynthesisUtterance(text);
-                    u.lang = 'en-GB';
-                    u.rate = 0.95;
-                    if (voice) u.voice = voice;
-                    if (i === chunks.length - 1) u.onend = stop;
-                    speechSynthesis.speak(u);
-                });
-                btn.setAttribute('aria-pressed', 'true');
-                label.textContent = 'Stop listening';
-            });
-
-            window.addEventListener('pagehide', () => speechSynthesis.cancel());
-        })();
-    </script>
 
     
     
@@ -289,34 +248,6 @@
             <button type="button" class="pass-link pl-light" data-native="https://jamesgartshore.github.io/mental-health-day/" data-title="Make your phone work for your wellbeing" hidden>More options</button>
         </div>
     </section>
-    <script>
-        (function () {
-            document.querySelectorAll('.pass-link[data-open]').forEach(b => b.addEventListener('click', () => {
-                window.open(b.dataset.open, '_blank', 'noopener');
-            }));
-            document.querySelectorAll('.pass-link[data-mail]').forEach(b => b.addEventListener('click', () => {
-                window.location.href = b.dataset.mail;
-            }));
-            const copy = document.querySelector('.pass-link[data-copy]');
-            copy.addEventListener('click', async () => {
-                try {
-                    await navigator.clipboard.writeText(copy.dataset.copy);
-                    copy.textContent = 'Link copied!';
-                } catch (err) {
-                    window.prompt('Copy this link:', copy.dataset.copy);
-                }
-                setTimeout(() => { copy.textContent = 'Copy link'; }, 2000);
-            });
-            // The phone's own menu (Messages, Messenger and so on) where the browser supports it.
-            const more = document.querySelector('.pass-link[data-native]');
-            if (navigator.share) {
-                more.hidden = false;
-                more.addEventListener('click', () => {
-                    navigator.share({title: more.dataset.title, url: more.dataset.native}).catch(() => {});
-                });
-            }
-        })();
-    </script>
 
     
     <section class="related">
@@ -324,7 +255,7 @@
         <div class="post-list">
             
             <a class="post-card" href="../dyspraxia-day2/">
-                <img src="../images/thumbs/dyspraxia-day2.jpg" alt="Poster: Dyspraxia: tools to stay organised" loading="lazy" width="360" height="360">
+                <img src="../images/thumbs/dyspraxia-day2.webp" alt="Poster: Dyspraxia: tools to stay organised" loading="lazy" width="360" height="360">
                 
                 <div>
                     <h3>Dyspraxia: tools to stay organised</h3>
@@ -333,7 +264,7 @@
             </a>
             
             <a class="post-card" href="../arthritis-day/">
-                <img src="../images/thumbs/arthritis-day.jpg" alt="Poster: Sore hands? Let your phone and laptop do the work" loading="lazy" width="360" height="360">
+                <img src="../images/thumbs/arthritis-day.webp" alt="Poster: Sore hands? Let your phone and laptop do the work" loading="lazy" width="360" height="360">
                 
                 <div>
                     <h3>Sore hands? Let your phone and laptop do the work</h3>
@@ -342,7 +273,7 @@
             </a>
             
             <a class="post-card" href="../dyspraxia-week/">
-                <img src="../images/thumbs/dyspraxia-week.jpg" alt="Poster: Tech that helps kids learn, not lean on it" loading="lazy" width="360" height="360">
+                <img src="../images/thumbs/dyspraxia-week.webp" alt="Poster: Tech that helps kids learn, not lean on it" loading="lazy" width="360" height="360">
                 
                 <div>
                     <h3>Tech that helps kids learn, not lean on it</h3>
@@ -374,79 +305,12 @@
     <footer>
         <div class="inner">&copy; 2026 James Gartshore &middot; Free tech tips for Bridlington and beyond. Feel free to share.
             &middot; <a href="../help/">Get help</a>
+            &middot; <a href="../contact/">Contact me</a>
             &middot; <a href="https://follow.it/james-gartshore" target="_blank" rel="noopener">Email tips</a>
             &middot; <a href="https://jamesgartshore.github.io/feed.xml">RSS feed</a>
-            &middot; <a href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Find me on Nextdoor</a></div>
+            &middot; <a href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Find me on Nextdoor</a>
+            &middot; <a href="../privacy/">Privacy</a>
+            &middot; <a href="../accessibility/">Accessibility</a></div>
     </footer>
-    <script>
-        // Top menu: highlight the current page, and the "Menu" button on phones.
-        (function () {
-            const links = [...document.querySelectorAll('.site-nav a:not(.nav-external)')];
-            const here = location.href.split('#')[0];
-            const best = links.filter(a => here.startsWith(a.href)).sort((a, b) => b.href.length - a.href.length)[0];
-            if (best) best.setAttribute('aria-current', 'page');
-
-            const menuBtn = document.getElementById('menu-btn');
-            const nav = document.getElementById('site-nav');
-            menuBtn.addEventListener('click', () => {
-                const open = nav.classList.toggle('open');
-                menuBtn.setAttribute('aria-expanded', open);
-            });
-        })();
-
-        // Display options: text size, colours, easy-read font, spacing and link underlines.
-        // Each choice is saved on this device; "Match my device" follows the phone/computer setting.
-        (function () {
-            const root = document.documentElement;
-            const panel = document.getElementById('display-panel');
-            const btn = document.getElementById('display-btn');
-            const save = (key, value) => { try { value ? localStorage.setItem(key, value) : localStorage.removeItem(key); } catch (e) {} };
-
-            function setOpen(open) {
-                panel.hidden = !open;
-                btn.setAttribute('aria-expanded', open);
-                if (open) document.getElementById('display-close').focus(); else btn.focus();
-            }
-            btn.addEventListener('click', () => setOpen(panel.hidden));
-            document.getElementById('display-close').addEventListener('click', () => setOpen(false));
-            document.getElementById('display-done').addEventListener('click', () => setOpen(false));
-            document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) setOpen(false); });
-
-            function refresh() {
-                panel.querySelectorAll('[data-setting]').forEach(row => {
-                    const value = root.dataset[row.dataset.attr] || '';
-                    row.querySelectorAll('button').forEach(o => o.setAttribute('aria-pressed', o.dataset.value === value));
-                });
-                panel.querySelectorAll('[data-toggle]').forEach(o => {
-                    o.setAttribute('aria-checked', root.dataset[o.dataset.toggle] === o.dataset.on);
-                });
-            }
-
-            panel.querySelectorAll('[data-setting] button').forEach(o => o.addEventListener('click', () => {
-                const row = o.closest('[data-setting]');
-                if (o.dataset.value) root.dataset[row.dataset.attr] = o.dataset.value;
-                else delete root.dataset[row.dataset.attr];
-                save(row.dataset.setting, o.dataset.value);
-                refresh();
-            }));
-
-            panel.querySelectorAll('[data-toggle]').forEach(o => o.addEventListener('click', () => {
-                const key = o.dataset.toggle;
-                const on = root.dataset[key] !== o.dataset.on;
-                if (on) root.dataset[key] = o.dataset.on; else delete root.dataset[key];
-                if (on && key === 'font') window.loadEasyFont();
-                save(key, on ? o.dataset.on : '');
-                refresh();
-            }));
-
-            document.getElementById('display-reset').addEventListener('click', () => {
-                ['text', 'theme', 'font', 'spacing', 'links'].forEach(k => delete root.dataset[k]);
-                ['textSize', 'theme', 'font', 'spacing', 'links'].forEach(k => save(k, ''));
-                refresh();
-            });
-
-            refresh();
-        })();
-    </script>
 </body>
 </html>

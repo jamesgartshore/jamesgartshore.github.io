@@ -35,7 +35,8 @@
     <link rel="apple-touch-icon" href="https://jamesgartshore.github.io/apple-touch-icon.png">
     <link rel="manifest" href="https://jamesgartshore.github.io/site.webmanifest">
     
-    <link rel="stylesheet" href="../style.css?v=72fec56c">
+    <link rel="stylesheet" href="../style.css?v=ee98b3ac">
+    <script src="../site.js?v=6b240d77" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -68,7 +69,7 @@
         <div class="header-inner">
             <div class="header-top">
                 <a class="brand" href="../">
-                    <img class="brand-mark" src="../icon-192.png" alt="" width="48" height="48">
+                    <img class="brand-mark" src="../logo.webp" alt="" width="48" height="48">
                     <span class="brand-text">
                         <span class="brand-name">James Gartshore</span>
                         <span class="brand-sub">Free, friendly tech tips and poster design for Bridlington and the East Riding</span>
@@ -92,8 +93,9 @@
                     <li><a href="../help/">Get help</a></li>
                     <li><a href="../sessions/">Find me</a></li>
                     <li><a href="../glossary/">Tech words</a></li>
-                    <li><a href="../designs/">Design examples</a></li>
+                    <li><a href="../designs/">Designs</a></li>
                     <li><a href="../about/">About me</a></li>
+                    <li><a href="../contact/">Contact</a></li>
                     <li><a class="nav-external" href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Nextdoor<span class="visually-hidden"> (opens in a new tab)</span></a></li>
                 </ul>
             </nav>
@@ -205,79 +207,12 @@
     <footer>
         <div class="inner">&copy; 2026 James Gartshore &middot; Free tech tips for Bridlington and beyond. Feel free to share.
             &middot; <a href="../help/">Get help</a>
+            &middot; <a href="../contact/">Contact me</a>
             &middot; <a href="https://follow.it/james-gartshore" target="_blank" rel="noopener">Email tips</a>
             &middot; <a href="https://jamesgartshore.github.io/feed.xml">RSS feed</a>
-            &middot; <a href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Find me on Nextdoor</a></div>
+            &middot; <a href="https://nextdoor.co.uk/profile/02Y3t3y7pqHPY2jpH" target="_blank" rel="noopener me">Find me on Nextdoor</a>
+            &middot; <a href="../privacy/">Privacy</a>
+            &middot; <a href="../accessibility/">Accessibility</a></div>
     </footer>
-    <script>
-        // Top menu: highlight the current page, and the "Menu" button on phones.
-        (function () {
-            const links = [...document.querySelectorAll('.site-nav a:not(.nav-external)')];
-            const here = location.href.split('#')[0];
-            const best = links.filter(a => here.startsWith(a.href)).sort((a, b) => b.href.length - a.href.length)[0];
-            if (best) best.setAttribute('aria-current', 'page');
-
-            const menuBtn = document.getElementById('menu-btn');
-            const nav = document.getElementById('site-nav');
-            menuBtn.addEventListener('click', () => {
-                const open = nav.classList.toggle('open');
-                menuBtn.setAttribute('aria-expanded', open);
-            });
-        })();
-
-        // Display options: text size, colours, easy-read font, spacing and link underlines.
-        // Each choice is saved on this device; "Match my device" follows the phone/computer setting.
-        (function () {
-            const root = document.documentElement;
-            const panel = document.getElementById('display-panel');
-            const btn = document.getElementById('display-btn');
-            const save = (key, value) => { try { value ? localStorage.setItem(key, value) : localStorage.removeItem(key); } catch (e) {} };
-
-            function setOpen(open) {
-                panel.hidden = !open;
-                btn.setAttribute('aria-expanded', open);
-                if (open) document.getElementById('display-close').focus(); else btn.focus();
-            }
-            btn.addEventListener('click', () => setOpen(panel.hidden));
-            document.getElementById('display-close').addEventListener('click', () => setOpen(false));
-            document.getElementById('display-done').addEventListener('click', () => setOpen(false));
-            document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) setOpen(false); });
-
-            function refresh() {
-                panel.querySelectorAll('[data-setting]').forEach(row => {
-                    const value = root.dataset[row.dataset.attr] || '';
-                    row.querySelectorAll('button').forEach(o => o.setAttribute('aria-pressed', o.dataset.value === value));
-                });
-                panel.querySelectorAll('[data-toggle]').forEach(o => {
-                    o.setAttribute('aria-checked', root.dataset[o.dataset.toggle] === o.dataset.on);
-                });
-            }
-
-            panel.querySelectorAll('[data-setting] button').forEach(o => o.addEventListener('click', () => {
-                const row = o.closest('[data-setting]');
-                if (o.dataset.value) root.dataset[row.dataset.attr] = o.dataset.value;
-                else delete root.dataset[row.dataset.attr];
-                save(row.dataset.setting, o.dataset.value);
-                refresh();
-            }));
-
-            panel.querySelectorAll('[data-toggle]').forEach(o => o.addEventListener('click', () => {
-                const key = o.dataset.toggle;
-                const on = root.dataset[key] !== o.dataset.on;
-                if (on) root.dataset[key] = o.dataset.on; else delete root.dataset[key];
-                if (on && key === 'font') window.loadEasyFont();
-                save(key, on ? o.dataset.on : '');
-                refresh();
-            }));
-
-            document.getElementById('display-reset').addEventListener('click', () => {
-                ['text', 'theme', 'font', 'spacing', 'links'].forEach(k => delete root.dataset[k]);
-                ['textSize', 'theme', 'font', 'spacing', 'links'].forEach(k => save(k, ''));
-                refresh();
-            });
-
-            refresh();
-        })();
-    </script>
 </body>
 </html>

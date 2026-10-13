@@ -1014,3 +1014,85 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     .post-card { grid-template-columns: 1fr; }
     article { padding: 18px; }
 }
+
+/* "Get in touch" page: message form (Web3Forms) */
+.message-notes {
+    background: var(--tint);
+    border-left: 5px solid var(--blue);
+    border-radius: 8px;
+    padding: 4px 18px;
+    margin: 20px 0 24px;
+}
+
+.message-form { display: flex; flex-direction: column; gap: 6px; max-width: 640px; }
+.message-form label { font-weight: 700; margin-top: 12px; }
+.message-form .mf-hint { font-weight: 400; color: var(--muted); }
+
+.message-form input[type="text"], .message-form input[type="email"], .message-form select, .message-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    font-size: 1.125rem;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--card);
+    border: 2px solid var(--muted);
+    border-radius: 8px;
+}
+
+.message-form textarea { resize: vertical; min-height: 9em; }
+.message-form input:focus, .message-form select:focus, .message-form textarea:focus {
+    outline: 3px solid #ffbf47;
+    outline-offset: 1px;
+    border-color: var(--blue);
+}
+
+.message-form button {
+    align-self: flex-start;
+    margin-top: 18px;
+    background: var(--blue);
+    color: white;
+    font-family: inherit;
+    font-size: 1.125rem;
+    font-weight: 700;
+    padding: 13px 28px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.message-form button:hover { background: var(--dark-blue); }
+.message-form button:disabled { opacity: 0.6; cursor: wait; }
+.mf-status { font-weight: 700; min-height: 1.5em; margin: 10px 0 0; }
+.mf-status.mf-ok { color: var(--green); }
+.mf-status.mf-error { color: #d4351c; }
+.mf-small { font-size: 0.9375rem; color: var(--muted); margin: 4px 0 0; }
+
+:root[data-theme="contrast"] .message-form button { background: #ffeb3b; color: #000; }
+:root[data-theme="contrast"] .message-form input, :root[data-theme="contrast"] .message-form select,
+:root[data-theme="contrast"] .message-form textarea { border-color: #ffffff; }
+:root[data-theme="contrast"] .message-notes { border: 2px solid #ffffff; }
+
+@media (max-width: 600px) {
+    .message-form button { align-self: stretch; }
+}
+
+/* Privacy and accessibility pages */
+.policy h2 { margin-top: 28px; }
+.policy-updated { margin-top: 32px; font-size: 0.9375rem; color: var(--muted); }
+
+/* Very narrow screens (small phones, or zoomed to 400%): icon-only header buttons so the name fits.
+   The words stay for screen readers. */
+@media (max-width: 400px) {
+    .header-top { gap: 8px; }
+    .header-btn { padding: 9px; }
+    .header-btn > span {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+    .brand-name { font-size: 1.0625rem; }
+}
