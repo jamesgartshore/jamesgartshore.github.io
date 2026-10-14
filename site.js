@@ -232,7 +232,8 @@ document.querySelectorAll('#message-form, .web3-form').forEach(form => {
     const countEl = box.querySelector('.helped-count');
     const tip = box.dataset.tip;
     const key = 'helped:' + tip;
-    let total = null;
+    const nextdoor = parseInt(box.dataset.nextdoor, 10) || 0;  // likes on Nextdoor, added when the blog is published
+    let total = null;  // clicks on the blog, from the counter
 
     const remembered = () => { try { return localStorage.getItem(key) === '1'; } catch (e) { return false; } };
     function show() {
@@ -240,8 +241,11 @@ document.querySelectorAll('#message-form, .web3-form').forEach(form => {
         btn.setAttribute('aria-pressed', done);
         btn.disabled = done;
         label.textContent = done ? 'Thanks for letting me know!' : 'This helped me';
-        if (total) countEl.textContent = total === 1 ? '1 person found this helpful'
-                                                     : total.toLocaleString('en-GB') + ' people found this helpful';
+        const all = (total || 0) + nextdoor;
+        if (all) {
+            countEl.textContent = (all === 1 ? '1 person found this helpful' : all.toLocaleString('en-GB') + ' people found this helpful')
+                + (!nextdoor ? '' : total ? ` (${nextdoor.toLocaleString('en-GB')} on Nextdoor)` : ' on Nextdoor');
+        }
     }
 
     fetch(box.dataset.api + '/counts')
@@ -267,11 +271,11 @@ document.querySelectorAll('#message-form, .web3-form').forEach(form => {
 (function () {
     const list = document.querySelector('[data-helpful-api]');
     if (!list) return;
-    fetch(list.dataset.helpfulApi + '/counts')
-        .then(r => r.json())
-        .then(counts => {
+    // Blog clicks come live from the counter; Nextdoor likes are in the page. If the counter can't be
+    // reached, the Nextdoor likes still show.
+    const addBadges = counts => {
             list.querySelectorAll('.post-card[data-tip]').forEach(card => {
-                const n = counts[card.dataset.tip];
+                const n = (counts[card.dataset.tip] || 0) + (parseInt(card.dataset.nextdoor, 10) || 0);
                 const meta = card.querySelector('.meta');
                 if (!n || !meta) return;
                 const badge = document.createElement('span');
@@ -284,6 +288,9 @@ document.querySelectorAll('#message-form, .web3-form').forEach(form => {
                 badge.append(sr);
                 meta.append(badge);
             });
-        })
-        .catch(() => {});
+    };
+    fetch(list.dataset.helpfulApi + '/counts')
+        .then(r => r.json())
+        .then(addBadges)
+        .catch(() => addBadges({}));
 })();
