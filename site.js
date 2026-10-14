@@ -221,3 +221,69 @@ document.querySelectorAll('#message-form, .web3-form').forEach(form => {
         }
     });
 });
+
+// Tip pages: "This helped me". Counted by my own Cloudflare Worker (on my own web address, so ad
+// blockers leave it alone). Once per browser, remembered on this device; nothing about the visitor is sent.
+(function () {
+    const box = document.getElementById('helped');
+    if (!box) return;
+    const btn = box.querySelector('.helped-btn');
+    const label = box.querySelector('.helped-label');
+    const countEl = box.querySelector('.helped-count');
+    const tip = box.dataset.tip;
+    const key = 'helped:' + tip;
+    let total = null;
+
+    const remembered = () => { try { return localStorage.getItem(key) === '1'; } catch (e) { return false; } };
+    function show() {
+        const done = remembered();
+        btn.setAttribute('aria-pressed', done);
+        btn.disabled = done;
+        label.textContent = done ? 'Thanks for letting me know!' : 'This helped me';
+        if (total) countEl.textContent = total === 1 ? '1 person found this helpful'
+                                                     : total.toLocaleString('en-GB') + ' people found this helpful';
+    }
+
+    fetch(box.dataset.api + '/counts')
+        .then(r => r.json())
+        .then(counts => { total = counts[tip] || 0; show(); })
+        .catch(() => {});  // offline: just don't show a total
+
+    btn.addEventListener('click', () => {
+        if (remembered()) return;
+        try { localStorage.setItem(key, '1'); } catch (e) {}
+        if (total !== null) total += 1;
+        show();
+        fetch(box.dataset.api + '/helpful/' + tip, {method: 'POST'})
+            .then(r => r.json())
+            .then(d => { if (d.count) { total = d.count; show(); } })
+            .catch(() => {});
+    });
+
+    show();
+})();
+
+// Tips lists (home and topic pages): add a thumbs-up total to each card that has one.
+(function () {
+    const list = document.querySelector('[data-helpful-api]');
+    if (!list) return;
+    fetch(list.dataset.helpfulApi + '/counts')
+        .then(r => r.json())
+        .then(counts => {
+            list.querySelectorAll('.post-card[data-tip]').forEach(card => {
+                const n = counts[card.dataset.tip];
+                const meta = card.querySelector('.meta');
+                if (!n || !meta) return;
+                const badge = document.createElement('span');
+                badge.className = 'card-helped';
+                badge.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M2 21h4V9H2v12zm20-11a2 2 0 0 0-2-2h-6.3l1-4.6V3a1.5 1.5 0 0 0-.4-1L13 1 7.6 6.4A2 2 0 0 0 7 7.8V19a2 2 0 0 0 2 2h9a2 2 0 0 0 1.8-1.2l3-7.1c.1-.2.2-.5.2-.7v-2z"/></svg>';
+                badge.append(String(n));
+                const sr = document.createElement('span');
+                sr.className = 'visually-hidden';
+                sr.textContent = n === 1 ? ' person found this helpful' : ' people found this helpful';
+                badge.append(sr);
+                meta.append(badge);
+            });
+        })
+        .catch(() => {});
+})();
