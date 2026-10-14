@@ -187,18 +187,17 @@
     }
 })();
 
-// "Get in touch" page: sends the message in the background and shows the result here.
-// (Without JavaScript the form still posts normally and lands on the thank-you page.)
-(function () {
-    const form = document.getElementById('message-form');
-    if (!form) return;
-    const status = document.getElementById('mf-status');
+// Contact form and comment forms (Web3Forms): send in the background and show the result in place.
+// Without JavaScript they still post normally and come back to the site.
+document.querySelectorAll('#message-form, .web3-form').forEach(form => {
+    const status = form.querySelector('.mf-status');
     const button = form.querySelector('button[type="submit"]');
+    const okText = form.dataset.ok || "Thanks, your message is on its way. I'll reply by email, usually within a few days.";
 
     form.addEventListener('submit', async e => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(form));
-        data.subject = 'Blog message: ' + data.topic;
+        if (data.topic) data.subject = 'Blog message: ' + data.topic;
         delete data.redirect;
         button.disabled = true;
         status.className = 'mf-status';
@@ -213,12 +212,12 @@
             if (!result.success) throw new Error(result.message);
             form.reset();
             status.classList.add('mf-ok');
-            status.textContent = "Thanks, your message is on its way. I'll reply by email, usually within a few days.";
+            status.textContent = okText;
         } catch (err) {
             status.classList.add('mf-error');
-            status.textContent = "Sorry, your message didn't send. Please try again in a minute.";
+            status.textContent = "Sorry, that didn't send. Please try again in a minute.";
         } finally {
             button.disabled = false;
         }
     });
-})();
+});

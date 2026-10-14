@@ -1015,7 +1015,7 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     article { padding: 18px; }
 }
 
-/* "Get in touch" page: message form (Web3Forms) */
+/* "Get in touch" page and comment forms (Web3Forms) */
 .message-notes {
     background: var(--tint);
     border-left: 5px solid var(--blue);
@@ -1024,11 +1024,12 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     margin: 20px 0 24px;
 }
 
-.message-form { display: flex; flex-direction: column; gap: 6px; max-width: 640px; }
-.message-form label { font-weight: 700; margin-top: 12px; }
+.message-form, .rn-form { display: flex; flex-direction: column; gap: 6px; max-width: 640px; }
+.message-form label, .rn-form label { font-weight: 700; margin-top: 12px; }
 .message-form .mf-hint { font-weight: 400; color: var(--muted); }
 
-.message-form input[type="text"], .message-form input[type="email"], .message-form select, .message-form textarea {
+.message-form input[type="text"], .message-form input[type="email"], .message-form select, .message-form textarea,
+.rn-form input[type="text"], .rn-form textarea {
     width: 100%;
     box-sizing: border-box;
     padding: 12px 14px;
@@ -1040,14 +1041,15 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     border-radius: 8px;
 }
 
-.message-form textarea { resize: vertical; min-height: 9em; }
-.message-form input:focus, .message-form select:focus, .message-form textarea:focus {
+.message-form textarea, .rn-form textarea { resize: vertical; min-height: 7em; }
+.message-form input:focus, .message-form select:focus, .message-form textarea:focus,
+.rn-form input:focus, .rn-form textarea:focus {
     outline: 3px solid #ffbf47;
     outline-offset: 1px;
     border-color: var(--blue);
 }
 
-.message-form button {
+.message-form button, .rn-form button {
     align-self: flex-start;
     margin-top: 18px;
     background: var(--blue);
@@ -1061,8 +1063,8 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     cursor: pointer;
 }
 
-.message-form button:hover { background: var(--dark-blue); }
-.message-form button:disabled { opacity: 0.6; cursor: wait; }
+.message-form button:hover, .rn-form button:hover { background: var(--dark-blue); }
+.message-form button:disabled, .rn-form button:disabled { opacity: 0.6; cursor: wait; }
 .mf-status { font-weight: 700; min-height: 1.5em; margin: 10px 0 0; }
 .mf-status.mf-ok { color: var(--green); }
 .mf-status.mf-error { color: #d4351c; }
@@ -1096,3 +1098,17 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     }
     .brand-name { font-size: 1.0625rem; }
 }
+
+/* Reader comments under each tip */
+.reader-notes { margin-top: 32px; }
+.rn-item { border-top: 1px solid var(--border, #d8dee4); padding: 14px 0; }
+.rn-item p { margin: 0 0 8px; }
+.rn-meta { color: var(--muted); font-size: 0.9375rem; }
+.rn-meta strong { color: var(--text); }
+.rn-reply { margin: 10px 0 0 18px; padding: 10px 16px; background: var(--tint); border-left: 4px solid var(--blue); border-radius: 8px; }
+.rn-empty { color: var(--muted); }
+.rn-form { margin-top: 20px; padding-top: 18px; border-top: 2px solid var(--border, #d8dee4); }
+.rn-form h3 { margin: 0; }
+:root[data-theme="contrast"] .rn-form button { background: #ffeb3b; color: #000; }
+:root[data-theme="contrast"] .rn-reply { border: 2px solid #ffffff; }
+@media (max-width: 600px) { .rn-form button { align-self: stretch; } .rn-reply { margin-left: 8px; } }
