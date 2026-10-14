@@ -1279,3 +1279,12 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
 }
 .card-helped svg { width: 14px; height: 14px; }
 :root[data-theme="contrast"] .card-helped { background: #ffeb3b; color: #000; }
+
+/* Photo posts (news, events): the photos instead of a poster, each shown in full (never cropped).
+   Photos in a row share its width by their shape, so they line up at the same height. */
+.photo-gallery { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
+.pg-row { display: flex; gap: 10px; }
+.pg-item { display: block; min-width: 0; border-radius: 10px; overflow: hidden; background: var(--tint); }
+.pg-item img { display: block; width: 100%; max-width: none; height: auto; margin: 0; border: 0; border-radius: 0; }
+.pg-item:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; }
+@media (max-width: 600px) { .pg-row { flex-direction: column; } .pg-item { flex: none !important; } }
