@@ -2083,3 +2083,139 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     :root:not([data-theme="light"]):not([data-theme="contrast"]) .sim-needed { color: #fbbf24; }
 }
 :root[data-theme="dark"] .sim-hint, :root[data-theme="dark"] .sim-needed { color: #fbbf24; }
+
+/* ---------- Practice phone polish ---------- */
+/* Drawn icons take the colour of the button they sit in. */
+.sim-phone .ui { width: 1em; height: 1em; display: block; flex: 0 0 auto; }
+/* No scrollbars inside the pretend phone (real phones hide them). */
+.sim-phone .set-scroll, .sim-phone .wa-rows, .sim-phone .wa-thread, .sim-phone .app-body, .sim-phone .pb-list, .sim-phone .sim-screen { scrollbar-width: none; }
+.sim-phone .set-scroll::-webkit-scrollbar, .sim-phone .wa-rows::-webkit-scrollbar, .sim-phone .wa-thread::-webkit-scrollbar,
+.sim-phone .app-body::-webkit-scrollbar, .sim-phone .pb-list::-webkit-scrollbar, .sim-phone .sim-screen::-webkit-scrollbar { display: none; }
+
+/* Status bar: clock, camera cut-out, signal / Wi-Fi / battery */
+.ph-status { position: relative; align-items: center; min-height: 20px; font-size: 13.5px; letter-spacing: 0; }
+.ph-status-r { letter-spacing: 0; gap: 5px; }
+.st-sig { width: 16px; height: 11px; display: block; }
+.st-wifi { width: 15px; height: 11px; display: block; }
+.ph-batt { position: relative; width: 22px; height: 11px; border-width: 1.3px; border-radius: 3.5px; padding: 1px; box-sizing: border-box;
+    background: linear-gradient(90deg, currentColor 72%, transparent 72%) content-box; }
+.ph-batt::after { content: ""; position: absolute; right: -4px; top: 2.5px; width: 2px; height: 3.5px; border-radius: 0 1px 1px 0; background: currentColor; opacity: 0.6; }
+.ph-island { position: absolute; left: 50%; top: 9px; width: 78px; height: 22px; margin-left: -39px; border-radius: 12px; background: #000; pointer-events: none; }
+.ph-punch { position: absolute; left: 50%; top: 8px; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%; background: #0b0b0b; box-shadow: 0 0 0 1.5px #333; pointer-events: none; }
+.ph-status.ph-ios { padding-top: 12px; padding-bottom: 8px; }
+.ph-status.ph-android { padding-top: 7px; font-size: 12.5px; }
+
+/* Home screen: tidier grid plus a dock */
+.ph-home { display: flex; flex-direction: column; }
+.ph-grid { gap: 18px 6px; padding: 22px 14px; }
+.ph-app { font-size: 11.5px !important; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35); }
+.ph-dock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: auto 10px 6px; padding: 10px 6px; border-radius: 26px; background: rgba(255, 255, 255, 0.22); }
+.ph-home.ph-android .ph-dock { background: none; border-top: 1px solid rgba(255, 255, 255, 0.18); border-radius: 0; margin: auto 6px 4px; }
+.ph-home .ph-navpill, .ph-home .ph-homebar { flex: 0 0 auto; }
+
+/* Buttons never touch the screen edges */
+.code-screen .ph-btn, .scan-screen .ph-btn, .finger-screen .ph-btn, .pay-screen .ph-btn, .cc-screen .ph-btn,
+.code-screen .ph-btn-text, .scan-screen .ph-btn-text, .finger-screen .ph-btn-text { width: calc(100% - 40px); margin-left: 20px; margin-right: 20px; }
+.ph-btn.and-green { width: auto; min-width: 60%; padding-left: 26px; padding-right: 26px; margin-left: auto; margin-right: auto; }
+.ph-sheet-box { color: #111; }
+.ph-sheet-box .ph-btn { width: 100%; margin-left: 0; margin-right: 0; }
+
+/* iPhone pages: back link on its own row, big title underneath (long titles no longer clash) */
+.set-nav.ios { text-align: left; padding: 30px 16px 10px; }
+.set-nav.ios .set-back, .set-nav.ios .set-back-btn { top: 4px; left: 8px; font-size: 15px !important; }
+.set-nav.ios strong { display: block; font-size: 25px; font-weight: 800; line-height: 1.15; letter-spacing: -0.3px; }
+.set-nav.android { padding: 10px 18px 14px 52px; min-height: 44px; }
+.set-nav.android strong { line-height: 1.2; }
+
+/* App headers: colour runs up behind the clock, white writing on dark colours */
+.app-page.dark .ph-status { background: var(--app); color: #fff; }
+.app-page.light .ph-status { background: var(--app); }
+.app-head { min-height: 48px; }
+.app-page .app-head strong { font-size: 17px; line-height: 1.2; }
+
+/* WhatsApp: heading clear of the notification banner; tab bar with icons */
+.wa-form.under-banner { padding-top: 78px; }
+.wa-form h3 { margin: 6px 0 8px; font-size: 18px; }
+.wa-tabs { padding: 7px 2px 22px; font-size: 11.5px; align-items: flex-start; }
+.wa-tabs > span, .wa-tabs > button { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11.5px !important; }
+.wa-tabs .ui { width: 22px; height: 22px; }
+.wa-icon-btn { display: inline-flex; align-items: center; justify-content: center; }
+.wa-icon-btn .ui { width: 22px; height: 22px; }
+.wa-top.android .wa-top-icons { display: inline-flex; align-items: center; gap: 2px; color: #fff; }
+.wa-top.android .wa-icon-btn { color: inherit !important; }
+.wa-send .ui, .wa-mic .ui { width: 18px; height: 18px; }
+.wa-mic { color: #374151 !important; }
+
+/* Calls: drawn handsets (no rotating), readable labels, bigger caller name */
+.call-answer .decline, .call-controls .end { transform: none; }
+.call-answer button { display: inline-flex; align-items: center; justify-content: center; }
+.call-answer button .ui { width: 30px; height: 30px; }
+.sim-screen .call-screen p, .sim-screen .call-labels { color: #fff; }
+.call-labels { font-size: 14px; font-weight: 600; margin: 0; }
+.call-ring strong { font-size: 28px; font-weight: 600; }
+.call-ring small { font-size: 14px; }
+.call-grid button { gap: 4px; }
+.call-grid button .ui { width: 24px; height: 24px; }
+.call-grid button span { font-size: 12px; }
+.call-controls .ui { width: 22px; height: 22px; }
+.call-name strong { font-size: 18px; }
+
+/* Face / fingerprint drawings */
+.scan-face { display: block; width: 96px; height: 96px; font-size: 96px; color: #475569; }
+.scan-ring.complete .scan-face { color: #16a34a; }
+.consent-art .ui { width: 70px; height: 70px; }
+.finger-print span { display: block; width: 74px; height: 74px; font-size: 74px; }
+.screen-sensor { display: inline-flex; align-items: center; justify-content: center; }
+.screen-sensor .ui { width: 40px; height: 40px; }
+
+/* Side button: fully on screen, low enough to stay clear of tiles and the card */
+.side-btn { right: 0; top: auto; bottom: 120px; width: 34px; height: 56px; border-radius: 10px 0 0 10px; display: inline-flex; align-items: center; justify-content: center; }
+.side-btn.tall { top: auto; bottom: 150px; height: 64px; }
+.cc-screen .side-btn { bottom: 96px; }
+
+/* Control centre torch tile */
+.cc-tile .ui { width: 22px; height: 22px; }
+
+/* Magnifier: writing grows and re-wraps instead of sliding off the screen */
+.mag-label { max-width: 100%; padding: 0 12px; box-sizing: border-box; transition: font-size 0.25s; overflow-wrap: anywhere; }
+.mag-buttons button { display: inline-flex; align-items: center; justify-content: center; }
+.mag-buttons .ui { width: 22px; height: 22px; }
+.mag-buttons button.on { background: #fde68a; color: #111 !important; }
+
+/* Keyboard microphone, photo tools, camera flip, call info */
+.kb-mic { display: inline-flex; align-items: center; justify-content: center; color: #374151 !important; }
+.kb-mic .ui { width: 18px; height: 18px; }
+.pv-bar button { display: inline-flex; align-items: center; justify-content: center; }
+.pv-bar .ui { width: 26px; height: 26px; }
+.pv-zoom .ui { width: 22px; height: 22px; }
+.cam-flip { display: inline-flex; align-items: center; justify-content: center; }
+.cam-flip .ui { width: 26px; height: 26px; }
+.recent-info { display: inline-flex; align-items: center; }
+.recent-info .ui { width: 22px; height: 22px; }
+
+/* QR code drawing */
+.qr-svg { display: block; width: 96px; height: 96px; margin: 8px auto; padding: 6px; background: #fff; border-radius: 6px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); }
+
+/* Contacts form: labels you can see */
+.contact-form .field-label { align-self: stretch; margin: 6px 4px -2px; font-size: 12.5px; font-weight: 600; color: #4b5563; text-align: left; }
+
+/* Medical ID: emergency contacts line up with the other fields */
+.med-form .set-group { margin: 0 0 12px; border: 1px solid #e5e7eb; }
+.med-form .set-caption { margin: 14px 4px 6px; }
+
+/* Bank payment: the amount is the headline */
+.pay-detail { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 14px 0 10px; padding: 18px 12px; border-radius: 14px; background: #fff; text-align: center; color: #111; }
+.pay-amount { font-size: 34px; font-weight: 800; color: #b91c1c; letter-spacing: -0.5px; }
+.pay-detail small { color: #6b7280; font-size: 12.5px; }
+
+/* Contactless pay screen */
+.pay-screen .ph-status { align-self: stretch; color: #fff; }
+.pay-screen .pay-text { color: #fff; margin-top: 12px; font-size: 18px !important; }
+.side-btn .ui { width: 20px; height: 20px; }
+
+/* Nothing smaller than about 11.5px, so it can be read */
+.st-card span, .st-tabs button, .ph-keys span.wide, .ph-notif strong, .set-caption, .wa-row-meta small, .wa-unread, .wa-muted,
+.wa-head-name small, .wa-attach button, .ph-pull, .map-label, .journey small { font-size: 11.5px !important; }
+.st-ad, .ph-autofill small, .wa-bubble small { font-size: 11px !important; }
+.contact-form .app-field { align-self: stretch; }
+.contact-form .app-field input { width: 100%; box-sizing: border-box; }

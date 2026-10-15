@@ -33,11 +33,48 @@
         person: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4" fill="#fff"/><path d="M4 20c1-4 4.5-6 8-6s7 2 8 6z" fill="#fff"/></svg>',
         star: '★',
     };
+    // Small line icons for buttons (they take the button's text colour).
+    const UI = {
+        phone: '<svg viewBox="0 0 24 24" class="ui"><path fill="currentColor" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>',
+        hangup: '<svg viewBox="0 0 24 24" class="ui"><path fill="currentColor" d="M12 9c-2.6 0-5 .5-7.3 1.4-.7.3-1.2 1-1.2 1.8v2.3c0 .8.7 1.4 1.5 1.3l3-.4c.7-.1 1.2-.7 1.2-1.4v-1.6c1.8-.5 3.8-.5 5.6 0V14c0 .7.5 1.3 1.2 1.4l3 .4c.8.1 1.5-.5 1.5-1.3v-2.3c0-.8-.5-1.5-1.2-1.8C17 9.5 14.6 9 12 9z"/></svg>',
+        mic: '<svg viewBox="0 0 24 24" class="ui"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+        micOff: '<svg viewBox="0 0 24 24" class="ui"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M4 4l16 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+        flip: '<svg viewBox="0 0 24 24" class="ui"><path d="M4 9a8 8 0 0 1 14-3l2 2M20 15a8 8 0 0 1-14 3l-2-2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M20 4v4h-4M4 20v-4h4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        video: '<svg viewBox="0 0 24 24" class="ui"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5" fill="currentColor"/><path d="m15.5 11 6-3.5v9l-6-3.5z" fill="currentColor"/></svg>',
+        speaker: '<svg viewBox="0 0 24 24" class="ui"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+        keypad: '<svg viewBox="0 0 24 24" class="ui">' + [5, 12, 19].map(y => [5, 12, 19].map(x => `<circle cx="${x}" cy="${y}" r="2" fill="currentColor"/>`).join('')).join('') + '</svg>',
+        torch: '<svg viewBox="0 0 24 24" class="ui"><path d="M7 2h10v5l-3 4v11h-4V11L7 7z" fill="currentColor"/><path d="M11 13h2" stroke="#111" stroke-width="2"/></svg>',
+        camera: '<svg viewBox="0 0 24 24" class="ui"><path fill="currentColor" d="M9 4 7.2 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3.2L15 4H9zm3 4.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z"/></svg>',
+        clip: '<svg viewBox="0 0 24 24" class="ui"><path d="M8 12.5 14.5 6a3 3 0 0 1 4.2 4.2l-8 8a5 5 0 0 1-7-7L11 3.8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+        plus: '<svg viewBox="0 0 24 24" class="ui"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+        send: '<svg viewBox="0 0 24 24" class="ui"><path d="M3 20.5 21 12 3 3.5l.1 6.6L15 12 3.1 13.9z" fill="currentColor"/></svg>',
+        share: '<svg viewBox="0 0 24 24" class="ui"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 11H5v10h14V11h-2" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>',
+        heart: '<svg viewBox="0 0 24 24" class="ui"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" stroke="currentColor" stroke-width="2" fill="none"/></svg>',
+        bin: '<svg viewBox="0 0 24 24" class="ui"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>',
+        pen: '<svg viewBox="0 0 24 24" class="ui"><path d="M4 20h4L19 9l-4-4L4 16z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>',
+        dots: '<svg viewBox="0 0 24 24" class="ui"><circle cx="12" cy="5" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="19" r="2" fill="currentColor"/></svg>',
+        info: '<svg viewBox="0 0 24 24" class="ui"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+        updates: '<svg viewBox="0 0 24 24" class="ui"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="4 2.5"/></svg>',
+        people: '<svg viewBox="0 0 24 24" class="ui"><circle cx="9" cy="9" r="3.2" fill="currentColor"/><circle cx="16.5" cy="10" r="2.6" fill="currentColor"/><path d="M3 19c.6-3.4 3-5 6-5s5.4 1.6 6 5zM15 19c.3-2 1.2-3.5 1.8-4 2 0 3.8 1.3 4.2 4z" fill="currentColor"/></svg>',
+        chat: '<svg viewBox="0 0 24 24" class="ui"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="currentColor"/></svg>',
+        power: '<svg viewBox="0 0 24 24" class="ui"><path d="M12 3v8M7 6.5a7 7 0 1 0 10 0" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>',
+        gear: '<svg viewBox="0 0 24 24" class="ui"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+        face: '<svg viewBox="0 0 64 64" class="ui"><path d="M14 22v-6a4 4 0 0 1 4-4h6M40 12h6a4 4 0 0 1 4 4v6M50 42v6a4 4 0 0 1-4 4h-6M24 52h-6a4 4 0 0 1-4-4v-6" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M25 26v3M39 26v3M32 27v8h-3M25 42c4 3 10 3 14 0" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        finger: '<svg viewBox="0 0 64 64" class="ui"><g stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"><path d="M18 46c-3-5-4-10-4-15a18 18 0 0 1 32-11"/><path d="M50 26c1 3 1 6 1 9"/><path d="M24 50c-2-5-4-11-4-17a12 12 0 0 1 24 0c0 4 0 8-1 11"/><path d="M31 54c-3-7-5-14-5-21a6 6 0 0 1 12 0c0 5-1 10-3 15"/><path d="M32 33c0 7 2 14 5 20"/></g></svg>',
+        qr: '<svg viewBox="0 0 29 29" class="qr-svg" shape-rendering="crispEdges" aria-hidden="true"><rect width="29" height="29" fill="#fff"/>' +
+            [[0, 0], [22, 0], [0, 22]].map(([x, y]) => `<rect x="${x}" y="${y}" width="7" height="7" fill="#111"/><rect x="${x + 1}" y="${y + 1}" width="5" height="5" fill="#fff"/><rect x="${x + 2}" y="${y + 2}" width="3" height="3" fill="#111"/>`).join('') +
+            [[9, 1], [11, 2], [13, 0], [15, 3], [9, 5], [12, 6], [16, 7], [18, 9], [9, 9], [1, 9], [3, 11], [5, 13], [10, 12], [12, 14], [14, 11], [17, 13], [20, 10], [23, 9], [25, 12], [27, 10], [22, 14], [24, 16], [26, 18], [9, 17], [11, 19], [13, 21], [15, 18], [17, 20], [19, 23], [21, 25], [23, 21], [25, 23], [27, 26], [10, 24], [12, 26], [14, 27], [16, 25], [1, 16], [3, 18], [5, 16], [7, 14], [19, 16], [21, 18], [26, 21], [13, 16], [18, 26], [24, 27], [6, 10], [2, 14]]
+                .map(([x, y]) => `<rect x="${x}" y="${y}" width="2" height="2" fill="#111"/>`).join('') + '</svg>',
+    };
     const appIcon = (bg, svg) => `<span class="ph-icon" style="background:${bg}">${svg}</span>`;
     const WA_GREEN = '#1fa855';
 
     // ---------- Phone frame bits ----------
-    const statusBar = p => `<div class="ph-status ph-${p}"><span>9:41</span><span class="ph-status-r">▂▄▆ <span class="ph-batt"></span></span></div>`;
+    const statusIcons = '<svg viewBox="0 0 18 12" class="st-sig" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg>' +
+        '<svg viewBox="0 0 16 12" class="st-wifi" aria-hidden="true"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM3.2 6.6a6.8 6.8 0 0 1 9.6 0l-1.4 1.5a4.8 4.8 0 0 0-6.8 0zM.8 4.2a10.2 10.2 0 0 1 14.4 0l-1.4 1.4a8.2 8.2 0 0 0-11.6 0z" fill="currentColor"/></svg>' +
+        '<span class="ph-batt" aria-hidden="true"></span>';
+    // The time, a camera cut-out (iPhone "Dynamic Island" or Android punch-hole) and signal, Wi-Fi and battery.
+    const statusBar = p => `<div class="ph-status ph-${p}"><span class="st-time">9:41</span><span class="${p === 'ios' ? 'ph-island' : 'ph-punch'}" aria-hidden="true"></span><span class="ph-status-r">${statusIcons}</span></div>`;
     const keyboard = () => `<div class="ph-keys" aria-hidden="true">${['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map(r =>
         `<div>${[...r].map(k => `<span>${k}</span>`).join('')}</div>`).join('')}<div><span class="wide">space</span></div></div>`;
 
@@ -63,9 +100,13 @@
         const hold = opts.hold || [];
         const pull = opts.pull
             ? `<button type="button" class="ph-pull" data-tap="pull-down" data-swipe="pull">${p === 'ios' ? 'Swipe down from the top-right corner ⌄' : 'Swipe down from the top ⌄'}</button>` : '';
+        // The first four apps sit in the dock at the bottom, like a real home screen.
+        const dockIds = ['phone', 'messages', 'camera', 'photos'];
+        const appBtn = ([id, label, bg, svg], inDock) =>
+            `<button type="button" class="ph-app" ${hold.includes(id) ? 'data-hold' : 'data-tap'}="${id}">${appIcon(bg, svg)}${inDock && p === 'ios' ? `<span class="visually-hidden">${label}</span>` : `<span>${label}</span>`}</button>`;
         return `<div class="ph-home ph-${p}">${statusBar(p)}${pull}
-            <div class="ph-grid">${apps.map(([id, label, bg, svg]) =>
-                `<button type="button" class="ph-app" ${hold.includes(id) ? 'data-hold' : 'data-tap'}="${id}">${appIcon(bg, svg)}<span>${label}</span></button>`).join('')}</div>
+            <div class="ph-grid">${apps.filter(a => !dockIds.includes(a[0])).map(a => appBtn(a, false)).join('')}</div>
+            <div class="ph-dock">${apps.filter(a => dockIds.includes(a[0])).map(a => appBtn(a, true)).join('')}</div>
             ${p === 'android' ? '<div class="ph-navpill"></div>' : '<div class="ph-homebar"></div>'}</div>`;
     }
 
@@ -162,7 +203,7 @@
             : `<div class="ph-notif static"><strong>MESSAGES · now</strong><span>Your WhatsApp code: ${CODE.slice(0, 3)}-${CODE.slice(3)}. Don't share this code with others.</span></div>`) : '';
         const autofill = !ctx.code && p === 'ios'
             ? `<div class="ph-autofill"><button type="button" data-tap="autofill"><small>From Messages</small><strong>${CODE}</strong></button></div>` : '';
-        return waScreen(p, `${notice}<div class="wa-form">
+        return waScreen(p, `${notice}<div class="wa-form${notice ? ' under-banner' : ''}">
             <h3>Verifying your number</h3>
             <p>Waiting to automatically detect a 6-digit code sent by SMS to <strong>+44 ${NUMBER}</strong>.</p>
             <div class="wa-code">${boxes}</div>
@@ -178,8 +219,7 @@
                 <div class="ph-dialog-btns"><button type="button" data-tap="deny">Don't Allow</button><button type="button" data-tap="allow">Allow</button></div></div>`
             : `<div class="ph-dialog android"><p><strong>${text[2]}</strong></p>
                 <div class="ph-dialog-btns col"><button type="button" data-tap="allow">Allow</button><button type="button" data-tap="deny">Don't allow</button></div></div>`;
-        return waScreen(p, `<div class="wa-form"><h3>${what === 'contacts' ? 'Contacts' : 'Notifications'}</h3></div>`) +
-            `<div class="ph-dialog-wrap">${dialog}</div>`;
+        return waCode(p, {code: true}) + `<div class="ph-dialog-wrap">${dialog}</div>`;
     }
 
     function waProfile(p, ctx) {
@@ -314,7 +354,7 @@
                 : '<button type="button" class="set-row link" data-tap="setup-face">Set Up Face ID</button>'}</div>`;
         const unlockOn = ctx.touch ? ctx.fingerDone : ctx.faceDone;
         return `<div class="set-screen ios">${statusBar('ios')}<div class="set-scroll">
-            <div class="set-nav"><span class="set-back">‹ Settings</span><strong>${title}</strong></div>
+            <div class="set-nav ios"><span class="set-back">‹ Settings</span><strong>${title}</strong></div>
             <div class="set-caption">USE ${ctx.touch ? 'TOUCH ID' : 'FACE ID'} FOR:</div>
             <div class="set-group"><div class="set-row static"><span>iPhone Unlock</span><span class="toggle${unlockOn ? ' on' : ''}"></span></div>
                 <div class="set-row static"><span>iTunes &amp; App Store</span><span class="toggle${unlockOn ? ' on' : ''}"></span></div></div>
@@ -363,7 +403,7 @@
         const doneText = p === 'ios' ? (first ? 'First Face ID scan complete.' : 'Face ID is now set up.') : 'Face added';
         const btn = p === 'ios' ? (first ? 'Continue' : 'Done') : 'Done';
         return `<div class="scan-screen ${p}">${statusBar(p)}
-            <div class="scan-ring${ctx.busy ? ' going' : ' complete'}"><span class="scan-face">☺</span></div>
+            <div class="scan-ring${ctx.busy ? ' going' : ' complete'}"><span class="scan-face">${UI.face}</span></div>
             <p class="scan-text">${ctx.busy ? (p === 'ios' ? 'Move your head slowly to complete the circle.' : 'Keep your face in the circle and move your head slowly.') : doneText}</p>
             ${ctx.busy ? '' : `<button type="button" class="ph-btn ${p === 'ios' ? 'ios-blue' : 'and-green'}" data-tap="${first ? 'continue' : 'done'}">${btn}</button>`}
             ${homeIndicator(p)}</div>`;
@@ -382,10 +422,10 @@
             : (ready ? 'You can now use your fingerprint to unlock your phone.' : 'Touch the sensor, lift, and touch it again until the fingerprint is full.');
         const sensor = p === 'ios'
             ? '<button type="button" class="home-sensor" data-tap="sensor" aria-label="Home button (fingerprint sensor)"><span></span></button>'
-            : '<button type="button" class="screen-sensor" data-tap="sensor" aria-label="Fingerprint sensor">◉</button>';
+            : `<button type="button" class="screen-sensor" data-tap="sensor" aria-label="Fingerprint sensor">${UI.finger}</button>`;
         return `<div class="finger-screen ${p}">${statusBar(p)}
             <div class="code-head"><strong>${head}</strong><p>${sub}</p></div>
-            <div class="finger-print" style="--fill:${ready ? 100 : pct}%"><span>⦾</span></div>
+            <div class="finger-print" style="--fill:${ready ? 100 : pct}%"><span>${UI.finger}</span></div>
             ${ready ? `<button type="button" class="ph-btn ${p === 'ios' ? 'ios-blue' : 'and-green'}" data-tap="continue">${p === 'ios' ? 'Continue' : 'Done'}</button>` : sensor}
             ${p === 'ios' ? '' : homeIndicator(p)}</div>`;
     }
@@ -393,7 +433,7 @@
     function consent(p, title, text, agree) {
         return `<div class="scan-screen ${p}">${statusBar(p)}
             <div class="code-head"><strong>${title}</strong><p>${text}</p></div>
-            <div class="consent-art">☺</div>
+            <div class="consent-art">${UI.face}</div>
             <button type="button" class="ph-btn and-green" data-tap="agree">${agree}</button>
             <button type="button" class="ph-btn-text and" data-tap="cancel">Cancel</button>
             ${homeIndicator(p)}</div>`;
@@ -498,7 +538,7 @@
                 {screen: c => iosLockPage({...c, passcodeSet: true}), target: 'setup-face', say: '<strong>Tap Set Up Face ID.</strong>'},
                 {screen: () => `<div class="scan-screen ios">${statusBar('ios')}<div class="code-head"><strong>How to Set Up Face ID</strong>
                     <p>First, position your face in the camera frame. Then move your head in a circle to show all the angles of your face.</p></div>
-                    <div class="consent-art">☺</div><button type="button" class="ph-btn ios-blue" data-tap="get-started">Get Started</button>${homeIndicator('ios')}</div>`,
+                    <div class="consent-art">${UI.face}</div><button type="button" class="ph-btn ios-blue" data-tap="get-started">Get Started</button>${homeIndicator('ios')}</div>`,
                  target: 'get-started',
                  say: 'Hold your phone in front of your face, about an arm\'s length away, like you\'re taking a selfie. <strong>Tap Get Started.</strong>'},
                 {screen: c => faceScan(p, c, true), wait: 2600, target: 'continue',
@@ -609,14 +649,14 @@
         ];
         const ios = p === 'ios';
         const top = ios
-            ? `<div class="wa-top ios"><span class="wa-top-row"><span></span><button type="button" class="wa-icon-btn" data-tap="new-chat" aria-label="New chat">✎</button></span><strong>Chats</strong></div>`
-            : `<div class="wa-top android"><strong>WhatsApp</strong><span class="wa-top-icons"><span aria-hidden="true">📷</span>
-                <button type="button" class="wa-icon-btn" data-tap="menu" aria-label="More options">⋮</button></span></div>`;
+            ? `<div class="wa-top ios"><span class="wa-top-row"><span></span><button type="button" class="wa-icon-btn" data-tap="new-chat" aria-label="New chat">${UI.pen}</button></span><strong>Chats</strong></div>`
+            : `<div class="wa-top android"><strong>WhatsApp</strong><span class="wa-top-icons"><span class="wa-icon-btn" aria-hidden="true">${UI.camera}</span>
+                <button type="button" class="wa-icon-btn" data-tap="menu" aria-label="More options">${UI.dots}</button></span></div>`;
         return `<div class="ph-app-screen wa ph-${p} wa-list">${statusBar(p)}${top}
             <div class="wa-rows">${chats.map(c => `<button type="button" class="wa-row" data-tap="chat-${c.id}">${avatar(c.letter, c.bg)}
                 <span class="wa-row-text"><strong>${c.name}</strong><small>${esc(c.last)}</small></span>
                 <span class="wa-row-meta"><small>${c.time}</small>${c.unread ? `<span class="wa-unread">${c.unread}</span>` : ''}${c.muted ? '<span class="wa-muted" aria-label="Muted">🔕</span>' : ''}</span></button>`).join('')}</div>
-            ${ios ? `<div class="wa-tabs"><span>Updates</span><span>Calls</span><span>Communities</span><span class="on">Chats</span><button type="button" data-tap="tab-settings">Settings</button></div>`
+            ${ios ? `<div class="wa-tabs"><span>${UI.updates}Updates</span><span>${UI.phone}Calls</span><span>${UI.people}Communities</span><span class="on">${UI.chat}Chats</span><button type="button" data-tap="tab-settings">${UI.gear}Settings</button></div>`
                   : '<button type="button" class="wa-fab-btn" data-tap="new-chat" aria-label="New chat">+</button>'}
             ${ctx.menuOpen ? `<div class="wa-menu"><span>New group</span><span>Linked devices</span><span>Starred</span><button type="button" data-tap="menu-settings">Settings</button></div>` : ''}
             ${homeIndicator(p)}</div>`;
@@ -636,17 +676,17 @@
         const [name, bg, sub] = people[who];
         const thread = (ctx.threads && ctx.threads[who]) || [];
         const bar = ctx.recording
-            ? `<div class="wa-bar recording"><span class="rec-dot"></span><span>0:04 Recording…</span><button type="button" class="wa-send" data-tap="mic" aria-label="Send voice note">➤</button></div>`
-            : `<div class="wa-bar"><button type="button" class="wa-icon-btn" data-tap="attach" aria-label="${p === 'ios' ? 'Add (plus)' : 'Attach (paperclip)'}">${p === 'ios' ? '+' : '📎'}</button>
+            ? `<div class="wa-bar recording"><span class="rec-dot"></span><span>0:04 Recording…</span><button type="button" class="wa-send" data-tap="mic" aria-label="Send voice note">${UI.send}</button></div>`
+            : `<div class="wa-bar"><button type="button" class="wa-icon-btn" data-tap="attach" aria-label="${p === 'ios' ? 'Add (plus)' : 'Attach (paperclip)'}">${p === 'ios' ? UI.plus : UI.clip}</button>
                 <label class="wa-input"><span class="visually-hidden">Message</span><input type="text" data-input="msg" placeholder="Message" value="${esc((ctx.input && ctx.input.msg) || '')}" autocomplete="off"></label>
-                <button type="button" class="wa-icon-btn" data-tap="camera" aria-label="Camera">📷</button>
-                <button type="button" class="wa-send" data-tap="send" aria-label="Send">➤</button>
-                <button type="button" class="wa-mic" data-tap="mic" aria-label="Microphone (voice note)">🎤</button></div>`;
+                <button type="button" class="wa-icon-btn" data-tap="camera" aria-label="Camera">${UI.camera}</button>
+                <button type="button" class="wa-send" data-tap="send" aria-label="Send">${UI.send}</button>
+                <button type="button" class="wa-mic" data-tap="mic" aria-label="Microphone (voice note)">${UI.mic}</button></div>`;
         return `<div class="ph-app-screen wa ph-${p} wa-chat">${statusBar(p)}
             <div class="wa-chat-head"><span class="wa-back">‹</span>${avatar(name[0] === '+' ? '?' : name[0], bg)}
                 <button type="button" class="wa-head-name" data-tap="group-info"><strong>${name}</strong><small>${sub}</small></button>
-                <button type="button" class="wa-icon-btn" data-tap="video" aria-label="Video call">🎥</button>
-                <button type="button" class="wa-icon-btn" data-tap="voice" aria-label="Voice call">📞</button></div>
+                <button type="button" class="wa-icon-btn" data-tap="video" aria-label="Video call">${UI.video}</button>
+                <button type="button" class="wa-icon-btn" data-tap="voice" aria-label="Voice call">${UI.phone}</button></div>
             ${who === 'unknown' ? `<div class="wa-banner"><p>This number isn't in your contacts.</p><div><button type="button" data-tap="block">Block</button><button type="button" data-tap="add-contact">Add</button></div></div>` : ''}
             <div class="wa-thread">${thread.map(bubble).join('')}</div>
             ${who === 'unknown' ? '' : bar}
@@ -668,7 +708,7 @@
             return `<div class="ph-app-screen wa ph-${p} wa-preview">${statusBar(p)}
                 <div class="wa-preview-img" style="background:${ph[2]}" role="img" aria-label="${ph[1]}">${ph[0]}</div>
                 <div class="wa-bar"><label class="wa-input"><span class="visually-hidden">Caption</span><input type="text" data-input="caption" placeholder="Add a caption…" autocomplete="off"></label>
-                <button type="button" class="wa-send" data-tap="send-photo" aria-label="Send photo">➤</button></div>${homeIndicator(p)}</div>`;
+                <button type="button" class="wa-send" data-tap="send-photo" aria-label="Send photo">${UI.send}</button></div>${homeIndicator(p)}</div>`;
         }
         return `<div class="ph-app-screen wa ph-${p}">${statusBar(p)}
             <div class="wa-top ${p}"><strong>${p === 'ios' ? 'Recents' : 'Gallery'}</strong></div>
@@ -679,17 +719,17 @@
     function waCall(p, ctx) {
         if (ctx.busy) {
             return `<div class="ph-app-screen wa-call ph-${p}">${statusBar(p)}<div class="call-ring">${avatar('S', '#f472b6')}<strong>Sarah</strong><small>Ringing…</small></div>
-                <div class="call-controls"><span class="end" aria-hidden="true">✆</span></div>${homeIndicator(p)}</div>`;
+                <div class="call-controls"><span class="end" aria-hidden="true">${UI.hangup}</span></div>${homeIndicator(p)}</div>`;
         }
         return `<div class="ph-app-screen wa-call ph-${p}">${statusBar(p)}
             <div class="call-video" role="img" aria-label="Sarah on video">👩</div>
-            <div class="call-self${ctx.flipped ? ' flipped' : ''}" role="img" aria-label="Your camera">${ctx.flipped ? '🪴' : '🙂'}</div>
+            <div class="call-self${ctx.flipped ? ' flipped' : ''}" role="img" aria-label="Your camera">${ctx.flipped ? '🌿' : '🙂'}</div>
             <div class="call-name"><strong>Sarah</strong><small>0:12</small></div>
             <div class="call-controls">
-                <button type="button" data-tap="flip" aria-label="Flip camera">🔄</button>
-                <button type="button" data-tap="video-off" aria-label="Turn camera off">🎥</button>
-                <button type="button" data-tap="mute" class="${ctx.muted ? 'on' : ''}" aria-label="${ctx.muted ? 'Unmute' : 'Mute'}">${ctx.muted ? '🔇' : '🎙️'}</button>
-                <button type="button" data-tap="end" class="end" aria-label="End call">✆</button></div>${homeIndicator(p)}</div>`;
+                <button type="button" data-tap="flip" aria-label="Flip camera">${UI.flip}</button>
+                <button type="button" data-tap="video-off" aria-label="Turn camera off">${UI.video}</button>
+                <button type="button" data-tap="mute" class="${ctx.muted ? 'on' : ''}" aria-label="${ctx.muted ? 'Unmute' : 'Mute'}">${ctx.muted ? UI.micOff : UI.mic}</button>
+                <button type="button" data-tap="end" class="end" aria-label="End call">${UI.hangup}</button></div>${homeIndicator(p)}</div>`;
     }
 
     function waGroupInfo(p, ctx) {
@@ -915,7 +955,8 @@
 
     // A full-screen app page with a coloured header bar.
     function app(p, title, inner, opts = {}) {
-        return `<div class="ph-app-screen app-page ph-${p}" style="--app:${opts.color || '#0a6cf2'}">${statusBar(p)}
+        const light = ['#fff', '#f2f2f7', '#f8fafc'].includes(opts.color);
+        return `<div class="ph-app-screen app-page ph-${p}${light ? ' light' : ' dark'}" style="--app:${opts.color || '#0a6cf2'}">${statusBar(p)}
             <div class="app-head">${opts.back === false ? '' : '<button type="button" class="app-back" data-tap="back" aria-label="Back">‹</button>'}<strong>${title}</strong>${opts.right || ''}</div>
             <div class="app-body">${inner}</div>${opts.overlay || ''}${homeIndicator(p)}</div>`;
     }
@@ -994,7 +1035,7 @@
             ? `<div class="cc-grid"><span class="cc-tile on">✈︎</span><span class="cc-tile on blue">Wi-Fi</span><span class="cc-tile on blue">Bluetooth</span>
                 <button type="button" class="cc-tile wide${dnd ? ' on purple' : ''}" data-tap="dnd">🌙 ${dnd ? 'Do Not Disturb' : 'Focus'}</button>
                 <div class="cc-slider" aria-label="Volume"><span style="height:${vol}%"></span><em>🔊</em></div>
-                <span class="cc-tile">🔦</span><span class="cc-tile">⏱</span></div>`
+                <span class="cc-tile" aria-label="Torch">${UI.torch}</span><span class="cc-tile">⏱</span></div>`
             : `<div class="qs-grid"><span class="qs-tile on">Internet</span><span class="qs-tile on">Bluetooth</span>
                 <button type="button" class="qs-tile${dnd ? ' on' : ''}" data-tap="dnd">${dnd ? 'Do Not Disturb · On' : 'Do Not Disturb · Off'}</button>
                 <span class="qs-tile">Torch</span></div>
@@ -1028,9 +1069,9 @@
     function magnifierScreen(p, ctx) {
         const zoom = 1 + 0.6 * ((ctx.zoom || 0) + (ctx.pos || 0));
         return `<div class="mag-screen ${ctx.torch ? 'lit' : ''}${ctx.frozen ? ' frozen' : ''}">${statusBar(p)}
-            <div class="mag-view"><div class="mag-label" style="transform:scale(${zoom})"><strong>PARACETAMOL 500mg</strong><br>Take 1-2 tablets every 4-6 hours.<br>Do not take more than 8 tablets in 24 hours.</div></div>
+            <div class="mag-view"><div class="mag-label" style="font-size:${(7 * zoom).toFixed(1)}px"><strong>PARACETAMOL 500mg</strong><br>Take 1-2 tablets every 4-6 hours.<br>Do not take more than 8 tablets in 24 hours.</div></div>
             <div class="mag-controls"><button type="button" data-tap="zoom-out" aria-label="Zoom out">−</button><span class="mag-track"></span><button type="button" data-tap="zoom-in" aria-label="Zoom in">＋</button></div>
-            <div class="mag-buttons"><button type="button" data-tap="torch" aria-label="Torch">🔦</button>
+            <div class="mag-buttons"><button type="button" data-tap="torch" aria-label="Torch" class="${ctx.torch ? 'on' : ''}">${UI.torch}</button>
                 <button type="button" class="mag-shutter" data-tap="freeze" aria-label="Freeze the picture"></button><span class="mag-blank"></span></div>
             ${homeIndicator(p)}</div>`;
     }
@@ -1058,11 +1099,11 @@
             <div class="msg-head">${p === 'ios' ? '<span class="msg-back">‹</span>' : '<span class="msg-back">←</span>'}<strong>Jean</strong></div>
             <div class="wa-thread"><div class="wa-bubble them"><span>Are you coming on Thursday? ☕</span><small>09:41</small></div></div>
             <div class="msg-bar"><button type="button" class="msg-box" data-tap="box">${text ? esc(text) : '<span class="ph-placeholder">Text message</span>'}</button>
-                <button type="button" class="wa-send" data-tap="send" aria-label="Send">➤</button></div>
+                <button type="button" class="wa-send" data-tap="send" aria-label="Send">${UI.send}</button></div>
             ${opts.keys ? `<div class="ph-keys mic-keys">${listening ? '<p class="listening">🎤 Listening… speak now</p>' : ''}
                 <div><span>q</span><span>w</span><span>e</span><span>r</span><span>t</span><span>y</span><span>u</span><span>i</span><span>o</span><span>p</span></div>
                 <div><span>a</span><span>s</span><span>d</span><span>f</span><span>g</span><span>h</span><span>j</span><span>k</span><span>l</span></div>
-                <div><span class="wide">space</span><button type="button" class="kb-mic" data-tap="kb-mic" aria-label="Dictate (microphone)">🎤</button></div></div>` : ''}
+                <div><span class="wide">space</span><button type="button" class="kb-mic" data-tap="kb-mic" aria-label="Dictate (microphone)">${UI.mic}</button></div></div>` : ''}
             ${homeIndicator(p)}</div>`;
     }
 
@@ -1207,7 +1248,7 @@
     function contactForm(p, ctx) {
         return list(p, p === 'ios' ? 'New Contact' : 'Create contact', [], {noBack: true,
             top: `<div class="contact-form"><span class="wa-av big" style="background:#cbd5e1">👤</span>
-                ${field('fname', 'First name', ctx)}${field('cnum', 'Mobile number', ctx, 'tel')}
+                <span class="field-label">First name</span>${field('fname', 'First name', ctx)}<span class="field-label">Mobile number</span>${field('cnum', 'Mobile number', ctx, 'tel')}
                 <button type="button" class="ph-btn ${p === 'ios' ? 'ios-blue' : 'and-green'}" data-tap="save">${p === 'ios' ? 'Done' : 'Save'}</button></div>`});
     }
     const contactCard = (p, ctx) => list(p, typed(ctx, 'fname') || 'Contact', [
@@ -1234,14 +1275,14 @@
 
     function incoming(p) {
         return `<div class="call-screen ${p}">${statusBar(p)}<div class="call-ring">${avatar('J', '#a78bfa')}<strong>Jean</strong><small>mobile</small></div>
-            <div class="call-answer"><button type="button" class="decline" data-tap="decline" aria-label="Decline">✆</button><button type="button" class="accept" data-tap="answer" aria-label="Answer">✆</button></div>
+            <div class="call-answer"><button type="button" class="decline" data-tap="decline" aria-label="Decline">${UI.hangup}</button><button type="button" class="accept" data-tap="answer" aria-label="Answer">${UI.phone}</button></div>
             <p class="call-labels"><span>Decline</span><span>Answer</span></p>${homeIndicator(p)}</div>`;
     }
     function inCall(p, ctx, who = 'Jean') {
         return `<div class="call-screen ${p}">${statusBar(p)}<div class="call-ring">${avatar(who[0], '#a78bfa')}<strong>${who}</strong><small>${ctx.busy ? 'calling…' : '0:42'}</small></div>
-            <div class="call-grid"><button type="button" data-tap="mute">🎙️<span>mute</span></button><button type="button" data-tap="keypad">⌗<span>keypad</span></button>
-                <button type="button" data-tap="speaker" class="${ctx.speaker ? 'on' : ''}">🔊<span>speaker</span></button></div>
-            <div class="call-answer single"><button type="button" class="decline" data-tap="end" aria-label="End call">✆</button></div>${homeIndicator(p)}</div>`;
+            <div class="call-grid"><button type="button" data-tap="mute">${UI.mic}<span>mute</span></button><button type="button" data-tap="keypad">${UI.keypad}<span>keypad</span></button>
+                <button type="button" data-tap="speaker" class="${ctx.speaker ? 'on' : ''}">${UI.speaker}<span>speaker</span></button></div>
+            <div class="call-answer single"><button type="button" class="decline" data-tap="end" aria-label="End call">${UI.hangup}</button></div>${homeIndicator(p)}</div>`;
     }
     const recents = p => app(p, 'Recents', `<div class="recents">
         <button type="button" class="recent missed" data-tap="call-dave"><strong>Dave</strong><small>mobile · missed</small><span>10:05</span></button>
@@ -1274,7 +1315,7 @@
         return `<div class="ph-app-screen msg-app ph-${p}">${statusBar(p)}
             <div class="msg-head">${p === 'ios' ? '<span class="msg-back">‹</span>' : '<span class="msg-back">←</span>'}<strong>Dentist</strong></div>
             <div class="wa-thread">${old}<div class="wa-bubble them"><span>Reminder: your appointment is on Tuesday at 10:30. Reply Y to confirm.</span><small>08:15</small></div>${sent}</div>
-            <div class="msg-bar">${field('reply', 'Text message', ctx)}<button type="button" class="wa-send" data-tap="send" aria-label="Send">➤</button></div>
+            <div class="msg-bar">${field('reply', 'Text message', ctx)}<button type="button" class="wa-send" data-tap="send" aria-label="Send">${UI.send}</button></div>
             ${ctx.menu ? `<div class="ph-sheet"><div class="ph-sheet-box"><button type="button" class="ph-btn-text" data-tap="copy">Copy</button><button type="button" class="ph-btn-text" data-tap="forward">Forward</button>
                 <button type="button" class="ph-btn-text danger" data-tap="delete">Delete</button></div></div>` : ''}
             ${homeIndicator(p)}</div>`;
@@ -1322,7 +1363,7 @@
     // ======================================================================================
     function recentsUnknown(p, ctx) {
         const rows = ctx.blocked ? '' : `<div class="recent missed"><strong>07700 900842</strong><small>${p === 'ios' ? 'mobile · 3 calls' : 'Suspected spam · 3 calls'}</small>
-            <span>11:20</span><button type="button" class="recent-info" data-tap="info" aria-label="More info about 07700 900842">ⓘ</button></div>`;
+            <span>11:20</span><button type="button" class="recent-info" data-tap="info" aria-label="More info about 07700 900842">${UI.info}</button></div>`;
         return app(p, 'Recents', `<div class="recents">${rows}<div class="recent"><strong>Jean</strong><small>mobile</small><span>09:41</span></div>
             <div class="recent"><strong>Dave</strong><small>mobile</small><span>Yesterday</span></div></div>`,
             {back: false, color: p === 'ios' ? '#f2f2f7' : '#fff', right: p === 'android' ? '<button type="button" class="app-plus" data-tap="menu" aria-label="More options">⋮</button>' : '',
@@ -1369,8 +1410,8 @@
         return `<div class="ph-app-screen msg-app ph-${p}">${statusBar(p)}
             <div class="msg-head">${p === 'ios' ? '<span class="msg-back">‹</span>' : '<span class="msg-back">←</span>'}<strong>${ctx.forwarding ? (ctx.sent7726 ? '7726' : 'New message') : '+44 7700 900911'}</strong></div>
             ${toBox}<div class="wa-thread">${thread}</div>
-            ${ctx.sent7726 ? `<div class="msg-bar">${field('reportnum', 'Text message', ctx, 'tel')}<button type="button" class="wa-send" data-tap="send2" aria-label="Send">➤</button></div>`
-                           : ctx.forwarding ? '<div class="msg-bar"><span class="msg-box"></span><button type="button" class="wa-send" data-tap="send" aria-label="Send">➤</button></div>' : ''}
+            ${ctx.sent7726 ? `<div class="msg-bar">${field('reportnum', 'Text message', ctx, 'tel')}<button type="button" class="wa-send" data-tap="send2" aria-label="Send">${UI.send}</button></div>`
+                           : ctx.forwarding ? `<div class="msg-bar"><span class="msg-box"></span><button type="button" class="wa-send" data-tap="send" aria-label="Send">${UI.send}</button></div>` : ''}
             ${ctx.menu ? `<div class="ph-sheet"><div class="ph-sheet-box"><button type="button" class="ph-btn-text" data-tap="copy">Copy</button>
                 <button type="button" class="ph-btn-text" data-tap="forward">${p === 'ios' ? 'More… then Forward' : 'Forward'}</button><button type="button" class="ph-btn-text danger" data-tap="delete">Delete</button></div></div>` : ''}
             ${homeIndicator(p)}</div>`;
@@ -1503,18 +1544,18 @@
     // ======================================================================================
     function cameraView(p, ctx, scene = 'garden') {
         const view = scene === 'qr'
-            ? `<div class="cam-scene qr"><div class="cam-poster"><strong>Free tech tips</strong><span class="qr-art" aria-hidden="true"></span><small>Scan me</small></div>
+            ? `<div class="cam-scene qr"><div class="cam-poster"><strong>Free tech tips</strong>${UI.qr}<small>Scan me</small></div>
                 ${ctx.busy ? '' : `<button type="button" class="qr-chip" data-tap="qr-link">🌐 jamesgartshore.co.uk</button>`}</div>`
             : `<div class="cam-scene"><span class="cam-sun">☀️</span><span class="cam-flower">🌻🌷🌻</span></div>`;
         return `<div class="cam-screen">${statusBar(p)}${view}
             <div class="cam-bar"><button type="button" class="cam-thumb" data-tap="thumb" aria-label="Last photo">${ctx.taken ? '🌻' : ''}</button>
-            <button type="button" class="cam-shutter" data-tap="shutter" aria-label="Take photo"></button><span class="cam-flip">🔄</span></div>${homeIndicator(p)}</div>`;
+            <button type="button" class="cam-shutter" data-tap="shutter" aria-label="Take photo"></button><span class="cam-flip">${UI.flip}</span></div>${homeIndicator(p)}</div>`;
     }
     function photoView(p, ctx) {
         const zoom = 1 + 0.5 * ((ctx.zoom || 0) + (ctx.pos || 0));
         return `<div class="photo-view">${statusBar(p)}<div class="pv-img"><span style="transform:scale(${zoom})">🌻🌷🌻</span></div>
-            <div class="pv-zoom"><button type="button" data-tap="zoom-in" aria-label="Zoom in">＋</button></div>
-            <div class="pv-bar"><button type="button" data-tap="share" aria-label="Share">⇪</button><button type="button" data-tap="favourite" aria-label="Favourite">♡</button><button type="button" data-tap="delete" aria-label="Delete">🗑</button></div>
+            <div class="pv-zoom"><button type="button" data-tap="zoom-in" aria-label="Zoom in">${UI.plus}</button></div>
+            <div class="pv-bar"><button type="button" data-tap="share" aria-label="Share">${UI.share}</button><button type="button" data-tap="favourite" aria-label="Favourite">${UI.heart}</button><button type="button" data-tap="delete" aria-label="Delete">${UI.bin}</button></div>
             ${ctx.sheet === 'share' ? `<div class="ph-sheet"><div class="ph-sheet-box"><p><strong>Share with</strong></p><div class="wa-attach">
                 <button type="button" data-tap="share-messages"><span style="background:#22c55e">💬</span>Messages</button><button type="button" data-tap="share-mail"><span style="background:#3b82f6">✉️</span>Mail</button>
                 <button type="button" data-tap="share-other"><span style="background:#94a3b8">⋯</span>More</button></div></div></div>` : ''}
@@ -1707,7 +1748,7 @@
             const t = [['txn-tesco', 'Tesco Stores', '−£42.18', 'Today'], ['txn-gift', 'GIFTCARDS-ONLINE.COM', '−£249.00', 'Today'], ['txn-pension', 'State Pension', '+£921.60', 'Yesterday'], ['txn-water', 'Yorkshire Water DD', '−£38.00', 'Mon']];
             return app(p, 'Current account', `<p class="app-note">Balance <strong>£1,284.50</strong></p><div class="recents">${t.map(([id, n, a, d]) => `<button type="button" class="recent" data-tap="${id}"><strong>${n}</strong><small>${d}</small><span class="${a[0] === '+' ? 'in' : ''}">${a}</span></button>`).join('')}</div>`, {color: BANK});
         }
-        if (page === 'gift') return app(p, 'Payment', `<p class="app-note"><strong>GIFTCARDS-ONLINE.COM</strong><br>−£249.00 · Today, 03:12<br>Card ending 4421</p>
+        if (page === 'gift') return app(p, 'Payment', `<div class="pay-detail"><span class="pay-amount">−£249.00</span><strong>GIFTCARDS-ONLINE.COM</strong><small>Today, 03:12 · Card ending 4421</small></div>
             <div class="recents"><button type="button" class="recent" data-tap="freeze"><strong>❄️ Freeze card</strong><small>${ctx.frozen ? 'Card frozen ✓' : 'Stop payments straight away'}</small>${tog(!!ctx.frozen)}</button>
             <button type="button" class="recent" data-tap="report"><strong>Report this payment</strong><small>Don\'t recognise it? Tell us</small></button></div>`, {color: BANK});
         return '';
@@ -1742,7 +1783,7 @@
             <div class="wa-code">${[...'529173'].map((d, n) => `<span>${n < (ctx.pos || 0) ? d : ''}</span>`).join('')}</div>${keypad(p)}`, {color});
         if (page === 'ready') return app(p, p === 'ios' ? 'Wallet' : 'Google Wallet', `${card}<p class="app-note">✓ Your card is ready to use.</p>`, {back: false, color});
         return `<div class="pay-screen">${statusBar(p)}${card}<p class="pay-text">${ctx.busy ? (p === 'ios' ? 'Hold near reader…' : 'Hold to reader…') : '✓ Done'}</p>
-            <div class="reader">💳 £4.20</div>${p === 'ios' ? '<button type="button" class="side-btn tall" data-tap="side" aria-label="Side button">⏻</button>' : ''}${homeIndicator(p)}</div>`;
+            <div class="reader">💳 £4.20</div>${p === 'ios' ? `<button type="button" class="side-btn tall" data-tap="side" aria-label="Side button">${UI.power}</button>` : ''}${homeIndicator(p)}</div>`;
     }
 
     SCENARIOS['contactless'] = (p) => withCtx([
@@ -1803,7 +1844,7 @@
                 <button type="button" class="ph-btn ${p === 'ios' ? 'ios-blue' : 'and-green'}" data-tap="pay">${p === 'ios' ? ' Pay' : 'G Pay'}</button>`, {color});
         }
         return app(p, 'Your ticket', `<div class="ticket"><strong>Off-Peak Day Return</strong><span>Bridlington ⇄ Hull</span><span>Today · Senior Railcard</span>
-            <span class="qr-art" aria-hidden="true"></span><small>Scan this at the ticket gate, or show it to the guard.</small></div>`, {back: false, color});
+            ${UI.qr}<small>Scan this at the ticket gate, or show it to the guard.</small></div>`, {back: false, color});
     }
 
     SCENARIOS['trains'] = (p) => withCtx([
@@ -2091,5 +2132,5 @@
 
     document.querySelectorAll('.sim[data-sim]').forEach(start);
     // For the poster app's local review page (/sim-review), which shows every screen side by side.
-    window.PracticePhone = {scenarios: SCENARIOS};
+    window.PracticePhone = {scenarios: SCENARIOS, start};
 })();
