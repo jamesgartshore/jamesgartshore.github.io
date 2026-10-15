@@ -4730,6 +4730,106 @@
         }
     }
 
+    // ======================================================================================
+    // Scam call trainer: the caller really speaks (the device's own text-to-speech), with captions.
+    // ======================================================================================
+    function simVoiceOn() { try { return localStorage.getItem('sim-voice') !== 'off'; } catch (e) { return true; } }
+    function simHush() { if ('speechSynthesis' in window) speechSynthesis.cancel(); }
+    function simSpeak(sp) {
+        if (!sp || !('speechSynthesis' in window) || !simVoiceOn()) return;
+        speechSynthesis.cancel();
+        const all = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang));
+        const gb = all.filter(v => v.lang === 'en-GB');
+        const pool = gb.length ? gb : all;
+        const female = /female|hazel|susan|libby|sonia|maisie|kate|serena|zira|jenny|aria|martha|emma|amy/i;
+        const male = /\bmale\b|george|ryan|daniel|thomas|oliver|arthur|guy|david|mark|james|brian/i;
+        const v = sp.who === 'f' ? pool.find(x => female.test(x.name)) : pool.find(x => male.test(x.name) && !female.test(x.name));
+        const u = new SpeechSynthesisUtterance(sp.text);
+        u.lang = 'en-GB';
+        if (v || pool[0]) u.voice = v || pool[0];
+        u.rate = sp.who === 'robot' ? 1.02 : 0.97;
+        u.pitch = sp.who === 'robot' ? 0.35 : !v && sp.who === 'f' ? 1.25 : !v && sp.who === 'm' ? 0.8 : 1;
+        speechSynthesis.speak(u);
+    }
+    window.addEventListener('pagehide', simHush);
+
+    function trainerCall(p, call, phase, line) {
+        const head = `${avatar(call.letter, call.color)}<strong>${call.name}</strong><small>${phase === 'ring' ? call.number : phase === 'end' ? 'Call ended' : '0:' + String(call.secs || 8).padStart(2, '0')}</small>${call.tag && phase === 'ring' ? `<em class="call-tag">${call.tag}</em>` : ''}`;
+        if (phase === 'ring') {
+            return `<div class="call-screen ${p}">${statusBar(p)}<div class="call-ring">${head}</div>
+                <div class="call-answer"><button type="button" class="decline" data-tap="decline" aria-label="Decline">${UI.hangup}</button><button type="button" class="accept" data-tap="answer" aria-label="Answer">${UI.phone}</button></div>
+                <p class="call-labels"><span>Decline</span><span>Answer</span></p>${homeIndicator(p)}</div>`;
+        }
+        return `<div class="call-screen ${p}">${statusBar(p)}<div class="call-ring small">${head}</div>
+            ${line ? `<p class="call-handler"><b>${call.name === 'Unknown' ? 'Caller' : call.name}:</b> “${line}”</p>` : ''}
+            <div class="call-answer single"><button type="button" class="decline" data-tap="hangup" aria-label="Hang up">${UI.hangup}</button></div>${homeIndicator(p)}</div>`;
+    }
+
+    const SCAM_CALLS = [
+        {letter: '?', color: '#64748b', name: 'Unknown', number: '0161 496 0423', who: 'm', tag: 'Not in your contacts',
+         intro: 'Your phone is ringing. The number isn\'t saved in your contacts. <strong>Answer it</strong> to practise. <em>Turn your sound up to hear the caller.</em>',
+         lines: [
+            {text: 'Hello, this is Mark from the fraud team at your bank. We\'ve spotted some suspicious payments on your account. Before I go on, can you confirm your full name, your date of birth, and the long number on your bank card?',
+             q: 'The caller says he\'s from your bank. What do you do?', options: [
+                {t: 'Give the details, he\'s from the bank', why: 'A bank that rings you will never ask for your full card number. This is how scammers get your details.'},
+                {t: 'Say you\'ll ring your bank back on the number on your card, and hang up', ok: true, why: 'Exactly. Ring the number on your card, from a different phone if you can, or dial 159.'},
+                {t: 'Ask him to prove who he is', why: 'Scammers sound convincing and often know some of your details already. The safest thing is to hang up and ring your bank yourself.'}]},
+            {text: 'Please don\'t hang up! Criminals are taking money from your account right now. You need to move everything into a safe account that I\'ll set up for you. We have to do it in the next ten minutes.',
+             q: 'He says it\'s urgent and you must move your money. What now?', options: [
+                {t: 'Move the money quickly, before it\'s too late', why: 'There\'s no such thing as a "safe account". Your bank will never ask you to move money. This is the scam.'},
+                {t: 'Hang up. A real bank never asks you to move money to a "safe account"', ok: true, why: 'Yes. The rush and the "safe account" are the giveaways. Hang up and dial 159.'}]}],
+         hang: 'Hang up with the red button.'},
+        {letter: '?', color: '#64748b', name: 'Unknown', number: '020 7946 0815', who: 'robot', tag: 'Not in your contacts',
+         intro: 'Another call. <strong>Answer it.</strong>',
+         lines: [
+            {text: 'This is an automated message from H M R C. A warrant has been issued for your arrest, for unpaid tax. To speak to an officer, press 1 now.',
+             q: 'A recorded voice says you\'ll be arrested over tax. What do you do?', options: [
+                {t: 'Press 1 to sort it out', why: 'Pressing 1 puts you through to scammers, who\'ll demand payment, often in gift cards. HMRC never threatens arrest on a recorded message.'},
+                {t: 'Hang up. HMRC doesn\'t ring with arrest threats', ok: true, why: 'Right. HMRC writes to you first, and never threatens arrest on the phone.'}]}],
+         hang: 'Hang up.'},
+        {letter: '?', color: '#64748b', name: 'Unknown', number: '0113 496 0332', who: 'm', tag: 'Not in your contacts',
+         intro: 'Your phone again. <strong>Answer it.</strong>',
+         lines: [
+            {text: 'Hello, I\'m calling from the Windows technical department. Your computer has been sending us error messages, and it has a very dangerous virus. Please go and switch on your computer, and I\'ll help you fix it.',
+             q: 'He says your computer has a virus. What do you do?', options: [
+                {t: 'Switch the computer on and follow his instructions', why: 'He\'d ask you to install a program that lets him control your computer, then ask for money. Microsoft never rings like this.'},
+                {t: 'Hang up. Computer companies don\'t ring about viruses', ok: true, why: 'Exactly. Never let a caller onto your computer.'},
+                {t: 'Explain that you don\'t have a computer', why: 'You don\'t need to explain or argue. Just hang up.'}]}],
+         hang: 'Hang up.'},
+        {letter: '?', color: '#64748b', name: 'Unknown', number: '0808 157 0190', who: 'f', tag: 'Not in your contacts',
+         intro: 'Another call. <strong>Answer it.</strong>',
+         lines: [
+            {text: 'Hello. An order for a new iPhone, costing nine hundred and ninety nine pounds, has been placed on your online shopping account. If you did not make this order, press 1 to cancel it and speak to our team.',
+             q: 'You didn\'t order an iPhone. What do you do?', options: [
+                {t: 'Press 1 to cancel the order', why: 'Pressing 1 puts you through to a scammer, who\'ll "refund" you by asking for your bank details or control of your computer.'},
+                {t: 'Hang up, then check your account yourself in the app or on the website', ok: true, why: 'Yes. If there really were an order, you\'d see it in your account. Never use a number or button a caller gives you.'}]}],
+         hang: 'Hang up.'},
+        {letter: 'S', color: '#16a34a', name: 'Surgery', number: '01632 960211', who: 'f', tag: 'Saved in your contacts',
+         intro: 'One more call: this time it\'s the doctor\'s surgery, saved in your contacts. <strong>Answer it.</strong>',
+         lines: [
+            {text: 'Hello, it\'s Sue from the surgery. Just a quick reminder that your flu jab is booked for Tuesday at ten o\'clock. You don\'t need to do anything. If you need to change it, give us a ring on the usual number. Bye for now!',
+             q: 'Is this call a scam?', options: [
+                {t: 'Yes: hang up and block the number', why: 'This one\'s fine! She didn\'t ask for anything, didn\'t rush you, and told you to use the usual number.'},
+                {t: 'Probably genuine: she didn\'t ask for money or details, and said to ring the usual number', ok: true, why: 'Exactly. Genuine calls don\'t pressure you. If you\'re ever unsure, ring back on the number you already have.'}]}],
+         hang: 'The call has finished. <strong>Tap the red button</strong> to hang up.'},
+    ];
+
+    SCENARIOS['scam-calls'] = (p) => withCtx([
+        ...SCAM_CALLS.flatMap((call, n) => [
+            {screen: () => trainerCall(p, call, 'ring'), target: 'answer', say: `<strong>Call ${n + 1} of ${SCAM_CALLS.length}.</strong> ${call.intro}`,
+             hints: {decline: 'In real life, it\'s fine not to answer numbers you don\'t know! For this practice, tap the green button to answer.'}},
+            ...call.lines.map((line, k) => ({screen: () => trainerCall(p, {...call, secs: 6 + k * 14}, 'talk', line.text), speak: {text: line.text, who: call.who}, question: {q: line.q, options: line.options}})),
+            {screen: () => trainerCall(p, {...call, secs: 6 + call.lines.length * 14}, 'talk', call.lines[call.lines.length - 1].text), target: 'hangup', say: call.hang},
+        ]),
+        {screen: () => trainerCall(p, SCAM_CALLS[4], 'end'), question: {q: 'Which of these is a sign of a scam call?', options: [
+            {t: 'Being rushed, threatened, or told to keep it secret', ok: true, why: 'Yes. Pressure is the biggest giveaway. A genuine caller is happy for you to take your time and ring back.'},
+            {t: 'The caller knows your name', why: 'Scammers often know your name, and even some account details. That alone doesn\'t make a call genuine.'},
+            {t: 'The number looks local', why: 'Scammers can make any number appear on your screen, even a local one or your bank\'s. Don\'t trust the number.'}]}},
+        {screen: () => trainerCall(p, SCAM_CALLS[4], 'end'), done: true,
+         say: '<strong>Well done!</strong> You hung up on four scammers and spotted the genuine call. Remember: if in doubt, hang up, and ring back on a number you trust. For your bank, dial 159.'},
+    ], {});
+    SCENARIOS['scam-calls'].voice = true;
+
     function start(root) {
         const name = root.dataset.sim;
         const build = SCENARIOS[name];
@@ -4766,6 +4866,8 @@
                     <p class="sim-hint" role="status"></p>
                     <div class="sim-tools">
                         <button type="button" class="btn-quiet sim-show" hidden>Show me where</button>
+                        <button type="button" class="btn-quiet sim-hear" hidden>🔊 Hear it again</button>
+                        <button type="button" class="btn-link sim-voice" hidden></button>
                         <button type="button" class="btn-link sim-back">Back a step</button>
                         <button type="button" class="btn-link sim-switch"${OSES.length < 2 ? ' hidden' : ''}>Switch ${isPC ? 'computer' : 'phone'}</button>
                     </div>
@@ -4784,6 +4886,16 @@
         const question = root.querySelector('.sim-question');
         const hint = root.querySelector('.sim-hint');
         const showBtn = root.querySelector('.sim-show');
+        // Talking practices (the scam call trainer): "Hear it again" and a voice on/off switch.
+        const hearBtn = root.querySelector('.sim-hear'), voiceBtn = root.querySelector('.sim-voice');
+        const voiceLabel = () => { voiceBtn.textContent = simVoiceOn() ? 'Turn the voice off' : 'Turn the voice on'; };
+        if (build.voice && 'speechSynthesis' in window) { voiceBtn.hidden = false; voiceLabel(); }
+        hearBtn.addEventListener('click', () => { const st = steps[i]; if (st && st.speak) { if (!simVoiceOn()) { try { localStorage.setItem('sim-voice', 'on'); } catch (e) {} voiceLabel(); } simSpeak(st.speak); } });
+        voiceBtn.addEventListener('click', () => {
+            try { localStorage.setItem('sim-voice', simVoiceOn() ? 'off' : 'on'); } catch (e) {}
+            voiceLabel();
+            if (simVoiceOn() && steps[i] && steps[i].speak) simSpeak(steps[i].speak); else simHush();
+        });
 
         // Practice computer animations: a window animates out before the next step, and in after it.
         let animating = false, lastId = null, wasMin = false, restoring = false, shiftTap = false, lastPointer = 'mouse';
@@ -4836,6 +4948,9 @@
                 draw(ctx);
             }
             if (isPC) pcAnimIn(screen, platform, lastId, prevTitle, restoring);
+            simHush();
+            hearBtn.hidden = !(step.speak && 'speechSynthesis' in window);
+            if (step.speak) simSpeak(step.speak);
             lastId = null;
             restoring = false;
             if (step.question) askQuestion(step.question);

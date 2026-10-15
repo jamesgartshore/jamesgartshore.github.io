@@ -116,25 +116,28 @@
     });
 })();
 
-// "Listen to this tip": reads the title, the "In short" list and the post aloud using the
-// browser's built-in voice (no account or app needed). Hidden if the browser can't speak.
+// "Listen to this tip / lesson / page": reads the page aloud using the browser's built-in voice (no account or
+// app needed), highlighting each paragraph as it's read. Skips practice phones, forms, buttons and menus.
+// Hidden if the browser can't speak.
 (function () {
     const btn = document.getElementById('listen-btn');
     if (!btn || !('speechSynthesis' in window)) return;
     btn.hidden = false;
     const label = btn.querySelector('span');
-    const article = document.querySelector('article');
+    const article = btn.closest('article') || document.querySelector('main') || document.body;
+    const SKIP = '.sim, nav, form, button, .no-listen, .listen-btn, .lesson-nav, .print-footer, .pass-it-on, .reader-notes, .related, .tips-by-email, .feedback, [hidden], noscript, script, .course-done, .certificate';
 
-    function textToRead() {
-        const parts = [article.querySelector('h1').textContent];
-        article.querySelectorAll('.in-short li, article > p').forEach(el => parts.push(el.textContent));
-        return parts.map(t => t.replace(/\s+/g, ' ').trim()).filter(Boolean);
+    function blocks() {
+        if (btn.dataset.listen === 'post') return [article.querySelector('h1'), ...article.querySelectorAll('.in-short li, article > p')];
+        return [...article.querySelectorAll('h1, h2, h3, p, li, dt, dd, blockquote, figcaption')]
+            .filter(el => !el.closest(SKIP) && !(el.matches('li') && el.querySelector('p, li')) && el.offsetParent !== null);
     }
 
     function stop() {
         speechSynthesis.cancel();
         btn.setAttribute('aria-pressed', 'false');
-        label.textContent = 'Listen to this tip';
+        label.textContent = btn.dataset.label || 'Listen';
+        document.querySelectorAll('.is-reading').forEach(el => el.classList.remove('is-reading'));
     }
 
     btn.addEventListener('click', () => {
@@ -142,13 +145,19 @@
         speechSynthesis.cancel();
         const voices = speechSynthesis.getVoices();
         const voice = voices.find(v => v.lang === 'en-GB') || voices.find(v => v.lang.startsWith('en'));
-        const chunks = textToRead();
-        chunks.forEach((text, i) => {
-            const u = new SpeechSynthesisUtterance(text);
+        const els = blocks().filter(el => el && el.textContent.trim());
+        els.forEach((el, i) => {
+            const u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, ' ').trim());
             u.lang = 'en-GB';
             u.rate = 0.95;
             if (voice) u.voice = voice;
-            if (i === chunks.length - 1) u.onend = stop;
+            u.onstart = () => {
+                document.querySelectorAll('.is-reading').forEach(x => x.classList.remove('is-reading'));
+                el.classList.add('is-reading');
+                const r = el.getBoundingClientRect();
+                if (r.top < 0 || r.bottom > window.innerHeight) el.scrollIntoView({block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+            };
+            if (i === els.length - 1) u.onend = stop;
             speechSynthesis.speak(u);
         });
         btn.setAttribute('aria-pressed', 'true');
