@@ -294,3 +294,159 @@ document.querySelectorAll('#message-form, .web3-form').forEach(form => {
         .then(addBadges)
         .catch(() => addBadges({}));
 })();
+
+// Learn: course progress (saved on this device), practice exercises and printing handouts.
+(function () {
+    const read = course => { try { return JSON.parse(localStorage.getItem('learn:' + course) || '[]'); } catch (e) { return []; } };
+    const save = (course, list) => { try { localStorage.setItem('learn:' + course, JSON.stringify(list)); } catch (e) {} };
+
+    // Lesson page: mark the lesson done when they move on, and show progress dots.
+    const lesson = document.querySelector('article.lesson');
+    if (lesson) {
+        const course = lesson.dataset.course, slug = lesson.dataset.lesson;
+        const done = read(course);
+        lesson.querySelectorAll('.lesson-steps span').forEach(s => s.classList.toggle('done', done.includes(s.dataset.lesson)));
+        const doneBtn = lesson.querySelector('.lesson-done');
+        // Lessons with a required practice phone: finish it before moving on (that's the proof it's been done).
+        const sim = lesson.querySelector('.sim[data-required]');
+        const simDone = () => { try { return !sim || localStorage.getItem('sim-done:' + sim.dataset.sim) === '1'; } catch (e) { return true; } };
+        doneBtn.addEventListener('click', e => {
+            if (!simDone()) {
+                e.preventDefault();
+                const note = document.getElementById('sim-needed');
+                note.hidden = false;
+                sim.scrollIntoView({behavior: 'smooth', block: 'start'});
+                return;
+            }
+            const list = read(course);
+            if (!list.includes(slug)) { list.push(slug); save(course, list); }
+        });
+        if (sim) sim.addEventListener('sim:done', () => { document.getElementById('sim-needed').hidden = true; });
+    }
+
+    // Learn list and course page: progress, "Carry on", ticks and the certificate.
+    document.querySelectorAll('[data-course][data-lessons]').forEach(el => {
+        const course = el.dataset.course;
+        const all = el.dataset.lessons.split(',');
+        const done = read(course).filter(s => all.includes(s));
+        const finished = done.length === all.length;
+        const progress = el.querySelector('.course-progress');
+        const coming = parseInt(el.dataset.coming, 10) || 0;  // lessons not written yet
+        if (progress && done.length) {
+            progress.textContent = !finished ? `${done.length} of ${all.length} lessons done`
+                : coming ? `You've done ${all.length === 1 ? 'the first lesson' : 'all ' + all.length + ' lessons'} so far. More coming soon!`
+                : 'Completed ✓';
+        }
+        const go = el.querySelector('.course-go');
+        if (go && done.length) go.textContent = finished ? 'Look through it again →' : 'Carry on →';
+        if (!el.matches('article.course')) return;
+
+        el.querySelectorAll('.lesson-list li').forEach(li => {
+            const ok = done.includes(li.dataset.lesson);
+            li.classList.toggle('done', ok);
+            if (ok) li.querySelector('.lesson-state-text').textContent = 'Done ✓';
+        });
+        const next = all.find(s => !done.includes(s));
+        const goBtn = document.getElementById('course-go');
+        if (finished) {
+            goBtn.textContent = 'Go through it again';
+            const doneBox = document.getElementById('course-done');  // absent while lessons are still to come
+            if (doneBox) doneBox.hidden = false;
+        } else if (done.length) {
+            goBtn.textContent = 'Carry on';
+            goBtn.href = next + '/';
+        }
+        const date = el.querySelector('.cert-date');
+        if (date) date.textContent = new Date().toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric'});
+        document.getElementById('course-reset').addEventListener('click', () => {
+            if (confirm('Clear your progress for this course on this device?')) { save(course, []); location.reload(); }
+        });
+    });
+
+    // Quizzes: pick an answer, see straight away whether it's right and why.
+    document.querySelectorAll('.quiz').forEach(quiz => {
+        const items = [...quiz.querySelectorAll('.quiz-item')];
+        const score = quiz.querySelector('.quiz-score');
+        let answered = 0, right = 0;
+        items.forEach(item => {
+            const buttons = [...item.querySelectorAll('.q-options button')];
+            buttons.forEach(b => b.addEventListener('click', () => {
+                if (item.classList.contains('answered')) return;
+                item.classList.add('answered');
+                const ok = b.hasAttribute('data-correct');
+                buttons.forEach(x => {
+                    x.disabled = true;
+                    if (x.hasAttribute('data-correct')) x.classList.add('is-right');
+                });
+                if (!ok) b.classList.add('is-wrong');
+                b.setAttribute('aria-pressed', 'true');
+                const explain = item.querySelector('.q-explain');
+                const verdict = document.createElement('p');
+                verdict.className = 'q-verdict ' + (ok ? 'right' : 'wrong');
+                verdict.textContent = ok ? 'Right!' : 'Not quite.';
+                explain.prepend(verdict);
+                explain.hidden = false;
+                explain.tabIndex = -1;
+                explain.focus({preventScroll: true});
+                answered += 1;
+                right += ok;
+                if (answered === items.length) {
+                    score.textContent = `You got ${right} out of ${items.length}.` +
+                        (right === items.length ? ' Brilliant!' : ' Have a read of the explanations, and try again any time.');
+                }
+            }));
+        });
+    });
+
+    // "Find the warning signs": tap the suspicious parts of a message.
+    document.querySelectorAll('.flag-hunt').forEach(hunt => {
+        const flags = [...hunt.querySelectorAll('.flag')];
+        const notes = hunt.querySelector('.flag-notes');
+        const count = hunt.querySelector('.flag-count');
+        const update = () => {
+            const n = flags.filter(f => f.classList.contains('found')).length;
+            count.textContent = n === flags.length ? `You found all ${n}. Well spotted!` : `Found ${n} of ${flags.length}`;
+        };
+        const find = f => {
+            if (f.classList.contains('found')) return;
+            f.classList.add('found');
+            f.setAttribute('aria-pressed', 'true');
+            const li = document.createElement('li');
+            li.textContent = f.dataset.note;
+            notes.append(li);
+            update();
+        };
+        flags.forEach(f => {
+            f.setAttribute('aria-pressed', 'false');
+            f.addEventListener('click', () => find(f));
+        });
+        hunt.querySelector('.flag-show').addEventListener('click', () => flags.forEach(find));
+    });
+
+    // Fill-in cards (emergency card, certificate). Only the certificate name is remembered on this device.
+    document.querySelectorAll('.card-fill input[data-target]').forEach(input => {
+        const out = document.getElementById(input.dataset.target);
+        const blank = out.textContent;
+        const remember = input.id === 'cert-name';
+        if (remember) { try { input.value = localStorage.getItem('learn:name') || ''; } catch (e) {} }
+        const sync = () => {
+            out.textContent = input.value.trim() || blank;
+            if (remember) { try { localStorage.setItem('learn:name', input.value.trim()); } catch (e) {} }
+        };
+        input.addEventListener('input', sync);
+        sync();
+    });
+
+    // Print buttons: the whole lesson as a handout, or just the card or certificate.
+    document.querySelectorAll('[data-print]').forEach(b => b.addEventListener('click', () => {
+        if (b.dataset.print !== 'page') document.body.dataset.printOnly = b.dataset.print;
+        window.print();
+    }));
+    window.addEventListener('afterprint', () => { delete document.body.dataset.printOnly; });
+})();
+
+// Contact page opened from "Help for local groups" (#group): pick the group topic.
+(function () {
+    const option = document.getElementById('topic-group');
+    if (option && location.hash === '#group') option.selected = true;
+})();
