@@ -316,7 +316,7 @@
             const groups = [
                 [['airplane', 'Airplane Mode', '#f59e0b', '✈'], ['wifi', 'Wi-Fi', '#3b82f6', 'W'], ['bluetooth', 'Bluetooth', '#3b82f6', 'B'], ['mobile', 'Mobile Service', '#22c55e', 'M']],
                 [['notifications', 'Notifications', '#ef4444', 'N'], ['sounds', 'Sounds &amp; Haptics', '#ec4899', 'S'], ['focus', 'Focus', '#6366f1', 'F']],
-                [['general', 'General', '#8e8e93', 'G'], ['accessibility', 'Accessibility', '#3b82f6', 'A'], ['display', 'Display &amp; Brightness', '#3b82f6', 'D'],
+                [['general', 'General', '#8e8e93', 'G'], ['accessibility', 'Accessibility', '#3b82f6', 'A'], ['ai', 'Apple Intelligence &amp; Siri', '#a855f7', '✦'], ['display', 'Display &amp; Brightness', '#3b82f6', 'D'],
                  ['lock', lockName, ctx.touch ? '#ef4444' : '#22c55e', ctx.touch ? '◎' : '☺'], ['sos', 'Emergency SOS', '#ef4444', 'S'],
                  ['privacy', 'Privacy &amp; Security', '#3b82f6', 'P'], ['battery', 'Battery', '#22c55e', 'B']],
                 [['apps', 'Apps', '#6366f1', '▦']],
@@ -330,7 +330,7 @@
                 </div>${homeIndicator(p)}</div>`;
         }
         const rows = [['network', 'Network &amp; internet', 'Mobile, Wi-Fi, hotspot'], ['devices', 'Connected devices', 'Bluetooth, pairing'],
-            ['apps', 'Apps', 'Recent apps, default apps'], ['notifications', 'Notifications', 'Notification history'], ['battery', 'Battery', '85%'],
+            ['apps', 'Apps', 'Recent apps, default apps'], ['notifications', 'Notifications', 'Notification history'], ['battery', 'Battery', '85%'], ['storage', 'Storage', '91% used'],
             ['sound', 'Sound &amp; vibration', 'Volume, haptics'], ['display', 'Display &amp; touch', 'Dark theme, font size'],
             ['accessibility', 'Accessibility', 'Display, interaction, audio'], ['security', 'Security &amp; privacy', 'App security, device lock, permissions'],
             ['location', 'Location', 'On'], ['safety', 'Safety &amp; emergency', 'Emergency SOS, medical info, alerts'],
@@ -1867,6 +1867,1217 @@
     ], {});
 
     // ---------- Engine ----------
+    // The iPhone home bar / Android home button, as something you can tap (or swipe up on the iPhone).
+    const navHome = p => p === 'ios'
+        ? '<button type="button" class="ph-homebar-btn" data-tap="home-bar" data-swipe="home" aria-label="Home bar (swipe up to go home)"></button>'
+        : '<div class="ph-androidnav"><button type="button" data-tap="nav-back" aria-label="Back">◁</button><button type="button" data-tap="home-pill" aria-label="Home">○</button><span>▢</span></div>';
+
+    // ======================================================================================
+    // Course: Everyday phone skills
+    // ======================================================================================
+
+    // Buttons on the edges of the phone. iPhone: volume on the left, side button on the right.
+    // Android: power, then volume up and down, all on the right.
+    function edgeButtons(p) {
+        return p === 'ios'
+            ? `<button type="button" class="edge-btn left at1" data-tap="vol-up" aria-label="Volume up button">+</button>
+               <button type="button" class="edge-btn left at2" data-tap="vol-down" aria-label="Volume down button">−</button>
+               <button type="button" class="edge-btn right at1" data-tap="side" aria-label="Side button">${UI.power}</button>`
+            : `<button type="button" class="edge-btn right at0" data-tap="power" aria-label="Power button">${UI.power}</button>
+               <button type="button" class="edge-btn right at1" data-tap="vol-up" aria-label="Volume up button">+</button>
+               <button type="button" class="edge-btn right at2" data-tap="vol-down" aria-label="Volume down button">−</button>`;
+    }
+
+    const busTable = `<div class="bus-card"><strong>Bus 121: Bridlington to Hull</strong><small>Practice times only</small>
+        <table class="bus-table"><tr><th>Bridlington</th><th>Driffield</th><th>Hull</th></tr>
+        <tr><td>09:15</td><td>09:45</td><td>10:40</td></tr><tr><td>10:15</td><td>10:45</td><td>11:40</td></tr>
+        <tr><td>11:15</td><td>11:45</td><td>12:40</td></tr><tr><td>12:15</td><td>12:45</td><td>13:40</td></tr></table></div>`;
+
+    function shotScreen(p, ctx) {
+        const thumb = ctx.shot && !ctx.saved
+            ? `<button type="button" class="shot-thumb" data-tap="thumb" aria-label="Screenshot preview"><span class="shot-mini"></span></button>
+               ${p === 'android' ? '<div class="shot-actions"><button type="button" data-tap="shot-share">Share</button><button type="button" data-tap="shot-edit">Edit</button></div>' : ''}` : '';
+        const sheet = ctx.shareSheet ? `<div class="ph-sheet"><div class="ph-sheet-box"><p><strong>Share screenshot</strong></p>
+            <div class="share-row"><button type="button" data-tap="share-sarah">${avatar('S', '#f472b6')}<span>Sarah</span></button>
+            <button type="button" data-tap="share-jean">${avatar('J', '#a78bfa')}<span>Jean</span></button>
+            <button type="button" data-tap="share-email">${avatar('@', '#3b82f6')}<span>Email</span></button></div></div></div>` : '';
+        return app(p, 'Bus times', busTable, {back: false, color: '#fff',
+            overlay: (ctx.shot ? '' : edgeButtons(p)) + thumb + sheet});
+    }
+
+    function shotEditor(p, ctx) {
+        const sheet = ctx.doneSheet ? `<div class="ph-sheet"><div class="ph-sheet-box">
+            <button type="button" class="ph-btn-text" data-tap="save-photos">Save to Photos</button>
+            <button type="button" class="ph-btn-text" data-tap="save-files">Save to Files</button>
+            <button type="button" class="ph-btn-text danger" data-tap="delete-shot">Delete Screenshot</button></div></div>` : '';
+        return `<div class="ph-app-screen shot-edit ph-${p}">${statusBar(p)}
+            <div class="shot-top"><button type="button" data-tap="done">Done</button><span>Screenshot</span><button type="button" data-tap="share" aria-label="Share">${UI.share}</button></div>
+            <div class="shot-preview">${busTable}</div>
+            <div class="shot-tools" aria-hidden="true"><span></span><span></span><span></span><span></span></div>${sheet}${homeIndicator(p)}</div>`;
+    }
+
+    SCENARIOS['screenshot'] = (p) => withCtx([
+        {screen: c => shotScreen(p, c), sequence: p === 'ios' ? ['side', 'vol-up'] : ['power', 'vol-down'], action: c => { c.shot = true; },
+         say: p === 'ios'
+            ? 'A screenshot is a photo of whatever is on your screen, like these bus times. Press the <strong>side button</strong> (right) and <strong>volume up</strong> (left) at the same time, then let go. Here, <strong>tap the side button, then volume up</strong>.'
+            : 'A screenshot is a photo of whatever is on your screen, like these bus times. Press the <strong>power button</strong> and <strong>volume down</strong> at the same time, then let go. Here, <strong>tap the power button, then volume down</strong>.',
+         hints: {'vol-down': p === 'ios' ? 'On an iPhone it\'s volume UP, with the side button.' : 'Start with the power button, at the top of the right-hand side.',
+                 'vol-up': p === 'ios' ? 'Start with the side button on the right.' : 'On Android it\'s volume DOWN, with the power button.',
+                 side: 'Now the volume up button, on the left.', power: 'Now the volume down button.'},
+         hint: p === 'ios' ? 'The side button is on the right edge. Volume up is on the left.' : 'The power button is the top button on the right edge.'},
+        ...(p === 'ios' ? [
+            {screen: c => shotScreen(p, c), target: 'thumb', say: 'Click! A small picture appears in the bottom corner. <strong>Tap it</strong> to see your screenshot. <em>If you leave it, it saves itself after a few seconds.</em>'},
+            {screen: c => shotEditor(p, c), target: 'done', action: c => { c.doneSheet = true; }, say: 'You can draw on it or crop it here. <strong>Tap Done</strong> at the top left.'},
+            {screen: c => shotEditor(p, c), target: 'save-photos', action: c => { c.saved = true; },
+             say: '<strong>Tap Save to Photos.</strong>', hints: {'delete-shot': 'That would throw it away. Tap Save to Photos.', 'save-files': 'Files works too, but Photos is easier to find. Tap Save to Photos.'}},
+        ] : [
+            {screen: c => shotScreen(p, c), target: 'shot-share', action: c => { c.shareSheet = true; },
+             say: 'Click! A small picture appears with buttons underneath. It\'s already saved. <strong>Tap Share</strong> to send it to someone.', hints: {'shot-edit': 'Edit lets you crop or draw on it. For now, tap Share.'}},
+            {screen: c => shotScreen(p, c), target: 'share-sarah', action: c => { c.shareSheet = false; c.saved = true; },
+             say: '<strong>Tap Sarah</strong> to send her the bus times.'},
+        ]),
+        {screen: c => shotScreen(p, c), question: {q: 'Where can you find your screenshots later?', options: [
+            {t: 'In the Photos app, in the Screenshots album', ok: true, why: 'Yes. They\'re saved with your photos, so you can look at them, share them or delete them like any photo.'},
+            {t: 'They disappear after a day', why: 'They stay until you delete them. Look in the Photos app, in the Screenshots album.'}]}},
+        {screen: c => shotScreen(p, c), done: true,
+         say: '<strong>Well done!</strong> Screenshots are handy for bus times, tickets, error messages and anything you want to keep or show someone. You can delete them from Photos when you\'re done.'},
+    ], {});
+
+    // ---------- Copy and paste ----------
+    const ADDRESS = '8 Harbour View, Bridlington';
+    function copyChat(p, ctx) {
+        const menu = ctx.copyMenu ? `<div class="ph-sheet"><div class="ph-sheet-box">
+            <button type="button" class="ph-btn-text" data-tap="reply">Reply</button>
+            <button type="button" class="ph-btn-text" data-tap="copy">Copy</button>
+            <button type="button" class="ph-btn-text" data-tap="forward">Forward</button></div></div>` : '';
+        return `<div class="ph-app-screen msg-app ph-${p}">${statusBar(p)}
+            <div class="msg-head"><span class="msg-back">${p === 'ios' ? '‹' : '←'}</span><strong>Sarah</strong></div>
+            <div class="wa-thread"><div class="wa-bubble them"><span>Lunch on Sunday at Jean's new flat 😊</span><small>10:02</small></div>
+                <button type="button" class="wa-bubble them${ctx.copied ? ' copied' : ''}" data-hold="address"><span>Here's her address: ${ADDRESS}</span><small>10:03</small></button></div>
+            <div class="msg-bar"><span class="msg-box">Text message</span></div>${menu}${navHome(p)}</div>`;
+    }
+
+    function mapsScreen(p, ctx) {
+        const searchText = ctx.pasted ? ADDRESS : (ctx.place || '');
+        const box = `<button type="button" class="mp-search" data-hold="search-box" data-tap="search-tap">${ICON.search}<span>${searchText || 'Search Maps'}</span></button>`;
+        const bubble = ctx.pasteBubble && !ctx.pasted ? '<button type="button" class="paste-bubble" data-tap="paste">Paste</button>' : '';
+        const results = ctx.pasted && !ctx.pinned ? `<div class="mp-results"><button type="button" class="recent" data-tap="result"><strong>${ADDRESS}</strong><small>Address · 0.8 miles</small></button></div>` : '';
+        const card = ctx.pinned ? `<div class="mp-card"><strong>${ADDRESS}</strong><small>0.8 miles · 4 min by car</small>
+            <button type="button" class="ph-btn ios-blue" data-tap="directions">Directions</button></div>` : '';
+        return `<div class="ph-app-screen maps-app ph-${p}">${statusBar(p)}
+            <div class="mp-map">${ctx.pinned ? '<span class="mp-pin" aria-hidden="true"></span>' : ''}<span class="mp-me" aria-hidden="true"></span></div>
+            <div class="mp-top">${box}${bubble}</div>${results}${card}${homeIndicator(p)}</div>`;
+    }
+
+    SCENARIOS['copy-paste'] = (p) => withCtx([
+        {screen: () => home(p), target: 'messages', say: 'Sarah has texted you an address. Copying it saves typing it out again. <strong>Open Messages.</strong>'},
+        {screen: () => app(p, 'Messages', `<div class="recents"><button type="button" class="recent unread" data-tap="open-sarah"><strong>Sarah</strong><small>Here's her address: ${ADDRESS}</small><span>10:03</span></button>
+            <div class="recent"><strong>Jean</strong><small>See you Thursday!</small><span>Yesterday</span></div></div>`, {back: false, color: p === 'ios' ? '#f2f2f7' : '#fff'}),
+         target: 'open-sarah', say: '<strong>Tap Sarah\'s message.</strong>'},
+        {screen: c => copyChat(p, c), target: 'address', action: c => { c.copyMenu = true; },
+         say: '<strong>Press and hold the message with the address</strong> (keep your finger on it for a second or two) until a menu appears.', hint: 'Keep your finger pressed on the second message until a menu appears.'},
+        {screen: c => copyChat(p, c), target: 'copy', action: c => { c.copyMenu = false; c.copied = true; },
+         say: '<strong>Tap Copy.</strong> Your phone now remembers the words, ready to paste somewhere else.',
+         hints: {reply: 'Reply would start a message. Tap Copy.', forward: 'Forward sends the message to someone. Tap Copy.'}},
+        {screen: c => copyChat(p, c), target: p === 'ios' ? 'home-bar' : 'home-pill', alias: {'home-up': 'home-bar'},
+         say: 'Copied! Now go to the home screen. Here, <strong>tap the bar at the bottom of the screen</strong>.'},
+        {screen: () => home(p), target: 'maps', say: '<strong>Open Maps</strong>, so you can find the address.'},
+        {screen: c => mapsScreen(p, c), target: 'search-box', action: c => { c.pasteBubble = true; },
+         say: '<strong>Press and hold the search box</strong> until a little "Paste" button appears.', hint: 'Keep your finger on the search box at the top.',
+         hints: {'search-tap': 'A quick tap opens the keyboard. Press and hold instead, until Paste appears.'}},
+        {screen: c => mapsScreen(p, c), target: 'paste', action: c => { c.pasted = true; },
+         say: '<strong>Tap Paste.</strong>'},
+        {screen: c => mapsScreen(p, c), target: 'result', action: c => { c.pinned = true; }, say: 'The whole address appears, with no typing. <strong>Tap the result.</strong>'},
+        {screen: c => mapsScreen(p, c), question: {q: 'You want to copy just a phone number from the middle of a long message. How?', options: [
+            {t: 'Press and hold, then tap Select (or drag the little handles) to choose just the bit you want, then Copy', ok: true,
+             why: 'Yes. Drag the handles on either side of the highlighted words to choose exactly what you want.'},
+            {t: 'You can only copy the whole message', why: 'You can choose part of it: press and hold, tap Select, and drag the little handles.'}]}},
+        {screen: c => mapsScreen(p, c), done: true, say: '<strong>Well done!</strong> Copy and paste works almost everywhere: messages, emails, web pages and forms. Press and hold to copy; press and hold to paste.'},
+    ], {});
+
+    // ---------- Storage full ----------
+    function storagePage(p, ctx) {
+        const used = ctx.cleaned ? (p === 'ios' ? '54.1' : '50.9') : (p === 'ios' ? '61.4' : '58.2');
+        const bar = `<div class="stor-head"><strong>${p === 'ios' ? 'iPhone' : 'Storage'}</strong><span>${used} GB of 64 GB used</span>
+            <div class="stor-bar"><span style="width:38%;background:#f59e0b"></span><span style="width:${ctx.cleaned ? 26 : 34}%;background:#22c55e"></span><span style="width:${ctx.cleaned ? 16 : 22}%;background:#8b5cf6"></span></div>
+            <small><i style="background:#f59e0b"></i>Photos <i style="background:#22c55e"></i>WhatsApp <i style="background:#8b5cf6"></i>Apps</small></div>`;
+        if (p === 'ios') {
+            return list(p, 'iPhone Storage', [{caption: 'RECOMMENDATIONS'},
+                ctx.offloaded ? {label: 'Offload Unused Apps', value: 'Enabled ✓'} : {id: 'offload', label: 'Offload Unused Apps', sub: 'Save 2.1 GB. Removes apps you don\'t use but keeps their data.', value: 'Enable'},
+                {caption: 'APPS'}, {label: 'Photos', value: '21.3 GB'}, {label: 'WhatsApp', value: ctx.cleaned ? '7.6 GB' : '14.8 GB'}, {label: 'Facebook', value: '2.4 GB'}, {label: 'BBC iPlayer', value: '1.9 GB'}],
+            {back: 'General', top: bar});
+        }
+        return list(p, 'Storage', [{label: 'Photos &amp; videos', value: '21.3 GB'}, {label: 'Apps', value: ctx.cleaned ? '18.4 GB' : '25.2 GB', sub: 'Including WhatsApp'}, {label: 'Documents &amp; other', value: '4.1 GB'},
+            {label: 'System', value: '7.6 GB'}], {top: bar + (ctx.junked ? '<p class="app-note">✓ 1.1 GB of junk files cleaned</p>' : '<button type="button" class="ph-btn and-green" data-tap="free-up">Free up space</button>')});
+    }
+
+    function waStorage(p, ctx, page) {
+        const color = p === 'ios' ? '#f2f2f7' : WA_GREEN;
+        if (page === 'settings') {
+            return app(p, 'Settings', `<div class="recents">${[['account', 'Account'], ['privacy', 'Privacy'], ['chats', 'Chats'], ['notifications', 'Notifications'], ['storage', 'Storage and data'], ['help', 'Help']]
+                .map(([id, t]) => `<button type="button" class="recent" data-tap="wa-${id}"><strong>${t}</strong></button>`).join('')}</div>`, {back: false, color});
+        }
+        if (page === 'data') {
+            return app(p, 'Storage and data', `<div class="recents"><button type="button" class="recent" data-tap="manage"><strong>Manage storage</strong><small>${ctx.cleaned ? '7.6 GB' : '14.8 GB'}</small></button>
+                <div class="recent"><strong>Network usage</strong><small>1.2 GB sent · 3.4 GB received</small></div>
+                <div class="recent"><strong>Media auto-download</strong><small>Photos, audio, videos on Wi-Fi</small></div></div>`, {color});
+        }
+        if (page === 'manage') {
+            return app(p, 'Manage storage', `<div class="stor-head"><span>WhatsApp is using ${ctx.cleaned ? '7.6' : '14.8'} GB</span>
+                <div class="stor-bar"><span style="width:${ctx.cleaned ? 30 : 58}%;background:${WA_GREEN}"></span></div></div>
+                <div class="recents">${ctx.cleaned ? '<div class="recent"><strong>Larger than 5 MB</strong><small>Nothing to review</small></div>'
+                    : '<button type="button" class="recent" data-tap="large"><strong>Larger than 5 MB</strong><small>23 items · 7.2 GB</small></button>'}
+                <div class="recent"><strong>Forwarded many times</strong><small>112 items · 0.9 GB</small></div>
+                <div class="set-caption">CHATS</div><div class="recent"><strong>Family</strong><small>3.1 GB</small></div><div class="recent"><strong>Bridlington Walkers</strong><small>1.8 GB</small></div></div>`, {color});
+        }
+        // the large files
+        const tiles = ['🎬', '🎬', '🐶', '🎂', '🎬', '🌅', '🎬', '🏖️', '🎬'].map((e, n) => `<span class="file-tile${ctx.selected ? ' on' : ''}">${e}<small>${[412, 380, 96, 210, 655, 88, 301, 120, 540][n]} MB</small></span>`).join('');
+        return app(p, 'Larger than 5 MB', `<div class="file-grid">${tiles}</div>
+            <div class="file-bar">${ctx.selected ? '<span>23 selected</span><button type="button" class="ph-btn danger-btn" data-tap="delete-files">Delete</button>'
+                : '<button type="button" class="ph-btn-text" data-tap="select-all">Select all</button>'}</div>`,
+            {color, overlay: ctx.confirm ? dialog(p, 'Delete 23 items?', 'They\'ll be deleted from WhatsApp. Photos already saved to your phone\'s gallery stay there.', [['cancel', 'Cancel'], ['confirm-delete', 'Delete']]) : ''});
+    }
+
+    const waApp = ['whatsapp', 'WhatsApp', WA_GREEN, ICON.chat];
+    SCENARIOS['storage'] = (p) => withCtx([
+        {screen: () => home(p), target: 'settings', say: 'Getting "Storage almost full"? Let\'s find out what\'s using the space. <strong>Tap Settings.</strong>'},
+        ...(p === 'ios' ? [
+            {screen: c => settingsList(p, c), target: 'general', say: '<strong>Tap General.</strong>'},
+            {screen: () => list(p, 'General', [{id: 'about', label: 'About'}, {id: 'update', label: 'Software Update'}, {id: 'storage', label: 'iPhone Storage'}, {id: 'airdrop', label: 'AirDrop'}, {id: 'vpn', label: 'VPN &amp; Device Management'}], {back: 'Settings'}),
+             target: 'storage', say: '<strong>Tap iPhone Storage.</strong> It takes a few seconds to work everything out.'},
+            {screen: c => storagePage(p, c), target: 'offload', action: c => { c.offloaded = true; },
+             say: 'The coloured bar shows what\'s using the space. First, a quick win: <strong>Offload Unused Apps</strong> removes apps you haven\'t used for a while, but keeps your data in case you want them back. <strong>Tap Enable.</strong>'},
+        ] : [
+            {screen: c => settingsList(p, c), target: 'storage', say: '<strong>Tap Storage.</strong> <em>On a Samsung, it\'s Battery and device care, then Storage.</em>'},
+            {screen: c => storagePage(p, c), target: 'free-up', say: 'The coloured bar shows what\'s using the space. <strong>Tap Free up space.</strong>'},
+            {screen: () => app(p, 'Files', `<div class="clean-card"><strong>Delete junk files</strong><small>1.1 GB of temporary files from apps</small><button type="button" class="ph-btn and-green" data-tap="clean">Clean</button></div>
+                <div class="clean-card"><strong>Delete old screenshots</strong><small>214 MB</small><span class="ph-small">Select and free up</span></div>`, {color: '#fff'}),
+             target: 'clean', action: c => { c.junked = true; }, say: 'Junk files are safe to delete: they\'re temporary files apps don\'t need. <strong>Tap Clean.</strong>'},
+        ]),
+        {screen: c => storagePage(p, c), question: {q: 'WhatsApp is using 14.8 GB. What\'s filling it up?', options: [
+            {t: 'Videos and photos people have sent you, especially in groups', ok: true, why: 'Yes. Every video sent in a family or group chat is saved on your phone. WhatsApp can find and delete the big ones.'},
+            {t: 'Your text messages', why: 'Text barely takes any space. It\'s the videos and photos people send, especially in groups.'}]}},
+        {screen: () => homeWith(p, [waApp]), target: 'whatsapp', say: '<strong>Open WhatsApp.</strong>'},
+        {screen: c => waStorage(p, c, 'settings'), target: 'wa-storage',
+         say: p === 'ios' ? 'In WhatsApp, tap <strong>Settings</strong> at the bottom right. Here it\'s open. <strong>Tap Storage and data.</strong>'
+                          : 'In WhatsApp, tap the <strong>three dots ⋮</strong> at the top, then <strong>Settings</strong>. Here it\'s open. <strong>Tap Storage and data.</strong>'},
+        {screen: c => waStorage(p, c, 'data'), target: 'manage', say: '<strong>Tap Manage storage.</strong>'},
+        {screen: c => waStorage(p, c, 'manage'), target: 'large', say: 'The biggest space-savers are at the top. <strong>Tap Larger than 5 MB.</strong>'},
+        {screen: c => waStorage(p, c, 'large'), target: 'select-all', action: c => { c.selected = true; },
+         say: 'These are big videos people have sent you. If you want to keep one, save it to your photos first. <strong>Tap Select all.</strong>'},
+        {screen: c => waStorage(p, c, 'large'), target: 'delete-files', action: c => { c.confirm = true; }, say: '<strong>Tap Delete.</strong>'},
+        {screen: c => waStorage(p, c, 'large'), target: 'confirm-delete', action: c => { c.confirm = false; c.cleaned = true; },
+         say: 'This only deletes the copies inside WhatsApp. <strong>Tap Delete</strong> to confirm.', hints: {cancel: 'Cancel keeps them. For this practice, tap Delete.'}},
+        {screen: c => waStorage(p, c, 'manage'), done: true,
+         say: '<strong>Well done!</strong> You\'ve freed up over 7 GB. It\'s worth doing every few months. Also empty <strong>Recently Deleted</strong> in Photos, as deleted photos still take up space for 30 days.'},
+    ], {});
+
+    // ---------- Alarms and medication reminders ----------
+    function clockApp(p, ctx, page) {
+        const tabs = (p === 'ios' ? [['world', 'World Clock'], ['alarms', 'Alarms'], ['stopwatch', 'Stopwatch'], ['timers', 'Timers']]
+            : [['alarms', 'Alarm'], ['world', 'Clock'], ['timers', 'Timer'], ['stopwatch', 'Stopwatch']])
+            .map(([id, t]) => `<button type="button" data-tap="tab-${id}" class="${page === id ? 'on' : ''}">${t}</button>`).join('');
+        let inner;
+        if (page === 'world') {
+            inner = '<div class="clk-row"><span><small>Today, +0 hrs</small><strong>London</strong></span><em>09:41</em></div><div class="clk-row"><span><small>Today, +11 hrs</small><strong>Sydney</strong></span><em>20:41</em></div>';
+        } else {
+            const mine = ctx.alarmSaved ? `<div class="clk-row"><span><em>08:00</em><small>${esc(ctx.alarmLabel || 'Tablets')}, every day</small></span>${tog(true)}</div>` : '';
+            inner = `<div class="clk-row off"><span><em>07:00</em><small>Alarm</small></span>${tog(false)}</div>${mine}`;
+        }
+        const add = page === 'alarms' ? `<button type="button" class="app-plus" data-tap="add" aria-label="Add alarm">${UI.plus}</button>` : '';
+        return `<div class="ph-app-screen clock-app ph-${p}">${statusBar(p)}<div class="clk-head"><strong>${page === 'world' ? (p === 'ios' ? 'World Clock' : 'Clock') : (p === 'ios' ? 'Alarms' : 'Alarm')}</strong>${add}</div>
+            <div class="clk-list">${inner}</div><div class="clk-tabs">${tabs}</div>${homeIndicator(p)}</div>`;
+    }
+
+    function alarmEdit(p, ctx) {
+        const times = ['07:00', '08:00', '09:00'].map(t => `<button type="button" data-tap="t-${t.slice(0, 2)}" class="${ctx.alarmTime === t ? 'on' : ''}">${t}</button>`).join('');
+        const sheet = ctx.repeatPick ? `<div class="ph-sheet"><div class="ph-sheet-box"><p><strong>Repeat</strong></p>
+            <button type="button" class="set-row" data-tap="never">Never</button><button type="button" class="set-row" data-tap="weekdays">Weekdays</button>
+            <button type="button" class="set-row" data-tap="every-day">Every day</button></div></div>` : '';
+        return `<div class="ph-app-screen clock-app ph-${p}">${statusBar(p)}
+            <div class="clk-edit-head"><button type="button" data-tap="cancel">Cancel</button><strong>Add Alarm</strong><button type="button" data-tap="save" class="save">Save</button></div>
+            <div class="time-pick">${times}</div>
+            <div class="clk-form">
+                <button type="button" class="set-row" data-tap="repeat"><span>Repeat</span><span class="set-val">${ctx.repeat || 'Never'} ›</span></button>
+                <div class="set-row static"><span>Label</span>${field('alarmlabel', 'Alarm', ctx)}</div>
+                <div class="set-row static"><span>Snooze</span>${tog(true)}</div></div>${sheet}${homeIndicator(p)}</div>`;
+    }
+
+    SCENARIOS['alarms'] = (p) => withCtx([
+        {screen: () => home(p), target: 'clock', say: 'An alarm can remind you to take your tablets every day. <strong>Open the Clock app.</strong>', hint: 'It\'s the black icon with a white clock face.'},
+        {screen: c => clockApp(p, c, 'world'), target: 'tab-alarms', say: `<strong>Tap ${p === 'ios' ? 'Alarms' : 'Alarm'}</strong> at the ${p === 'ios' ? 'bottom' : 'bottom left'}.`},
+        {screen: c => clockApp(p, c, 'alarms'), target: 'add', say: '<strong>Tap +</strong> to add a new alarm.'},
+        {screen: c => alarmEdit(p, c), target: 't-08', action: c => { c.alarmTime = '08:00'; },
+         say: 'On a real phone you scroll the numbers to set the time. Here, <strong>tap 08:00</strong>.', hints: {'t-07': 'Choose 08:00 for this practice.', 't-09': 'Choose 08:00 for this practice.'}},
+        {screen: c => alarmEdit(p, c), target: 'repeat', action: c => { c.repeatPick = true; }, say: 'You need this every day, not just once. <strong>Tap Repeat.</strong>'},
+        {screen: c => alarmEdit(p, c), target: 'every-day', action: c => { c.repeatPick = false; c.repeat = 'Every day'; }, say: '<strong>Tap Every day.</strong>',
+         hints: {never: 'Never means it goes off just once. Tap Every day.', weekdays: 'Weekdays skips the weekend. Tap Every day.'}},
+        {screen: c => alarmEdit(p, c), target: 'save', require: c => typed(c, 'alarmlabel').length > 0, requireHint: 'Type a label in the Label box first, like Tablets.',
+         action: c => { c.alarmSaved = true; c.alarmLabel = typed(c, 'alarmlabel'); },
+         say: 'A label tells you what the alarm is for. <strong>Tap the Label box and type Tablets</strong>, then <strong>tap Save</strong>.'},
+        {screen: c => clockApp(p, c, 'alarms'), question: {q: 'The alarm goes off at 8. You take your tablets. Which button do you press?', options: [
+            {t: 'Stop', ok: true, why: 'Yes. Stop turns it off until tomorrow at 8, because it repeats every day.'},
+            {t: 'Snooze', why: 'Snooze makes it ring again in about 9 minutes. Use it if you need a little longer, but Stop turns it off until tomorrow.'}]}},
+        {screen: c => clockApp(p, c, 'alarms'), done: true,
+         say: '<strong>Well done!</strong> Your tablets alarm goes off at 8 every morning. ' + (p === 'ios' ? 'The <strong>Health</strong> app also has a Medications section that reminds you and keeps a log.' : 'You can also ask Google: "Remind me to take my tablets every day at 8".')},
+    ], {input: {}});
+
+    // ---------- Backing up ----------
+    SCENARIOS['backup'] = (p) => withCtx(p === 'ios' ? [
+        {screen: () => home(p), target: 'settings', say: 'If your phone was lost or broken, would your photos be safe? Let\'s check. <strong>Tap Settings.</strong>'},
+        {screen: c => settingsList(p, c), target: 'account', say: '<strong>Tap your name</strong> at the top.'},
+        {screen: () => list(p, 'Apple Account', [{id: 'personal', label: 'Personal Information'}, {id: 'security', label: 'Sign-In &amp; Security'}, {id: 'payment', label: 'Payment &amp; Delivery'}, {id: 'subscriptions', label: 'Subscriptions'},
+            {caption: ' '}, {id: 'icloud', label: 'iCloud', value: '4.2 GB'}, {id: 'family', label: 'Family Sharing'}, {id: 'findmy', label: 'Find My'}], {back: 'Settings'}),
+         target: 'icloud', say: '<strong>Tap iCloud.</strong> iCloud is Apple\'s online storage.'},
+        {screen: c => list(p, 'iCloud', [{caption: 'STORAGE: 4.2 GB OF 5 GB USED'}, {caption: 'SAVED TO ICLOUD'}, {id: 'photos', label: 'Photos', value: c.photoSync ? 'On' : 'Off'}, {id: 'backup', label: 'iCloud Backup', value: c.backedUp ? 'On' : 'Off'},
+            {label: 'Contacts', value: 'On'}, {label: 'Notes', value: 'On'}], {back: 'Apple Account'}),
+         target: 'photos', say: 'Photos and Backup are both <strong>Off</strong>. That means a lost phone would mean lost photos. <strong>Tap Photos.</strong>'},
+        {screen: c => list(p, 'Photos', [{id: 'sync', label: 'Sync this iPhone', toggle: !!c.photoSync, sub: 'Keeps your photos and videos in iCloud, so they\'re safe if you lose your phone.'}], {back: 'iCloud'}),
+         target: 'sync', action: c => { c.photoSync = true; }, say: '<strong>Tap Sync this iPhone</strong> to turn it on.'},
+        {screen: c => list(p, 'Photos', [{label: 'Sync this iPhone', toggle: true}], {back: 'iCloud'}), target: 'back', say: '<strong>Tap ‹ iCloud</strong> to go back.'},
+        {screen: c => list(p, 'iCloud', [{caption: 'STORAGE: 4.2 GB OF 5 GB USED'}, {caption: 'SAVED TO ICLOUD'}, {id: 'photos', label: 'Photos', value: 'On'}, {id: 'backup', label: 'iCloud Backup', value: 'Off'}], {back: 'Apple Account'}),
+         target: 'backup', say: 'Now back up everything else: settings, messages and apps. <strong>Tap iCloud Backup.</strong>'},
+        {screen: c => list(p, 'Backup', [{id: 'backup-toggle', label: 'Back Up This iPhone', toggle: !!c.backedUp, sub: 'Backs up automatically each night when your iPhone is charging, locked and on Wi-Fi.'}], {back: 'iCloud'}),
+         target: 'backup-toggle', action: c => { c.backedUp = true; }, say: '<strong>Tap Back Up This iPhone</strong> to turn it on.'},
+        {screen: () => list('ios', 'Backup', [{label: 'Back Up This iPhone', toggle: true}, {id: 'backup-now', label: 'Back Up Now', sub: 'Last successful backup: Never'}], {back: 'iCloud'}),
+         target: 'backup-now', say: 'It\'ll back up every night from now on. Do the first one now: <strong>tap Back Up Now</strong>.'},
+        {screen: c => list('ios', 'Backup', [{label: 'Back Up This iPhone', toggle: true}, {label: c.busy ? 'Backing up…' : 'Back Up Now', sub: c.busy ? 'About 5 minutes remaining' : 'Last successful backup: Just now ✓'}], {back: 'iCloud'}), wait: 1500,
+         question: {q: 'A text says "Your iCloud storage is full. Your photos will be deleted today. Pay 99p here: [link]". What do you do?', options: [
+            {t: 'Ignore the link. Check in Settings > your name > iCloud, then forward the text to 7726', ok: true, why: 'Yes. This is a common scam. Apple doesn\'t text links, and never deletes your photos like that. Check your real storage in Settings.'},
+            {t: 'Pay quickly to save the photos', why: 'It\'s a scam to get your card details. Check your real storage in Settings > your name > iCloud, and forward the text to 7726.'}]}},
+        {screen: () => list('ios', 'Backup', [{label: 'Back Up This iPhone', toggle: true}, {label: 'Back Up Now', sub: 'Last successful backup: Just now ✓'}], {back: 'iCloud'}), done: true,
+         say: '<strong>Well done!</strong> Your photos and phone are backed up. The free 5 GB fills up fast with photos; if it does, more space (iCloud+) costs a small monthly fee, and you only buy it in Settings, never from a text.'},
+    ] : [
+        {screen: () => home(p), target: 'settings', say: 'If your phone was lost or broken, would your photos be safe? Let\'s check. <strong>Tap Settings.</strong>'},
+        {screen: c => settingsList(p, c), target: 'google', say: '<strong>Tap Google.</strong> It\'s near the bottom.', hint: 'Scroll down the list: Google is near the bottom.'},
+        {screen: () => list(p, 'Google', [{id: 'manage', label: 'Manage your Google Account', sub: 'margaret.smith@example.com'}, {id: 'backup', label: 'Backup', sub: 'Off'}, {id: 'autofill', label: 'Autofill'}, {id: 'devices', label: 'Devices &amp; sharing'}]),
+         target: 'backup', say: 'Backup says <strong>Off</strong>. <strong>Tap Backup.</strong> <em>On a Samsung, it\'s Settings > Accounts and backup.</em>'},
+        {screen: c => list(p, 'Backup', [{id: 'backup-toggle', label: 'Backup by Google One', toggle: !!c.backedUp, sub: 'Backs up apps, messages, call history, contacts and settings.'},
+            {id: 'photos-backup', label: 'Photos &amp; videos', sub: c.photoSync ? 'On · Google Photos' : 'Off · Google Photos'}]),
+         target: 'backup-toggle', action: c => { c.backedUp = true; }, say: '<strong>Tap Backup by Google One</strong> to turn it on.'},
+        {screen: c => list(p, 'Backup', [{label: 'Backup by Google One', toggle: true}, {id: 'photos-backup', label: 'Photos &amp; videos', sub: 'Off · Google Photos'}]),
+         target: 'photos-backup', say: 'Photos are separate. <strong>Tap Photos &amp; videos.</strong>'},
+        {screen: c => list(p, 'Backup', [{id: 'photos-toggle', label: 'Back up photos and videos', toggle: !!c.photoSync, sub: 'Saves them in Google Photos, so they\'re safe if you lose your phone.'},
+            {label: 'Backup quality', value: 'Storage saver'}]), target: 'photos-toggle', action: c => { c.photoSync = true; }, say: '<strong>Tap Back up photos and videos</strong> to turn it on.'},
+        {screen: () => list(p, 'Backup', [{label: 'Back up photos and videos', toggle: true}, {id: 'backup-now', label: 'Back up now', sub: 'Last backup: Never'}]),
+         target: 'backup-now', say: 'From now on it backs up by itself, on Wi-Fi. Do the first one now: <strong>tap Back up now</strong>.'},
+        {screen: c => list(p, 'Backup', [{label: 'Back up photos and videos', toggle: true}, {label: c.busy ? 'Backing up…' : 'Back up now', sub: c.busy ? '1,204 items left' : 'Last backup: Just now ✓'}]), wait: 1500,
+         question: {q: 'A text says "Your Google storage is full. Your photos will be deleted today. Pay 99p here: [link]". What do you do?', options: [
+            {t: 'Ignore the link. Check in Settings > Google > Backup, then forward the text to 7726', ok: true, why: 'Yes. This is a common scam. Google doesn\'t text links like this. Check your real storage in Settings.'},
+            {t: 'Pay quickly to save the photos', why: 'It\'s a scam to get your card details. Check your real storage in Settings, and forward the text to 7726.'}]}},
+        {screen: () => list(p, 'Backup', [{label: 'Back up photos and videos', toggle: true}, {label: 'Back up now', sub: 'Last backup: Just now ✓'}]), done: true,
+         say: '<strong>Well done!</strong> Your photos and phone are backed up. Google gives you 15 GB free; if it fills up, more space costs a small monthly fee, and you only buy it in Settings or the Google One app, never from a text.'},
+    ], {});
+
+    // ======================================================================================
+    // Course: Apps, accounts and privacy
+    // ======================================================================================
+    const badAd = `<div class="ad-pop"><button type="button" class="ad-x" data-tap="ad-close" aria-label="Close advert">✕</button>
+        <strong>🎉 CONGRATULATIONS! 🎉</strong><p>You have been selected to win a £500 shopping voucher!</p>
+        <button type="button" class="ad-claim" data-tap="claim">CLAIM NOW</button><small>Ad</small></div>`;
+
+    function appInfo(p, ctx) {
+        const locked = !ctx.adminOff;
+        return list(p, 'App info', [], {top: `<div class="appinfo-head">${appIcon('#64748b', ICON.settings)}<strong>System Service</strong><small>Version 1.0.3</small></div>
+            <div class="appinfo-btns"><button type="button" data-tap="open">Open</button>
+            <button type="button" data-tap="uninstall" class="${locked ? 'grey' : ''}">Uninstall</button>
+            <button type="button" data-tap="force-stop">Force stop</button></div>
+            <div class="set-row static"><span class="set-text"><strong>Battery</strong><small>38% use since last full charge</small></span></div>
+            <div class="set-row static"><span class="set-text"><strong>Permissions</strong><small>Display over other apps, Device admin</small></span></div>`,
+            overlay: ctx.confirmUninstall ? dialog(p, 'System Service', 'Do you want to uninstall this app?', [['cancel', 'Cancel'], ['confirm-uninstall', 'OK']]) : ''});
+    }
+
+    function iosNotifHome(ctx) {
+        return home('ios') + (ctx.calGone ? '' : `<button type="button" class="ph-notif" data-tap="notif"><strong>CALENDAR · now</strong>
+            <span>⚠️ Your iPhone may be infected! Tap here to clean it now.</span></button>`);
+    }
+
+    SCENARIOS['bad-app'] = (p) => withCtx(p === 'android' ? [
+        {screen: () => home(p) + badAd, target: 'ad-close',
+         say: 'Adverts are popping up on your home screen, even though no app is open. That usually means a bad app has sneaked on. First, <strong>don\'t tap the advert. Tap the small ✕ to close it.</strong>',
+         hints: {claim: 'Never tap the advert itself. Look for the small ✕ in the corner.'}, hint: 'The ✕ is small, in the top right corner of the advert.'},
+        {screen: () => home(p), target: 'settings', say: 'Bad apps run all the time, so they use a lot of battery. That\'s how to find them. <strong>Tap Settings.</strong>'},
+        {screen: c => settingsList(p, c), target: 'battery', say: '<strong>Tap Battery.</strong> <em>On a Samsung, it\'s Battery and device care, then Battery.</em>'},
+        {screen: () => list(p, 'Battery', [{id: 'usage', label: 'Battery usage', sub: 'View usage since last full charge'}, {label: 'Battery Saver', toggle: false}], {top: '<div class="batt-head"><span class="batt-big"><span style="width:41%"></span></span><strong>41%</strong></div>'}),
+         target: 'usage', say: '<strong>Tap Battery usage.</strong> <em>On some Samsungs, tap the graph or View details.</em>'},
+        {screen: () => list(p, 'Battery usage', [], {top: `<div class="batt-apps">${[['System Service', 38], ['Screen', 21], ['WhatsApp', 12], ['YouTube', 8], ['Camera', 4]]
+            .map(([n, v]) => `<div><span>${n}</span><span class="batt-bar"><span style="width:${v * 2.5}%"></span></span><span>${v}%</span></div>`).join('')}</div>`}),
+         question: {q: 'Which of these looks out of place?', options: [
+            {t: 'System Service: you\'ve never used it, and it\'s using the most battery', ok: true, why: 'Yes. Bad apps give themselves dull names like "System Service" or "Keyboard Settings" so you don\'t notice them. Make a note of its name.'},
+            {t: 'Screen', why: 'The screen always uses a lot of battery; that\'s normal. The odd one is "System Service", which you\'ve never used.'},
+            {t: 'WhatsApp', why: 'WhatsApp is an app you use, so that\'s normal. The odd one is "System Service".'}]}},
+        {screen: c => settingsList(p, c), target: 'apps', say: 'Now let\'s find it in your apps. Back in Settings, <strong>tap Apps</strong>.'},
+        {screen: () => list(p, 'Apps', [{caption: 'Recently opened apps'}, {label: 'WhatsApp', sub: '2 min ago'}, {label: 'Chrome', sub: '1 hr ago'}, {id: 'all-apps', label: 'See all 46 apps'}, {id: 'default-apps', label: 'Default apps'}]),
+         target: 'all-apps', say: '<strong>Tap See all apps.</strong>'},
+        {screen: () => list(p, 'All apps', ['Calculator', 'Calendar', 'Camera', 'Chrome', 'Clock', 'Contacts', 'Gmail', 'Maps'].map(n => ({label: n})).concat([{id: 'system-service', label: 'System Service'}, {label: 'WhatsApp'}])),
+         target: 'system-service', say: 'The list is in A to Z order. <strong>Tap System Service.</strong>'},
+        {screen: c => appInfo(p, c), target: 'force-stop', action: c => { c.stopped = true; },
+         say: 'The <strong>Uninstall</strong> button is greyed out. Bad apps do this to stop you removing them. First, <strong>tap Force stop</strong> to stop it running.',
+         hints: {uninstall: 'It\'s greyed out, so it won\'t work yet. Tap Force stop first.', open: 'Don\'t open it. Tap Force stop.'}},
+        {screen: () => list(p, 'Search settings', [{caption: 'Results for "device admin"'}, {id: 'device-admin', label: 'Device admin apps', sub: 'Security &amp; privacy > More security settings'}]),
+         target: 'device-admin',
+         say: 'Now take away its special permission. In Settings, <strong>search for "device admin"</strong> using the search bar at the top. Here\'s the result: <strong>tap Device admin apps</strong>.'},
+        {screen: c => list(p, 'Device admin apps', [{label: 'Find My Device', toggle: true, sub: 'Google'}, {id: 'admin-ss', label: 'System Service', toggle: !c.adminOff}],
+            {overlay: c.adminAsk ? dialog(p, 'Deactivate this device admin app?', 'System Service will no longer be able to stop you uninstalling it.', [['cancel', 'Cancel'], ['deactivate', 'Deactivate']]) : ''}),
+         target: 'admin-ss', action: c => { c.adminAsk = true; }, say: 'Find My Device is Google\'s and is fine. <strong>Tap the switch next to System Service.</strong>', hints: {'find-my': 'Leave Find My Device on. Tap System Service.'}},
+        {screen: c => list(p, 'Device admin apps', [{label: 'Find My Device', toggle: true, sub: 'Google'}, {label: 'System Service', toggle: true}],
+            {overlay: dialog(p, 'Deactivate this device admin app?', 'System Service will no longer be able to stop you uninstalling it.', [['cancel', 'Cancel'], ['deactivate', 'Deactivate']])}),
+         target: 'deactivate', action: c => { c.adminOff = true; c.adminAsk = false; }, say: '<strong>Tap Deactivate.</strong>'},
+        {screen: c => appInfo(p, c), target: 'uninstall', action: c => { c.confirmUninstall = true; },
+         say: 'Back on System Service, <strong>Uninstall</strong> works now. <strong>Tap Uninstall.</strong>', hints: {'force-stop': 'It\'s already stopped. Tap Uninstall.'}},
+        {screen: c => appInfo(p, c), target: 'confirm-uninstall', action: c => { c.confirmUninstall = false; c.removed = true; }, say: '<strong>Tap OK.</strong>'},
+        {screen: () => home(p), target: 'store', say: 'Gone! Finally, get Google to check for anything else. <strong>Open the Play Store.</strong>'},
+        {screen: c => app(p, 'Play Protect', `<div class="protect"><span class="protect-shield" aria-hidden="true">✓</span><strong>${c.scanned ? 'No harmful apps found' : 'Scan your phone'}</strong>
+            <small>${c.scanned ? 'Checked just now' : 'Last scanned: 3 weeks ago'}</small>${c.scanned ? '' : '<button type="button" class="ph-btn and-green" data-tap="scan">Scan</button>'}</div>`, {color: '#fff'}),
+         target: 'scan', action: c => { c.scanned = true; },
+         say: 'In the Play Store, tap your <strong>profile picture</strong> (top right), then <strong>Play Protect</strong>. Here it\'s open. <strong>Tap Scan.</strong>'},
+        {screen: () => app(p, 'Play Protect', '<div class="protect"><span class="protect-shield" aria-hidden="true">✓</span><strong>No harmful apps found</strong><small>Checked just now</small></div>', {color: '#fff'}), done: true,
+         say: '<strong>Well done!</strong> You found the bad app by its battery use, took away its special permission, uninstalled it and checked your phone. To avoid them: only install apps from the Play Store, and be wary of free torch, "cleaner" and "booster" apps.'},
+    ] : [
+        {screen: c => iosNotifHome(c),
+         question: {q: 'A notification from your Calendar says "Your iPhone may be infected! Tap here to clean it now." What is it?', options: [
+            {t: 'Spam that\'s sneaked into your calendar. Don\'t tap it', ok: true, why: 'Yes. Tapping "Allow" on a dodgy website can add a spam calendar to your iPhone. Its "events" are adverts that look like warnings. Your iPhone is fine.'},
+            {t: 'A real warning from Apple', why: 'Apple doesn\'t send virus warnings through your Calendar. It\'s spam from a subscribed calendar. Don\'t tap it.'}]}},
+        {screen: c => iosNotifHome(c), target: 'settings', say: 'Let\'s remove the spam calendar. <strong>Tap Settings</strong>, not the notification.', hints: {notif: 'Don\'t tap the warning. Tap Settings.'}},
+        {screen: c => settingsList(p, c), target: 'apps', say: 'Scroll down and <strong>tap Apps</strong>.', hint: 'Apps is in the last group.'},
+        {screen: () => list(p, 'Apps', ['App Store', 'Books'].map(n => ({label: n})).concat([{id: 'calendar', label: 'Calendar'}, {label: 'Camera'}, {label: 'Contacts'}, {label: 'Mail'}]), {back: 'Settings'}),
+         target: 'calendar', say: '<strong>Tap Calendar.</strong>'},
+        {screen: () => list(p, 'Calendar', [{id: 'accounts', label: 'Calendar Accounts', value: '2'}, {label: 'Time Zone Override', value: 'Off'}, {label: 'Default Alert Times'}], {back: 'Apps'}),
+         target: 'accounts', say: '<strong>Tap Calendar Accounts.</strong>'},
+        {screen: () => list(p, 'Calendar Accounts', [{caption: 'ACCOUNTS'}, {label: 'iCloud', sub: 'Calendars, Contacts and 7 more'}, {id: 'subscribed', label: 'Subscribed Calendars', value: '1'}], {back: 'Calendar'}),
+         target: 'subscribed', say: 'iCloud is your own. <strong>Tap Subscribed Calendars.</strong>'},
+        {screen: () => list(p, 'Subscribed Calendars', [{id: 'spam-cal', label: 'Phone-Security-Alerts', sub: 'Subscribed'}], {back: 'Calendar Accounts'}),
+         target: 'spam-cal', say: 'There it is: a calendar you never meant to add. <strong>Tap Phone-Security-Alerts.</strong>'},
+        {screen: c => list(p, 'Phone-Security-Alerts', [{label: 'Server', value: 'clean-phone-now.example'}, {caption: ' '}, {id: 'delete-account', label: 'Delete Account', danger: true}],
+            {back: 'Back', overlay: c.askDelete ? dialog(p, 'Are you sure?', 'This will delete the calendar and its events from your iPhone.', [['cancel', 'Cancel'], ['confirm-delete', 'Delete Account']]) : ''}),
+         target: 'delete-account', action: c => { c.askDelete = true; }, say: '<strong>Tap Delete Account.</strong>'},
+        {screen: c => list(p, 'Phone-Security-Alerts', [{label: 'Server', value: 'clean-phone-now.example'}, {caption: ' '}, {label: 'Delete Account', danger: true}],
+            {back: 'Back', overlay: dialog(p, 'Are you sure?', 'This will delete the calendar and its events from your iPhone.', [['cancel', 'Cancel'], ['confirm-delete', 'Delete Account']])}),
+         target: 'confirm-delete', action: c => { c.calGone = true; }, say: '<strong>Tap Delete Account</strong> to confirm.'},
+        {screen: c => settingsList(p, c), target: 'general', say: 'Gone. One more check: dodgy websites can also install a "profile". <strong>Tap General.</strong>'},
+        {screen: () => list(p, 'General', [{id: 'about', label: 'About'}, {id: 'update', label: 'Software Update'}, {id: 'storage', label: 'iPhone Storage'}, {id: 'vpn', label: 'VPN &amp; Device Management'}], {back: 'Settings'}),
+         target: 'vpn', say: '<strong>Tap VPN &amp; Device Management.</strong>'},
+        {screen: c => list(p, 'VPN &amp; Device Management', c.profileGone ? [{label: 'VPN', value: 'Not Connected'}] : [{label: 'VPN', value: 'Not Connected'}, {caption: 'CONFIGURATION PROFILE'}, {id: 'profile', label: 'Free Phone Booster', sub: 'Unverified'}], {back: 'General'}),
+         target: 'profile', say: 'If you see a profile here you don\'t recognise (one from your work or school is fine), remove it. <strong>Tap Free Phone Booster.</strong>'},
+        {screen: c => list(p, 'Profile', [{label: 'Free Phone Booster', sub: 'Unverified · Contains: Web Clips, Certificates'}, {caption: ' '}, {id: 'remove-profile', label: 'Remove Profile', danger: true}],
+            {back: 'Back', overlay: c.askRemove ? dialog(p, 'Remove Profile', 'Removing this profile will delete all its settings.', [['cancel', 'Cancel'], ['confirm-remove', 'Remove']]) : ''}),
+         target: 'remove-profile', action: c => { c.askRemove = true; }, say: '<strong>Tap Remove Profile</strong>. Your iPhone will ask for your passcode.'},
+        {screen: c => list(p, 'Profile', [{label: 'Free Phone Booster', sub: 'Unverified'}, {caption: ' '}, {label: 'Remove Profile', danger: true}],
+            {back: 'Back', overlay: dialog(p, 'Remove Profile', 'Removing this profile will delete all its settings.', [['cancel', 'Cancel'], ['confirm-remove', 'Remove']])}),
+         target: 'confirm-remove', action: c => { c.profileGone = true; }, say: '<strong>Tap Remove.</strong>'},
+        {screen: c => iosNotifHome(c), done: true,
+         say: '<strong>Well done!</strong> The fake warnings are gone. To stop it happening again: on websites, tap <strong>Don\'t Allow</strong> or <strong>Close</strong> on any pop-up asking to add a calendar or profile, and only install apps from the App Store.'},
+    ], {});
+
+    // ---------- Subscriptions ----------
+    function subsList(p, ctx) {
+        const photo = ctx.cancelled ? {label: 'Photo Editor Pro', sub: 'Cancelled · Ends 22 October'} : {id: 'sub-photo', label: 'Photo Editor Pro', sub: '£4.99 per week · Renews 22 October'};
+        return list(p, 'Subscriptions', [{caption: p === 'ios' ? 'ACTIVE' : 'Active'}, photo, {label: p === 'ios' ? 'iCloud+' : 'Google One', sub: p === 'ios' ? '£0.99 per month' : '£1.59 per month'},
+            {caption: p === 'ios' ? 'INACTIVE' : 'Expired'}, {label: 'Crossword Daily', sub: 'Expired 3 March'}], {back: p === 'ios' ? 'Apple Account' : 'Back'});
+    }
+    function subDetail(p, ctx) {
+        return list(p, 'Photo Editor Pro', [{caption: p === 'ios' ? 'YOUR SUBSCRIPTION' : 'Plan'}, {label: 'Weekly', sub: '£4.99 per week. Started as a 3-day free trial.'},
+            {caption: ' '}, {id: 'cancel-sub', label: p === 'ios' ? 'Cancel Subscription' : 'Cancel subscription', danger: true}],
+            {back: 'Subscriptions', overlay: ctx.askCancel ? dialog(p, p === 'ios' ? 'Confirm Cancellation' : 'Cancel subscription?', 'You can keep using it until 22 October. You won\'t be charged again.', [['keep', p === 'ios' ? 'Not Now' : 'Keep']].concat([['confirm-cancel', p === 'ios' ? 'Confirm' : 'Cancel subscription']])) : ''});
+    }
+
+    SCENARIOS['subscriptions'] = (p) => withCtx([
+        ...(p === 'ios' ? [
+            {screen: () => home(p), target: 'settings', say: 'Free trials often turn into paid plans without you noticing. Let\'s check. <strong>Tap Settings.</strong>'},
+            {screen: c => settingsList(p, c), target: 'account', say: '<strong>Tap your name</strong> at the top.'},
+            {screen: () => list(p, 'Apple Account', [{id: 'personal', label: 'Personal Information'}, {id: 'security', label: 'Sign-In &amp; Security'}, {id: 'payment', label: 'Payment &amp; Delivery'}, {id: 'subscriptions', label: 'Subscriptions'}, {caption: ' '}, {id: 'icloud', label: 'iCloud'}], {back: 'Settings'}),
+             target: 'subscriptions', say: '<strong>Tap Subscriptions.</strong>'},
+        ] : [
+            {screen: () => home(p), target: 'store', say: 'Free trials often turn into paid plans without you noticing. Let\'s check. <strong>Open the Play Store.</strong>'},
+            {screen: c => app(p, 'Play Store', `<div class="st-card"><span>SUGGESTED FOR YOU</span><strong>Apps to get you started</strong></div>`,
+                {back: false, color: '#fff', right: `<button type="button" class="app-plus round" data-tap="profile" aria-label="Your profile">M</button>`,
+                 overlay: c.menu ? `<div class="wa-menu"><span>margaret.smith@example.com</span><button type="button" data-tap="manage">Manage apps &amp; device</button><button type="button" data-tap="payments">Payments &amp; subscriptions</button><button type="button" data-tap="protect">Play Protect</button><button type="button" data-tap="settings">Settings</button></div>` : ''}),
+             target: 'profile', action: c => { c.menu = true; }, say: '<strong>Tap your profile picture</strong>, the round letter at the top right.'},
+            {screen: c => app(p, 'Play Store', '', {back: false, color: '#fff', overlay: `<div class="wa-menu"><span>margaret.smith@example.com</span><button type="button" data-tap="manage">Manage apps &amp; device</button><button type="button" data-tap="payments">Payments &amp; subscriptions</button><button type="button" data-tap="protect">Play Protect</button><button type="button" data-tap="settings">Settings</button></div>`}),
+             target: 'payments', say: '<strong>Tap Payments &amp; subscriptions.</strong>'},
+            {screen: () => list(p, 'Payments &amp; subscriptions', [{id: 'methods', label: 'Payment methods'}, {id: 'subscriptions', label: 'Subscriptions', sub: 'Manage your subscriptions'}, {id: 'budget', label: 'Budget &amp; history'}]),
+             target: 'subscriptions', say: '<strong>Tap Subscriptions.</strong>'},
+        ]),
+        {screen: c => subsList(p, c), target: 'sub-photo',
+         say: '"Photo Editor Pro" started as a free trial and is now <strong>£4.99 every week</strong>. That\'s over £250 a year! <strong>Tap it.</strong>'},
+        {screen: c => subDetail(p, c), target: 'cancel-sub', action: c => { c.askCancel = true; }, say: `<strong>Tap ${p === 'ios' ? 'Cancel Subscription' : 'Cancel subscription'}.</strong>`},
+        {screen: c => subDetail(p, c), target: 'confirm-cancel', action: c => { c.askCancel = false; c.cancelled = true; },
+         say: `<strong>Tap ${p === 'ios' ? 'Confirm' : 'Cancel subscription'}.</strong>`, hints: {keep: 'That keeps paying. Tap ' + (p === 'ios' ? 'Confirm' : 'Cancel subscription') + '.'}},
+        {screen: c => subsList(p, c), question: {q: 'Deleting the Photo Editor app from your phone. Does that stop the payments?', options: [
+            {t: 'No. You have to cancel the subscription, like you just did', ok: true, why: 'Exactly. Deleting the app does NOT cancel the subscription. You keep paying until you cancel it here.'},
+            {t: 'Yes, deleting the app stops it', why: 'It doesn\'t! You keep paying until you cancel the subscription itself, here.'}]}},
+        {screen: c => subsList(p, c), done: true,
+         say: '<strong>Well done!</strong> You\'ve saved £4.99 a week. Tip: when you start a free trial, set an alarm for the day before it ends. Also check your bank app\'s list of regular payments now and then.'},
+    ], {});
+
+    // ---------- Turning off AI features ----------
+    const geminiApp = ['gemini', 'Gemini', 'linear-gradient(135deg,#4f8cf7,#a78bfa)', '<span class="ic-text">✦</span>'];
+    SCENARIOS['ai-settings'] = (p) => withCtx(p === 'ios' ? [
+        {screen: () => home(p), target: 'settings', say: 'Newer iPhones have <strong>Apple Intelligence</strong>: AI that writes, summarises and edits for you. You can turn it off. <strong>Tap Settings.</strong>'},
+        {screen: c => settingsList(p, c), target: 'ai', say: '<strong>Tap Apple Intelligence &amp; Siri.</strong>', hint: 'It\'s in the third group, below Accessibility.'},
+        {screen: c => list(p, 'Apple Intelligence &amp; Siri', [{id: 'ai-toggle', label: 'Apple Intelligence', toggle: !c.aiOff, sub: 'Writing Tools, notification summaries, Image Playground and more.'},
+            {caption: 'EXTENSIONS'}, {id: 'chatgpt', label: 'ChatGPT', value: c.gptOff ? 'Off' : 'On'}, {caption: 'SIRI'}, {label: 'Talk to Siri', value: '"Siri" or "Hey Siri"'}],
+            {back: 'Settings', overlay: c.askOff ? dialog(p, 'Turn Off Apple Intelligence?', 'Features like Writing Tools and summaries will no longer be available.', [['cancel', 'Cancel'], ['confirm-off', 'Turn Off']]) : ''}),
+         target: 'ai-toggle', action: c => { c.askOff = true; }, say: '<strong>Tap the Apple Intelligence switch</strong> to turn it off.', hints: {chatgpt: 'We\'ll do ChatGPT next. First, tap the Apple Intelligence switch.'}},
+        {screen: c => list(p, 'Apple Intelligence &amp; Siri', [{label: 'Apple Intelligence', toggle: true}, {caption: 'EXTENSIONS'}, {label: 'ChatGPT', value: 'On'}],
+            {back: 'Settings', overlay: dialog(p, 'Turn Off Apple Intelligence?', 'Features like Writing Tools and summaries will no longer be available.', [['cancel', 'Cancel'], ['confirm-off', 'Turn Off']])}),
+         target: 'confirm-off', action: c => { c.askOff = false; c.aiOff = true; }, say: '<strong>Tap Turn Off.</strong>'},
+        {screen: c => list(p, 'Apple Intelligence &amp; Siri', [{label: 'Apple Intelligence', toggle: false}, {caption: 'EXTENSIONS'}, {id: 'chatgpt', label: 'ChatGPT', value: 'On'}], {back: 'Settings'}),
+         target: 'chatgpt', say: 'The ChatGPT extension can send your questions to ChatGPT, a company outside Apple. <strong>Tap ChatGPT.</strong>'},
+        {screen: c => list(p, 'ChatGPT', [{id: 'gpt-toggle', label: 'Use ChatGPT', toggle: !c.gptOff, sub: 'Siri can send requests to ChatGPT.'}], {back: 'Back'}),
+         target: 'gpt-toggle', action: c => { c.gptOff = true; }, say: '<strong>Tap Use ChatGPT</strong> to turn it off.'},
+        {screen: () => list(p, 'ChatGPT', [{label: 'Use ChatGPT', toggle: false}], {back: 'Back'}),
+         question: {q: 'WhatsApp, Facebook and other apps have AI chats too. What\'s the safe rule?', options: [
+            {t: 'Never type personal details (bank, health, passwords, addresses) into any AI chat', ok: true, why: 'Yes. What you type may be stored and used to train the AI. Treat it like talking to a stranger.'},
+            {t: 'AI chats are private, so anything is fine', why: 'They aren\'t private like a phone call. What you type may be stored. Keep personal details out of them.'}]}},
+        {screen: () => list(p, 'ChatGPT', [{label: 'Use ChatGPT', toggle: false}], {back: 'Back'}), done: true,
+         say: '<strong>Well done!</strong> Apple Intelligence and ChatGPT are off. You can turn them back on any time in the same place. Siri still works as normal.'},
+    ] : [
+        {screen: () => home(p), target: 'settings', say: 'Android phones now come with <strong>Gemini</strong>, Google\'s AI. Holding the power button may open it by mistake. Let\'s change that. <strong>Tap Settings.</strong>'},
+        {screen: c => settingsList(p, c), target: 'apps', say: '<strong>Tap Apps.</strong>'},
+        {screen: () => list(p, 'Apps', [{caption: 'Recently opened apps'}, {label: 'WhatsApp', sub: '2 min ago'}, {id: 'all-apps', label: 'See all 45 apps'}, {id: 'default-apps', label: 'Default apps', sub: 'Assistant, browser and phone apps'}]),
+         target: 'default-apps', say: '<strong>Tap Default apps.</strong>'},
+        {screen: () => list(p, 'Default apps', [{label: 'Browser app', sub: 'Chrome'}, {id: 'assistant', label: 'Digital assistant app', sub: 'Gemini'}, {label: 'Phone app', sub: 'Phone'}, {label: 'SMS app', sub: 'Messages'}]),
+         target: 'assistant', say: '<strong>Tap Digital assistant app.</strong>'},
+        {screen: c => list(p, 'Digital assistant app', [{id: 'assistant-app', label: 'Default digital assistant app', sub: c.noAssist ? 'None' : 'Gemini'}, {label: 'Use text from screen', toggle: !c.noAssist}],
+            {overlay: c.pick ? `<div class="ph-sheet"><div class="ph-sheet-box"><p><strong>Default digital assistant app</strong></p><button type="button" class="set-row" data-tap="assist-gemini">Gemini</button><button type="button" class="set-row" data-tap="assist-none">None</button></div></div>` : ''}),
+         target: 'assistant-app', action: c => { c.pick = true; }, say: '<strong>Tap Default digital assistant app.</strong>'},
+        {screen: c => list(p, 'Digital assistant app', [{label: 'Default digital assistant app', sub: 'Gemini'}],
+            {overlay: `<div class="ph-sheet"><div class="ph-sheet-box"><p><strong>Default digital assistant app</strong></p><button type="button" class="set-row" data-tap="assist-gemini">Gemini</button><button type="button" class="set-row" data-tap="assist-none">None</button></div></div>`}),
+         target: 'assist-none', action: c => { c.pick = false; c.noAssist = true; }, say: '<strong>Tap None.</strong> Gemini won\'t pop up when you hold the power button.', hints: {'assist-gemini': 'That keeps Gemini. Tap None.'}},
+        {screen: () => homeWith(p, [geminiApp]), target: 'gemini', say: 'Next, stop Gemini keeping what you type to it. <strong>Open the Gemini app.</strong>'},
+        {screen: c => app(p, 'Gemini', '<p class="app-note gem-hello">Hello, Margaret<br><small>How can I help you today?</small></p>',
+            {back: false, color: '#fff', right: '<button type="button" class="app-plus round" data-tap="profile" aria-label="Your profile">M</button>',
+             overlay: c.menu ? '<div class="wa-menu"><span>margaret.smith@example.com</span><button type="button" data-tap="activity">Gemini Apps Activity</button><button type="button" data-tap="settings">Settings</button><button type="button" data-tap="help">Help</button></div>' : ''}),
+         target: 'profile', action: c => { c.menu = true; }, say: '<strong>Tap your profile picture</strong> at the top right.'},
+        {screen: () => app(p, 'Gemini', '', {back: false, color: '#fff', overlay: '<div class="wa-menu"><span>margaret.smith@example.com</span><button type="button" data-tap="activity">Gemini Apps Activity</button><button type="button" data-tap="settings">Settings</button><button type="button" data-tap="help">Help</button></div>'}),
+         target: 'activity', say: '<strong>Tap Gemini Apps Activity.</strong> <em>On some phones it\'s called Keep Activity.</em>'},
+        {screen: c => app(p, 'Gemini Apps Activity', `<p class="app-note"><strong>${c.actOff ? 'Off' : 'On'}</strong><br>${c.actOff ? 'Your chats are no longer saved to your account or used to improve Google\'s AI.' : 'Your chats are saved to your Google Account and may be reviewed to improve Google\'s AI.'}</p>
+            ${c.actOff ? '' : '<button type="button" class="ph-btn and-green" data-tap="turn-off">Turn off</button>'}`,
+            {color: '#fff', overlay: c.offSheet ? '<div class="ph-sheet"><div class="ph-sheet-box"><button type="button" class="set-row" data-tap="off-only">Turn off</button><button type="button" class="set-row" data-tap="off-delete">Turn off and delete activity</button></div></div>' : ''}),
+         target: 'turn-off', action: c => { c.offSheet = true; }, say: '<strong>Tap Turn off.</strong>'},
+        {screen: c => app(p, 'Gemini Apps Activity', '<p class="app-note"><strong>On</strong></p>', {color: '#fff', overlay: '<div class="ph-sheet"><div class="ph-sheet-box"><button type="button" class="set-row" data-tap="off-only">Turn off</button><button type="button" class="set-row" data-tap="off-delete">Turn off and delete activity</button></div></div>'}),
+         target: 'off-delete', action: c => { c.offSheet = false; c.actOff = true; }, say: '<strong>Tap Turn off and delete activity</strong>, to clear what it already saved too.', hints: {'off-only': 'That stops saving new chats but keeps the old ones. Tap Turn off and delete activity.'}},
+        {screen: c => app(p, 'Gemini Apps Activity', '<p class="app-note"><strong>Off</strong></p>', {color: '#fff'}),
+         question: {q: 'WhatsApp, Facebook and other apps have AI chats too. What\'s the safe rule?', options: [
+            {t: 'Never type personal details (bank, health, passwords, addresses) into any AI chat', ok: true, why: 'Yes. What you type may be stored and used to train the AI. Treat it like talking to a stranger.'},
+            {t: 'AI chats are private, so anything is fine', why: 'They aren\'t private like a phone call. What you type may be stored. Keep personal details out of them.'}]}},
+        {screen: c => app(p, 'Gemini Apps Activity', '<p class="app-note"><strong>Off</strong></p>', {color: '#fff'}), done: true,
+         say: '<strong>Well done!</strong> Gemini no longer pops up from the power button, and doesn\'t keep your chats. On a Samsung, also look in <strong>Settings > Galaxy AI</strong>, where each feature has its own switch.'},
+    ], {});
+
+    // ---------- Protecting your Apple or Google account ----------
+    SCENARIOS['account-security'] = (p) => withCtx(p === 'ios' ? [
+        {screen: () => home(p), target: 'settings', say: 'Your Apple Account holds your photos, contacts and payments. Let\'s check it\'s protected. <strong>Tap Settings.</strong>'},
+        {screen: c => settingsList(p, c), target: 'account', say: '<strong>Tap your name</strong> at the top.'},
+        {screen: () => list(p, 'Apple Account', [{id: 'personal', label: 'Personal Information'}, {id: 'security', label: 'Sign-In &amp; Security'}, {id: 'payment', label: 'Payment &amp; Delivery'}, {id: 'subscriptions', label: 'Subscriptions'}], {back: 'Settings'}),
+         target: 'security', say: '<strong>Tap Sign-In &amp; Security.</strong>'},
+        {screen: () => list(p, 'Sign-In &amp; Security', [{label: 'Email &amp; Phone Numbers', sub: '+44 7700 900123'}, {label: 'Change Password'}, {caption: ' '}, {label: 'Two-Factor Authentication', value: 'On'},
+            {id: 'recovery', label: 'Account Recovery'}], {back: 'Apple Account'}),
+         target: 'recovery', say: '<strong>Two-Factor Authentication</strong> says On: good. It means a new device needs a code from your phone before it can sign in. Now, <strong>tap Account Recovery</strong>.'},
+        {screen: c => list(p, 'Account Recovery', [{caption: 'RECOVERY CONTACT'}, c.recovery ? {label: 'Sarah', sub: 'Waiting for Sarah to accept'} : {id: 'add-contact', label: 'Add Recovery Contact…', sub: 'Someone you trust who can help you get back into your account.'}],
+            {back: 'Back', overlay: c.pickContact ? `<div class="ph-sheet"><div class="ph-sheet-box"><p><strong>Choose a recovery contact</strong></p><button type="button" class="set-row" data-tap="pick-sarah">Sarah (Daughter)</button><button type="button" class="set-row" data-tap="pick-dave">Dave</button></div></div>` : ''}),
+         target: 'add-contact', action: c => { c.pickContact = true; },
+         say: 'If you ever forget your password, a <strong>recovery contact</strong> can get you a code to help you back in. They can\'t see your data. <strong>Tap Add Recovery Contact.</strong>'},
+        {screen: c => list(p, 'Account Recovery', [{caption: 'RECOVERY CONTACT'}, {label: 'Add Recovery Contact…'}],
+            {back: 'Back', overlay: `<div class="ph-sheet"><div class="ph-sheet-box"><p><strong>Choose a recovery contact</strong></p><button type="button" class="set-row" data-tap="pick-sarah">Sarah (Daughter)</button><button type="button" class="set-row" data-tap="pick-dave">Dave</button></div></div>`}),
+         target: 'pick-sarah', action: c => { c.pickContact = false; c.recovery = true; }, say: 'Pick someone you trust who has an iPhone. <strong>Tap Sarah.</strong>', hints: {'pick-dave': 'For this practice, choose Sarah.'}},
+        {screen: c => list(p, 'Account Recovery', [{caption: 'RECOVERY CONTACT'}, {label: 'Sarah', sub: 'Waiting for Sarah to accept'}], {back: 'Back'}),
+         question: {q: 'Someone rings saying they\'re from Apple. They ask you to read out the 6-digit code that\'s just appeared on your phone. What do you do?', options: [
+            {t: 'Hang up. Never give that code to anyone', ok: true, why: 'Exactly. That code lets someone into your account. Apple will never ring and ask for it.'},
+            {t: 'Read it out, they\'re from Apple', why: 'Apple will never ask for that code. Anyone who has it can get into your account. Hang up.'}]}},
+        {screen: c => list(p, 'Account Recovery', [{caption: 'RECOVERY CONTACT'}, {label: 'Sarah', sub: 'Waiting for Sarah to accept'}], {back: 'Back'}), done: true,
+         say: '<strong>Well done!</strong> Two-factor authentication is on and Sarah can help you get back in. Your iPhone can also remember passwords for you, in the <strong>Passwords</strong> app.'},
+    ] : [
+        {screen: () => home(p), target: 'settings', say: 'Your Google Account holds your emails, photos and contacts. Let\'s add a second lock to it. <strong>Tap Settings.</strong>'},
+        {screen: c => settingsList(p, c), target: 'google', say: '<strong>Tap Google.</strong>', hint: 'Google is near the bottom of the list.'},
+        {screen: () => list(p, 'Google', [{id: 'manage', label: 'Manage your Google Account', sub: 'margaret.smith@example.com'}, {id: 'backup', label: 'Backup'}, {id: 'autofill', label: 'Autofill'}]),
+         target: 'manage', say: '<strong>Tap Manage your Google Account.</strong>'},
+        {screen: () => app(p, 'Google Account', `<div class="g-tabs"><span class="on">Home</span><span>Personal info</span><span>Data &amp; privacy</span><button type="button" data-tap="tab-security">Security</button></div>
+            <p class="app-note">Welcome, Margaret Smith</p>`, {color: '#fff'}),
+         target: 'tab-security', say: '<strong>Tap Security</strong> along the top.'},
+        {screen: c => list(p, 'Security', [{caption: 'How you sign in to Google'}, {id: '2sv', label: '2-Step Verification', sub: c.twoOn ? 'On' : 'Off'}, {label: 'Password', sub: 'Last changed 2 years ago'}, {label: 'Recovery phone', sub: '07700 900123'}]),
+         target: '2sv', say: '<strong>2-Step Verification</strong> is Off. It means signing in on a new device also needs a code sent to your phone, so a stolen password isn\'t enough. <strong>Tap it.</strong>'},
+        {screen: () => list(p, '2-Step Verification', [], {top: '<p class="app-note">Your phone number: <strong>07700 900123</strong><br>We\'ll text a code to this number to check it\'s yours.</p><button type="button" class="ph-btn and-green" data-tap="send-code">Send code</button>'}),
+         target: 'send-code', say: '<strong>Tap Send code.</strong>'},
+        {screen: c => list(p, '2-Step Verification', [], {top: `<div class="code-notice"><strong>MESSAGES · now</strong><span>G-382605 is your Google verification code.</span></div>
+            <p class="app-note">Enter the code we texted to 07700 900123</p>${field('gcode', 'Enter code', c, 'tel')}<button type="button" class="ph-btn and-green" data-tap="verify">Next</button>`}),
+         target: 'verify', require: c => typed(c, 'gcode').replace(/\D/g, '') === '382605', requireHint: 'Type the 6 numbers from the text: 382605.',
+         say: 'A text arrives with a code. <strong>Type 382605 in the box</strong> and <strong>tap Next</strong>. <em>(A practice code. Never type a real one anywhere except where you asked for it.)</em>'},
+        {screen: () => list(p, '2-Step Verification', [], {top: '<p class="app-note">Your phone number is checked ✓</p><button type="button" class="ph-btn and-green" data-tap="turn-on">Turn on 2-Step Verification</button>'}),
+         target: 'turn-on', action: c => { c.twoOn = true; }, say: '<strong>Tap Turn on 2-Step Verification.</strong>'},
+        {screen: c => list(p, 'Security', [{caption: 'How you sign in to Google'}, {label: '2-Step Verification', sub: 'On ✓'}, {label: 'Recovery phone', sub: '07700 900123'}]),
+         question: {q: 'Someone rings saying they\'re from Google. They ask you to read out the code that\'s just been texted to you. What do you do?', options: [
+            {t: 'Hang up. Never give that code to anyone', ok: true, why: 'Exactly. That code lets someone into your account. Google will never ring and ask for it.'},
+            {t: 'Read it out, they\'re from Google', why: 'Google will never ask for that code. Anyone who has it can get into your account. Hang up.'}]}},
+        {screen: c => list(p, 'Security', [{caption: 'How you sign in to Google'}, {label: '2-Step Verification', sub: 'On ✓'}]), done: true,
+         say: '<strong>Well done!</strong> Your Google Account now needs your phone as well as your password. Google can also remember your passwords: look for <strong>Google Password Manager</strong> in Settings.'},
+    ], {input: {}});
+
+    // ---------- Facebook privacy and fake friend requests ----------
+    const FB = '#1877f2';
+    const fbApp = ['facebook', 'Facebook', FB, ICON.person];
+    function fbScreen(p, ctx, page) {
+        const tabs = `<div class="fb-tabs"><button type="button" data-tap="tab-home" class="${page === 'feed' ? 'on' : ''}">Home</button>
+            <button type="button" data-tap="tab-friends" class="${page === 'friends' ? 'on' : ''}">Friends${ctx.requestGone ? '' : ' <em>1</em>'}</button>
+            <button type="button" data-tap="tab-menu" class="${page === 'menu' ? 'on' : ''}">Menu</button></div>`;
+        let inner;
+        if (page === 'feed') {
+            inner = `<div class="fb-post"><strong>${avatar('J', '#a78bfa')} Jean Smith</strong><p>Lovely walk along the seafront this morning! 🌊</p><div class="fb-img">🌅</div></div>
+                <div class="fb-post"><strong>${avatar('B', '#f59e0b')} Bridlington Walkers</strong><p>Next walk: Saturday, 10am, from the harbour.</p></div>`;
+        } else if (page === 'friends') {
+            inner = ctx.requestGone ? '<p class="app-note">No new friend requests.</p>'
+                : `<p class="app-note"><strong>Friend requests</strong></p><div class="fb-req">${avatar('J', '#a78bfa')}<span><strong>Jean Smith</strong><small>1 mutual friend · Joined 2 days ago</small>
+                    <span class="fb-req-btns"><button type="button" class="ph-btn ios-blue" data-tap="confirm-jean">Confirm</button><button type="button" class="ph-btn" data-tap="delete-jean">Delete</button></span></span></div>`;
+        } else {
+            inner = `<div class="recents"><div class="recent"><strong>Margaret Smith</strong><small>See your profile</small></div>
+                <button type="button" class="recent" data-tap="settings"><strong>Settings &amp; privacy</strong></button><div class="recent"><strong>Help &amp; support</strong></div></div>`;
+        }
+        return app(p, 'Facebook', inner + tabs, {back: false, color: '#fff'});
+    }
+
+    SCENARIOS['facebook'] = (p) => withCtx([
+        {screen: () => homeWith(p, [fbApp]), target: 'facebook', say: 'Let\'s make sure only your friends see what you post. <strong>Open Facebook.</strong> <em>(A practice version. Not the real app.)</em>'},
+        {screen: c => fbScreen(p, c, 'feed'), target: 'tab-menu', say: '<strong>Tap Menu</strong> at the bottom right.', hints: {'tab-friends': 'We\'ll look at friend requests in a moment. First, tap Menu.'}},
+        {screen: c => fbScreen(p, c, 'menu'), target: 'settings', say: '<strong>Tap Settings &amp; privacy</strong>.'},
+        {screen: c => list(p, 'Settings', [{caption: 'Audience and visibility'}, {id: 'posts', label: 'Posts', sub: 'Who can see your future posts: ' + (c.audience || 'Public')}, {label: 'Profile details'}, {label: 'How people find and contact you'},
+            {caption: 'Your activity'}, {label: 'Activity log'}],
+            {overlay: c.audPick ? `<div class="ph-sheet"><div class="ph-sheet-box"><p><strong>Who can see your future posts?</strong></p>
+                <button type="button" class="set-row" data-tap="aud-public">🌐 Public<small>Anyone on or off Facebook</small></button>
+                <button type="button" class="set-row" data-tap="aud-friends">👥 Friends<small>Your friends on Facebook</small></button>
+                <button type="button" class="set-row" data-tap="aud-me">🔒 Only me</button></div></div>` : ''}),
+         target: 'posts', action: c => { c.audPick = true; }, say: 'Your posts are set to <strong>Public</strong>: anyone in the world can see them. <strong>Tap Posts.</strong>'},
+        {screen: c => list(p, 'Settings', [{caption: 'Audience and visibility'}, {label: 'Posts', sub: 'Who can see your future posts: Public'}],
+            {overlay: `<div class="ph-sheet"><div class="ph-sheet-box"><p><strong>Who can see your future posts?</strong></p>
+                <button type="button" class="set-row" data-tap="aud-public">🌐 Public<small>Anyone on or off Facebook</small></button>
+                <button type="button" class="set-row" data-tap="aud-friends">👥 Friends<small>Your friends on Facebook</small></button>
+                <button type="button" class="set-row" data-tap="aud-me">🔒 Only me</button></div></div>`}),
+         target: 'aud-friends', action: c => { c.audPick = false; c.audience = 'Friends'; }, say: '<strong>Tap Friends.</strong>',
+         hints: {'aud-public': 'Public is what it was. Tap Friends.', 'aud-me': 'Only me means nobody else sees your posts. Tap Friends.'}},
+        {screen: c => list(p, 'Settings', [{caption: 'Audience and visibility'}, {label: 'Posts', sub: 'Who can see your future posts: Friends ✓'}, {id: 'back-feed', label: '‹ Back to Facebook'}]),
+         target: 'back-feed', say: 'Done. Now <strong>tap Back to Facebook</strong>.', alias: {back: 'back-feed'}},
+        {screen: c => fbScreen(p, c, 'feed'), target: 'tab-friends', say: 'You have a friend request. <strong>Tap Friends.</strong>'},
+        {screen: c => fbScreen(p, c, 'friends'),
+         question: {q: 'A friend request from "Jean Smith". But you\'re already friends with Jean (she\'s in your feed). What\'s going on?', options: [
+            {t: 'It\'s probably a copy of Jean\'s profile, made by a scammer', ok: true, why: 'Yes. Scammers copy someone\'s name and photo, then message their friends asking for money. Real Jean is already your friend.'},
+            {t: 'Jean must have a second account', why: 'Possible, but it\'s much more likely a copy made by a scammer: it joined 2 days ago. Check with Jean by phone.'}]}},
+        {screen: c => fbScreen(p, c, 'friends'), target: 'delete-jean', action: c => { c.requestGone = true; }, say: '<strong>Tap Delete</strong> to turn down the request.', hints: {'confirm-jean': 'Don\'t confirm a copied profile. Tap Delete.'}},
+        {screen: c => fbScreen(p, c, 'friends'), done: true,
+         say: '<strong>Well done!</strong> Your posts are friends-only and you\'ve dodged a fake profile. Let Jean know, so she can report it. Also be wary of Marketplace buyers who want to pay "by courier" or ask for codes sent to your phone.'},
+    ], {});
+
+    // ======================================================================================
+    // Health, money and travel: bus directions with Maps
+    // ======================================================================================
+    function busMaps(p, ctx, page) {
+        const top = `<div class="mp-top"><button type="button" class="mp-search" data-tap="search">${ICON.search}<span>${ctx.place ? 'Hull Paragon Interchange' : 'Search here'}</span></button></div>`;
+        let card = '';
+        if (page === 'suggest') {
+            card = `<div class="mp-results"><button type="button" class="recent" data-tap="place-hull"><strong>Hull Paragon Interchange</strong><small>Bus and train station, Hull</small></button>
+                <div class="recent"><strong>Hull Royal Infirmary</strong><small>Hospital, Hull</small></div><div class="recent"><strong>Hull Minster</strong><small>Church, Hull</small></div></div>`;
+        } else if (page === 'place') {
+            card = '<div class="mp-card"><strong>Hull Paragon Interchange</strong><small>Bus and train station · 25 miles</small><button type="button" class="ph-btn ios-blue" data-tap="directions">Directions</button></div>';
+        } else if (page === 'modes' || page === 'routes') {
+            const modes = [['car', '🚗 40 min'], ['bus', '🚌 1 hr 25'], ['walk', '🚶 8 hr']].map(([id, t]) =>
+                `<button type="button" data-tap="mode-${id}" class="${page === 'routes' && id === 'bus' ? 'on' : (page === 'modes' && id === 'car' ? 'on' : '')}">${t}</button>`).join('');
+            const routes = page === 'routes' ? `<button type="button" class="recent" data-tap="route-1"><strong>10:15 → 11:40</strong><small>🚌 121 · Leaves Bridlington Bus Station · <b class="live">On time</b></small></button>
+                <div class="recent"><strong>11:15 → 12:40</strong><small>🚌 121 · Every hour</small></div>` : '<div class="recent"><strong>40 min (25 miles)</strong><small>Fastest route, via A614</small></div>';
+            card = `<div class="mp-card wide"><div class="mode-chips">${modes}</div>${routes}</div>`;
+        } else if (page === 'trip') {
+            card = `<div class="mp-card wide"><strong>10:15 → 11:40</strong><ol class="trip"><li>🚶 Walk 4 min to <strong>Bridlington Bus Station</strong>, stand 3</li>
+                <li>🚌 <strong>121</strong> towards Hull · 10:15 · <b class="live">On time</b></li><li>Get off at <strong>Hull Paragon Interchange</strong> (24 stops)</li></ol>
+                <button type="button" class="ph-btn ios-blue" data-tap="start">Start</button></div>`;
+        }
+        return `<div class="ph-app-screen maps-app ph-${p}">${statusBar(p)}<div class="mp-map">${page === 'place' || page === 'trip' ? '<span class="mp-pin" aria-hidden="true"></span>' : ''}<span class="mp-me" aria-hidden="true"></span>
+            ${page === 'modes' || page === 'routes' || page === 'trip' ? '<span class="mp-route" aria-hidden="true"></span>' : ''}</div>${page === 'map' || page === 'suggest' || page === 'place' ? top : ''}${card}${homeIndicator(p)}</div>`;
+    }
+
+    SCENARIOS['bus-maps'] = (p) => withCtx([
+        {screen: () => home(p), target: 'maps', say: 'Maps can plan a bus journey, with live times. Let\'s go to Hull by bus. <strong>Open Maps.</strong>' + (p === 'ios' ? ' <em>(Google Maps works the same way, if you prefer it.)</em>' : '')},
+        {screen: c => busMaps(p, c, 'map'), target: 'search', say: '<strong>Tap the search box</strong> at the top.'},
+        {screen: c => busMaps(p, c, 'suggest'), target: 'place-hull', action: c => { c.place = true; },
+         say: 'We typed "Hull interchange". <strong>Tap Hull Paragon Interchange</strong>, the bus station.'},
+        {screen: c => busMaps(p, c, 'place'), target: 'directions', say: '<strong>Tap Directions.</strong>'},
+        {screen: c => busMaps(p, c, 'modes'), target: 'mode-bus', say: 'It shows driving first. <strong>Tap the bus</strong> 🚌 to see public transport.', hints: {'mode-walk': 'Eight hours! Tap the bus instead.', 'mode-car': 'That\'s driving. Tap the bus.'}},
+        {screen: c => busMaps(p, c, 'routes'), target: 'route-1', say: 'Here are the buses, with the next one first. "On time" is live. <strong>Tap the 10:15.</strong>'},
+        {screen: c => busMaps(p, c, 'trip'), question: {q: 'Where do you catch the bus?', options: [
+            {t: 'Bridlington Bus Station, stand 3', ok: true, why: 'Yes. Maps tells you where to walk to, which bus, and where to get off.'},
+            {t: 'Hull Paragon Interchange', why: 'That\'s where you get off. You catch it at Bridlington Bus Station, stand 3.'}]}},
+        {screen: c => busMaps(p, c, 'trip'), done: true,
+         say: '<strong>Well done!</strong> Tap <strong>Start</strong> on a real journey and Maps tells you when your stop is coming up. With a bus pass, you just show it to the driver as usual. <em>(Practice times only: check the real ones on the day.)</em>'},
+    ], {});
+
+    // The extra lessons (emergency, problems, and additions to other courses).
+    // ======================================================================================
+    // Shared bits for the emergency, problems and extra lessons
+    // ======================================================================================
+    // A phone keypad with * and #. shown: what's been typed so far.
+    function dialer(p, shown, opts = {}) {
+        const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'];
+        const id = k => 'k' + (k === '*' ? 'star' : k === '#' ? 'hash' : k);
+        return `<div class="ph-app-screen dial-app ph-${p}">${statusBar(p)}
+            <div class="dial-display">${esc(shown || '')}<span class="dial-caret"></span></div>
+            <div class="dial-pad">${keys.map(k => `<button type="button" data-tap="${id(k)}">${k}</button>`).join('')}</div>
+            <div class="dial-call"><button type="button" class="accept" data-tap="call" aria-label="Call">${UI.phone}</button></div>
+            ${opts.overlay || ''}${homeIndicator(p)}</div>`;
+    }
+    const dialKeys = s => [...s].map(k => 'k' + (k === '*' ? 'star' : k === '#' ? 'hash' : k));
+
+    function lockScreen(p, notif, opts = {}) {
+        return `<div class="ph-lock ph-${p}">${statusBar(p)}<div class="lock-time"><small>Thursday 16 October</small>9:41</div>
+            ${notif ? `<button type="button" class="lock-notif" data-tap="${notif.id}"><strong>${notif.app} · now</strong><span><b>${notif.title}</b>${notif.text}</span></button>` : ''}
+            ${opts.extra || ''}${homeIndicator(p)}</div>`;
+    }
+
+    const sheet = (title, rows) => `<div class="ph-sheet"><div class="ph-sheet-box">${title ? `<p><strong>${title}</strong></p>` : ''}${rows.map(([id, label, sub]) =>
+        `<button type="button" class="set-row" data-tap="${id}">${label}${sub ? `<small>${sub}</small>` : ''}</button>`).join('')}</div></div>`;
+
+    // ======================================================================================
+    // Course: In an emergency
+    // ======================================================================================
+    SCENARIOS['emergency-sos'] = (p) => withCtx(p === 'ios' ? [
+        {screen: () => home(p), target: 'settings', say: '<strong>Emergency SOS</strong> calls 999 for you and texts your location to the people you choose. Let\'s check it\'s ready. <strong>Tap Settings.</strong>'},
+        {screen: c => settingsList(p, c), target: 'sos', say: '<strong>Tap Emergency SOS.</strong>', hint: 'It\'s in the third group, with a red icon.'},
+        {screen: c => list(p, 'Emergency SOS', [{label: 'Call with Hold and Release', toggle: true, sub: 'Hold the side and a volume button, then let go.'},
+            {id: 'five', label: 'Call with 5 Button Presses', toggle: !!c.five, sub: 'Press the side button 5 times quickly.'}, {caption: ' '},
+            {id: 'contacts', label: 'Set up Emergency Contacts in Health'}, {label: 'Crash Detection', toggle: true, sub: 'Calls 999 after a severe car crash.'}], {back: 'Settings'}),
+         target: 'five', action: c => { c.five = true; }, say: 'Pressing the side button 5 times is easy to remember in a panic. <strong>Turn on Call with 5 Button Presses.</strong>'},
+        {screen: c => list(p, 'Emergency SOS', [{label: 'Call with Hold and Release', toggle: true}, {label: 'Call with 5 Button Presses', toggle: true}, {caption: ' '},
+            {id: 'contacts', label: 'Set up Emergency Contacts in Health'}], {back: 'Settings', overlay: c.pick ? sheet('Add emergency contact', [['pick-sarah', 'Sarah', 'Daughter · 07700 900333'], ['pick-dave', 'Dave', 'Friend']]) : ''}),
+         target: 'contacts', action: c => { c.pick = true; }, say: 'Now choose who gets a text with your location. <strong>Tap Set up Emergency Contacts.</strong>'},
+        {screen: () => list(p, 'Emergency SOS', [{label: 'Call with 5 Button Presses', toggle: true}], {back: 'Settings', overlay: sheet('Add emergency contact', [['pick-sarah', 'Sarah', 'Daughter · 07700 900333'], ['pick-dave', 'Dave', 'Friend']])}),
+         target: 'pick-sarah', action: c => { c.pick = false; c.sarah = true; }, say: '<strong>Tap Sarah</strong>, your daughter.', hints: {'pick-dave': 'Choose Sarah for this practice.'}},
+        {screen: () => list(p, 'Emergency SOS', [{label: 'Call with 5 Button Presses', toggle: true}, {caption: 'EMERGENCY CONTACTS'}, {label: 'Sarah', sub: 'Daughter'}], {back: 'Settings'}),
+         question: {q: 'You\'ve fallen and can\'t reach the phone screen properly. What do you do?', options: [
+            {t: 'Press the side button 5 times quickly', ok: true, why: 'Yes. A countdown starts, then it rings 999 and texts Sarah where you are.'},
+            {t: 'Unlock the phone and find the Phone app', why: 'That\'s slow in an emergency. Pressing the side button 5 times works even when it\'s locked.'}]}},
+        {screen: () => list(p, 'Emergency SOS', [{label: 'Call with 5 Button Presses', toggle: true}, {caption: 'EMERGENCY CONTACTS'}, {label: 'Sarah', sub: 'Daughter'}], {back: 'Settings'}), done: true,
+         say: '<strong>Well done!</strong> Emergency SOS is ready and Sarah will be told where you are. If you press it by mistake, just tap Stop during the countdown.'},
+    ] : [
+        {screen: () => home(p), target: 'settings', say: '<strong>Emergency SOS</strong> calls 999 for you and texts your location to the people you choose. Let\'s check it\'s ready. <strong>Tap Settings.</strong>'},
+        {screen: c => settingsList(p, c), target: 'safety', say: '<strong>Tap Safety &amp; emergency.</strong> <em>On a Samsung, it\'s Safety and emergency too.</em>', hint: 'Scroll down: it\'s near the bottom.'},
+        {screen: () => list(p, 'Safety &amp; emergency', [{id: 'medical', label: 'Medical information'}, {id: 'contacts-ec', label: 'Emergency contacts'}, {id: 'sos', label: 'Emergency SOS', sub: 'Off'}, {label: 'Car crash detection'}]),
+         target: 'sos', say: 'Emergency SOS is <strong>Off</strong>. <strong>Tap Emergency SOS.</strong>'},
+        {screen: c => list(p, 'Emergency SOS', [{id: 'sos-toggle', label: 'Use Emergency SOS', toggle: !!c.sosOn, sub: 'Press the power button 5 times or more to start emergency actions.'}, {label: 'Share info with emergency contacts', toggle: !!c.sosOn}]),
+         target: 'sos-toggle', action: c => { c.sosOn = true; }, say: '<strong>Tap Use Emergency SOS</strong> to turn it on.'},
+        {screen: () => list(p, 'Safety &amp; emergency', [{id: 'medical', label: 'Medical information'}, {id: 'contacts-ec', label: 'Emergency contacts', sub: 'None'}, {label: 'Emergency SOS', sub: 'On'}]),
+         target: 'contacts-ec', say: 'Now choose who gets a text with your location. <strong>Tap Emergency contacts.</strong>'},
+        {screen: c => list(p, 'Emergency contacts', [{id: 'add', label: '＋ Add contact'}], {overlay: c.pick ? sheet('Choose a contact', [['pick-sarah', 'Sarah', '07700 900333'], ['pick-dave', 'Dave', '']]) : ''}),
+         target: 'add', action: c => { c.pick = true; }, say: '<strong>Tap Add contact.</strong>'},
+        {screen: () => list(p, 'Emergency contacts', [{label: '＋ Add contact'}], {overlay: sheet('Choose a contact', [['pick-sarah', 'Sarah', '07700 900333'], ['pick-dave', 'Dave', '']])}),
+         target: 'pick-sarah', action: c => { c.pick = false; }, say: '<strong>Tap Sarah</strong>, your daughter.', hints: {'pick-dave': 'Choose Sarah for this practice.'}},
+        {screen: () => list(p, 'Emergency contacts', [{label: 'Sarah', sub: '07700 900333'}, {label: '＋ Add contact'}]),
+         question: {q: 'You\'ve fallen and can\'t reach the phone screen properly. What do you do?', options: [
+            {t: 'Press the power button 5 times quickly', ok: true, why: 'Yes. A countdown starts, then it rings 999 and shares where you are with Sarah.'},
+            {t: 'Unlock the phone and find the Phone app', why: 'That\'s slow in an emergency. Pressing the power button 5 times works even when it\'s locked.'}]}},
+        {screen: () => list(p, 'Emergency contacts', [{label: 'Sarah', sub: '07700 900333'}]), done: true,
+         say: '<strong>Well done!</strong> Emergency SOS is on and Sarah will be told where you are. If you press it by mistake, tap Cancel during the countdown.'},
+    ], {});
+
+    SCENARIOS['emergency-alerts'] = (p) => withCtx([
+        {screen: () => home(p), target: 'settings', say: 'Emergency Alerts warn you about danger nearby, like severe flooding. Someone has switched one off on this phone. Let\'s fix it. <strong>Tap Settings.</strong>'},
+        ...(p === 'ios' ? [
+            {screen: c => settingsList(p, c), target: 'notifications', say: '<strong>Tap Notifications.</strong>'},
+            {screen: c => list(p, 'Notifications', [{label: 'Show Previews', value: 'Always'}, {caption: 'NOTIFICATION STYLE'}, {label: 'Messages', sub: 'Banners, Sounds, Badges'}, {label: 'WhatsApp', sub: 'Banners, Sounds, Badges'},
+                {caption: 'GOVERNMENT ALERTS'}, {label: 'Extreme Alerts', toggle: true}, {id: 'severe', label: 'Severe Alerts', toggle: !!c.severe}, {label: 'Test Alerts', toggle: false}], {back: 'Settings'}),
+             target: 'severe', action: c => { c.severe = true; }, say: 'Government Alerts are right at the bottom. <strong>Severe Alerts</strong> is off. <strong>Tap it to turn it on.</strong>'},
+        ] : [
+            {screen: c => settingsList(p, c), target: 'safety', say: '<strong>Tap Safety &amp; emergency.</strong>', hint: 'It\'s near the bottom of the list.'},
+            {screen: () => list(p, 'Safety &amp; emergency', [{label: 'Medical information'}, {label: 'Emergency SOS'}, {id: 'wea', label: 'Wireless emergency alerts'}, {label: 'Unknown tracker alerts'}]),
+             target: 'wea', say: '<strong>Tap Wireless emergency alerts.</strong> <em>On some phones it\'s called Emergency alerts.</em>'},
+            {screen: c => list(p, 'Wireless emergency alerts', [{label: 'Allow alerts', toggle: true}, {label: 'Extreme threats', toggle: true}, {id: 'severe', label: 'Severe threats', toggle: !!c.severe}, {label: 'Test alerts', toggle: false}]),
+             target: 'severe', action: c => { c.severe = true; }, say: '<strong>Severe threats</strong> is off. <strong>Tap it to turn it on.</strong>'},
+        ]),
+        {screen: () => home(p) + `<div class="alert-pop"><strong>⚠️ Emergency alert: Severe</strong><p>Severe flooding is expected near the seafront. Move to higher ground. More at gov.uk/alerts</p><button type="button" data-tap="ok">OK</button></div>`,
+         target: 'ok', say: 'This is what an alert looks like. It makes a loud siren sound for about 10 seconds, even on silent. <strong>Tap OK.</strong> <em>(Practice only.)</em>'},
+        {screen: () => home(p), question: {q: 'An alert arrives while you\'re driving. What should you do?', options: [
+            {t: 'Pull over somewhere safe before reading it', ok: true, why: 'Yes. Never read your phone while driving. Stop safely, then read it.'},
+            {t: 'Read it straight away while driving', why: 'Never read your phone while driving. Find somewhere safe to stop first.'}]}},
+        {screen: () => home(p), done: true, say: '<strong>Well done!</strong> Your phone will now warn you about serious danger nearby. Real alerts never ask for personal details or money: if one does, it\'s a scam.'},
+    ], {});
+
+    SCENARIOS['theft-protection'] = (p) => withCtx([
+        {screen: () => home(p), target: 'settings', say: 'Three things that make a stolen phone much less use to a thief. <strong>Tap Settings.</strong>'},
+        ...(p === 'ios' ? [
+            {screen: c => settingsList(p, c), target: 'lock', say: '<strong>Tap Face ID &amp; Passcode.</strong> <em>On a real iPhone you\'ll enter your passcode next.</em>'},
+            {screen: c => iosLockPage({...c, passcodeSet: true}), target: 'stolen', say: 'Scroll down and <strong>tap Stolen Device Protection</strong>.'},
+            {screen: c => list(p, 'Stolen Device Protection', [{id: 'sdp', label: 'Stolen Device Protection', toggle: !!c.sdp, sub: 'Away from home, changing your passcode or Apple Account needs Face ID, and a 1-hour wait.'}], {back: 'Face ID'}),
+             target: 'sdp', action: c => { c.sdp = true; }, say: 'This stops a thief who\'s watched you type your passcode from locking you out. <strong>Turn it on.</strong>'},
+            {screen: () => list(p, 'Stolen Device Protection', [{label: 'Stolen Device Protection', toggle: true}], {back: 'Face ID'}), target: 'back',
+             say: 'Next, hide messages on the lock screen. <strong>Tap ‹ Face ID</strong> to go back.'},
+            {screen: c => settingsList(p, c), target: 'notifications', say: '<strong>Tap Notifications.</strong>'},
+            {screen: c => list(p, 'Notifications', [{id: 'previews', label: 'Show Previews', value: c.previews || 'Always'}, {label: 'Screen Sharing', value: 'Notifications Off'}], {back: 'Settings',
+                overlay: c.pickPrev ? sheet('Show Previews', [['prev-always', 'Always'], ['prev-unlocked', 'When Unlocked', 'Recommended'], ['prev-never', 'Never']]) : ''}),
+             target: 'previews', action: c => { c.pickPrev = true; }, say: 'Right now anyone can read your messages, including security codes, without unlocking your phone. <strong>Tap Show Previews.</strong>'},
+        ] : [
+            {screen: c => settingsList(p, c), target: 'google', say: '<strong>Tap Google.</strong>', hint: 'It\'s near the bottom of the list.'},
+            {screen: () => list(p, 'Google', [{label: 'Manage your Google Account'}, {id: 'all-services', label: 'All services'}, {label: 'Backup'}]), target: 'all-services', say: '<strong>Tap All services.</strong>'},
+            {screen: () => list(p, 'All services', [{caption: 'Personal &amp; device safety'}, {id: 'theft', label: 'Theft protection'}, {label: 'Find Hub'}]), target: 'theft', say: '<strong>Tap Theft protection.</strong>'},
+            {screen: c => list(p, 'Theft protection', [{id: 'tdl', label: 'Theft Detection Lock', toggle: !!c.tdl, sub: 'Locks your screen if it senses someone snatching your phone and running off.'}, {label: 'Offline Device Lock', toggle: !!c.tdl}]),
+             target: 'tdl', action: c => { c.tdl = true; }, say: '<strong>Turn on Theft Detection Lock.</strong> If someone grabs your phone and runs, it locks itself.'},
+            {screen: c => settingsList(p, c), target: 'notifications', say: 'Next, hide messages on the lock screen. Back in Settings, <strong>tap Notifications</strong>.'},
+            {screen: c => list(p, 'Notifications', [{id: 'previews', label: 'Notifications on lock screen', sub: c.previews || 'Show all content'}, {label: 'Notification history'}], {
+                overlay: c.pickPrev ? sheet('Notifications on lock screen', [['prev-always', 'Show all content'], ['prev-unlocked', 'Hide sensitive content', 'Recommended'], ['prev-never', 'Don\'t show any notifications']]) : ''}),
+             target: 'previews', action: c => { c.pickPrev = true; }, say: 'Right now anyone can read your messages, including security codes, without unlocking your phone. <strong>Tap Notifications on lock screen.</strong>'},
+        ]),
+        {screen: c => (p === 'ios'
+                ? list(p, 'Notifications', [{label: 'Show Previews', value: 'Always'}], {back: 'Settings', overlay: sheet('Show Previews', [['prev-always', 'Always'], ['prev-unlocked', 'When Unlocked', 'Recommended'], ['prev-never', 'Never']])})
+                : list(p, 'Notifications', [{label: 'Notifications on lock screen', sub: 'Show all content'}], {overlay: sheet('Notifications on lock screen', [['prev-always', 'Show all content'], ['prev-unlocked', 'Hide sensitive content', 'Recommended'], ['prev-never', 'Don\'t show any notifications']])})),
+         target: 'prev-unlocked', action: c => { c.pickPrev = false; }, say: `<strong>Tap ${p === 'ios' ? 'When Unlocked' : 'Hide sensitive content'}.</strong>`, hints: {'prev-always': 'That\'s how it was. Choose the recommended one.', 'prev-never': 'That hides them completely, which can be annoying. Choose the recommended one.'}},
+        {screen: () => home(p), target: 'phone', say: 'Last, find your phone\'s IMEI number. Your network needs it to block a stolen phone. <strong>Open the Phone app.</strong>'},
+        {screen: c => dialer(p, '*#06#'.slice(0, c.pos)), sequence: dialKeys('*#06#'), action: c => { c.imei = true; },
+         say: 'On the keypad, <strong>type *#06#</strong> (star, hash, zero, six, hash).', hint: 'Start with the star key *, bottom left.'},
+        {screen: () => dialer(p, '*#06#', {overlay: dialog(p, 'Device info', 'IMEI: 35 209900 176148 1 (practice number)', [['ok', 'OK']])}),
+         target: 'ok', say: 'That long number is your <strong>IMEI</strong>. On a real phone, write it down somewhere safe (not on the phone!). <strong>Tap OK.</strong>'},
+        {screen: () => home(p), question: {q: 'Your phone has been snatched. Who do you ring first?', options: [
+            {t: 'Your bank, from someone else\'s phone', ok: true, why: 'Yes. Thieves go for banking apps first. Then lock the phone online, ring your network, and report it on 101.'},
+            {t: 'Wait and see if it turns up', why: 'Speed matters. Ring your bank straight away, then lock the phone and ring your network.'}]}},
+        {screen: () => home(p), done: true, say: '<strong>Well done!</strong> Your phone is much harder for a thief to use, and you know where to find your IMEI.'},
+    ], {});
+
+    SCENARIOS['tracker-alert'] = (p) => withCtx([
+        {screen: () => lockScreen(p, {id: 'alert', app: p === 'ios' ? 'FIND MY' : 'TRACKER ALERT', title: p === 'ios' ? 'AirTag Found Moving With You' : 'Unknown tracker travelling with you',
+            text: '<br>The location of this item can be seen by its owner.'}),
+         target: 'alert', say: 'Your phone has noticed a tracker that isn\'t yours moving around with you. Don\'t panic: it\'s often a family member\'s by mistake. <strong>Tap the alert.</strong>'},
+        {screen: c => app(p, p === 'ios' ? 'Unknown AirTag' : 'Unknown tracker', `<div class="mp-mini"><span class="mp-me"></span><span class="trail"></span></div>
+            <p class="app-note">Seen with you since <strong>10:12</strong> today, at 4 places.</p>
+            <button type="button" class="ph-btn ios-blue" data-tap="play">Play Sound</button>
+            <button type="button" class="ph-btn-text" data-tap="learn">Learn About This ${p === 'ios' ? 'AirTag' : 'Tracker'}</button>
+            <button type="button" class="ph-btn-text" data-tap="disable">Instructions to Disable</button>`, {color: '#fff'}),
+         target: 'play', action: c => { c.played = true; }, say: 'The map shows where it\'s been with you. <strong>Tap Play Sound</strong> so you can find it.'},
+        {screen: () => app(p, p === 'ios' ? 'Unknown AirTag' : 'Unknown tracker', '<p class="app-note">🔊 <strong>Playing sound…</strong><br>Listen for a chirping sound.</p>', {color: '#fff'}),
+         question: {q: 'You hear a faint chirp. Where should you look?', options: [
+            {t: 'In bags, coat pockets, the car and anything you\'ve borrowed', ok: true, why: 'Yes. Trackers are small, about the size of a large coin, and are often tucked into linings, pockets or cars.'},
+            {t: 'Nowhere, just ignore it', why: 'It\'s worth finding. Check bags, pockets and your car: it may just be a family member\'s.'}]}},
+        {screen: c => app(p, 'Tracker found', `<p class="app-note">Hold the top of your phone near the tracker to see more about it.</p>
+            <div class="tracker-coin" aria-hidden="true"></div><button type="button" class="ph-btn ios-blue" data-tap="scan">Hold near tracker</button>`, {color: '#fff'}),
+         target: 'scan', say: 'You found it in your coat lining. <strong>Tap Hold near tracker</strong> to see who it belongs to.'},
+        {screen: () => app(p, 'About this tracker', '<p class="app-note"><strong>Not in Lost Mode</strong><br>Serial number: P4R7-ACT1CE<br>Owner details are only shared with the police.</p>', {color: '#fff'}),
+         question: {q: 'It\'s not a family member\'s, and you\'re worried someone hid it to follow you. What do you do?', options: [
+            {t: 'Keep it safe and take it to the police (or ring 999 if you\'re in danger)', ok: true, why: 'Yes. Don\'t throw it away: the police can trace it to its owner. The National Stalking Helpline is on 0808 802 0300.'},
+            {t: 'Throw it in the bin', why: 'It may be evidence, and the police can trace the owner. Keep it and take it to them, or ring 999 if you\'re in danger.'}]}},
+        {screen: () => app(p, 'About this tracker', '<p class="app-note">Help: National Stalking Helpline 0808 802 0300<br>Domestic Abuse Helpline (24 hours) 0808 2000 247</p>', {color: '#fff'}), done: true,
+         say: '<strong>Well done!</strong> You know how to find a tracker and what to do. ' + (p === 'android' ? 'Check alerts are on in <strong>Settings > Safety &amp; emergency > Unknown tracker alerts</strong>.' : 'iPhones check for trackers automatically.')},
+    ], {});
+
+    const w3wApp = ['w3w', 'what3words', '#e11d48', '<span class="ic-text">///</span>'];
+    SCENARIOS['lost-999'] = (p) => withCtx([
+        {screen: () => homeWith(p, [w3wApp]), target: 'w3w',
+         say: 'You\'re on a cliff path and someone has fallen. There\'s no address. When you ring 999, most phones send your location automatically, but three words help too. <strong>Open what3words.</strong> <em>(A practice version.)</em>'},
+        {screen: c => `<div class="ph-app-screen maps-app ph-${p}">${statusBar(p)}<div class="mp-map cliff"><span class="mp-me"></span><span class="w3w-square"></span></div>
+            <div class="mp-card"><strong class="w3w-words">///puffin.chalk.lantern</strong><small>Near Flamborough, East Riding (practice)</small>
+            <button type="button" class="ph-btn ios-blue" data-tap="got-it">I've got my 3 words</button></div>${homeIndicator(p)}</div>`,
+         target: 'got-it', say: 'The blue dot is you. Every 3-metre square has its own three words. Yours are <strong>puffin.chalk.lantern</strong>. Wait a moment for the dot to settle, then <strong>tap I\'ve got my 3 words</strong>.'},
+        {screen: () => home(p), target: 'phone', say: 'Now ring 999. <strong>Open the Phone app.</strong> <em>(Practice only: never ring 999 to test.)</em>'},
+        {screen: c => dialer(p, '999'.slice(0, c.pos)), sequence: dialKeys('999'), say: '<strong>Type 999.</strong>'},
+        {screen: () => dialer(p, '999'), target: 'call', say: '<strong>Tap the green call button.</strong>'},
+        {screen: () => `<div class="call-screen ${p}">${statusBar(p)}<div class="call-ring">${avatar('9', '#dc2626')}<strong>999</strong><small>Emergency call · 0:08</small></div>
+            <p class="call-handler">"Emergency, which service? … Ambulance. What\'s the exact location of the emergency?"</p>${homeIndicator(p)}</div>`,
+         question: {q: 'The call handler asks where you are. What do you say?', options: [
+            {t: '"I\'m on the cliff path. My what3words address is puffin, chalk, lantern."', ok: true, why: 'Yes. Say where you are in your own words, then give the three words. Spell any word if they ask.'},
+            {t: '"I don\'t know, somewhere near the sea"', why: 'They\'ll try to find you, but three words pinpoint you to 3 metres. Read them out from the app.'}]}},
+        {screen: () => home(p), question: {q: 'A friend is deaf and can\'t make voice calls. How can they reach 999?', options: [
+            {t: 'Register for emergency text (text "register" to 999) now, or use the 999 BSL app', ok: true, why: 'Yes. Emergency text only works if you register first. The 999 BSL app connects to a sign-language interpreter.'},
+            {t: 'They can\'t', why: 'They can. Register for emergency text by texting "register" to 999, or use the free 999 BSL app.'}]}},
+        {screen: () => home(p), done: true, say: '<strong>Well done!</strong> Remember: say where you are, then give your three words. The what3words app works without signal for finding your words, but you need signal to ring.'},
+    ], {});
+
+    // ======================================================================================
+    // Course: Fixing common problems
+    // ======================================================================================
+    function frozen(p, ctx) {
+        if (ctx.booting) return `<div class="ph-boot">${ctx.busy ? `<span class="boot-logo">${p === 'ios' ? '' : '◉'}</span>` : ''}${homeIndicator(p)}</div>`;
+        return `<div class="ph-app-screen frozen ph-${p}">${statusBar(p)}<div class="frozen-app"><p>⏳</p><p>Not responding</p></div>${edgeButtons(p)}${homeIndicator(p)}</div>`;
+    }
+    SCENARIOS['frozen-phone'] = (p) => withCtx([
+        {screen: c => frozen(p, c), question: {q: 'Your phone is stuck: tapping does nothing and it won\'t turn off the normal way. Is this a big problem?', options: [
+            {t: 'Usually not. A "forced restart" fixes it, and you don\'t lose anything', ok: true, why: 'Right. A forced restart is like switching it off at the wall. Your photos and messages are safe.'},
+            {t: 'Yes, it\'s broken', why: 'Usually not! A forced restart fixes most frozen phones, and you don\'t lose anything.'}]}},
+        {screen: c => frozen(p, c), sequence: p === 'ios' ? ['vol-up', 'vol-down', 'side'] : ['power', 'vol-down'], action: c => { c.booting = true; },
+         say: p === 'ios'
+            ? 'On an iPhone: <strong>press and let go of volume up</strong>, then <strong>press and let go of volume down</strong>, then <strong>press and hold the side button</strong> until the Apple logo appears (about 10 seconds). Here, tap them in that order.'
+            : 'On most Android phones: <strong>press and hold the power button and volume down together</strong> for about 10 seconds, until it restarts. Here, tap power, then volume down. <em>(Google Pixel: hold just the power button for 30 seconds.)</em>',
+         hints: {'vol-down': p === 'ios' ? 'Volume up comes first.' : 'Start with the power button.', side: 'The side button is last, after both volume buttons.'},
+         hint: p === 'ios' ? 'Volume up, then volume down, then the side button.' : 'Power, then volume down.'},
+        {screen: c => frozen(p, c), wait: 1600,
+         question: {q: 'The logo has appeared. What now?', options: [
+            {t: 'Let go and wait for it to start up', ok: true, why: 'Yes. It takes a minute. You may need to type your passcode once.'},
+            {t: 'Keep pressing all the buttons', why: 'Let go once the logo appears, and give it a minute to start up.'}]}},
+        {screen: () => lockScreen(p, null), done: true,
+         say: '<strong>Well done!</strong> Your phone has restarted. If it keeps freezing, check for updates and free up storage. Restarting your phone once a week keeps it running smoothly.'},
+    ], {});
+
+    function quickPanel(p, ctx) {
+        const plane = !!ctx.plane;
+        return `<div class="cc-screen ${p}">${statusBar(p)}<div class="qp-grid">
+            <button type="button" class="qp-tile${plane ? ' on' : ''}" data-tap="airplane">✈︎ Airplane mode<small>${plane ? 'On' : 'Off'}</small></button>
+            <span class="qp-tile${plane ? '' : ' on'}">📶 Mobile data<small>${plane ? 'Off' : (ctx.signal ? 'On · 4G' : 'No service')}</small></span>
+            <span class="qp-tile on">Wi-Fi<small>${plane ? 'Off' : 'Home'}</small></span><span class="qp-tile">🔦 Torch<small>Off</small></span></div>
+            <button type="button" class="cc-close" data-tap="close">${p === 'ios' ? 'Swipe up to close' : 'Close'}</button>${homeIndicator(p)}</div>`;
+    }
+    SCENARIOS['airplane-reset'] = (p) => withCtx([
+        {screen: () => home(p, {pull: true}).replace('<span class="ph-status-r">', '<span class="ph-status-r"><span class="no-svc">No service</span>'), target: 'pull-down',
+         say: 'Your phone says <strong>No service</strong>, though it worked this morning. A quick fix is to turn Airplane mode on and off, which makes it reconnect. ' + (p === 'ios' ? '<strong>Swipe down from the top-right corner</strong> (or tap the strip).' : '<strong>Swipe down from the top</strong> (or tap the strip).')},
+        {screen: c => quickPanel(p, c), target: 'airplane', action: c => { c.plane = true; }, say: '<strong>Tap Airplane mode</strong> to turn it on. Everything wireless switches off.'},
+        {screen: c => quickPanel(p, c), wait: 1200, target: 'airplane', action: c => { c.plane = false; c.signal = true; }, say: 'Wait about 10 seconds… then <strong>tap Airplane mode again</strong> to turn it off.'},
+        {screen: c => quickPanel(p, c), question: {q: 'Mobile data is back on 4G. When else is Airplane mode handy?', options: [
+            {t: 'On a plane, or abroad to avoid roaming charges (you can still turn Wi-Fi on)', ok: true, why: 'Yes. You can turn Wi-Fi back on while Airplane mode is on, to use hotel or ship Wi-Fi.'},
+            {t: 'To charge the phone', why: 'It charges a little faster, but it\'s mainly for flights and avoiding roaming charges abroad.'}]}},
+        {screen: c => quickPanel(p, c), done: true, say: '<strong>Well done!</strong> If Airplane mode doesn\'t fix it, restart your phone. Still no service? Check your network\'s website for problems in your area.'},
+    ], {});
+
+    const bubbleApp = ['bubble', 'Bubble Pop', '#f472b6', '<span class="ic-text">●</span>'];
+    SCENARIOS['notifications'] = (p) => withCtx([
+        {screen: () => homeWith(p, [bubbleApp]) + '<button type="button" class="ph-notif" data-tap="notif"><strong>BUBBLE POP · now</strong><span>🎁 Your FREE lives are waiting! Come back and play! 🎉</span></button>',
+         target: 'settings', say: 'A game keeps buzzing with pointless messages. You can turn off notifications for any app. <strong>Tap Settings</strong>, not the message.', hints: {notif: 'That opens the game. Tap Settings instead.'}},
+        {screen: c => settingsList(p, c), target: 'notifications', say: '<strong>Tap Notifications.</strong>'},
+        {screen: () => p === 'ios'
+            ? list(p, 'Notifications', [{label: 'Show Previews', value: 'When Unlocked'}, {caption: 'NOTIFICATION STYLE'}, {id: 'bubble', label: 'Bubble Pop', sub: 'Banners, Sounds, Badges'}, {label: 'Messages', sub: 'Banners, Sounds, Badges'}, {label: 'WhatsApp', sub: 'Banners, Sounds, Badges'}], {back: 'Settings'})
+            : list(p, 'Notifications', [{id: 'app-notifs', label: 'App notifications'}, {id: 'history', label: 'Notification history'}, {label: 'Notifications on lock screen'}]),
+         target: p === 'ios' ? 'bubble' : 'app-notifs', say: p === 'ios' ? '<strong>Tap Bubble Pop.</strong>' : '<strong>Tap App notifications.</strong>'},
+        ...(p === 'android' ? [{screen: () => list(p, 'App notifications', [{label: 'Messages', toggle: true}, {id: 'bubble', label: 'Bubble Pop', toggle: true}, {label: 'WhatsApp', toggle: true}]),
+            target: 'bubble', action: c => { c.off = true; }, say: '<strong>Tap the switch next to Bubble Pop</strong> to turn its notifications off.', hints: {}}] : [
+            {screen: c => list(p, 'Bubble Pop', [{id: 'allow', label: 'Allow Notifications', toggle: !c.off}], {back: 'Notifications'}),
+             target: 'allow', action: c => { c.off = true; }, say: '<strong>Turn off Allow Notifications.</strong>'}]),
+        ...(p === 'android' ? [
+            {screen: () => list(p, 'Notifications', [{label: 'App notifications'}, {id: 'history', label: 'Notification history', sub: 'Off'}]), target: 'history',
+             say: 'Handy extra: if you ever swipe a message away by mistake, Notification history keeps a copy. <strong>Tap Notification history.</strong>'},
+            {screen: c => list(p, 'Notification history', [{id: 'hist-toggle', label: 'Use notification history', toggle: !!c.hist}]), target: 'hist-toggle', action: c => { c.hist = true; }, say: '<strong>Turn it on.</strong>'},
+        ] : []),
+        {screen: () => homeWith(p, [bubbleApp]), question: {q: 'Which apps\' notifications are worth keeping on?', options: [
+            {t: 'Messages, calls, WhatsApp, your bank and anything you\'d want to know about straight away', ok: true, why: 'Yes. Keep the important ones, and turn off games, shops and anything that just nags.'},
+            {t: 'Turn them all off', why: 'You\'d miss messages and calls! Keep the important ones, and turn off games and shopping apps.'}]}},
+        {screen: () => homeWith(p, [bubbleApp]), done: true, say: '<strong>Well done!</strong> Bubble Pop won\'t bother you any more. ' + (p === 'ios' ? 'If you swipe a message away by mistake, swipe up from the middle of the lock screen to see earlier ones.' : 'And notification history keeps a copy of anything you swipe away.')},
+    ], {});
+
+    SCENARIOS['autocorrect'] = (p) => withCtx([
+        {screen: () => `<div class="ph-app-screen msg-app ph-${p}">${statusBar(p)}<div class="msg-head"><strong>Sarah</strong></div>
+            <div class="wa-thread"><div class="wa-bubble me sms"><span>See you at the ducking garden centre x</span><small>10:20</small></div></div>
+            <div class="msg-bar"><span class="msg-box">Text message</span></div>${homeIndicator(p)}</div>`,
+         question: {q: 'You typed "Dunnington garden centre" and your phone changed it. Why?', options: [
+            {t: 'Autocorrect guessed the wrong word', ok: true, why: 'Yes. Autocorrect swaps words it doesn\'t know. You can turn it off, or teach it new words.'},
+            {t: 'The phone is broken', why: 'It\'s just autocorrect guessing. You can turn it off or teach it words.'}]}},
+        {screen: () => home(p), target: 'settings', say: '<strong>Tap Settings.</strong>'},
+        ...(p === 'ios' ? [
+            {screen: c => settingsList(p, c), target: 'general', say: '<strong>Tap General.</strong>'},
+            {screen: () => list(p, 'General', [{label: 'About'}, {label: 'Software Update'}, {id: 'keyboard', label: 'Keyboard'}, {label: 'Language &amp; Region'}], {back: 'Settings'}), target: 'keyboard', say: '<strong>Tap Keyboard.</strong>'},
+            {screen: c => list(p, 'Keyboards', [{id: 'replace', label: 'Text Replacement'}, {caption: 'ALL KEYBOARDS'}, {label: 'Auto-Capitalisation', toggle: true}, {id: 'ac', label: 'Auto-Correction', toggle: !c.acOff}, {label: 'Predictive Text', toggle: true}], {back: 'General'}),
+             target: 'ac', action: c => { c.acOff = true; }, say: '<strong>Turn off Auto-Correction.</strong> Spelling mistakes still get a red underline, so you can fix them yourself.'},
+        ] : [
+            {screen: c => settingsList(p, c), target: 'system', say: '<strong>Tap System.</strong> It\'s at the bottom.'},
+            {screen: () => list(p, 'System', [{id: 'keyboard', label: 'Keyboard'}, {label: 'Languages'}, {label: 'Date &amp; time'}]), target: 'keyboard', say: '<strong>Tap Keyboard.</strong>'},
+            {screen: () => list(p, 'Keyboard', [{id: 'gboard', label: 'Gboard', sub: 'On-screen keyboard'}]), target: 'gboard', say: '<strong>Tap Gboard.</strong> <em>On a Samsung, it\'s Samsung Keyboard > Smart typing.</em>'},
+            {screen: () => list(p, 'Gboard', [{label: 'Preferences'}, {id: 'correction', label: 'Text correction'}, {label: 'Glide typing'}]), target: 'correction', say: '<strong>Tap Text correction.</strong>'},
+            {screen: c => list(p, 'Text correction', [{label: 'Show suggestion strip', toggle: true}, {id: 'ac', label: 'Auto-correction', toggle: !c.acOff}, {label: 'Spell check', toggle: true}]),
+             target: 'ac', action: c => { c.acOff = true; }, say: '<strong>Turn off Auto-correction.</strong> Spelling mistakes still get a red underline, so you can fix them yourself.'},
+        ]),
+        {screen: () => home(p), question: {q: 'You\'d rather keep autocorrect, but it always changes "Dunnington". What else could you do?', options: [
+            {t: 'Add it to the phone\'s dictionary, so it learns the word', ok: true, why: 'Yes. ' + (p === 'ios' ? 'Use Text Replacement in the same Keyboard settings.' : 'Tap the word in the suggestion strip and choose to add it to your dictionary.')},
+            {t: 'Nothing, just put up with it', why: 'You can teach it: ' + (p === 'ios' ? 'add the word in Keyboard > Text Replacement.' : 'tap the word in the suggestions and add it to your dictionary.')}]}},
+        {screen: () => home(p), done: true, say: '<strong>Well done!</strong> No more surprise word swaps. You can turn it back on any time in the same place.'},
+    ], {});
+
+    SCENARIOS['bluetooth'] = (p) => withCtx([
+        {screen: () => home(p), question: {q: 'You\'ve got new wireless headphones. What do you do first?', options: [
+            {t: 'Put them in "pairing mode" (usually hold the button until a light flashes)', ok: true, why: 'Yes. Pairing mode lets your phone find them. The instructions in the box say exactly how.'},
+            {t: 'Plug them into the phone', why: 'Wireless headphones connect by Bluetooth. Put them in pairing mode first, usually by holding the button until a light flashes.'}]}},
+        {screen: () => home(p), target: 'settings', say: 'The headphones\' light is flashing. <strong>Tap Settings.</strong>'},
+        ...(p === 'ios' ? [
+            {screen: c => settingsList(p, c), target: 'bluetooth', say: '<strong>Tap Bluetooth.</strong>'},
+        ] : [
+            {screen: c => settingsList(p, c), target: 'devices', say: '<strong>Tap Connected devices.</strong>'},
+            {screen: () => list(p, 'Connected devices', [{id: 'pair', label: '＋ Pair new device'}, {label: 'Saved devices', sub: 'Car'}]), target: 'pair', say: '<strong>Tap Pair new device.</strong>'},
+        ]),
+        {screen: c => list(p, p === 'ios' ? 'Bluetooth' : 'Pair new device', [{label: 'Bluetooth', toggle: true}, {caption: p === 'ios' ? 'MY DEVICES' : 'Saved'}, {label: 'Car', sub: 'Not connected'},
+            {caption: p === 'ios' ? 'OTHER DEVICES' : 'Available devices'}, {id: 'headphones', label: '🎧 Practice Headphones'}, {label: 'Neighbour\'s TV'}], {back: 'Settings'}),
+         target: 'headphones', say: 'Your phone is looking for nearby devices. <strong>Tap Practice Headphones.</strong>', hints: {}},
+        {screen: () => list(p, 'Bluetooth', [{label: 'Bluetooth', toggle: true}, {caption: 'MY DEVICES'}, {label: '🎧 Practice Headphones', sub: 'Connected ✓'}, {label: 'Car', sub: 'Not connected'}], {back: 'Settings'}),
+         question: {q: 'Next time you turn the headphones on, do you have to do this again?', options: [
+            {t: 'No, they connect by themselves from now on', ok: true, why: 'Yes. You only pair once. After that they connect automatically when they\'re on and nearby.'},
+            {t: 'Yes, every time', why: 'You only pair once. After that they connect by themselves.'}]}},
+        {screen: () => list(p, 'Bluetooth', [{label: '🎧 Practice Headphones', sub: 'Connected ✓'}], {back: 'Settings'}), done: true,
+         say: '<strong>Well done!</strong> The same steps work for a car, speaker or hearing aids. If something won\'t connect, turn Bluetooth off and on, and put the device back in pairing mode.'},
+    ], {});
+
+    // ======================================================================================
+    // Extra lessons for existing courses
+    // ======================================================================================
+    function scamCall(p, ctx) {
+        return `<div class="call-screen ${p}">${statusBar(p)}<div class="call-ring">${avatar('?', '#64748b')}<strong>07700 900555</strong><small>${ctx.answered ? '0:21' : 'mobile'}</small></div>
+            ${ctx.answered ? `<p class="call-handler">"${ctx.said || 'Gran? It\'s me, Tom! I\'ve lost my phone and I\'m in trouble. I need £400 for a fine, today. Please don\'t tell Mum!'}"</p>
+            <div class="call-choices"><button type="button" data-tap="ask-phrase">Ask for the family safe phrase</button><button type="button" data-tap="send-money">Say you\'ll send the money</button></div>
+            <div class="call-answer single"><button type="button" class="decline" data-tap="end" aria-label="End call">${UI.hangup}</button></div>`
+            : `<div class="call-answer"><button type="button" class="decline" data-tap="decline" aria-label="Decline">${UI.hangup}</button><button type="button" class="accept" data-tap="answer" aria-label="Answer">${UI.phone}</button></div>
+            <p class="call-labels"><span>Decline</span><span>Answer</span></p>`}${homeIndicator(p)}</div>`;
+    }
+    SCENARIOS['voice-clone'] = (p) => withCtx([
+        {screen: c => scamCall(p, c), target: 'answer', action: c => { c.answered = true; }, say: 'An unknown number is ringing. <strong>Answer it</strong>, to practise what to do.', hints: {decline: 'Declining is fine in real life! For this practice, tap Answer.'}},
+        {screen: c => scamCall(p, c), target: 'ask-phrase', action: c => { c.said = 'Er… what? Gran, there\'s no time for that! Please, I need the money now!'; },
+         say: 'It sounds just like your grandson Tom. But scammers can copy voices. Your family agreed a <strong>safe phrase</strong>. <strong>Ask for it.</strong>',
+         hints: {'send-money': 'Never agree to send money on a call like this. Ask for the safe phrase.', end: 'Hanging up is fine too! But first, practise asking for the safe phrase.'}},
+        {screen: c => scamCall(p, c), target: 'end', say: 'They don\'t know it, and they\'re pushing harder. That\'s a scammer. <strong>Hang up</strong> with the red button.', hints: {'send-money': 'Don\'t! They didn\'t know the phrase. Hang up.', 'ask-phrase': 'You\'ve asked, and they couldn\'t answer. Hang up.'}},
+        {screen: () => home(p), question: {q: 'You\'re still a bit worried about Tom. What do you do?', options: [
+            {t: 'Ring Tom (or his mum) on the number you already have for him', ok: true, why: 'Yes. Always ring back on a number you know. The real Tom will be fine, and won\'t mind you checking.'},
+            {t: 'Ring back the number that called you', why: 'That reaches the scammer again. Ring Tom on the number you already have for him.'}]}},
+        {screen: () => home(p), target: 'phone', say: 'If a call is about your bank account, you can ring <strong>159</strong> to reach your own bank safely. <strong>Open the Phone app</strong> to practise.'},
+        {screen: c => dialer(p, '159'.slice(0, c.pos)), sequence: dialKeys('159'), say: '<strong>Type 159.</strong>'},
+        {screen: () => dialer(p, '159'), target: 'call', say: '<strong>Tap the green call button.</strong> <em>(Practice only: nothing is dialled.)</em>'},
+        {screen: () => `<div class="call-screen ${p}">${statusBar(p)}<div class="call-ring">${avatar('£', '#0f766e')}<strong>159</strong><small>Stop Scams UK</small></div>
+            <p class="call-handler">"Welcome to 159. Please say the name of your bank, and we'll connect you."</p>${homeIndicator(p)}</div>`, done: true,
+         say: '<strong>Well done!</strong> 159 connects you to your real bank. Agree a safe phrase with your family face to face, and never post it online.'},
+    ], {});
+
+    SCENARIOS['new-phone'] = (p) => withCtx([
+        {screen: () => `<div class="ph-hello ph-${p}">${statusBar(p)}<h3>${p === 'ios' ? 'Hello' : 'Hi there'}</h3><button type="button" class="ph-btn ios-blue" data-tap="start">${p === 'ios' ? 'Swipe up to open' : 'Get started'}</button>${homeIndicator(p)}</div>`,
+         target: 'start', say: `Your new phone is out of the box and switched on. Keep your <strong>old phone</strong> nearby, charged and on Wi-Fi. <strong>Tap ${p === 'ios' ? 'Swipe up to open' : 'Get started'}.</strong>`},
+        {screen: () => list(p, p === 'ios' ? 'Quick Start' : 'Copy apps &amp; data', [], {noBack: true, top: `<p class="app-note">${p === 'ios' ? 'Bring your old iPhone near this one to set it up with your Apple Account.' : 'Copy your apps, photos, contacts and more from your old phone.'}</p>
+            <button type="button" class="ph-btn ${p === 'ios' ? 'ios-blue' : 'and-green'}" data-tap="use-old">${p === 'ios' ? 'Continue on your old iPhone' : 'Use your old device'}</button>
+            <button type="button" class="ph-btn-text" data-tap="manual">Set up manually instead</button>`}),
+         target: 'use-old', say: 'Copying from your old phone saves setting everything up again. <strong>Tap ' + (p === 'ios' ? 'Continue on your old iPhone' : 'Use your old device') + '.</strong>', hints: {manual: 'You can, but copying is much easier. Tap the other button.'}},
+        {screen: () => `<div class="ph-app-screen ph-${p} transfer-scan">${statusBar(p)}<p class="app-note">On your <strong>old</strong> phone, a message appears. Point its camera at this pattern.</p>
+            <div class="swirl" aria-hidden="true"></div><button type="button" class="ph-btn ios-blue" data-tap="scanned">Old phone has scanned it</button>${homeIndicator(p)}</div>`,
+         target: 'scanned', say: 'On the old phone, tap Continue, then hold it over this pattern so the camera can see it. Here, <strong>tap Old phone has scanned it</strong>.'},
+        {screen: c => codeScreen(p, c, 'Enter your old phone\'s passcode', 'This copies your settings safely.'), sequence: CODE_KEYS,
+         say: `Type your old phone's passcode. For practice, use <strong>${codeText}</strong>.`, hint: `Type the practice code ${codeText}.`},
+        {screen: () => list(p, 'Transfer your data', [], {noBack: true, top: `<p class="app-note">Choose what to bring across:</p>
+            <div class="set-row static"><span>Photos and videos</span>${tog(true)}</div><div class="set-row static"><span>Contacts and messages</span>${tog(true)}</div><div class="set-row static"><span>Apps</span>${tog(true)}</div>
+            <button type="button" class="ph-btn ios-blue" data-tap="transfer">Continue</button>`}),
+         target: 'transfer', say: 'Everything is ticked. <strong>Tap Continue.</strong> Keep both phones close together and plugged in.'},
+        {screen: c => list(p, 'Transferring…', [], {noBack: true, top: `<div class="stor-head"><span>${c.busy ? 'About 25 minutes remaining' : 'Transfer complete ✓'}</span><div class="stor-bar"><span style="width:${c.busy ? 35 : 100}%;background:#22c55e"></span></div></div>`}), wait: 1500,
+         question: {q: 'The transfer has finished. What should you do with the old phone?', options: [
+            {t: 'Keep it for a week to check nothing\'s missing, then wipe it properly before selling or recycling', ok: true, why: 'Yes. Check your photos, WhatsApp and banking apps work on the new phone first. The next lesson shows how to wipe the old one.'},
+            {t: 'Throw it in the bin straight away', why: 'It still has all your information on it! Check the new phone has everything, then wipe the old one properly.'}]}},
+        {screen: () => home(p), done: true, say: '<strong>Well done!</strong> Your new phone has your photos, contacts and apps. Some apps, like banking and WhatsApp, ask you to sign in again; have your details ready.'},
+    ], {});
+
+    SCENARIOS['sell-phone'] = (p) => withCtx([
+        {screen: () => home(p), target: 'settings', say: 'Selling, giving away or recycling your old phone? Do these in the right order, or the next owner can\'t use it. <strong>Tap Settings.</strong>'},
+        ...(p === 'ios' ? [
+            {screen: c => settingsList(p, c), target: 'account', say: 'Step 1: sign out of your Apple Account. <strong>Tap your name</strong>.'},
+            {screen: c => list(p, 'Apple Account', [{label: 'Personal Information'}, {label: 'Sign-In &amp; Security'}, {label: 'iCloud'}, {caption: ' '}, {id: 'sign-out', label: 'Sign Out', danger: true}], {back: 'Settings',
+                overlay: c.ask ? dialog(p, 'Sign out?', 'Your password is needed to turn off Find My. (Practice: entered for you.)', [['cancel', 'Cancel'], ['turn-off', 'Turn Off']]) : ''}),
+             target: 'sign-out', action: c => { c.ask = true; }, say: 'Scroll to the bottom and <strong>tap Sign Out</strong>.'},
+            {screen: () => list(p, 'Apple Account', [{label: 'Sign Out', danger: true}], {back: 'Settings', overlay: dialog(p, 'Sign out?', 'Your password is needed to turn off Find My. (Practice: entered for you.)', [['cancel', 'Cancel'], ['turn-off', 'Turn Off']])}),
+             target: 'turn-off', say: 'This turns off <strong>Find My</strong>, which would otherwise lock the phone to you. <strong>Tap Turn Off.</strong>'},
+            {screen: c => settingsList(p, c), target: 'general', say: 'Step 2: wipe it. <strong>Tap General.</strong>'},
+            {screen: () => list(p, 'General', [{label: 'About'}, {label: 'iPhone Storage'}, {id: 'reset', label: 'Transfer or Reset iPhone'}], {back: 'Settings'}), target: 'reset', say: '<strong>Tap Transfer or Reset iPhone</strong>, at the bottom.'},
+            {screen: c => list(p, 'Transfer or Reset iPhone', [{label: 'Reset'}, {id: 'erase', label: 'Erase All Content and Settings'}], {back: 'General',
+                overlay: c.askErase ? dialog(p, 'Erase This iPhone?', 'All photos, messages and apps will be deleted.', [['cancel', 'Cancel'], ['confirm-erase', 'Erase']]) : ''}),
+             target: 'erase', action: c => { c.askErase = true; }, say: '<strong>Tap Erase All Content and Settings.</strong>'},
+        ] : [
+            {screen: c => settingsList(p, c), target: 'google', say: 'Step 1: remove your Google Account. <strong>Tap Google</strong>. <em>(On a Samsung, also remove your Samsung account.)</em>'},
+            {screen: c => list(p, 'Google', [{label: 'Manage your Google Account'}, {id: 'accounts', label: 'Accounts on this device', sub: 'margaret.smith@example.com'}]), target: 'accounts', say: '<strong>Tap Accounts on this device.</strong>'},
+            {screen: c => list(p, 'Google account', [{label: 'margaret.smith@example.com'}, {label: 'Account sync'}, {id: 'remove', label: 'Remove account', danger: true}], {overlay: c.ask ? dialog(p, 'Remove account?', 'Removing it deletes its messages, contacts and data from this phone.', [['cancel', 'Cancel'], ['confirm-remove', 'Remove account']]) : ''}),
+             target: 'remove', action: c => { c.ask = true; }, say: 'Without this, the phone stays locked to your account after a reset. <strong>Tap Remove account.</strong>'},
+            {screen: () => list(p, 'Account', [{label: 'Remove account', danger: true}], {overlay: dialog(p, 'Remove account?', 'Removing it deletes its messages, contacts and data from this phone.', [['cancel', 'Cancel'], ['confirm-remove', 'Remove account']])}),
+             target: 'confirm-remove', say: '<strong>Tap Remove account.</strong>'},
+            {screen: c => settingsList(p, c), target: 'system', say: 'Step 2: wipe it. <strong>Tap System</strong>, at the bottom.'},
+            {screen: () => list(p, 'System', [{label: 'Languages'}, {label: 'Software update'}, {id: 'reset', label: 'Reset options'}]), target: 'reset', say: '<strong>Tap Reset options.</strong>'},
+            {screen: c => list(p, 'Reset options', [{label: 'Reset Wi-Fi, mobile &amp; Bluetooth'}, {id: 'erase', label: 'Erase all data (factory reset)'}], {overlay: c.askErase ? dialog(p, 'Erase all data?', 'All photos, messages and apps will be deleted.', [['cancel', 'Cancel'], ['confirm-erase', 'Erase all data']]) : ''}),
+             target: 'erase', action: c => { c.askErase = true; }, say: '<strong>Tap Erase all data (factory reset).</strong>'},
+        ]),
+        {screen: () => list(p, 'Reset', [], {noBack: true, overlay: dialog(p, p === 'ios' ? 'Erase This iPhone?' : 'Erase all data?', 'All photos, messages and apps will be deleted.', [['cancel', 'Cancel'], ['confirm-erase', p === 'ios' ? 'Erase' : 'Erase all data']])}),
+         target: 'confirm-erase', say: 'Only do this once your photos are safely on your new phone or backed up. <strong>Tap ' + (p === 'ios' ? 'Erase' : 'Erase all data') + '.</strong> <em>(Practice: nothing is deleted.)</em>'},
+        {screen: () => `<div class="ph-hello ph-${p}">${statusBar(p)}<h3>${p === 'ios' ? 'Hello' : 'Hi there'}</h3><p class="app-note">Ready for its next owner</p>${homeIndicator(p)}</div>`,
+         question: {q: 'One last thing before you hand it over?', options: [
+            {t: 'Take out the SIM card (and any memory card)', ok: true, why: 'Yes. The SIM has your phone number on it. Pop it out with the little tool or a paper clip.'},
+            {t: 'Nothing else', why: 'Take out your SIM card, and any memory card. Your number is on the SIM.'}]}},
+        {screen: () => `<div class="ph-hello ph-${p}">${statusBar(p)}<h3>${p === 'ios' ? 'Hello' : 'Hi there'}</h3><p class="app-note">Ready for its next owner</p>${homeIndicator(p)}</div>`, done: true,
+         say: '<strong>Well done!</strong> Sign out, wipe, remove the SIM: in that order. The "Hello" screen means it\'s ready for someone else.'},
+    ], {});
+
+    function assistantOverlay(p, ctx) {
+        const name = p === 'ios' ? 'Siri' : 'Google';
+        if (!ctx.listening) return '';
+        const result = ctx.reminder ? `<div class="asst-card"><strong>Reminder</strong><span>Ring Sarah</span><small>Today at 15:00</small></div>`
+            : ctx.weather ? '<div class="asst-card"><strong>Bridlington</strong><span>⛅ 12°, showers later</span><small>High 14° · Low 8°</small></div>' : '';
+        return `<div class="asst ${p}"><p class="asst-hint">${result ? '' : `${name} is listening… what would you like to say?`}</p>${result}
+            <div class="asst-says">${[['say-remind', '"Remind me to ring Sarah at 3"'], ['say-weather', '"What\'s the weather today?"'], ['say-joke', '"Order me a pizza"']].map(([id, t]) => `<button type="button" data-tap="${id}">${t}</button>`).join('')}</div>
+            <span class="asst-orb" aria-hidden="true"></span></div>`;
+    }
+    SCENARIOS['voice-assistant'] = (p) => withCtx([
+        {screen: c => home(p) + `<button type="button" class="edge-btn right at1" data-hold="side" aria-label="${p === 'ios' ? 'Side button (press and hold)' : 'Power button (press and hold)'}">${UI.power}</button>`,
+         target: 'side', action: c => { c.listening = true; },
+         say: p === 'ios' ? '<strong>Siri</strong> does things when you ask out loud. <strong>Press and hold the side button</strong> (on the right) until Siri appears. You can also just say "Siri" or "Hey Siri".'
+                          : 'Your phone can do things when you ask out loud. <strong>Press and hold the power button</strong> (on the right) until the assistant appears. You can also say "Hey Google".',
+         hint: 'Keep your finger (or mouse button) pressed on the button on the right edge.'},
+        {screen: c => home(p) + assistantOverlay(p, c), target: 'say-remind', action: c => { c.reminder = true; },
+         say: 'On a real phone you\'d just speak. Here, <strong>tap "Remind me to ring Sarah at 3"</strong>.', hints: {'say-joke': 'Try the reminder first.', 'say-weather': 'Try the reminder first.'}},
+        {screen: c => home(p) + assistantOverlay(p, c), target: 'say-weather', action: c => { c.reminder = false; c.weather = true; },
+         say: 'Done: a reminder pops up at 3 o\'clock. Now <strong>ask about the weather</strong>.', hints: {'say-remind': 'That\'s set. Now ask about the weather.'}},
+        {screen: c => home(p) + assistantOverlay(p, c), question: {q: 'Which of these could you ask your phone?', options: [
+            {t: 'All of them: "Call Sarah", "Set a timer for 10 minutes", "Turn on the torch", "Read my messages"', ok: true, why: 'Yes. It\'s handy when your hands are full, your eyes are tired or typing is fiddly.'},
+            {t: 'Only the weather', why: 'It can do lots: calls, timers, the torch, reading messages, alarms and more.'}]}},
+        {screen: c => home(p) + assistantOverlay(p, c), done: true, say: '<strong>Well done!</strong> Speak clearly and naturally, as if to a person. If it mishears, just ask again.'},
+    ], {});
+
+    function cameraLens(p, ctx) {
+        const menu = ctx.subject === 'menu' ? `<div class="lens-modes">${[['lens-text', 'Text'], ['lens-translate', 'Translate'], ['lens-search', 'Search']].map(([id, t]) => `<button type="button" data-tap="${id}" class="${ctx.translated && id === 'lens-translate' ? 'on' : ''}">${t}</button>`).join('')}</div>` : '';
+        const subject = ctx.subject === 'menu'
+            ? `<div class="cam-paper menu"><strong>${ctx.translated ? 'Menu' : 'Carte'}</strong><span>${ctx.translated ? 'Fish soup' : 'Soupe de poisson'} … 9€</span><span>${ctx.translated ? 'Chicken with mushrooms' : 'Poulet aux champignons'} … 14€</span><span>${ctx.translated ? 'Apple tart' : 'Tarte aux pommes'} … 6€</span></div>`
+            : `<div class="cam-paper${ctx.textOn ? ' textmode' : ''}"><strong>Bridlington Surgery</strong><span>Your flu jab is due.</span><span>To book, ring ${ctx.textOn ? '<button type="button" class="hl" data-tap="num">01262 496 023</button>' : '<b>01262 496 023</b>'}</span></div>`;
+        const copy = ctx.copyMenu ? '<div class="copy-pop"><button type="button" data-tap="copy">Copy</button><button type="button" data-tap="call-num">Call</button></div>' : '';
+        return `<div class="ph-app-screen cam-app ph-${p}">${statusBar(p)}<div class="cam-view">${subject}${copy}</div>${menu}
+            <div class="cam-bar"><span></span><button type="button" class="cam-shutter" data-tap="shutter" aria-label="Take photo"></button>
+            <button type="button" class="lens-btn" data-tap="lens" aria-label="${p === 'ios' ? 'Live Text' : 'Google Lens'}">${p === 'ios' ? '⌗' : '◎'}</button></div>${homeIndicator(p)}</div>`;
+    }
+    SCENARIOS['camera-tools'] = (p) => withCtx([
+        {screen: () => home(p), target: 'camera', say: 'Your camera can read writing. Let\'s copy a phone number from a letter. <strong>Open the Camera.</strong>'},
+        {screen: c => cameraLens(p, c), target: 'lens', action: c => { c.textOn = true; },
+         say: p === 'ios' ? 'Point it at the letter. When it spots writing, a small <strong>text button ⌗</strong> appears. <strong>Tap it.</strong>' : 'Point it at the letter and <strong>tap the Lens button ◎</strong>.',
+         hints: {shutter: 'That takes a normal photo. Tap the ' + (p === 'ios' ? 'text button ⌗' : 'Lens button ◎') + '.'}},
+        {screen: c => cameraLens(p, c), target: 'num', action: c => { c.copyMenu = true; }, say: 'The writing is now real text. <strong>Tap the phone number.</strong>'},
+        {screen: c => cameraLens(p, c), target: 'copy', action: c => { c.copyMenu = false; c.subject = 'menu'; c.textOn = false; },
+         say: '<strong>Tap Copy</strong>, ready to paste into a message or your contacts. <em>(Call would ring it straight away.)</em>', hints: {'call-num': 'That would ring the number. For this practice, tap Copy.'}},
+        {screen: c => cameraLens(p, c), target: 'lens-translate', action: c => { c.translated = true; },
+         say: 'On holiday? Now it\'s pointing at a French menu. ' + (p === 'ios' ? 'The Translate app or the Google app\'s Lens can do this. ' : '') + '<strong>Tap Translate.</strong>', hints: {'lens-text': 'That copies the French. Tap Translate.', 'lens-search': 'Tap Translate.'}},
+        {screen: c => cameraLens(p, c), question: {q: 'What else can the camera do this way?', options: [
+            {t: 'Identify plants and birds, and scan letters into a PDF', ok: true, why: 'Yes. ' + (p === 'ios' ? 'In the Notes app, tap the paperclip, then Scan Documents, to turn letters into a PDF.' : 'In Google Drive, tap + then Scan to turn letters into a PDF.')},
+            {t: 'Only take photos', why: 'It does much more: identify plants, translate, copy text and scan letters into PDFs.'}]}},
+        {screen: c => cameraLens(p, c), done: true, say: '<strong>Well done!</strong> You copied a number and translated a menu with your camera. ' + (p === 'ios' ? 'Live Text also works on photos you\'ve already taken.' : 'Google Lens also works on photos you\'ve already taken.')},
+    ], {});
+
+    function libApp(p, ctx, page) {
+        const color = '#7c3aed';
+        if (page === 'home') {
+            return app(p, 'Library eBooks', `<p class="app-note">Signed in with your library card</p>
+                <div class="lib-tabs"><button type="button" data-tap="tab-ebooks">eBooks</button><button type="button" data-tap="tab-audio" class="on">eAudiobooks</button></div>
+                <div class="lib-grid">${[['book-1', 'The Lighthouse at Flamborough', 'A. Whitby', '#0ea5e9'], ['book-2', 'Seaside Summers', 'J. Marsh', '#f59e0b'], ['book-3', 'The Quiet Garden', 'R. Hale', '#16a34a']]
+                    .map(([id, t, a, bg]) => `<button type="button" class="lib-book" data-tap="${id}"><span class="lib-cover" style="background:${bg}">${t}</span><strong>${t}</strong><small>${a}</small></button>`).join('')}</div>`, {back: false, color});
+        }
+        if (page === 'book') {
+            return app(p, 'eAudiobook', `<div class="lib-detail"><span class="lib-cover big" style="background:#0ea5e9">The Lighthouse at Flamborough</span>
+                <strong>The Lighthouse at Flamborough</strong><small>Read by M. Wolds · 8 hrs 20 mins</small><small>${ctx.borrowed ? 'Due back in 21 days' : '3 of 5 copies available'}</small>
+                ${ctx.borrowed ? '<button type="button" class="ph-btn ios-blue" data-tap="listen">Listen</button>' : '<button type="button" class="ph-btn ios-blue" data-tap="borrow">Borrow</button>'}</div>`, {color});
+        }
+        return `<div class="ph-app-screen player ph-${p}">${statusBar(p)}<span class="lib-cover big" style="background:#0ea5e9">The Lighthouse at Flamborough</span>
+            <div class="pl-bar"><span style="width:${ctx.playing ? 6 : 0}%"></span></div><small>${ctx.playing ? '0:04:12' : '0:00:00'} / 8:20:00</small>
+            <div class="pl-controls"><button type="button" data-tap="back30">↺30</button><button type="button" class="pl-play" data-tap="play">${ctx.playing ? '❚❚' : '▶'}</button><button type="button" data-tap="fwd30">30↻</button></div>
+            <div class="pl-extras"><button type="button" data-tap="speed">${ctx.speed || '1.0'}× speed</button><button type="button" data-tap="sleep">☾ Sleep timer${ctx.sleep ? ': 30 min' : ''}</button></div>${homeIndicator(p)}</div>`;
+    }
+    const libIcon = ['library', 'Library', '#7c3aed', '<span class="ic-text">📚</span>'];
+    SCENARIOS['library-app'] = (p) => withCtx([
+        {screen: () => homeWith(p, [libIcon]), target: 'library',
+         say: 'With a free library card, you can borrow eBooks and audiobooks on your phone. East Riding Libraries use the <strong>BorrowBox</strong> app. This is a practice version. <strong>Open it.</strong>'},
+        {screen: c => libApp(p, c, 'home'), target: 'book-1', say: 'You\'re signed in with your library card. <strong>Tap The Lighthouse at Flamborough.</strong>'},
+        {screen: c => libApp(p, c, 'book'), target: 'borrow', action: c => { c.borrowed = true; }, say: 'It\'s free to borrow. <strong>Tap Borrow.</strong>'},
+        {screen: c => libApp(p, c, 'book'), target: 'listen', say: 'It\'s yours for 21 days. <strong>Tap Listen.</strong>'},
+        {screen: c => libApp(p, c, 'player'), target: 'play', action: c => { c.playing = true; }, say: '<strong>Tap the play button ▶.</strong>'},
+        {screen: c => libApp(p, c, 'player'), target: 'sleep', action: c => { c.sleep = true; }, say: 'Listening in bed? A <strong>sleep timer</strong> stops it after a while, so you don\'t lose your place. <strong>Tap Sleep timer.</strong>'},
+        {screen: c => libApp(p, c, 'player'), question: {q: 'What happens when the 21 days are up?', options: [
+            {t: 'It goes back by itself. No fines, and you can renew if you haven\'t finished', ok: true, why: 'Yes. eBooks and audiobooks return themselves automatically.'},
+            {t: 'You get a fine', why: 'There are no fines. It returns itself, and you can renew it if you haven\'t finished.'}]}},
+        {screen: c => libApp(p, c, 'player'), done: true, say: '<strong>Well done!</strong> To get started for real, join at eastridinglibraries.co.uk or any library, then download BorrowBox and sign in with your card.'},
+    ], {});
+
+    function parkApp(p, ctx, page) {
+        const color = '#0f766e';
+        if (page === 'code') {
+            return app(p, 'Park', `<div class="park-sign"><strong>P</strong><span>Harbour Road Car Park</span><span>Pay by app: location <b>4471</b></span></div>
+                <p class="app-note">Enter the location number from the sign</p>${field('parkcode', 'Location number', ctx, 'tel')}<button type="button" class="ph-btn ios-blue" data-tap="find">Find car park</button>`, {back: false, color});
+        }
+        if (page === 'details') {
+            const times = [['t1', '1 hour', '£1.50'], ['t2', '2 hours', '£3.00'], ['t4', '4 hours', '£5.50']];
+            return app(p, 'Harbour Road', `<p class="app-note"><strong>Harbour Road Car Park</strong><br>Location 4471 · practice prices</p>
+                <div class="set-row static"><span>Vehicle</span><span class="set-val">AB12 CDE</span></div>
+                <div class="park-times">${times.map(([id, t, pr]) => `<button type="button" data-tap="${id}" class="${ctx.time === id ? 'on' : ''}">${t}<small>${pr}</small></button>`).join('')}</div>
+                <p class="ph-small">Service charge: 20p</p><button type="button" class="ph-btn ios-blue" data-tap="pay">${ctx.time ? 'Pay £3.20' : 'Choose a time'}</button>`, {color});
+        }
+        return app(p, 'Parking', `<div class="park-live"><strong>You're parked ✓</strong><span>Harbour Road · AB12 CDE</span><b>1:59:42</b><small>left · ends at 11:41</small>
+            <button type="button" class="ph-btn" data-tap="extend">Extend</button></div>`, {back: false, color});
+    }
+    const parkIcon = ['park', 'Park', '#0f766e', '<span class="ic-text">P</span>'];
+    SCENARIOS['parking'] = (p) => withCtx([
+        {screen: () => homeWith(p, [parkIcon]), target: 'park', say: 'Many car parks let you pay by app, so you don\'t need coins. Each council uses different apps (the sign tells you which). This is a practice one. <strong>Open Park.</strong>'},
+        {screen: c => parkApp(p, c, 'code'), target: 'find', require: c => typed(c, 'parkcode').replace(/\D/g, '') === '4471', requireHint: 'Type the location number from the sign: 4471.',
+         say: 'Every car park has a <strong>location number</strong> on the sign. <strong>Type 4471</strong> in the box and <strong>tap Find car park</strong>.'},
+        {screen: c => parkApp(p, c, 'details'), target: 't2', action: c => { c.time = 't2'; }, say: 'Your car\'s number plate is already saved. <strong>Choose 2 hours.</strong>'},
+        {screen: c => parkApp(p, c, 'details'), target: 'pay', say: 'There\'s a small service charge for using the app. <strong>Tap Pay £3.20.</strong> <em>(Practice: no money is taken.)</em>'},
+        {screen: c => parkApp(p, c, 'live'), question: {q: 'You\'re running late at the shops. What can you do?', options: [
+            {t: 'Tap Extend in the app to add more time, without going back to the car', ok: true, why: 'Yes. That\'s the big plus of paying by app. Most also remind you before your time runs out.'},
+            {t: 'Nothing, you\'ll get a ticket', why: 'Most parking apps let you tap Extend to add time from wherever you are.'}]}},
+        {screen: c => parkApp(p, c, 'live'), done: true, say: '<strong>Well done!</strong> Most machines still take cards or coins too, and many apps also let you pay by ringing a number or sending a text. Never pay through a QR code sticker on a machine: they can be fake.'},
+    ], {input: {}});
+
+    function smsTo(p, ctx) {
+        const reply = ctx.sentInfo ? `<div class="wa-bubble me sms"><span>INFO</span><small>10:02</small></div>
+            <div class="wa-bubble them"><span>You are out of contract since 3 March 2026. You can switch at no cost. Your monthly price is £24.00. To switch and keep your number, text PAC to 65075.</span><small>10:02</small></div>` : '';
+        return `<div class="ph-app-screen msg-app ph-${p}">${statusBar(p)}<div class="msg-head"><span class="msg-back">${p === 'ios' ? '‹' : '←'}</span><strong>85075</strong></div>
+            <div class="wa-thread">${reply}</div>
+            <div class="msg-bar">${field('smsbody', 'Text message', ctx)}<button type="button" class="wa-send" data-tap="send" aria-label="Send">${UI.send}</button></div>${homeIndicator(p)}</div>`;
+    }
+    SCENARIOS['phone-plan'] = (p) => withCtx([
+        {screen: () => home(p), target: 'messages', say: 'Are you still in contract, or paying too much? One free text tells you. <strong>Open Messages.</strong>'},
+        {screen: c => smsTo(p, c), target: 'send', require: c => typed(c, 'smsbody').toUpperCase() === 'INFO', requireHint: 'Type INFO in the message box, then tap send.',
+         action: c => { c.sentInfo = true; c.input.smsbody = ''; }, say: 'We\'ve started a new message to <strong>85075</strong>. <strong>Type INFO</strong> and <strong>tap send</strong>. It\'s free on every UK network.'},
+        {screen: c => smsTo(p, c), question: {q: 'The reply says you\'re out of contract and still paying £24 a month. What does that mean?', options: [
+            {t: 'Your phone is paid off. A SIM-only deal could cost much less, and you can keep your number', ok: true, why: 'Yes. Text PAC to 65075 for a code to switch and keep your number. Your new provider does the rest.'},
+            {t: 'Nothing, keep paying', why: 'You may be paying for a phone you\'ve already paid off. A SIM-only deal could save you a lot.'}]}},
+        {screen: () => home(p), target: 'settings', say: 'One more saver, for trips abroad: turn off data roaming so you don\'t get charged by surprise. <strong>Tap Settings.</strong>'},
+        ...(p === 'ios' ? [
+            {screen: c => settingsList(p, c), target: 'mobile', say: '<strong>Tap Mobile Service.</strong>'},
+            {screen: () => list(p, 'Mobile Service', [{label: 'Mobile Data', toggle: true}, {id: 'options', label: 'Mobile Data Options', value: 'Roaming On'}, {label: 'Personal Hotspot'}], {back: 'Settings'}), target: 'options', say: '<strong>Tap Mobile Data Options.</strong>'},
+            {screen: c => list(p, 'Mobile Data Options', [{id: 'roam', label: 'Data Roaming', toggle: !c.roamOff}, {label: 'Voice &amp; Data', value: '5G Auto'}], {back: 'Mobile Service'}),
+             target: 'roam', action: c => { c.roamOff = true; }, say: '<strong>Turn off Data Roaming.</strong>'},
+        ] : [
+            {screen: c => settingsList(p, c), target: 'network', say: '<strong>Tap Network &amp; internet.</strong>'},
+            {screen: () => list(p, 'Network &amp; internet', [{label: 'Internet', sub: 'Home Wi-Fi'}, {id: 'sims', label: 'SIMs', sub: 'Your network'}, {label: 'Airplane mode', toggle: false}]), target: 'sims', say: '<strong>Tap SIMs.</strong>'},
+            {screen: c => list(p, 'SIMs', [{label: 'Mobile data', toggle: true}, {id: 'roam', label: 'Roaming', toggle: !c.roamOff, sub: 'Connect to data services when roaming'}]),
+             target: 'roam', action: c => { c.roamOff = true; }, say: '<strong>Turn off Roaming.</strong>'},
+        ]),
+        {screen: () => home(p), done: true, say: '<strong>Well done!</strong> You can still use Wi-Fi abroad for WhatsApp, video calls and maps. Turn roaming back on if you need mobile data and know what your network charges.'},
+    ], {input: {}});
+
+    SCENARIOS['location-sharing'] = (p) => withCtx((p === 'ios' ? [
+        {screen: () => homeWith(p, [['findmy', 'Find My', '#22c55e', ICON2.find]]), target: 'findmy', say: 'Sharing your location lets family see you got home safely. It\'s your choice, and you can stop any time. <strong>Open Find My.</strong>'},
+        {screen: c => app(p, 'People', `<p class="app-note">No one is sharing yet.</p><button type="button" class="ph-btn ios-blue" data-tap="share">Share My Location</button>`, {back: false, color: '#fff'}),
+         target: 'share', say: '<strong>Tap Share My Location.</strong>'},
+        {screen: c => app(p, 'Share with', '', {color: '#fff', overlay: sheet('Choose a contact', [['pick-sarah', 'Sarah', 'Daughter'], ['pick-dave', 'Dave', '']])}), target: 'pick-sarah', say: '<strong>Tap Sarah.</strong>', hints: {'pick-dave': 'Choose Sarah for this practice.'}},
+        {screen: c => app(p, 'Share with Sarah', '', {color: '#fff', overlay: sheet('How long?', [['one-hour', 'Share for One Hour'], ['day', 'Share Until End of Day'], ['always', 'Share Indefinitely']])}),
+         target: 'always', say: 'Choose how long. For family you trust, <strong>tap Share Indefinitely</strong>. You can stop at any time.', hints: {'one-hour': 'That\'s handy for one trip. For this practice, choose Share Indefinitely.', day: 'For this practice, choose Share Indefinitely.'}},
+    ] : [
+        {screen: () => home(p), target: 'maps', say: 'Sharing your location lets family see you got home safely. It\'s your choice, and you can stop any time. <strong>Open Maps.</strong>'},
+        {screen: c => busMaps(p, c, 'map').replace('<div class="mp-top">', '<div class="mp-top"><button type="button" class="app-plus round" style="position:absolute;right:14px;top:12px;z-index:3" data-tap="profile">M</button>'),
+         target: 'profile', say: '<strong>Tap your profile picture</strong> at the top right.'},
+        {screen: () => app(p, 'Maps', '', {color: '#fff', overlay: sheet('', [['sharing', 'Location sharing'], ['timeline', 'Your Timeline'], ['settings', 'Settings']])}), target: 'sharing', say: '<strong>Tap Location sharing.</strong>'},
+        {screen: () => app(p, 'Location sharing', '<button type="button" class="ph-btn and-green" data-tap="share">New share</button>', {color: '#fff'}), target: 'share', say: '<strong>Tap New share.</strong>'},
+        {screen: () => app(p, 'Share with', '', {color: '#fff', overlay: sheet('Choose a contact', [['pick-sarah', 'Sarah', 'Daughter'], ['pick-dave', 'Dave', '']])}), target: 'pick-sarah', say: '<strong>Tap Sarah.</strong>', hints: {'pick-dave': 'Choose Sarah for this practice.'}},
+        {screen: () => app(p, 'Share with Sarah', '', {color: '#fff', overlay: sheet('How long?', [['one-hour', 'For 1 hour'], ['always', 'Until you turn this off']])}),
+         target: 'always', say: 'For family you trust, <strong>tap Until you turn this off</strong>.', hints: {'one-hour': 'Handy for one trip. For this practice, choose Until you turn this off.'}},
+    ]).concat([
+        {screen: () => app(p, 'Sharing with Sarah', `<div class="mp-mini"><span class="mp-me"></span></div><p class="app-note">Sarah can see where you are. ${p === 'ios' ? 'Tap Stop Sharing' : 'Tap Stop'} at any time.</p>`, {color: '#fff'}),
+         question: {q: 'Someone you\'ve just met online asks you to share your location. Should you?', options: [
+            {t: 'No. Only share with close family or friends you trust', ok: true, why: 'Exactly. Your location shows where you live and when you\'re out. Keep it to people you trust.'},
+            {t: 'Yes, they seem nice', why: 'Only share your location with close family and friends. It shows where you live and when you\'re out.'}]}},
+        {screen: () => app(p, 'Sharing with Sarah', '<p class="app-note">Sarah can see where you are.</p>', {color: '#fff'}), done: true,
+         say: '<strong>Well done!</strong> Sarah can see you\'re safe. Check now and then who you\'re sharing with, and stop sharing with anyone you don\'t need to.'},
+    ]), {});
+
+    SCENARIOS['parental-controls'] = (p) => withCtx((p === 'ios' ? [
+        {screen: () => home(p), target: 'settings', say: 'Your grandson Leo is getting his first iPhone. <strong>Screen Time</strong> sets healthy limits. This is <strong>Leo\'s</strong> phone. <strong>Tap Settings.</strong>'},
+        {screen: c => list(p, 'Settings', [{label: 'Leo', sub: 'Apple Account'}, {label: 'Notifications'}, {id: 'screen-time', label: 'Screen Time'}, {label: 'General'}], {noBack: true}), target: 'screen-time', say: '<strong>Tap Screen Time.</strong>'},
+        {screen: c => list(p, 'Screen Time', [{id: 'downtime', label: 'Downtime', sub: c.downtime ? '20:00 – 07:00' : 'Off'}, {label: 'App Limits'}, {id: 'content', label: 'Content &amp; Privacy Restrictions', sub: c.content ? 'On' : 'Off'}, {label: 'Use Screen Time Passcode'}], {back: 'Settings'}),
+         target: 'downtime', action: c => { c.downtime = true; }, say: '<strong>Downtime</strong> locks most apps at night (calls still work). <strong>Tap Downtime</strong> to turn it on, 8pm to 7am.'},
+        {screen: c => list(p, 'Screen Time', [{label: 'Downtime', sub: '20:00 – 07:00'}, {label: 'App Limits'}, {id: 'content', label: 'Content &amp; Privacy Restrictions', sub: c.content ? 'On' : 'Off'}], {back: 'Settings'}),
+         target: 'content', action: c => { c.content = true; }, say: 'Next, stop surprise purchases and adult content. <strong>Tap Content &amp; Privacy Restrictions.</strong>'},
+        {screen: c => list(p, 'Content &amp; Privacy', [{label: 'Content &amp; Privacy Restrictions', toggle: true}, {id: 'purchases', label: 'App Store Purchases', value: c.noBuy ? 'Don\'t Allow' : 'Allow'}, {label: 'Web Content', value: 'Limit Adult Websites'}], {back: 'Screen Time'}),
+         target: 'purchases', action: c => { c.noBuy = true; }, say: 'Adult websites are now limited. <strong>Tap App Store Purchases</strong> to stop in-app spending.'},
+    ] : [
+        {screen: () => homeWith(p, [['familylink', 'Family Link', '#16a34a', ICON.person]]), target: 'familylink', say: 'Your grandson Leo is getting his first Android phone. Google\'s free <strong>Family Link</strong> app sets healthy limits from <strong>your</strong> phone. <strong>Open Family Link.</strong>'},
+        {screen: () => app(p, 'Family Link', `<button type="button" class="recent" data-tap="leo"><strong>Leo</strong><small>Leo\'s phone · 1 hr 20 min today</small></button>`, {back: false, color: '#fff'}), target: 'leo', say: '<strong>Tap Leo.</strong>'},
+        {screen: c => list(p, 'Leo', [{caption: 'Controls'}, {id: 'screen-time', label: 'Screen time', sub: c.downtime ? 'Bedtime 20:00 – 07:00' : 'No limits'}, {id: 'content', label: 'Content restrictions', sub: c.noBuy ? 'Purchases need your approval' : 'Google Play: allow all'}, {label: 'Location', sub: 'On'}]),
+         target: 'screen-time', action: c => { c.downtime = true; }, say: '<strong>Tap Screen time</strong> to set a bedtime, 8pm to 7am, when the phone locks (calls still work).'},
+        {screen: c => list(p, 'Leo', [{caption: 'Controls'}, {label: 'Screen time', sub: 'Bedtime 20:00 – 07:00'}, {id: 'content', label: 'Content restrictions', sub: c.noBuy ? 'Purchases need your approval' : 'Google Play: allow all'}]),
+         target: 'content', action: c => { c.noBuy = true; }, say: 'Next, stop surprise spending. <strong>Tap Content restrictions</strong> so purchases need your approval.'},
+    ]).concat([
+        {screen: () => list(p, p === 'ios' ? 'Screen Time' : 'Leo', [{label: p === 'ios' ? 'Downtime' : 'Screen time', sub: '20:00 – 07:00'}, {label: 'Purchases', sub: p === 'ios' ? 'Don\'t Allow' : 'Need your approval'}]),
+         question: {q: 'What matters most, alongside the settings?', options: [
+            {t: 'Talking with them: they can always tell you if something online upsets them', ok: true, why: 'Yes. No setting catches everything. Being someone they can talk to matters most.'},
+            {t: 'The settings do everything', why: 'They help a lot, but nothing catches everything. Make sure they know they can always talk to you.'}]}},
+        {screen: () => list(p, p === 'ios' ? 'Screen Time' : 'Leo', [{label: 'Downtime', sub: '20:00 – 07:00'}]), done: true,
+         say: '<strong>Well done!</strong> Leo has a bedtime and can\'t spend money without asking. ' + (p === 'ios' ? 'Set a Screen Time passcode so only you can change these.' : 'Family Link lets you change these from your own phone any time.')},
+    ]), {});
+
     function start(root) {
         const name = root.dataset.sim;
         const build = SCENARIOS[name];
