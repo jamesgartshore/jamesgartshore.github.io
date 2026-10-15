@@ -304,6 +304,7 @@ document.querySelectorAll('#message-form, .web3-form').forEach(form => {
     const lesson = document.querySelector('article.lesson');
     if (lesson) {
         const course = lesson.dataset.course, slug = lesson.dataset.lesson;
+        try { localStorage.setItem('learn-last', course); } catch (e) {}
         const done = read(course);
         lesson.querySelectorAll('.lesson-steps span').forEach(s => s.classList.toggle('done', done.includes(s.dataset.lesson)));
         const doneBtn = lesson.querySelector('.lesson-done');
@@ -339,6 +340,10 @@ document.querySelectorAll('#message-form, .web3-form').forEach(form => {
         }
         const go = el.querySelector('.course-go');
         if (go && done.length) go.textContent = finished ? 'Look through it again →' : 'Carry on →';
+        // Progress bar (cards and the course page).
+        const bar = el.querySelector('.cc-bar') || document.getElementById('course-bar');
+        if (bar && done.length) { bar.hidden = false; bar.firstElementChild.style.width = Math.round(100 * done.length / all.length) + '%'; }
+        if (finished) el.classList.add('is-done');
         if (!el.matches('article.course')) return;
 
         el.querySelectorAll('.lesson-list li').forEach(li => {
@@ -353,15 +358,63 @@ document.querySelectorAll('#message-form, .web3-form').forEach(form => {
             const doneBox = document.getElementById('course-done');  // absent while lessons are still to come
             if (doneBox) doneBox.hidden = false;
         } else if (done.length) {
-            goBtn.textContent = 'Carry on';
+            const nextLi = el.querySelector(`.lesson-list li[data-lesson="${next}"]`);
+            goBtn.textContent = `Carry on: ${nextLi ? nextLi.querySelector('.lesson-text strong').firstChild.textContent.trim() : 'next lesson'} →`;
             goBtn.href = next + '/';
+        }
+        if (!finished) {
+            const upNext = el.querySelector(`.lesson-list li[data-lesson="${next}"] .up-next`);
+            if (upNext) { upNext.hidden = false; upNext.closest('li').classList.add('next'); }
         }
         const date = el.querySelector('.cert-date');
         if (date) date.textContent = new Date().toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric'});
+        const pick = el.querySelector('.os-pick');
+        if (pick) {
+            const names = {windows: 'Windows', mac: 'a Mac', linux: 'Linux'};
+            let now = null;
+            try { now = localStorage.getItem('sim-os'); } catch (e) {}
+            if (names[now]) {
+                pick.querySelector('.os-now').hidden = false;
+                pick.querySelector('.os-now strong').textContent = names[now];
+                const cur = pick.querySelector(`[data-os="${now}"]`);
+                if (cur) cur.classList.add('current');
+            }
+            pick.querySelectorAll('[data-os]').forEach(b => b.addEventListener('click', () => {
+                if (done.length && !confirm(`Start this course again on ${names[b.dataset.os]}? Your ticks for this course will be cleared.`)) return;
+                try {
+                    localStorage.setItem('sim-os', b.dataset.os);
+                    pick.dataset.sims.split(',').filter(Boolean).forEach(s => localStorage.removeItem('sim-done:' + s));
+                } catch (e) {}
+                save(course, []);
+                location.href = pick.dataset.first;
+            }));
+        }
         document.getElementById('course-reset').addEventListener('click', () => {
             if (confirm('Clear your progress for this course on this device?')) { save(course, []); location.reload(); }
         });
     });
+
+    // Learn page: "Carry on where you left off", from the course they last opened a lesson in.
+    const cont = document.getElementById('learn-continue');
+    if (cont) {
+        let last = null;
+        try { last = localStorage.getItem('learn-last'); } catch (e) {}
+        const card = last && document.querySelector(`.course-card[data-course="${last}"]`);
+        if (card) {
+            const all = card.dataset.lessons.split(','), titles = card.dataset.titles.split('|');
+            const done = read(last).filter(s => all.includes(s));
+            const n = all.findIndex(s => !done.includes(s));
+            if (n >= 0) {
+                cont.href = `${last}/${all[n]}/`;
+                cont.querySelector('.lc-icon').textContent = card.dataset.icon;
+                cont.querySelector('strong').textContent = card.dataset.title;
+                cont.querySelector('.lc-text > span').textContent = `Lesson ${n + 1} of ${all.length}: ${titles[n]}`;
+                cont.hidden = false;
+                const start = document.getElementById('learn-start');
+                if (start) start.hidden = true;
+            }
+        }
+    }
 
     // Quizzes: pick an answer, see straight away whether it's right and why.
     document.querySelectorAll('.quiz').forEach(quiz => {

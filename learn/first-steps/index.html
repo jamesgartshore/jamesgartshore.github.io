@@ -39,8 +39,8 @@
     {"@context": "https://schema.org", "@type": "Course", "description": "The basics, practised safely: tapping and swiping, Wi-Fi, contacts, calls, texts and battery.", "educationalLevel": "Beginner", "hasPart": [{"@type": "LearningResource", "name": "Tap, swipe and hold", "url": "https://jamesgartshore.co.uk/learn/first-steps/touch/"}, {"@type": "LearningResource", "name": "Connecting to Wi-Fi", "url": "https://jamesgartshore.co.uk/learn/first-steps/wifi/"}, {"@type": "LearningResource", "name": "Saving contacts", "url": "https://jamesgartshore.co.uk/learn/first-steps/contacts/"}, {"@type": "LearningResource", "name": "Answering and making calls", "url": "https://jamesgartshore.co.uk/learn/first-steps/calls/"}, {"@type": "LearningResource", "name": "Text messages", "url": "https://jamesgartshore.co.uk/learn/first-steps/texts/"}, {"@type": "LearningResource", "name": "Battery and charging", "url": "https://jamesgartshore.co.uk/learn/first-steps/battery/"}], "inLanguage": "en-GB", "isAccessibleForFree": true, "name": "Smartphone first steps", "provider": {"@type": "Person", "name": "James Gartshore", "url": "https://jamesgartshore.co.uk/about/"}, "timeRequired": "PT28M", "url": "https://jamesgartshore.co.uk/learn/first-steps/"}
     </script>
 
-    <link rel="stylesheet" href="../../style.css?v=24f15ccc">
-    <script src="../../site.js?v=3b852a44" defer></script>
+    <link rel="stylesheet" href="../../style.css?v=cecca909">
+    <script src="../../site.js?v=cff25b83" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -163,15 +163,28 @@
         
     <a class="back" href="../">&larr; All courses</a>
     <article class="course" data-course="first-steps" data-coming="0" data-lessons="touch,wifi,contacts,calls,texts,battery">
-        <span class="course-badge">Free course &middot; 6 lessons &middot; about 28 minutes</span>
-        <h1>Smartphone first steps</h1>
+        <header class="course-head">
+            <span class="course-icon" aria-hidden="true">📱</span>
+            <div>
+                <h1>Smartphone first steps</h1>
+                <ul class="course-chips">
+                    <li>Free</li><li>6 lessons</li><li>About 28 minutes</li>
+                    <li>📱 Practice phone</li>
+                </ul>
+            </div>
+        </header>
         <p class="lede">The basics, practised safely: tapping and swiping, Wi-Fi, contacts, calls, texts and battery.</p>
         <p><strong>Who it's for:</strong> Anyone new to smartphones, or who&#39;d like more confidence with the basics.</p>
 
         <div class="course-start">
-            <a class="btn-primary" id="course-go" href="touch/">Start the course</a>
-            <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            <a class="btn-primary" id="course-go" href="touch/">Start the course &rarr;</a>
+            <div class="course-progress-wrap">
+                <span class="cc-bar" id="course-bar" hidden><span></span></span>
+                <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            </div>
         </div>
+
+        
 
         <h2>Lessons</h2>
         <ol class="lesson-list">
@@ -179,7 +192,7 @@
             <li data-lesson="touch">
                 <a href="touch/">
                     <span class="lesson-num" aria-hidden="true">1</span>
-                    <span class="lesson-text"><strong>Tap, swipe and hold</strong><span>Practise the finger moves you&#39;ll use every day: tap, press and hold, swipe, scroll, back and home.</span></span>
+                    <span class="lesson-text"><strong>Tap, swipe and hold <em class="up-next" hidden>Up next</em></strong><span>Practise the finger moves you&#39;ll use every day: tap, press and hold, swipe, scroll, back and home.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -187,7 +200,7 @@
             <li data-lesson="wifi">
                 <a href="wifi/">
                     <span class="lesson-num" aria-hidden="true">2</span>
-                    <span class="lesson-text"><strong>Connecting to Wi-Fi</strong><span>Join your home Wi-Fi so you don&#39;t use up your mobile data.</span></span>
+                    <span class="lesson-text"><strong>Connecting to Wi-Fi <em class="up-next" hidden>Up next</em></strong><span>Join your home Wi-Fi so you don&#39;t use up your mobile data.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -195,7 +208,7 @@
             <li data-lesson="contacts">
                 <a href="contacts/">
                     <span class="lesson-num" aria-hidden="true">3</span>
-                    <span class="lesson-text"><strong>Saving contacts</strong><span>Save people&#39;s numbers so you can call and message them by name.</span></span>
+                    <span class="lesson-text"><strong>Saving contacts <em class="up-next" hidden>Up next</em></strong><span>Save people&#39;s numbers so you can call and message them by name.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">4 min</span></span>
                 </a>
             </li>
@@ -203,7 +216,7 @@
             <li data-lesson="calls">
                 <a href="calls/">
                     <span class="lesson-num" aria-hidden="true">4</span>
-                    <span class="lesson-text"><strong>Answering and making calls</strong><span>Answer, use the speaker, hang up, and call back missed calls.</span></span>
+                    <span class="lesson-text"><strong>Answering and making calls <em class="up-next" hidden>Up next</em></strong><span>Answer, use the speaker, hang up, and call back missed calls.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -211,7 +224,7 @@
             <li data-lesson="texts">
                 <a href="texts/">
                     <span class="lesson-num" aria-hidden="true">5</span>
-                    <span class="lesson-text"><strong>Text messages</strong><span>Read and reply to texts, and delete the ones you don&#39;t need.</span></span>
+                    <span class="lesson-text"><strong>Text messages <em class="up-next" hidden>Up next</em></strong><span>Read and reply to texts, and delete the ones you don&#39;t need.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -219,7 +232,7 @@
             <li data-lesson="battery">
                 <a href="battery/">
                     <span class="lesson-num" aria-hidden="true">6</span>
-                    <span class="lesson-text"><strong>Battery and charging</strong><span>Make your battery last longer, and see what uses it most.</span></span>
+                    <span class="lesson-text"><strong>Battery and charging <em class="up-next" hidden>Up next</em></strong><span>Make your battery last longer, and see what uses it most.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">4 min</span></span>
                 </a>
             </li>
@@ -245,6 +258,17 @@
             </div>
             <button type="button" class="btn-primary no-print" data-print="certificate">Print my certificate</button>
         </section>
+        
+
+        
+        <aside class="next-course" aria-labelledby="next-course-h">
+            <h2 id="next-course-h">What next?</h2>
+            <a class="course-card small" href="../easier-to-use/">
+                <span class="cc-icon" aria-hidden="true">🔍</span>
+                <span class="cc-body"><h3>Making your phone easier to use</h3><span class="cc-summary">Bigger text, louder calls, a built-in magnifier, talking instead of typing, and connecting hearing aids, all practised on a pretend phone.</span>
+                <span class="cc-meta">5 lessons &middot; 26 min</span></span>
+            </a>
+        </aside>
         
 
         <div class="callout">

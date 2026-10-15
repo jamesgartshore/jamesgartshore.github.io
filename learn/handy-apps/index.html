@@ -39,8 +39,8 @@
     {"@context": "https://schema.org", "@type": "Course", "description": "Photos, video calls, QR codes, email, and downloading apps safely.", "educationalLevel": "Beginner", "hasPart": [{"@type": "LearningResource", "name": "Taking and sharing photos", "url": "https://jamesgartshore.co.uk/learn/handy-apps/photos/"}, {"@type": "LearningResource", "name": "FaceTime and Google Meet", "url": "https://jamesgartshore.co.uk/learn/handy-apps/video-calls/"}, {"@type": "LearningResource", "name": "Scanning QR codes", "url": "https://jamesgartshore.co.uk/learn/handy-apps/qr-codes/"}, {"@type": "LearningResource", "name": "Email on your phone", "url": "https://jamesgartshore.co.uk/learn/handy-apps/email/"}, {"@type": "LearningResource", "name": "Downloading apps safely", "url": "https://jamesgartshore.co.uk/learn/handy-apps/apps/"}, {"@type": "LearningResource", "name": "Your camera as a handy tool", "url": "https://jamesgartshore.co.uk/learn/handy-apps/camera-tools/"}, {"@type": "LearningResource", "name": "Free library eBooks and audiobooks", "url": "https://jamesgartshore.co.uk/learn/handy-apps/library-app/"}], "inLanguage": "en-GB", "isAccessibleForFree": true, "name": "Handy apps", "provider": {"@type": "Person", "name": "James Gartshore", "url": "https://jamesgartshore.co.uk/about/"}, "timeRequired": "PT35M", "url": "https://jamesgartshore.co.uk/learn/handy-apps/"}
     </script>
 
-    <link rel="stylesheet" href="../../style.css?v=24f15ccc">
-    <script src="../../site.js?v=3b852a44" defer></script>
+    <link rel="stylesheet" href="../../style.css?v=cecca909">
+    <script src="../../site.js?v=cff25b83" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -163,15 +163,28 @@
         
     <a class="back" href="../">&larr; All courses</a>
     <article class="course" data-course="handy-apps" data-coming="0" data-lessons="photos,video-calls,qr-codes,email,apps,camera-tools,library-app">
-        <span class="course-badge">Free course &middot; 7 lessons &middot; about 35 minutes</span>
-        <h1>Handy apps</h1>
+        <header class="course-head">
+            <span class="course-icon" aria-hidden="true">📷</span>
+            <div>
+                <h1>Handy apps</h1>
+                <ul class="course-chips">
+                    <li>Free</li><li>7 lessons</li><li>About 35 minutes</li>
+                    <li>📱 Practice phone</li>
+                </ul>
+            </div>
+        </header>
         <p class="lede">Photos, video calls, QR codes, email, and downloading apps safely.</p>
         <p><strong>Who it's for:</strong> Anyone who&#39;d like to do more with their phone, safely.</p>
 
         <div class="course-start">
-            <a class="btn-primary" id="course-go" href="photos/">Start the course</a>
-            <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            <a class="btn-primary" id="course-go" href="photos/">Start the course &rarr;</a>
+            <div class="course-progress-wrap">
+                <span class="cc-bar" id="course-bar" hidden><span></span></span>
+                <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            </div>
         </div>
+
+        
 
         <h2>Lessons</h2>
         <ol class="lesson-list">
@@ -179,7 +192,7 @@
             <li data-lesson="photos">
                 <a href="photos/">
                     <span class="lesson-num" aria-hidden="true">1</span>
-                    <span class="lesson-text"><strong>Taking and sharing photos</strong><span>Take a photo, zoom in, share it and delete the ones you don&#39;t want.</span></span>
+                    <span class="lesson-text"><strong>Taking and sharing photos <em class="up-next" hidden>Up next</em></strong><span>Take a photo, zoom in, share it and delete the ones you don&#39;t want.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -187,7 +200,7 @@
             <li data-lesson="video-calls">
                 <a href="video-calls/">
                     <span class="lesson-num" aria-hidden="true">2</span>
-                    <span class="lesson-text"><strong>FaceTime and Google Meet</strong><span>Free video calls with FaceTime (iPhone) or Google Meet (works on any phone).</span></span>
+                    <span class="lesson-text"><strong>FaceTime and Google Meet <em class="up-next" hidden>Up next</em></strong><span>Free video calls with FaceTime (iPhone) or Google Meet (works on any phone).</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -195,7 +208,7 @@
             <li data-lesson="qr-codes">
                 <a href="qr-codes/">
                     <span class="lesson-num" aria-hidden="true">3</span>
-                    <span class="lesson-text"><strong>Scanning QR codes</strong><span>Use your camera to scan QR codes, and spot fake ones.</span></span>
+                    <span class="lesson-text"><strong>Scanning QR codes <em class="up-next" hidden>Up next</em></strong><span>Use your camera to scan QR codes, and spot fake ones.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">3 min</span></span>
                 </a>
             </li>
@@ -203,7 +216,7 @@
             <li data-lesson="email">
                 <a href="email/">
                     <span class="lesson-num" aria-hidden="true">4</span>
-                    <span class="lesson-text"><strong>Email on your phone</strong><span>Read and reply to emails, and spot and report a scam.</span></span>
+                    <span class="lesson-text"><strong>Email on your phone <em class="up-next" hidden>Up next</em></strong><span>Read and reply to emails, and spot and report a scam.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -211,7 +224,7 @@
             <li data-lesson="apps">
                 <a href="apps/">
                     <span class="lesson-num" aria-hidden="true">5</span>
-                    <span class="lesson-text"><strong>Downloading apps safely</strong><span>Tell real apps from lookalikes, and remove apps you don&#39;t use.</span></span>
+                    <span class="lesson-text"><strong>Downloading apps safely <em class="up-next" hidden>Up next</em></strong><span>Tell real apps from lookalikes, and remove apps you don&#39;t use.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -219,7 +232,7 @@
             <li data-lesson="camera-tools">
                 <a href="camera-tools/">
                     <span class="lesson-num" aria-hidden="true">6</span>
-                    <span class="lesson-text"><strong>Your camera as a handy tool</strong><span>Copy a phone number from a letter, translate a menu, and scan documents.</span></span>
+                    <span class="lesson-text"><strong>Your camera as a handy tool <em class="up-next" hidden>Up next</em></strong><span>Copy a phone number from a letter, translate a menu, and scan documents.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -227,7 +240,7 @@
             <li data-lesson="library-app">
                 <a href="library-app/">
                     <span class="lesson-num" aria-hidden="true">7</span>
-                    <span class="lesson-text"><strong>Free library eBooks and audiobooks</strong><span>Borrow eBooks and audiobooks free with your library card.</span></span>
+                    <span class="lesson-text"><strong>Free library eBooks and audiobooks <em class="up-next" hidden>Up next</em></strong><span>Borrow eBooks and audiobooks free with your library card.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -253,6 +266,17 @@
             </div>
             <button type="button" class="btn-primary no-print" data-print="certificate">Print my certificate</button>
         </section>
+        
+
+        
+        <aside class="next-course" aria-labelledby="next-course-h">
+            <h2 id="next-course-h">What next?</h2>
+            <a class="course-card small" href="../health-money-travel/">
+                <span class="cc-icon" aria-hidden="true">🚆</span>
+                <span class="cc-body"><h3>Health, money and travel</h3><span class="cc-summary">The NHS App, your banking app, paying with your phone, train tickets and bus journeys, on pretend apps first.</span>
+                <span class="cc-meta">7 lessons &middot; 37 min</span></span>
+            </a>
+        </aside>
         
 
         <div class="callout">

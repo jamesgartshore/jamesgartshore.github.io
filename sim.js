@@ -74,7 +74,16 @@
         '<svg viewBox="0 0 16 12" class="st-wifi" aria-hidden="true"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM3.2 6.6a6.8 6.8 0 0 1 9.6 0l-1.4 1.5a4.8 4.8 0 0 0-6.8 0zM.8 4.2a10.2 10.2 0 0 1 14.4 0l-1.4 1.4a8.2 8.2 0 0 0-11.6 0z" fill="currentColor"/></svg>' +
         '<span class="ph-batt" aria-hidden="true"></span>';
     // The time, a camera cut-out (iPhone "Dynamic Island" or Android punch-hole) and signal, Wi-Fi and battery.
-    const statusBar = p => `<div class="ph-status ph-${p}"><span class="st-time">9:41</span><span class="${p === 'ios' ? 'ph-island' : 'ph-punch'}" aria-hidden="true"></span><span class="ph-status-r">${statusIcons}</span></div>`;
+    // The person's own time and date (from their device), so the practice screens feel like their own.
+    const fmt = (opts) => new Date().toLocaleString('en-GB', opts);
+    const NOW = {
+        time: () => fmt({hour: '2-digit', minute: '2-digit'}),                                   // 14:05
+        date: () => fmt({day: '2-digit', month: '2-digit', year: 'numeric'}),                      // 16/10/2026
+        long: () => fmt({weekday: 'long', day: 'numeric', month: 'long'}),                         // Thursday 16 October
+        mac: () => fmt({weekday: 'short', day: 'numeric', month: 'short'}).replace(',', '') + ' ' + NOW.time(),  // Thu 16 Oct 14:05
+        zone: tz => new Date().toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit', timeZone: tz}),
+    };
+    const statusBar = p => `<div class="ph-status ph-${p}"><span class="st-time">${NOW.time()}</span><span class="${p === 'ios' ? 'ph-island' : 'ph-punch'}" aria-hidden="true"></span><span class="ph-status-r">${statusIcons}</span></div>`;
     const keyboard = () => `<div class="ph-keys" aria-hidden="true">${['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map(r =>
         `<div>${[...r].map(k => `<span>${k}</span>`).join('')}</div>`).join('')}<div><span class="wide">space</span></div></div>`;
 
@@ -2079,7 +2088,8 @@
             .map(([id, t]) => `<button type="button" data-tap="tab-${id}" class="${page === id ? 'on' : ''}">${t}</button>`).join('');
         let inner;
         if (page === 'world') {
-            inner = '<div class="clk-row"><span><small>Today, +0 hrs</small><strong>London</strong></span><em>09:41</em></div><div class="clk-row"><span><small>Today, +11 hrs</small><strong>Sydney</strong></span><em>20:41</em></div>';
+            inner = `<div class="clk-row"><span><small>Today</small><strong>London</strong></span><em>${NOW.zone('Europe/London')}</em></div>
+                <div class="clk-row"><span><small>Australia</small><strong>Sydney</strong></span><em>${NOW.zone('Australia/Sydney')}</em></div>`;
         } else {
             const mine = ctx.alarmSaved ? `<div class="clk-row"><span><em>08:00</em><small>${esc(ctx.alarmLabel || 'Tablets')}, every day</small></span>${tog(true)}</div>` : '';
             inner = `<div class="clk-row off"><span><em>07:00</em><small>Alarm</small></span>${tog(false)}</div>${mine}`;
@@ -2524,7 +2534,7 @@
     const dialKeys = s => [...s].map(k => 'k' + (k === '*' ? 'star' : k === '#' ? 'hash' : k));
 
     function lockScreen(p, notif, opts = {}) {
-        return `<div class="ph-lock ph-${p}">${statusBar(p)}<div class="lock-time"><small>Thursday 16 October</small>9:41</div>
+        return `<div class="ph-lock ph-${p}">${statusBar(p)}<div class="lock-time"><small>${NOW.long()}</small>${NOW.time()}</div>
             ${notif ? `<button type="button" class="lock-notif" data-tap="${notif.id}"><strong>${notif.app} · now</strong><span><b>${notif.title}</b>${notif.text}</span></button>` : ''}
             ${opts.extra || ''}${homeIndicator(p)}</div>`;
     }
@@ -3078,22 +3088,1675 @@
          say: '<strong>Well done!</strong> Leo has a bedtime and can\'t spend money without asking. ' + (p === 'ios' ? 'Set a Screen Time passcode so only you can change these.' : 'Family Link lets you change these from your own phone any time.')},
     ]), {});
 
+    // ======================================================================================
+    // Practice computer: Windows, Mac and Linux (Linux Mint). Same engine, a laptop screen instead of a phone.
+    // ======================================================================================
+    const pcLesson = (name, fn, oses) => { fn.device = 'computer'; if (oses) fn.oses = oses; SCENARIOS[name] = fn; };
+    const N = {
+        files: {windows: 'File Explorer', mac: 'Finder', linux: 'Files'},
+        settings: {windows: 'Settings', mac: 'System Settings', linux: 'System Settings'},
+        store: {windows: 'Microsoft Store', mac: 'App Store', linux: 'Software Manager'},
+        browser: {windows: 'Edge', mac: 'Safari', linux: 'Firefox'},
+        start: {windows: 'Start', mac: 'Apps', linux: 'Menu'},
+        editor: {windows: 'Notepad', mac: 'TextEdit', linux: 'Text Editor'},
+    };
+    const CMD = os => os === 'mac' ? 'cmd' : 'ctrl';
+    const CMDL = os => os === 'mac' ? '⌘ Cmd' : 'Ctrl';
+    const keyBtn = (id, label) => `<button type="button" class="kbd-btn" data-tap="${id}">${label.split(' + ').map(k => `<kbd>${k}</kbd>`).join(' + ')}</button>`;
+
+    const PCI = {
+        files: '<svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#fff"/></svg>',
+        browser: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="2" fill="none"/><path d="M3.5 12h17M12 3.5c3 3 3 14 0 17M12 3.5c-3 3-3 14 0 17" stroke="#fff" stroke-width="1.6" fill="none"/></svg>',
+        store: '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z" fill="#fff"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="#fff" stroke-width="2" fill="none"/></svg>',
+        settings: ICON.settings,
+        mail: ICON.mail,
+        text: '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2" fill="#fff"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#64748b" stroke-width="1.6"/></svg>',
+        writer: '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2" fill="#fff"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#2563eb" stroke-width="1.6"/></svg>',
+        update: '<svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" fill="#fff"/></svg>',
+        trash: '<svg viewBox="0 0 24 24"><path d="M5 7h14l-1.2 13H6.2zM9 4h6v3H9z" fill="#fff"/></svg>',
+        apps: '<svg viewBox="0 0 24 24">' + [5, 12, 19].map(y => [5, 12, 19].map(x => `<rect x="${x - 2.5}" y="${y - 2.5}" width="5" height="5" rx="1.5" fill="#fff"/>`).join('')).join('') + '</svg>',
+        chrome: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#fff"/><circle cx="12" cy="12" r="4" fill="#2563eb"/></svg>',
+        shield: '<svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" fill="#fff"/><path d="m8.5 12 2.5 2.5 4.5-5" stroke="#16a34a" stroke-width="2" fill="none"/></svg>',
+        terminal: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="#fff"/><path d="m7 9 3 3-3 3M12 15h5" stroke="#111" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>',
+        fw: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="#fff"/><path d="M3 10h18M3 15h18M9 5v5M15 10v5M9 15v4" stroke="#dc2626" stroke-width="1.5"/></svg>',
+    };
+    const PCCOL = {
+        files: {windows: '#f59e0b', mac: '#3b82f6', linux: '#16a34a'}, browser: {windows: '#0e7490', mac: '#2563eb', linux: '#ea580c'},
+        store: {windows: '#2563eb', mac: '#0ea5e9', linux: '#16a34a'}, settings: {windows: '#475569', mac: '#6b7280', linux: '#475569'},
+        mail: {windows: '#2563eb', mac: '#3b82f6', linux: '#2563eb'}, text: {windows: '#64748b', mac: '#64748b', linux: '#64748b'},
+        writer: {windows: '#2563eb', mac: '#2563eb', linux: '#2563eb'}, update: {windows: '#16a34a', mac: '#16a34a', linux: '#d97706'},
+        trash: {mac: '#9ca3af'}, apps: {mac: '#6366f1'}, chrome: {windows: '#16a34a', mac: '#16a34a', linux: '#16a34a'}, shield: {windows: '#2563eb', mac: '#2563eb', linux: '#2563eb'},
+        fw: {linux: '#475569', windows: '#475569', mac: '#475569'}, terminal: {linux: '#111827', windows: '#111827', mac: '#111827'},
+    };
+    const pcIcon = (os, kind) => `<span class="pc-ic" style="background:${(PCCOL[kind] || {})[os] || '#64748b'}">${PCI[kind]}</span>`;
+    const appLabel = (os, kind) => ({files: N.files[os], browser: N.browser[os], store: N.store[os], settings: N.settings[os], mail: 'Mail', text: N.editor[os],
+        writer: 'LibreOffice Writer', update: 'Update Manager', terminal: 'Terminal', trash: 'Bin', apps: 'Apps', chrome: 'Chrome', shield: 'Windows Security', fw: 'Firewall'}[kind]);
+
+    const WALL = {windows: 'linear-gradient(135deg,#1e3a8a,#3b82f6 60%,#93c5fd)', win10: 'linear-gradient(135deg,#0c4a6e,#0369a1)',
+                  mac: 'linear-gradient(160deg,#7c3aed,#ec4899 55%,#f59e0b)', linux: 'linear-gradient(160deg,#14532d,#15803d 55%,#86efac)'};
+
+    // ======================================================================================
+    // Practice computer: window animations, like the real systems do them.
+    //   Windows 11 and Linux Mint: the window shrinks into its taskbar/panel icon and fades.
+    //   Mac: the "Genie" effect pours the window into the Dock (hold Shift for slow motion, like a real Mac).
+    // ======================================================================================
+    const calm = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Where a window should fly to: its app's icon on the taskbar, Dock or panel.
+    function pcIconFor(screen, win) {
+        const kind = win.dataset.app;
+        return (kind && screen.querySelector(`[data-tap="app-${kind}"]`)) || screen.querySelector('.pc-pin.run') || screen.querySelector('.tb, .dock, .lp');
+    }
+    function pcAim(screen, win) {
+        const icon = pcIconFor(screen, win);
+        if (!icon) return;
+        const w = win.getBoundingClientRect(), r = icon.getBoundingClientRect();
+        win.style.setProperty('--dx', `${Math.round(r.left + r.width / 2 - (w.left + w.width / 2))}px`);
+        win.style.setProperty('--dy', `${Math.round(r.top + r.height / 2 - (w.top + w.height / 2))}px`);
+    }
+
+    // Before the next screen: animate the window out. Returns how long to wait (ms).
+    function pcAnimOut(screen, os, id, slow) {
+        if (calm() || !['win-min', 'win-close'].includes(id)) return 0;
+        const btn = screen.querySelector(`[data-tap="${id}"]`);
+        const win = btn && btn.closest('.pcw');
+        if (!win) return 0;
+        win.classList.remove('fx-open', 'fx-max', 'fx-restore', 'fx-ungenie');
+        if (id === 'win-close') { win.classList.add('fx-close'); return 160; }
+        pcAim(screen, win);
+        const ms = os === 'mac' ? (slow ? 4000 : 520) : 260;
+        win.style.setProperty('--ms', ms + 'ms');
+        win.classList.add(os === 'mac' ? 'fx-genie' : 'fx-min');
+        return ms;
+    }
+
+    // After the new screen is drawn: animate a window in (opened, restored from the taskbar, or maximised).
+    function pcAnimIn(screen, os, lastId, prevTitle, wasMinimised) {
+        if (calm()) return;
+        const win = screen.querySelector('.pcw:not(.egg)');
+        if (!win) return;
+        const title = (win.querySelector('.pcw-title') || {}).textContent;
+        if (lastId === 'win-max') { win.classList.add('fx-max'); return; }
+        if (title === prevTitle) return;
+        if (wasMinimised && lastId && lastId.startsWith('app-')) {
+            pcAim(screen, win);
+            win.classList.add(os === 'mac' ? 'fx-ungenie' : 'fx-restore');
+        } else {
+            win.classList.add('fx-open');
+        }
+        // The Mac Dock bounces an app's icon when it opens.
+        if (os === 'mac' && lastId && lastId.startsWith('app-') && !wasMinimised) {
+            const icon = screen.querySelector(`.dock [data-tap="${lastId}"]`);
+            if (icon) icon.classList.add('fx-bounce');
+        }
+    }
+
+    // ======================================================================================
+    // Easter egg: the Recycle Bin (Windows), Bin (Mac) or Trash (Linux Mint) opens, and it's full of
+    // things people will remember. Not part of any lesson: it never counts as a wrong tap.
+    // ======================================================================================
+    const EGG = {
+        windows: {title: 'Recycle Bin', empty: 'Empty Recycle Bin', confirm: n => `Are you sure you want to permanently delete these ${n} items?`, items: [
+            ['📎', 'Office Assistant (paperclip).exe', 'Offered to help with every letter you ever started writing. Retired in 2007.', ''],
+            ['💣', 'Minesweeper high scores.txt', 'Beginner: 999 seconds. We don\'t talk about it.', ''],
+            ['🃏', 'Solitaire winning cards.gif', 'Win a game, and the cards came bouncing down the screen. Double-click me!', 'cards'],
+            ['📞', 'Dial-up modem.wav', 'Screeech… bong… kssshhh. And nobody could use the phone while you were online.', ''],
+            ['🏞️', 'Green hill wallpaper.jpg', 'That rolling green hill and blue sky, on millions of screens from 2001.', ''],
+            ['💾', 'Floppy disk (A:)', '1.44 MB. The Save button still looks like one.', ''],
+            ['🎱', 'Space Cadet Pinball.exe', '3D Pinball, free with Windows until Vista took it away.', ''],
+            ['🔔', 'MSN Messenger nudge', 'Someone sent you a nudge and your whole screen shook. Double-click me!', 'shake'],
+            ['📄', 'Letter to council FINAL (2) (final).doc', 'We\'ve all got one.', ''],
+        ]},
+        mac: {title: 'Bin', empty: 'Empty Bin', confirm: () => 'Are you sure you want to permanently erase the items in the Bin? You can\'t undo this action.', items: [
+            ['🌈', 'Spinning beach ball', 'The rainbow wheel that meant "please wait"… and wait. Double-click me!', 'ball'],
+            ['🖥️', 'iMac G3, Bondi Blue (1998)', 'See-through, egg-shaped and blue. Every school had one.', ''],
+            ['🎵', 'iPod with click wheel', '1,000 songs in your pocket. Round and round with your thumb.', ''],
+            ['🙂', 'Happy Mac', 'The little smiling computer that greeted you at every start-up.', ''],
+            ['🔔', 'Start-up chime', 'That big chord when you switched on. Many still miss it.', ''],
+            ['💧', 'Aqua buttons', 'So shiny and blue they looked good enough to lick.', ''],
+            ['🗓️', 'Dashboard widgets', 'A calculator, the weather and a sticky note on their own layer. Gone since 2019.', ''],
+            ['💿', 'iTunes (2001–2019)', 'Where we all burned our CDs and synced our iPods.', ''],
+        ]},
+        linux: {title: 'Trash', empty: 'Empty Trash', confirm: () => 'Empty all items from Trash? All items in the Trash will be permanently deleted.', items: [
+            ['🐧', 'Tux the penguin (plush)', 'The Linux mascot since 1996. Very huggable.', ''],
+            ['👀', 'xeyes', 'A pair of eyes that follow your mouse pointer. Double-click me!', 'eyes'],
+            ['🍮', 'Wobbly windows', 'Old desktop effects made windows wobble like jelly when you dragged them. Double-click me!', 'wobble'],
+            ['💾', 'Install floppies 1–50', 'Early Linux could take a whole box of floppy disks to install.', ''],
+            ['📀', 'Free Ubuntu CD in the post', 'You could order a Linux CD for free and it came in the post.', ''],
+            ['📅', 'year-of-the-linux-desktop.txt', 'Predicted every year since about 1999. Maybe this is the one?', ''],
+            ['🌿', 'Mint names.txt', 'Every Linux Mint release has a woman\'s name, like Zena, Xia and Vanessa.', ''],
+            ['🥪', 'sudo make me a sandwich', 'An old joke: say "sudo" and the computer does as it\'s told.', ''],
+        ]},
+    };
+
+    function pcEggWin(os, state) {
+        const egg = EGG[os];
+        const left = state.items.filter(it => !state.gone.includes(it[1]));
+        const list = left.length
+            ? `<div class="egg-grid">${left.map(([ic, name], n) => `<button type="button" class="egg-item${state.sel === name ? ' sel' : ''}" data-egg-act="item" data-n="${egg.items.findIndex(it => it[1] === name)}"><span>${ic}</span>${esc(name)}</button>`).join('')}</div>`
+            : `<p class="egg-empty">${os === 'windows' ? 'This folder is empty.' : 'The ' + egg.title + ' is empty.'}</p>`;
+        const pick = state.sel && egg.items.find(it => it[1] === state.sel);
+        const info = pick ? `<p class="egg-info"><strong>${esc(pick[1])}</strong><br>${esc(pick[2])}</p>` : `<p class="egg-info">${left.length ? 'Double-click something to have a look.' : ''}</p>`;
+        const dlg = state.ask ? `<div class="pc-dialog"><p><strong>${egg.empty}</strong></p><p class="ph-small">${egg.confirm(left.length)}</p>
+            <div class="pc-dbtns"><button type="button" data-egg-act="no">${os === 'windows' ? 'No' : 'Cancel'}</button><button type="button" class="pri" data-egg-act="yes">${os === 'windows' ? 'Yes' : 'Empty'}</button></div></div>` : '';
+        const ctrls = os === 'mac'
+            ? '<span class="tl"><button type="button" class="tl-r" data-egg-act="close" aria-label="Close window"></button><button type="button" class="tl-y" data-egg-act="close" aria-label="Minimise"></button><button type="button" class="tl-g" data-egg-act="max" aria-label="Full screen"></button></span>'
+            : '<span class="wc"><button type="button" data-egg-act="close" aria-label="Minimise">—</button><button type="button" data-egg-act="max" aria-label="Maximise">▢</button><button type="button" class="wc-x" data-egg-act="close" aria-label="Close">✕</button></span>';
+        return `<div class="pcw-bar">${os === 'mac' ? ctrls : ''}<span class="pcw-title">${egg.title}</span>${os === 'mac' ? '' : ctrls}</div>
+            <div class="pcw-body"><div class="egg-tools"><button type="button" data-egg-act="empty" ${left.length ? '' : 'disabled'}>🗑 ${egg.empty}</button></div>${list}${info}${state.fx || ''}</div>${dlg}`;
+    }
+
+    // Clicks on the bin icon and inside the bin window. kind: 'open', 'select', or an action from data-egg-act.
+    function pcEgg(screen, os, el, how) {
+        const area = screen.querySelector('.pc-area');
+        if (!area) return;
+        let win = area.querySelector('.pcw.bin-win');
+        const state = (win && win._egg) || {items: EGG[os].items, gone: [], sel: null, ask: false, fx: ''};
+        const draw = () => { win.innerHTML = pcEggWin(os, state); win._egg = state; };
+        if (el.dataset.egg) {
+            if (how === 'select') { screen.querySelectorAll('.pc-dicon.sel').forEach(d => d.classList.remove('sel')); el.classList.add('sel'); return; }
+            if (win) return;
+            win = document.createElement('div');
+            win.className = `pcw ${os} egg bin-win` + (calm() ? '' : ' fx-open');
+            area.appendChild(win);
+            draw();
+            return;
+        }
+        const act = el.dataset.eggAct;
+        if (act === 'close') {
+            if (calm()) { win.remove(); return; }
+            win.classList.remove('fx-open'); win.classList.add('fx-close');
+            setTimeout(() => win.remove(), 160);
+            return;
+        }
+        if (act === 'max') { win.classList.toggle('max'); return; }
+        if (act === 'empty') { state.ask = true; draw(); return; }
+        if (act === 'no') { state.ask = false; draw(); return; }
+        if (act === 'yes') {
+            state.ask = false; draw();
+            const items = [...win.querySelectorAll('.egg-item')];
+            items.forEach((b, n) => { b.style.animationDelay = (n * 60) + 'ms'; b.classList.add('fx-gone'); });
+            setTimeout(() => { state.gone = state.items.map(it => it[1]); state.sel = null; draw(); }, calm() ? 0 : 300 + items.length * 60);
+            return;
+        }
+        if (act === 'item') {
+            const it = state.items[+el.dataset.n];
+            state.sel = it[1];
+            if (how === 'select') {
+                win.querySelectorAll('.egg-item.sel').forEach(b => b.classList.remove('sel'));
+                el.classList.add('sel');
+                win.querySelector('.egg-info').innerHTML = `<strong>${esc(it[1])}</strong><br>${esc(it[2])}`;
+                return;
+            }
+            state.fx = '';
+            if (how === 'open' && it[3]) {
+                const fx = it[3];
+                if (fx === 'shake') { const desk = screen.querySelector('.pc-desk'); desk.classList.remove('fx-shake'); void desk.offsetWidth; desk.classList.add('fx-shake'); }
+                if (fx === 'wobble') { win.classList.remove('fx-wobble'); void win.offsetWidth; win.classList.add('fx-wobble'); }
+                if (fx === 'cards') state.fx = `<div class="egg-cards" aria-hidden="true">${['A♠', 'K♥', 'Q♣', 'J♦', 'A♥', 'K♠', 'Q♦', 'J♣'].map((c, n) => `<span class="${/[♥♦]/.test(c) ? 'red' : ''}" style="--n:${n}">${c}</span>`).join('')}</div>`;
+                if (fx === 'ball') state.fx = '<div class="egg-ball" aria-hidden="true"></div>';
+                if (fx === 'eyes') state.fx = '<div class="egg-eyes" aria-hidden="true"><span><i></i></span><span><i></i></span></div>';
+            }
+            draw();
+            if (state.fx.includes('egg-eyes')) {
+                const eyes = win.querySelectorAll('.egg-eyes span');
+                const look = e => eyes.forEach(eye => {
+                    const r = eye.getBoundingClientRect();
+                    const a = Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2));
+                    eye.firstChild.style.transform = `translate(${Math.cos(a) * 9}px, ${Math.sin(a) * 9}px)`;
+                });
+                screen.addEventListener('pointermove', look);
+            }
+        }
+    }
+
+    // ======================================================================================
+    // Practice computer: the "fun layer". Easter eggs that work on every lesson screen and never count as
+    // a wrong click. State (Wi-Fi on/off, wallpaper, Notepad text) lives on the screen element, so it
+    // survives each step being redrawn.
+    // ======================================================================================
+    const today = () => window.__practiceDate ? new Date(window.__practiceDate) : new Date();
+    const funState = screen => screen._fun || (screen._fun = {wifiOn: true, wall: -1, notepad: '', konami: [], aprilDone: false});
+
+    const WALLS = [
+        ['Rolling hill', 'radial-gradient(ellipse 95% 55% at 35% 100%, #5fb43d 60%, transparent 61%), radial-gradient(ellipse 80% 45% at 90% 100%, #4ea232 60%, transparent 61%), linear-gradient(#2f7fe0, #9fd0ff 70%)'],
+        ['Teal 95', '#008080'],
+        ['Pinstripes', 'repeating-linear-gradient(#f6f6f6 0 2px, #e4e4e4 2px 4px)'],
+        ['Night sky', 'radial-gradient(1.5px 1.5px at 12% 20%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 40% 60%, #fff 50%, transparent 51%), radial-gradient(2px 2px at 70% 30%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 85% 75%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 25% 85%, #fff 50%, transparent 51%), radial-gradient(circle at 80% 15%, #fef3c7 3%, transparent 3.5%), linear-gradient(#0b1026, #1e1b4b)'],
+        ['Seaside', 'linear-gradient(#7dd3fc 0 45%, #0ea5e9 45% 62%, #fde68a 62%)'],
+    ];
+
+    // Joke Wi-Fi names people really give their networks (plus a local one).
+    const HOTSPOTS = [
+        ['Pretty Fly for a Wi-Fi', 'The most famous Wi-Fi pun of them all.'],
+        ['The LAN Before Time', 'A LAN is a "local area network". This one is very, very old.'],
+        ['Abraham Linksys', 'Four score and seven megabits ago…'],
+        ['Bill Wi the Science Fi', 'Science rules!'],
+        ['Drop It Like It\'s Hotspot', 'Someone\'s phone hotspot, with a sense of humour.'],
+        ['Silence of the LANs', 'A very, very quiet network.'],
+        ['Tell My Wi-Fi Love Her', 'Aww.'],
+        ['Get Off My LAN', 'A grumpy neighbour, probably.'],
+        ['Bridlington Seagulls', 'They\'ve already taken your chips. Don\'t give them your password too.'],
+        ['FREE WIFI (honest)', 'A network called "free Wi-Fi" that you don\'t recognise is exactly the kind not to join!'],
+    ];
+
+    const FORTUNES = ['Today is a good day to back up your photos.', 'A strong password is a happy password.', 'You will receive a phone call. It will be a scam. Hang up.',
+        'Have you tried turning it off and on again?', 'The best time to update was yesterday. The second best time is now.', 'A cup of tea fixes most things. Not computers, though.',
+        'Never give your password to a stranger. Or a seagull.', 'You will find the remote. It is down the side of the sofa.'];
+
+    const funWin = (os, kind, title, inner, cls = '') => {
+        const ctrls = os === 'mac'
+            ? '<span class="tl"><button type="button" class="tl-r" data-fun="close" aria-label="Close window"></button><button type="button" class="tl-y" data-fun="close" aria-label="Minimise"></button><button type="button" class="tl-g" data-fun="max" aria-label="Full screen"></button></span>'
+            : '<span class="wc"><button type="button" data-fun="close" aria-label="Minimise">—</button><button type="button" data-fun="max" aria-label="Maximise">▢</button><button type="button" class="wc-x" data-fun="close" aria-label="Close">✕</button></span>';
+        const w = document.createElement('div');
+        w.className = `pcw ${os} egg fun-${kind} ${cls}` + (calm() ? '' : ' fx-open');
+        w.innerHTML = `<div class="pcw-bar">${os === 'mac' ? ctrls : ''}<span class="pcw-title">${title}</span>${os === 'mac' ? '' : ctrls}</div><div class="pcw-body">${inner}</div>`;
+        return w;
+    };
+    const funToast = (screen, text, ms = 2600) => {
+        const desk = screen.querySelector('.pc-desk');
+        if (!desk) return;
+        const t = document.createElement('div');
+        t.className = 'pc-toast fun-toast';
+        t.textContent = text;
+        desk.appendChild(t);
+        setTimeout(() => t.remove(), ms);
+    };
+    const openFunWin = (screen, w) => {
+        const area = screen.querySelector('.pc-area');
+        const old = area.querySelector('.' + [...w.classList].find(c => c.startsWith('fun-')));
+        if (old) old.remove();
+        area.appendChild(w);
+        return w;
+    };
+
+    function wifiFunPanel(os, st, details) {
+        const icon = st.wifiOn ? '📶' : '🚫';
+        const nets = st.wifiOn ? `<p class="wf-ok">✓ Home-WiFi-5G <small>Connected</small></p>${details ? `<div class="wf-tech">IP address: 192.168.1.42<br>Router: 192.168.1.1<br>Signal: −54 dBm (very good)<br>Channel: 36 (5 GHz)<br>Speed: 866 Mbps<br>Security: WPA3 Personal</div>` : ''}
+            <p class="wf-h2">Other networks</p>${HOTSPOTS.map(([n], k) => `<button type="button" class="wf-net" data-fun="hotspot" data-n="${k}">📶 ${esc(n)} <small>${k % 3 ? '🔒' : ''}</small></button>`).join('')}<p class="wf-joke"></p>`
+            : '<p class="wf-off">Wi-Fi is off. Turn it on to see networks.</p>';
+        return `<div class="wf ${os} fun-wifi"><div class="wf-top"><strong>${icon} Wi-Fi</strong><button type="button" class="wf-switch" data-fun="wifi-toggle" aria-label="Wi-Fi on or off">${tog(st.wifiOn)}</button></div>${nets}</div>`;
+    }
+
+    function calendarPopup(os) {
+        const d = today(), y = d.getFullYear(), m = d.getMonth();
+        const first = (new Date(y, m, 1).getDay() + 6) % 7, days = new Date(y, m + 1, 0).getDate();
+        const cells = Array.from({length: first}, () => '<span></span>').concat(Array.from({length: days}, (_, k) => `<span class="${k + 1 === d.getDate() ? 'today' : ''}">${k + 1}</span>`));
+        return `<div class="cal-pop ${os}"><strong>${d.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'})}</strong>
+            <div class="cal-grid">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(x => `<b>${x}</b>`).join('')}${cells.join('')}</div></div>`;
+    }
+
+    // ---------- The dinosaur game (Chrome shows it when you're offline). Space, ↑ or a tap to jump. ----------
+    function dinoGame(page) {
+        page.innerHTML = `<div class="dino-wrap"><p class="dino-msg"><strong>No internet</strong><br>Try checking your Wi-Fi. Press <kbd>Space</kbd> or tap to play.</p>
+            <div class="dino" tabindex="0" aria-label="Dinosaur game: press space or tap to jump"><span class="dino-rex">🦖</span><span class="dino-score">0</span><span class="dino-over" hidden>GAME OVER · press Space to play again</span></div></div>`;
+        const box = page.querySelector('.dino'), rex = box.querySelector('.dino-rex'), scoreEl = box.querySelector('.dino-score'), over = box.querySelector('.dino-over');
+        let y = 0, vy = 0, cacti = [], t = 0, score = 0, playing = false, dead = false, last = 0, gap = 0;
+        const jump = () => {
+            if (dead) { cacti.forEach(c => c.el.remove()); cacti = []; score = 0; dead = false; over.hidden = true; }
+            if (!playing) { playing = true; last = performance.now(); requestAnimationFrame(loop); }
+            if (y === 0) vy = 430;
+        };
+        const loop = now => {
+            if (!box.isConnected) { document.removeEventListener('keydown', key); return; }
+            const dt = Math.min(0.05, (now - last) / 1000); last = now;
+            if (dead) { playing = false; return; }
+            vy -= 1300 * dt; y = Math.max(0, y + vy * dt); if (y === 0) vy = Math.max(vy, 0);
+            rex.style.transform = `translateY(${-y}px) scaleX(-1)`;
+            const speed = 170 + score * 0.6;
+            gap -= dt;
+            if (gap <= 0) {
+                const el = document.createElement('span'); el.className = 'dino-cactus'; el.textContent = '🌵'; box.appendChild(el);
+                cacti.push({x: box.clientWidth, el}); gap = 0.9 + Math.random() * 1.1;
+            }
+            cacti.forEach(c => { c.x -= speed * dt; c.el.style.transform = `translateX(${c.x}px)`; });
+            cacti = cacti.filter(c => { if (c.x < -30) { c.el.remove(); return false; } return true; });
+            if (cacti.some(c => c.x < 52 && c.x > 14 && y < 26)) { dead = true; over.hidden = false; }
+            score += dt * 10; scoreEl.textContent = String(Math.floor(score)).padStart(5, '0');
+            requestAnimationFrame(loop);
+        };
+        const key = e => { if (box.isConnected && (e.key === ' ' || e.key === 'ArrowUp') && document.activeElement && (document.activeElement === box || !/input|textarea/i.test(document.activeElement.tagName))) { e.preventDefault(); jump(); } };
+        document.addEventListener('keydown', key);
+        box.addEventListener('pointerdown', e => { e.preventDefault(); box.focus(); jump(); });
+    }
+
+    // ---------- Linux terminal ----------
+    const COW = say => {
+        const line = '_'.repeat(say.length + 2), dash = '-'.repeat(say.length + 2);
+        return ` ${line}\n< ${say} >\n ${dash}\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||`;
+    };
+    const MOO = `                 (__)\n                 (oo)\n           /------\\/\n          / |    ||\n         *  /\\---/\\\n            ~~   ~~\n..."Have you mooed today?"...`;
+    function terminalRun(screen, w, cmd) {
+        const out = w.querySelector('.term-out');
+        const say = t => { out.textContent += t + '\n'; };
+        say('margaret@mint:~$ ' + cmd);
+        const c = cmd.trim().replace(/\s+/g, ' ');
+        const lc = c.toLowerCase();
+        if (!c) {} else if (lc === 'help') say('Try: apt moo, fortune, cowsay hello, sl, neofetch, date, whoami, ls, clear, exit');
+        else if (lc === 'apt moo') say(MOO);
+        else if (lc === 'fortune') say(FORTUNES[Math.floor(Math.random() * FORTUNES.length)]);
+        else if (lc.startsWith('cowsay')) say(COW(c.slice(6).trim() || 'Moo!'));
+        else if (lc === 'sl') {
+            const train = document.createElement('pre'); train.className = 'term-train';
+            train.textContent = '      ====        ________                ___________\n  _D _|  |_______/        \\__I_I_____===__|_________|\n   |(_)---  |   H\\________/ |   |        =|___ ___|\n   /     |  |   H  |  |     |   |         ||_| |_||\n  |      |  |   H  |__--------------------| [___] |\n  | ________|___H__/__|_____/[][]~\\_______|       |\n  |/ |   |-----------I_____I [][] []  D   |=======|_\n__/ =| o |=-~~\\  /~~\\  /~~\\  /~~\\ ____Y___________|__\n |/-=|___|=    ||    ||    ||    |_____/~\\___/\n  \\_/      \\O=====O=====O=====O_/      \\_/';
+            w.querySelector('.pcw-body').appendChild(train); setTimeout(() => train.remove(), calm() ? 10 : 4200);
+            say('(You typed "sl" instead of "ls"? Have a steam train.)');
+        } else if (lc === 'neofetch') say(`   _____________     margaret@mint\n  |_            \\    -------------\n    |  | _____  |    OS: Linux Mint 22.3 (practice)\n    |  | | | |  |    Desktop: Cinnamon\n    |  | | | |  |    Shell: bash\n    |  \\_____/  |    Uptime: since breakfast\n    \\___________/    Memory: never forgets a birthday`);
+        else if (lc === 'date') say(today().toString().slice(0, 24));
+        else if (lc === 'whoami') say('margaret');
+        else if (lc === 'pwd') say('/home/margaret');
+        else if (lc === 'ls') say('Desktop  Documents  Downloads  Music  Pictures  Videos');
+        else if (lc === 'sudo make me a sandwich') say('Okay. 🥪');
+        else if (lc === 'make me a sandwich') say('What? Make it yourself.');
+        else if (/rm\s+-rf/.test(lc)) say('Nice try! This practice terminal won\'t let you break anything.');
+        else if (lc === 'penguin' || lc === 'tux') { say('🐧'); funTux(screen); }
+        else if (lc === 'clear') { out.textContent = ''; }
+        else if (lc === 'exit') { w.remove(); return; }
+        else say(`bash: ${c.split(' ')[0]}: command not found  (try "help")`);
+        out.scrollTop = out.scrollHeight;
+    }
+    function funTux(screen) {
+        const desk = screen.querySelector('.pc-desk');
+        if (!desk || desk.querySelector('.tux-walk')) return;
+        const t = document.createElement('span'); t.className = 'tux-walk'; t.textContent = '🐧';
+        desk.appendChild(t); setTimeout(() => t.remove(), calm() ? 1500 : 7000);
+    }
+
+    // ---------- Search boxes: Start/Apps/Menu filter, and the browser ----------
+    function funSearch(screen, os, input) {
+        const q = input.value.trim().toLowerCase();
+        if (input.dataset.funInput === 'menu') {
+            const menu = input.closest('.sm');
+            menu.querySelectorAll('.sm-app').forEach(b => { b.hidden = q && !b.textContent.toLowerCase().includes(q); });
+            if (/^(penguin|tux)$/.test(q)) funTux(screen);
+            return;
+        }
+        // browser: only on Enter
+        const br = input.closest('.br') || input.closest('.pcw');
+        const note = br.querySelector('.br-note');
+        br.classList.remove('fx-askew');
+        if (q === 'do a barrel roll' || q === 'z or r twice') { br.classList.remove('fx-roll'); void br.offsetWidth; br.classList.add('fx-roll'); }
+        else if (q === 'askew' || q === 'tilt') br.classList.add('fx-askew');
+        else if (/^(dino|dinosaur|t-rex|trex)$/.test(q)) dinoGame(input.closest('.br-page'));
+        else if (note) note.textContent = 'This practice browser doesn\'t search the real internet. Nothing you type is sent anywhere.';
+    }
+
+    // ---------- After every redraw: Wi-Fi state, the dinosaur, wallpaper, the season, inputs ----------
+    function pcDecorate(screen, os) {
+        const st = funState(screen);
+        const desk = screen.querySelector('.pc-desk');
+        if (!desk) return;
+        if (st.wall >= 0) desk.style.background = WALLS[st.wall][1];
+        if (!st.wifiOn) {
+            screen.querySelectorAll('[data-tap="tray-wifi"]').forEach(b => { b.classList.add('off'); b.innerHTML = '<svg viewBox="0 0 16 12" class="st-wifi"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM3.2 6.6a6.8 6.8 0 0 1 9.6 0l-1.4 1.5a4.8 4.8 0 0 0-6.8 0zM.8 4.2a10.2 10.2 0 0 1 14.4 0l-1.4 1.4a8.2 8.2 0 0 0-11.6 0z" fill="currentColor" opacity=".35"/><path d="M2 1l12 10" stroke="currentColor" stroke-width="1.6"/></svg>'; });
+            screen.querySelectorAll('.br-page').forEach(p => { if (!p.querySelector('.dino')) dinoGame(p); });
+        }
+        // The season, from the person's own date.
+        const d = today(), mo = d.getMonth() + 1, day = d.getDate();
+        const area = screen.querySelector('.pc-area');
+        if (area && !calm() && !area.querySelector('.season')) {
+            let season = '';
+            if (mo === 12 || (mo === 1 && day <= 6)) season = `<div class="season snow" aria-hidden="true">${Array.from({length: 26}, (_, k) => `<i style="left:${(k * 37) % 100}%;animation-duration:${6 + (k % 5)}s;animation-delay:-${(k * 1.3) % 7}s;font-size:${8 + (k % 4) * 3}px">❄</i>`).join('')}</div>`;
+            if ((mo === 12 && day === 31) || (mo === 1 && day === 1) || (mo === 11 && day === 5)) season += '<div class="season fireworks" aria-hidden="true"><i style="left:20%;top:25%"></i><i style="left:62%;top:15%;animation-delay:.7s"></i><i style="left:80%;top:40%;animation-delay:1.4s"></i></div>';
+            if (mo === 10 && day >= 24) season = '<div class="season halloween" aria-hidden="true"><span class="pumpkin">🎃</span><span class="bat">🦇</span></div>';
+            if (mo === 2 && day === 14) season = `<div class="season hearts" aria-hidden="true">${Array.from({length: 10}, (_, k) => `<i style="left:${k * 10 + 3}%;animation-delay:-${k * 0.9}s">💕</i>`).join('')}</div>`;
+            if (season) area.insertAdjacentHTML('afterbegin', season);
+        }
+        if (mo === 4 && day === 1 && !st.aprilDone && !calm()) { st.aprilDone = true; desk.classList.add('fx-april'); funToast(screen, 'April Fool! 🙃'); }
+        // Search boxes.
+        screen.querySelectorAll('[data-fun-input]').forEach(inp => {
+            if (inp._fun) return; inp._fun = true;
+            if (inp.dataset.funInput === 'menu') inp.addEventListener('input', () => funSearch(screen, os, inp));
+            else inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); funSearch(screen, os, inp); } });
+        });
+    }
+
+    // Konami code: ↑ ↑ ↓ ↓ ← → ← → B A
+    const KONAMI = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'];
+    function pcKonami(screen, os, key) {
+        const st = funState(screen);
+        st.konami = st.konami.concat(key.toLowerCase()).slice(-10);
+        if (st.konami.join() !== KONAMI.join()) return;
+        st.konami = [];
+        const desk = screen.querySelector('.pc-desk');
+        if (!desk) return;
+        const splash = document.createElement('div');
+        splash.className = `k-splash ${os}`;
+        splash.innerHTML = os === 'windows' ? '<div class="k-win"><span class="k-flag"><i></i><i></i><i></i><i></i></span><b>Practice<sup>®</sup></b><strong>95</strong></div><p>Cheat code activated! +30 lives 🎮</p>'
+            : os === 'mac' ? '<div class="k-mac"><span>🙂</span><p>Welcome to Macintosh.</p></div><p>Cheat code activated! +30 lives 🎮</p>'
+            : '<pre class="k-boot">[  OK  ] Started Konami Code Service.\n[  OK  ] Reached target Extra Lives.\n[  OK  ] Mounted /home/margaret/30-lives.\n[  OK  ] Started Nostalgia Daemon.</pre><p>Cheat code activated! +30 lives 🎮</p>';
+        desk.appendChild(splash);
+        setTimeout(() => splash.remove(), 3800);
+    }
+
+    // Shake to find the pointer (Mac), and dragging windows by the title bar (with "Aero Shake" on Windows).
+    function pcAttach(screen, getOs) {
+        let lastX = 0, dir = 0, flips = [], drag = null;
+        screen.addEventListener('pointermove', e => {
+            if (e.pointerType !== 'mouse') return;
+            const dx = e.clientX - lastX; lastX = e.clientX;
+            if (Math.abs(dx) > 8) {
+                const nd = Math.sign(dx);
+                if (nd !== dir) { dir = nd; flips.push(performance.now()); flips = flips.filter(t => performance.now() - t < 700); }
+            }
+            if (drag) {
+                const x = drag.ox + e.clientX - drag.sx, y = drag.oy + e.clientY - drag.sy;
+                drag.win.style.translate = `${x}px ${y}px`;
+                if (flips.length >= 6 && getOs() === 'windows' && !drag.shook) {
+                    drag.shook = true;
+                    const others = [...screen.querySelectorAll('.pcw')].filter(w => w !== drag.win);
+                    others.forEach(w => { pcAim(screen, w); w.style.setProperty('--ms', '260ms'); w.classList.add('fx-min'); });
+                    funToast(screen, others.length ? 'Aero Shake! The other windows have been tucked away.' : 'Aero Shake! (There were no other windows to tuck away.)');
+                }
+                return;
+            }
+            if (flips.length >= 6 && getOs() === 'mac' && !screen.querySelector('.big-pointer')) {
+                flips = [];
+                const r = screen.getBoundingClientRect();
+                const p = document.createElement('div'); p.className = 'big-pointer';
+                p.style.left = (e.clientX - r.left) + 'px'; p.style.top = (e.clientY - r.top) + 'px';
+                p.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 2v19l5-5 3 7 3-1-3-7h7z" fill="#111" stroke="#fff" stroke-width="1.5"/></svg>';
+                screen.appendChild(p); setTimeout(() => p.remove(), 1400);
+            }
+        });
+        screen.addEventListener('pointerdown', e => {
+            const bar = e.target.closest('.pcw-bar');
+            if (!bar || e.target.closest('button') || e.pointerType !== 'mouse') return;
+            const win = bar.closest('.pcw');
+            if (win.classList.contains('max')) return;
+            const [ox, oy] = (win.style.translate || '0px 0px').split(' ').map(v => parseFloat(v) || 0);
+            drag = {win, sx: e.clientX, sy: e.clientY, ox, oy, shook: false};
+            flips = [];
+        });
+        window.addEventListener('pointerup', () => { drag = null; });
+    }
+
+    // Clicks on anything with data-fun (and Wi-Fi / Notepad / About This Mac when they aren't the lesson's step).
+    function pcFun(screen, os, el, e) {
+        const st = funState(screen);
+        const what = el.dataset.fun;
+        if (pcApp(screen, os, what, el)) return;
+        const desk = screen.querySelector('.pc-desk');
+        const area = screen.querySelector('.pc-area');
+        if (what === 'close') {
+            // Closing Notepad, Terminal or About redraws the lesson screen, so a menu they came from is back.
+            const w = el.closest('.pcw');
+            const back = /fun-(notepad|terminal|about)/.test(w.className);
+            const done = () => { w.remove(); if (back && screen._redraw) screen._redraw(); };
+            if (calm()) done(); else { w.classList.add('fx-close'); setTimeout(done, 160); }
+            return;
+        }
+        if (what === 'max') { el.closest('.pcw').classList.toggle('max'); return; }
+        if (what === 'wifi') {
+            const old = desk.querySelector('.fun-wifi');
+            if (old) { old.remove(); return; }
+            desk.insertAdjacentHTML('beforeend', wifiFunPanel(os, st, os === 'mac' && e && e.altKey));
+            return;
+        }
+        if (what === 'wifi-toggle') {
+            st.wifiOn = !st.wifiOn;
+            const panel = desk.querySelector('.fun-wifi');
+            panel.outerHTML = wifiFunPanel(os, st, false);
+            if (st.wifiOn) {
+                screen.querySelectorAll('[data-tap="tray-wifi"].off').forEach(b => { b.classList.remove('off'); b.innerHTML = '<svg viewBox="0 0 16 12" class="st-wifi"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM3.2 6.6a6.8 6.8 0 0 1 9.6 0l-1.4 1.5a4.8 4.8 0 0 0-6.8 0zM.8 4.2a10.2 10.2 0 0 1 14.4 0l-1.4 1.4a8.2 8.2 0 0 0-11.6 0z" fill="currentColor"/></svg>'; });
+                screen.querySelectorAll('.dino-wrap').forEach(d => { d.closest('.br-page').innerHTML = `<div class="br-logo">${N.browser[os]}</div><input class="br-search" data-fun-input="web" placeholder="Search the web" aria-label="Search the web"><p class="br-note"></p>`; });
+                pcDecorate(screen, os);
+                funToast(screen, 'Wi-Fi is on. Connected to Home-WiFi-5G.');
+            } else { pcDecorate(screen, os); funToast(screen, 'Wi-Fi is off.'); }
+            return;
+        }
+        if (what === 'hotspot') {
+            const [name, joke] = HOTSPOTS[+el.dataset.n];
+            el.closest('.fun-wifi').querySelector('.wf-joke').innerHTML = `<strong>${esc(name)}</strong><br>${esc(joke)} <em>(Only join networks you know.)</em>`;
+            return;
+        }
+        if (what === 'clock') {
+            const old = desk.querySelector('.cal-pop');
+            if (old) { old.remove(); return; }
+            desk.insertAdjacentHTML('beforeend', calendarPopup(os));
+            const d = today();
+            if (d.getMonth() === 3 && d.getDate() === 1 && !calm()) { desk.classList.remove('fx-april'); void desk.offsetWidth; desk.classList.add('fx-april'); funToast(screen, 'April Fool! 🙃'); }
+            return;
+        }
+        if (what === 'desk-menu') {
+            const old = desk.querySelector('.desk-menu');
+            if (old) old.remove();
+            const r = area.getBoundingClientRect();
+            const items = os === 'windows' ? [['', 'View'], ['', 'Sort by'], ['refresh', 'Refresh'], ['', 'New'], ['wall', 'Personalise']]
+                : os === 'mac' ? [['', 'New Folder'], ['', 'Get Info'], ['wall', 'Change Wallpaper…'], ['', 'Use Stacks']]
+                : [['', 'Create New Folder'], ['terminal', 'Open in Terminal'], ['wall', 'Change Desktop Background']];
+            const m = document.createElement('div');
+            m.className = 'ctx-menu desk-menu';
+            m.style.left = Math.min(e.clientX - r.left, r.width - 180) + 'px';
+            m.style.top = Math.min(e.clientY - r.top, r.height - 160) + 'px';
+            m.innerHTML = items.map(([id, t]) => `<button type="button" data-fun="desk-${id || 'none'}">${t}</button>`).join('');
+            area.appendChild(m);
+            return;
+        }
+        if (what.startsWith('desk-')) {
+            const m = area.querySelector('.desk-menu'); if (m) m.remove();
+            if (what === 'desk-wall') { st.wall = (st.wall + 1) % WALLS.length; desk.style.background = WALLS[st.wall][1]; funToast(screen, `Wallpaper: ${WALLS[st.wall][0]}`); }
+            if (what === 'desk-refresh') { area.classList.remove('fx-refresh'); void area.offsetWidth; area.classList.add('fx-refresh'); }
+            if (what === 'desk-terminal') pcFun(screen, os, {dataset: {fun: 'terminal'}}, e);
+            return;
+        }
+        if (what === 'apple-menu') {
+            const old = desk.querySelector('.mb-drop');
+            if (old) { old.remove(); return; }
+            desk.insertAdjacentHTML('beforeend', '<div class="mb-drop"><button type="button" data-fun="about">About This Mac</button><button type="button" data-fun="menu-close">System Settings…</button><button type="button" data-fun="menu-close">Sleep</button><button type="button" data-fun="menu-close">Restart…</button><button type="button" data-fun="menu-close">Shut Down…</button></div>');
+            return;
+        }
+        if (what === 'menu-close') { const m = desk.querySelector('.mb-drop'); if (m) m.remove(); return; }
+        if (what === 'about') {
+            const m = desk.querySelector('.mb-drop'); if (m) m.remove();
+            openFunWin(screen, funWin(os, 'about', '', `<div class="about-mac"><span>💻</span><strong>MacBook Practice</strong><small>macOS 27 (practice edition)</small>
+                <dl><dt>Chip</dt><dd>Bridlington Silicon B1</dd><dt>Memory</dt><dd>Never forgets a birthday</dd><dt>Startup disk</dt><dd>Practice HD</dd><dt>Serial number</dt><dd>P4R7-ACT1CE</dd></dl></div>`, 'small'));
+            return;
+        }
+        if (what === 'notepad') {
+            const sm = desk.querySelector('.sm'); if (sm) sm.remove();
+            const name = os === 'windows' ? 'Notepad' : os === 'mac' ? 'TextEdit' : 'Text Editor';
+            // Windows Notepad: if the first line is .LOG, the date and time are added each time it's opened.
+            if (os === 'windows' && /^\.LOG/.test(st.notepad)) st.notepad += `\r\n${NOW.time()} ${NOW.date()}\r\n`;
+            const w = openFunWin(screen, funWin(os, 'notepad', `Untitled – ${name}`, `<textarea class="np-text" spellcheck="false" aria-label="Notes">${esc(st.notepad)}</textarea>
+                <div class="np-status">${os === 'windows' ? 'Ln 1, Col 1 &nbsp;|&nbsp; 100% &nbsp;|&nbsp; Windows (CRLF) &nbsp;|&nbsp; UTF-8' : 'Plain text'}</div>`));
+            const ta = w.querySelector('textarea');
+            ta.addEventListener('input', () => { st.notepad = ta.value; });
+            ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+            return;
+        }
+        if (what === 'terminal') {
+            const sm = desk.querySelector('.sm'); if (sm) sm.remove();
+            const w = openFunWin(screen, funWin(os, 'terminal', 'margaret@mint: ~', `<pre class="term-out">Welcome! This is a practice terminal. Type "help" to see what you can try.\n</pre>
+                <label class="term-line"><span>margaret@mint:~$</span><input class="term-in" autocomplete="off" spellcheck="false" aria-label="Terminal command"></label>`, 'term'));
+            const inp = w.querySelector('.term-in');
+            inp.addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); terminalRun(screen, w, inp.value); inp.value = ''; } });
+            w.addEventListener('click', () => inp.focus());
+            inp.focus();
+        }
+    }
+
+    // ======================================================================================
+    // Practice computer: every app works, all the time. When something isn't the lesson's current step,
+    // it opens a working practice app instead of counting as a wrong click.
+    // ======================================================================================
+    const FUN_FROM_TAP = {
+        'start': 'start-menu', 'apple-menu': 'apple-menu', 'tray-wifi': 'wifi', 'tray-update': 'app-update',
+        'open-browser': 'app-browser', 'app-browser': 'app-browser', 'app-chrome': 'app-browser',
+        'open-files': 'app-files', 'app-files': 'app-files', 'open-settings': 'app-settings', 'app-settings': 'app-settings', 'menu-settings': 'app-settings',
+        'open-store': 'app-store', 'app-store': 'app-store', 'open-text': 'notepad', 'app-text': 'notepad', 'app-mail': 'app-mail',
+        'open-terminal': 'terminal', 'open-writer': 'app-writer', 'app-writer': 'app-writer', 'open-update': 'app-update', 'app-update': 'app-update',
+        'open-firewall': 'app-settings', 'app-fw': 'app-settings', 'app-shield': 'app-settings', 'power': 'power',
+    };
+    const APP_KEYS = ['start-menu', 'app-browser', 'site', 'app-files', 'folder', 'file', 'app-settings', 'set-page', 'wifi-toggle-set', 'wall', 'check-updates',
+        'app-store', 'store-get', 'app-mail', 'mail-open', 'mail-back', 'app-writer', 'app-update', 'power'];
+
+    // ---------- Browser ----------
+    const SITES = {
+        home: os => `<div class="br-logo">${N.browser[os]}</div><input class="br-search" data-fun-input="web" placeholder="Search the web" aria-label="Search the web"><p class="br-note"></p>
+            <div class="br-tiles">${[['weather', '⛅', 'Weather'], ['news', '📰', 'News'], ['bus', '🚌', 'Bus times'], ['recipes', '🍰', 'Recipes']].map(([id, ic, t]) => `<button type="button" data-fun="site" data-site="${id}"><span>${ic}</span>${t}</button>`).join('')}</div>`,
+        weather: () => `<div class="site"><h3>⛅ Bridlington weather</h3><p class="ph-small">Practice forecast</p><div class="wx">${[['Today', '⛅', '13°'], ['Fri', '🌧️', '11°'], ['Sat', '🌬️', '10°'], ['Sun', '☀️', '14°']].map(([d, ic, t]) => `<div><b>${d}</b><span>${ic}</span>${t}</div>`).join('')}</div><p>Seagull activity: <strong>very high</strong>. Guard your chips.</p></div>`,
+        news: () => `<div class="site"><h3>📰 Practice News</h3><ul class="news">
+            <li><strong>Local man finally finds TV remote</strong> down the side of the sofa, after three weeks.</li>
+            <li><strong>Seagull spotted with a 99 Flake</strong>. Owner of the ice cream "not amused".</li>
+            <li><strong>Grandmother beats grandson at video calling</strong>: "I just pressed the green button."</li>
+            <li><strong>Study finds</strong> 9 out of 10 computer problems fixed by turning it off and on again.</li></ul></div>`,
+        bus: () => `<div class="site"><h3>🚌 Bus times</h3>${busTable}</div>`,
+        recipes: () => `<div class="site"><h3>🍰 Victoria sponge</h3><p>Mix 200g each of butter, sugar and self-raising flour with 4 eggs. Bake in two tins at 180°C for 20–25 minutes. Fill with jam and cream.</p><p class="ph-small">Tip: set a timer on your phone, or ask it: "Set a timer for 25 minutes".</p></div>`,
+    };
+    function funBrowser(screen, os, site = 'home') {
+        const st = funState(screen);
+        const url = {home: '', weather: 'weather.example', news: 'practice-news.example', bus: 'bus-times.example', recipes: 'recipes.example'}[site];
+        const w = openFunWin(screen, funWin(os, 'browser', N.browser[os], `<div class="br"><div class="br-bar"><span class="br-tab">${site === 'home' ? 'New tab' : esc(url)} </span></div>
+            <div class="br-url"><button type="button" data-fun="site" data-site="home" aria-label="Home">⌂</button> ${url ? '🔒 ' + url : 'Search or type a web address'}</div>
+            <div class="br-page ${site === 'home' ? '' : 'top'}">${SITES[site](os)}</div></div>`, 'wide'));
+        if (!st.wifiOn) dinoGame(w.querySelector('.br-page'));
+        pcDecorate(screen, os);
+    }
+
+    // ---------- Files ----------
+    const PICS = {
+        'Seaside.jpg': 'linear-gradient(#7dd3fc 0 45%, #0ea5e9 45% 62%, #fde68a 62%)',
+        'Sunset.jpg': 'radial-gradient(circle at 50% 70%, #fde047 10%, transparent 11%), linear-gradient(#7c3aed, #f97316 60%, #1e3a8a 60%)',
+        'Garden.jpg': 'radial-gradient(circle at 30% 60%, #f43f5e 6%, transparent 7%), radial-gradient(circle at 60% 55%, #facc15 6%, transparent 7%), radial-gradient(circle at 80% 65%, #a855f7 6%, transparent 7%), linear-gradient(#bae6fd 0 45%, #4ade80 45%)',
+        'Dog on the beach.jpg': 'linear-gradient(#93c5fd 0 50%, #fde68a 50%)',
+    };
+    const FOLDERS = {
+        Documents: [['📄', 'Shopping list.txt'], ['📄', 'Letter to council.docx'], ['📁', 'Recipes'], ['📊', 'Christmas card list.xlsx']],
+        Pictures: Object.keys(PICS).map(n => ['🖼️', n]),
+        Downloads: [['📄', 'Council tax bill.pdf'], ['📄', 'Bus timetable.pdf'], ['🧩', 'setup_free_cleaner.exe']],
+        Music: [['🎵', 'Seaside brass band.mp3'], ['🎵', 'Sixties hits.mp3']],
+    };
+    function funFiles(screen, os, folder = 'Pictures', note = '') {
+        const items = FOLDERS[folder].map(([ic, n]) => `<button type="button" class="pf-item" data-fun="file" data-folder="${folder}" data-name="${esc(n)}"><span>${ic}</span>${esc(n)}</button>`).join('');
+        openFunWin(screen, funWin(os, 'files', `${folder} – ${N.files[os]}`, `<div class="pf"><div class="pf-side">${Object.keys(FOLDERS).map(f => `<button type="button" class="${f === folder ? 'on' : ''}" data-fun="folder" data-folder="${f}">${f}</button>`).join('')}
+            <button type="button" data-egg="bin">${os === 'windows' ? 'Recycle Bin' : os === 'mac' ? 'Bin' : 'Trash'}</button></div>
+            <div class="pf-main">${items}${note ? `<p class="pf-note">${note}</p>` : ''}</div></div>`, 'wide'));
+    }
+    function funViewer(screen, os, name) {
+        openFunWin(screen, funWin(os, 'viewer', name, `<div class="viewer" style="background:${PICS[name]}">${name === 'Dog on the beach.jpg' ? '<span>🐕</span>' : ''}</div>`, 'wide'));
+    }
+
+    // ---------- Settings ----------
+    function funSettings(screen, os, page = 'wifi') {
+        const st = funState(screen);
+        const pages = {
+            wifi: `<h3>Wi-Fi</h3><div class="set-row static"><span>Wi-Fi</span><button type="button" class="wf-switch" data-fun="wifi-toggle-set" aria-label="Wi-Fi on or off">${tog(st.wifiOn)}</button></div><p class="app-note">${st.wifiOn ? '✓ Connected to Home-WiFi-5G' : 'Wi-Fi is off.'}</p>`,
+            look: `<h3>${os === 'windows' ? 'Personalisation' : os === 'mac' ? 'Wallpaper' : 'Backgrounds'}</h3><div class="wall-pick">${WALLS.map(([n, bg], k) => `<button type="button" data-fun="wall" data-n="${k}" class="${st.wall === k ? 'on' : ''}" style="background:${bg}" aria-label="${n}"></button>`).join('')}
+                <button type="button" data-fun="wall" data-n="-1" class="${st.wall < 0 ? 'on' : ''}" style="background:${WALL[os]}" aria-label="Original"></button></div>`,
+            update: `<h3>${os === 'windows' ? 'Windows Update' : os === 'mac' ? 'Software Update' : 'Updates'}</h3><p class="wu-ok">✓ You're up to date</p><p class="app-note">Last checked: today, ${NOW.time()}</p><button type="button" class="ph-btn ios-blue small" data-fun="check-updates">Check for updates</button><p class="upd-note"></p>`,
+            about: `<h3>About</h3><div class="w10-spec"><div><span>Device name</span><b>MARGARET-PRACTICE</b></div><div><span>System</span><b>${os === 'windows' ? 'Windows 11 (practice)' : os === 'mac' ? 'macOS 27 (practice)' : 'Linux Mint 22.3 (practice)'}</b></div>
+                <div><span>Processor</span><b>Bridlington Silicon B1</b></div><div><span>Memory</span><b>Never forgets a birthday</b></div><div><span>Storage</span><b>Plenty for photos of the grandchildren</b></div></div>`,
+        };
+        const side = [['wifi', 'Wi-Fi'], ['look', os === 'windows' ? 'Personalisation' : os === 'mac' ? 'Wallpaper' : 'Backgrounds'], ['update', 'Updates'], ['about', 'About']];
+        openFunWin(screen, funWin(os, 'settings', N.settings[os], `<div class="sw"><div class="sw-side">${side.map(([id, t]) => `<button type="button" class="${id === page ? 'on' : ''}" data-fun="set-page" data-page="${id}">${t}</button>`).join('')}</div><div class="sw-main">${pages[page]}</div></div>`, 'wide'));
+    }
+
+    // ---------- Store and Minesweeper ----------
+    const STORE_APPS = [['mines', '💣', 'Practice Mines', 'The classic mine-hunting game.'], ['solitaire', '🃏', 'Patience', 'Coming soon to this practice store.'], ['paint', '🎨', 'Paint', 'Coming soon to this practice store.'], ['weather', '⛅', 'Weather', 'Coming soon to this practice store.']];
+    function funStore(screen, os) {
+        const st = funState(screen);
+        st.installed = st.installed || [];
+        openFunWin(screen, funWin(os, 'store', N.store[os], `<div class="pc-store"><div class="st-searchbar">${ICON.search}<span>Search apps</span></div><div class="st-results">${STORE_APPS.map(([id, ic, n, d]) => `<div class="st-row"><span class="fun-app-ic">${ic}</span>
+            <div class="st-info"><strong>${n}</strong><span>${d}</span></div><button type="button" class="st-get" data-fun="store-get" data-app="${id}">${st.installed.includes(id) ? 'Open' : (os === 'mac' ? 'Get' : 'Install')}</button></div>`).join('')}</div>
+            <p class="ph-small">Practice store: nothing is really downloaded.</p></div>`, 'wide'));
+    }
+    function funMines(screen, os) {
+        const W = 8, H = 8, M = 10;
+        const w = openFunWin(screen, funWin(os, 'mines', 'Practice Mines', `<div class="mines"><div class="mines-top"><span class="mines-left">💣 ${M}</span><button type="button" class="mines-face" aria-label="New game">🙂</button><span class="mines-time">0</span></div>
+            <div class="mines-grid" style="grid-template-columns:repeat(${W},1fr)">${Array.from({length: W * H}, (_, k) => `<button type="button" class="mc" data-k="${k}" aria-label="Square"></button>`).join('')}</div>
+            <p class="ph-small">Click to dig. Right-click (or press and hold) to plant a flag.</p></div>`, 'small'));
+        let mines = null, open = 0, over = false, flags = 0, t0 = 0, timer = 0;
+        const cells = [...w.querySelectorAll('.mc')], face = w.querySelector('.mines-face');
+        const around = k => { const x = k % W, y = Math.floor(k / W), out = []; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const nx = x + dx, ny = y + dy; if ((dx || dy) && nx >= 0 && ny >= 0 && nx < W && ny < H) out.push(ny * W + nx); } return out; };
+        const reset = () => { mines = null; open = 0; over = false; flags = 0; clearInterval(timer); w.querySelector('.mines-time').textContent = '0'; w.querySelector('.mines-left').textContent = '💣 ' + M; face.textContent = '🙂'; cells.forEach(c => { c.className = 'mc'; c.textContent = ''; }); };
+        const reveal = k => {
+            const c = cells[k];
+            if (c.classList.contains('open') || c.classList.contains('flag')) return;
+            c.classList.add('open'); open++;
+            if (mines.has(k)) { c.textContent = '💥'; over = true; face.textContent = '😵'; clearInterval(timer); mines.forEach(m => { if (m !== k) cells[m].textContent = '💣'; }); return; }
+            const n = around(k).filter(a => mines.has(a)).length;
+            if (n) { c.textContent = n; c.dataset.n = n; } else around(k).forEach(reveal);
+            if (!over && open === W * H - M) { over = true; face.textContent = '😎'; clearInterval(timer); }
+        };
+        cells.forEach((c, k) => {
+            c.addEventListener('click', () => {
+                if (over) return;
+                if (!mines) {
+                    const safe = new Set([k, ...around(k)]); mines = new Set();
+                    while (mines.size < M) { const r = Math.floor(Math.random() * W * H); if (!safe.has(r)) mines.add(r); }
+                    t0 = Date.now(); timer = setInterval(() => { if (!w.isConnected) return clearInterval(timer); w.querySelector('.mines-time').textContent = Math.floor((Date.now() - t0) / 1000); }, 1000);
+                }
+                reveal(k);
+            });
+            c.addEventListener('contextmenu', e => {
+                e.preventDefault(); e.stopPropagation();
+                if (over || c.classList.contains('open')) return;
+                c.classList.toggle('flag'); c.textContent = c.classList.contains('flag') ? '🚩' : '';
+                flags += c.classList.contains('flag') ? 1 : -1; w.querySelector('.mines-left').textContent = '💣 ' + (M - flags);
+            });
+        });
+        face.addEventListener('click', reset);
+    }
+
+    // ---------- Mail ----------
+    const MAILS = [
+        ['Mum', 'How do I turn this thing off?', 'Hello love, I\'ve written this email but I can\'t find the off button. Is it the round one? Love Mum xx\n\nP.S. I\'ve pressed it. Nothing happened. Is that right?'],
+        ['Bridlington Walkers', 'Saturday\'s walk', 'Meet at the harbour at 10am. Bring a flask and a waterproof. Last week\'s seagull incident will not be discussed.'],
+        ['Prince Abu (Very Rich)', 'URGENT: you have won £4,000,000!!!', 'Dear Beloved Friend, I am a prince and I need your bank details to send you four million pounds. Please also send £50 for the stamp.\n\n— This is a scam! Real people don\'t give away millions by email. Delete it, or forward it to report@phishing.gov.uk.'],
+        ['Sarah', 'Photos from Sunday 🌻', 'Here are the photos from the garden. The dog has eaten another sunflower.'],
+    ];
+    function funMail(screen, os, open = -1) {
+        const inner = open < 0
+            ? `<div class="wm-list">${MAILS.map(([from, subj], k) => `<button type="button" class="wm-row${k === 2 ? ' unread' : ''}" data-fun="mail-open" data-n="${k}"><strong>${esc(from)}</strong><span>${esc(subj)}</span></button>`).join('')}</div>`
+            : `<div class="wm-mail"><button type="button" class="w10-back" data-fun="mail-back">← Inbox</button><p><strong>${esc(MAILS[open][0])}</strong>: ${esc(MAILS[open][1])}</p>${esc(MAILS[open][2]).split('\n').map(l => `<p>${l}</p>`).join('')}</div>`;
+        openFunWin(screen, funWin(os, 'mail', 'Mail', `<div class="wm">${inner}</div>`, 'wide'));
+    }
+
+    // Opens the practice app for an id (from FUN_FROM_TAP, or a data-fun on a button inside an app).
+    function pcApp(screen, os, what, el) {
+        if (!APP_KEYS.includes(what)) return false;
+        const desk = screen.querySelector('.pc-desk');
+        if (what === 'power') { funToast(screen, 'This is a practice computer, so it can\'t be switched off 😉'); return true; }
+        const drop = desk.querySelector('.sm, .mb-drop'); if (drop && what !== 'start-menu') drop.remove();
+        if (what === 'start-menu') {
+            const old = desk.querySelector('.sm');
+            if (old) { old.remove(); return true; }
+            desk.insertAdjacentHTML('beforeend', startMenu(os, os === 'linux' ? [['writer', 'open-writer'], ['update', 'open-update']] : []));
+            pcDecorate(screen, os);
+            return true;
+        }
+        if (what === 'app-browser') { funBrowser(screen, os); return true; }
+        if (what === 'site') { funBrowser(screen, os, el.dataset.site); return true; }
+        if (what === 'app-files') { funFiles(screen, os); return true; }
+        if (what === 'folder') { funFiles(screen, os, el.dataset.folder); return true; }
+        if (what === 'file') {
+            const n = el.dataset.name;
+            if (PICS[n]) funViewer(screen, os, n);
+            else if (n === 'setup_free_cleaner.exe') funFiles(screen, os, 'Downloads', '⚠️ "Free cleaner" programs are often junk or worse. Best to delete it, not open it!');
+            else if (/\.txt$/.test(n)) pcFun(screen, os, {dataset: {fun: 'notepad'}});
+            else funFiles(screen, os, el.dataset.folder, `"${n}" would open here on a real computer.`);
+            return true;
+        }
+        if (what === 'app-settings') { funSettings(screen, os); return true; }
+        if (what === 'set-page') { funSettings(screen, os, el.dataset.page); return true; }
+        if (what === 'wifi-toggle-set') { const st = funState(screen); st.wifiOn = !st.wifiOn; funSettings(screen, os, 'wifi'); pcDecorate(screen, os); funToast(screen, st.wifiOn ? 'Wi-Fi is on.' : 'Wi-Fi is off.'); return true; }
+        if (what === 'wall') { const st = funState(screen); st.wall = +el.dataset.n; desk.style.background = st.wall < 0 ? WALL[os] : WALLS[st.wall][1]; funSettings(screen, os, 'look'); return true; }
+        if (what === 'check-updates') {
+            const note = el.closest('.sw-main').querySelector('.upd-note');
+            note.textContent = 'Checking for updates…';
+            setTimeout(() => { if (note.isConnected) note.textContent = '✓ No new updates. You\'re all set!'; }, 1500);
+            return true;
+        }
+        if (what === 'app-store') { funStore(screen, os); return true; }
+        if (what === 'store-get') {
+            const st = funState(screen); const id = el.dataset.app;
+            if (st.installed.includes(id)) { if (id === 'mines') funMines(screen, os); else funToast(screen, 'This one is just for show in the practice store.'); return true; }
+            el.textContent = 'Installing…'; el.disabled = true;
+            setTimeout(() => { st.installed.push(id); if (el.isConnected) { el.textContent = 'Open'; el.disabled = false; } }, 1000);
+            return true;
+        }
+        if (what === 'app-mail') { funMail(screen, os); return true; }
+        if (what === 'mail-open') { funMail(screen, os, +el.dataset.n); return true; }
+        if (what === 'mail-back') { funMail(screen, os); return true; }
+        if (what === 'app-writer') {
+            openFunWin(screen, funWin(os, 'writer', 'Untitled 1 – LibreOffice Writer', '<div class="lw"><div class="lw-tools">File  Edit  View  Insert  Format  <b>B</b> <i>I</i> <u>U</u></div><textarea class="lw-page lw-edit" aria-label="Document">Dear Sir or Madam,\n\n</textarea></div>', 'wide'));
+            return true;
+        }
+        if (what === 'app-update') {
+            openFunWin(screen, funWin(os, 'update', 'Update Manager', '<div class="um"><p class="wu-ok">✓ Your system is up to date</p><p class="app-note">Linux Mint checks for updates by itself and shows a dot on the shield when there are some.</p></div>', 'small'));
+            return true;
+        }
+        return false;
+    }
+
+    // The desktop. opts: pinned (kinds), running (kinds), windows (html), overlay (html), appName (Mac menu bar), win10, badge (Linux updates)
+    function desk(os, opts = {}) {
+        const pinned = opts.pinned || ['files', 'browser', 'store', 'settings'];
+        const run = opts.running || [];
+        const pin = kind => `<button type="button" class="pc-pin${run.includes(kind) ? ' run' : ''}" data-tap="app-${kind}" ${kind === 'browser' && os === 'mac' ? 'data-rclick="rc-dock-browser"' : ''} aria-label="${appLabel(os, kind)}">${pcIcon(os, kind)}<span class="pc-tip">${appLabel(os, kind)}</span></button>`;
+        const clock = os === 'mac' ? NOW.mac() : `${NOW.time()}<span class="tb-date"><br>${NOW.date()}</span>`;
+        const wifi = `<button type="button" class="pc-tray" data-tap="tray-wifi" data-fun="wifi" aria-label="Wi-Fi">${opts.noWifi ? '🌐' : '<svg viewBox="0 0 16 12" class="st-wifi"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM3.2 6.6a6.8 6.8 0 0 1 9.6 0l-1.4 1.5a4.8 4.8 0 0 0-6.8 0zM.8 4.2a10.2 10.2 0 0 1 14.4 0l-1.4 1.4a8.2 8.2 0 0 0-11.6 0z" fill="currentColor"/></svg>'}</button>`;
+        let bars;
+        if (os === 'mac') {
+            bars = `<div class="mb"><button type="button" class="mb-apple" data-tap="apple-menu" data-fun="apple-menu" aria-label="Apple menu"></button><strong>${opts.appName || 'Finder'}</strong>
+                <span class="mb-menus">File Edit View Window Help</span><span class="mb-right">${wifi}<button type="button" class="mb-clock" data-fun="clock">${clock}</button></span></div>`
+                + `<div class="dock">${['files', 'apps', ...pinned.filter(k => k !== 'files')].map(k => k === 'apps' ? `<button type="button" class="pc-pin" data-tap="start" aria-label="Apps">${pcIcon(os, 'apps')}<span class="pc-tip">Apps</span></button>` : pin(k)).join('')}<span class="dock-sep"></span><button type="button" class="pc-pin" data-egg="bin" aria-label="Bin">${pcIcon(os, 'trash')}<span class="pc-tip">Bin</span></button></div>`;
+        } else if (os === 'windows') {
+            const startIcon = '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2" fill="#475569"/><rect x="13" y="4" width="7" height="7" rx="2" fill="#475569"/><rect x="4" y="13" width="7" height="7" rx="2" fill="#475569"/><rect x="13" y="13" width="7" height="7" rx="2" fill="#475569"/></svg>';
+            bars = `<div class="tb${opts.win10 ? ' w10' : ''}"><div class="tb-mid"><button type="button" class="pc-pin start" data-tap="start" aria-label="Start">${startIcon}</button>
+                ${opts.win10 ? '<span class="tb-search">🔍 Type here to search</span>' : ''}${pinned.map(pin).join('')}</div>
+                <div class="tb-right">${wifi}<span>🔊</span><button type="button" class="tb-clock" data-fun="clock">${clock}</button></div></div>`;
+        } else {
+            bars = `<div class="lp"><button type="button" class="lp-menu" data-tap="start" aria-label="Menu"><span class="mint-logo">m</span></button>${pinned.map(pin).join('')}
+                <span class="lp-right"><button type="button" class="pc-tray" data-tap="tray-update" aria-label="Update Manager">${PCI.shield}${opts.badge ? '<em></em>' : ''}</button>${wifi}<button type="button" class="tb-clock" data-fun="clock">${clock}</button></span></div>`;
+        }
+        return `<div class="pc-desk ${os}" style="background:${opts.win10 ? WALL.win10 : WALL[os]}">${os === 'mac' ? bars : ''}
+            <div class="pc-area">${desktopIcons(os)}${opts.windows || ''}</div>${os === 'mac' ? '' : bars}${opts.overlay || ''}</div>`;
+    }
+
+    // Icons on the desktop itself. Only the bin does anything (it's an easter egg); the rest are there to look right.
+    function desktopIcons(os) {
+        const icon = (label, glyph, egg) => `<button type="button" class="pc-dicon"${egg ? ' data-egg="bin"' : ' tabindex="-1"'}><span>${glyph}</span>${label}</button>`;
+        if (os === 'windows') return `<div class="pc-dicons">${icon('Recycle Bin', '🗑️', true)}</div>`;
+        if (os === 'linux') return `<div class="pc-dicons">${icon('Computer', '🖥️')}${icon('Home', '🏠')}${icon('Trash', '🗑️', true)}</div>`;
+        return '';
+    }
+
+    // A window. opts: max, wide, style
+    function pcWin(os, title, inner, opts = {}) {
+        const ctrls = os === 'mac'
+            ? '<span class="tl"><button type="button" class="tl-r" data-tap="win-close" aria-label="Close window"></button><button type="button" class="tl-y" data-tap="win-min" aria-label="Minimise window"></button><button type="button" class="tl-g" data-tap="win-max" aria-label="Full screen"></button></span>'
+            : '<span class="wc"><button type="button" data-tap="win-min" aria-label="Minimise">—</button><button type="button" data-tap="win-max" aria-label="Maximise">▢</button><button type="button" class="wc-x" data-tap="win-close" aria-label="Close">✕</button></span>';
+        return `<div class="pcw ${os}${opts.max ? ' max' : ''}${opts.cls ? ' ' + opts.cls : ''}" style="${opts.style || ''}">
+            <div class="pcw-bar">${os === 'mac' ? ctrls : ''}<span class="pcw-title">${title}</span>${os === 'mac' ? '' : ctrls}</div>
+            <div class="pcw-body">${inner}</div></div>`;
+    }
+
+    function startMenu(os, extra = []) {
+        const items = [['browser', 'open-browser'], ['files', 'open-files'], ['settings', 'open-settings'], ['store', 'open-store'], ['text', 'open-text'], ...extra, ...(os === 'linux' ? [['terminal', 'open-terminal']] : [])];
+        const funOf = {'open-text': 'notepad', 'open-terminal': 'terminal'};
+        const btn = ([kind, id]) => `<button type="button" class="sm-app" data-tap="${id}"${funOf[id] ? ` data-fun="${funOf[id]}"` : ''}>${pcIcon(os, kind)}<span>${appLabel(os, kind)}</span></button>`;
+        const search = ph => `<input class="sm-search" data-fun-input="menu" placeholder="${ph}" aria-label="Search">`;
+        if (os === 'windows') {
+            return `<div class="sm win">${search('🔍 Search for apps, settings and documents')}<p class="sm-h">Pinned</p>
+                <div class="sm-grid">${items.map(btn).join('')}</div><div class="sm-foot"><span>👤 Margaret</span><button type="button" data-tap="power" aria-label="Power">${UI.power}</button></div></div>`;
+        }
+        if (os === 'mac') {
+            return `<div class="sm mac">${search('🔍 Search')}<div class="sm-grid">${items.map(btn).join('')}</div></div>`;
+        }
+        return `<div class="sm lin">${search('🔍 Type to search…')}<div class="sm-list">${items.map(btn).join('')}</div>
+            <div class="sm-foot"><span>Margaret</span><button type="button" data-tap="power" aria-label="Shut down">${UI.power}</button></div></div>`;
+    }
+
+    // ---------- Course: Computer basics ----------
+    const browserHome = os => `<div class="br"><div class="br-bar"><span class="br-tab">New tab <button type="button" data-tap="tab-close" aria-label="Close tab">✕</button></span></div>
+        <div class="br-url">🔍 Search or type a web address</div><div class="br-page"><div class="br-logo">${N.browser[os]}</div><input class="br-search" data-fun-input="web" placeholder="Search the web" aria-label="Search the web"><p class="br-note"></p></div></div>`;
+
+    pcLesson('pc-desktop', (os) => withCtx([
+        {screen: () => desk(os), target: 'start',
+         say: os === 'windows' ? 'This is the <strong>desktop</strong>. The bar along the bottom is the <strong>taskbar</strong>. Open the web browser from the Start menu: <strong>click Start</strong>, the four squares.'
+            : os === 'mac' ? 'This is the <strong>desktop</strong>. The row of apps at the bottom is the <strong>Dock</strong>, and the bar along the top is the <strong>menu bar</strong>. <strong>Click Apps</strong> (the grid of squares) to see all your apps.'
+            : 'This is the <strong>desktop</strong> in Linux Mint. The bar along the bottom is the <strong>panel</strong>. Your apps are in the Menu: <strong>click Menu</strong>, bottom left.',
+         hint: os === 'mac' ? 'Apps is in the Dock at the bottom, next to the Finder.' : (os === 'windows' ? 'Start is the four blue squares on the taskbar.' : 'The Menu button is at the far left of the bottom panel.')},
+        {screen: () => desk(os, {overlay: startMenu(os)}), target: 'open-browser', say: `<strong>Click ${N.browser[os]}</strong>, the web browser.`},
+        {screen: () => desk(os, {running: ['browser'], appName: N.browser[os], windows: pcWin(os, N.browser[os], browserHome(os))}), target: 'win-min',
+         say: os === 'mac' ? 'Every window has three coloured buttons at the <strong>top left</strong>. The yellow one tucks the window away. <strong>Click the yellow button.</strong>'
+            : 'Every window has three buttons at the <strong>top right</strong>. The line <strong>—</strong> tucks the window away (minimise). <strong>Click —</strong>.',
+         hints: {'win-close': 'That closes it. First, tuck it away with the ' + (os === 'mac' ? 'yellow' : '—') + ' button.', 'win-max': 'That makes it fill the screen. First, tuck it away.'}},
+        {screen: () => desk(os, {running: ['browser'], appName: N.browser[os]}), target: 'app-browser',
+         say: `It's hidden, not closed. The ${os === 'mac' ? 'dot under its icon in the Dock' : 'line under its icon'} shows it's still open. <strong>Click the ${N.browser[os]} icon</strong> to bring it back.`},
+        {screen: () => desk(os, {running: ['browser'], appName: N.browser[os], windows: pcWin(os, N.browser[os], browserHome(os))}), target: 'win-max',
+         say: `Now make it fill the screen: <strong>click the ${os === 'mac' ? 'green' : '▢'} button</strong>.`},
+        {screen: () => desk(os, {running: ['browser'], appName: N.browser[os], windows: pcWin(os, N.browser[os], browserHome(os), {max: true})}), target: 'win-close',
+         say: `When you've finished, close it: <strong>click the ${os === 'mac' ? 'red' : '✕'} button</strong>.`},
+        {screen: () => desk(os), question: os === 'mac'
+            ? {q: 'On a Mac, the red button closes the window. But the app can keep running. How do you quit it completely?', options: [
+                {t: 'Press ⌘ Cmd + Q, or choose Quit from the app\'s menu at the top', ok: true, why: 'Yes. A dot under an app in the Dock means it\'s still running. ⌘ Cmd + Q quits it.'},
+                {t: 'Click the red button twice', why: 'The red button only closes windows. ⌘ Cmd + Q (or the app menu > Quit) quits the app.'}]}
+            : {q: 'Where is the close button on a window?', options: [
+                {t: 'Top right: the ✕', ok: true, why: 'Yes. On Windows and Linux Mint the three buttons are at the top right. (On a Mac they\'re top left, in red, yellow and green.)'},
+                {t: 'Bottom left', why: 'It\'s at the top right of every window: the ✕.'}]}},
+        {screen: () => desk(os), done: true, say: '<strong>Well done!</strong> You can open, hide, bring back, enlarge and close windows. That\'s most of using a computer.'},
+    ], {}));
+
+    // Files and folders
+    function filesWin(os, ctx, folder) {
+        const places = [['home', os === 'windows' ? 'Home' : 'Home'], ['desktop', 'Desktop'], ['documents', 'Documents'], ['downloads', 'Downloads'], ['pictures', 'Pictures']]
+            .concat(ctx.usb ? [['usb', '💾 USB stick']] : []);
+        const contents = {
+            home: [['documents', '📁', 'Documents'], ['pictures', '📁', 'Pictures'], ['downloads', '📁', 'Downloads']],
+            downloads: [['photo', '🖼️', 'Holiday photo.jpg'], ['bill', '📄', 'Council tax bill.pdf']],
+            pictures: [...(ctx.pasted ? [['photo2', '🖼️', 'Holiday photo.jpg']] : []), ...(ctx.folderMade ? [['newf', '📁', esc(ctx.folderName || 'Holidays')]] : [])],
+            documents: [['letter', '📄', 'Letter to council.docx'], ['recipes', '📁', 'Recipes']],
+            usb: ctx.copied ? [['documents2', '📁', 'Documents']] : [],
+            desktop: [],
+        }[folder] || [];
+        const menu = ctx.menu ? `<div class="ctx-menu" style="${ctx.menuAt || 'left:40%;top:40%'}">${ctx.menu.map(([id, t]) => `<button type="button" data-tap="${id}">${t}</button>`).join('')}</div>` : '';
+        const naming = ctx.naming ? `<div class="pf-name">📁 ${field('foldername', 'New folder', ctx)}<button type="button" class="ph-btn ios-blue small" data-tap="name-ok">OK</button></div>` : '';
+        const title = {home: os === 'windows' ? 'Home' : 'Home', downloads: 'Downloads', pictures: 'Pictures', documents: 'Documents', usb: 'USB stick', desktop: 'Desktop'}[folder];
+        return pcWin(os, os === 'mac' ? title : `${title} – ${N.files[os]}`, `<div class="pf">
+            <div class="pf-side">${places.map(([id, t]) => `<button type="button" class="${id === folder ? 'on' : ''}" data-tap="side-${id}" ${id === 'usb' ? 'data-rclick="rc-usb"' : ''}>${t}</button>`).join('')}</div>
+            <div class="pf-main" data-rclick="rc-empty">${contents.map(([id, ic, t]) => `<button type="button" class="pf-item${ctx.sel === id ? ' sel' : ''}" data-tap="sel-${id}" data-rclick="rc-${id}"><span>${ic}</span>${t}</button>`).join('')}${naming}
+            ${contents.length || naming ? '' : '<p class="pf-empty">This folder is empty</p>'}</div>${menu}</div>${ctx.progress ? `<div class="pf-progress">${ctx.progress}</div>` : ''}`, {cls: 'files'});
+    }
+    const filesDesk = (os, ctx, folder, extra = {}) => desk(os, {running: ['files'], appName: 'Finder', windows: filesWin(os, ctx, folder), ...extra});
+    const copyLabel = os => os === 'mac' ? 'Copy' : 'Copy';
+    const pasteLabel = os => os === 'mac' ? 'Paste Item' : 'Paste';
+    const newFolderLabel = os => os === 'mac' ? 'New Folder' : os === 'windows' ? 'New > Folder' : 'Create New Folder';
+
+    pcLesson('pc-files', (os) => withCtx([
+        {screen: () => desk(os), target: 'app-files', say: `Your photos and letters are kept in <strong>folders</strong>. <strong>Click ${N.files[os]}</strong> to look at them.`, hint: `${N.files[os]} is the folder icon ${os === 'mac' ? 'at the left of the Dock' : 'on the ' + (os === 'windows' ? 'taskbar' : 'panel')}.`},
+        {screen: c => filesDesk(os, c, 'home'), target: 'side-downloads', say: 'Down the side are your main folders. Things you download from emails and websites go in <strong>Downloads</strong>. <strong>Click Downloads.</strong>'},
+        {screen: c => filesDesk(os, c, 'downloads'), target: 'rc-photo', action: c => { c.menu = [['menu-open', 'Open'], ['menu-copy', copyLabel(os)], ['menu-rename', 'Rename'], ['menu-delete', os === 'mac' ? 'Move to Bin' : 'Delete']]; c.menuAt = 'left:30%;top:22%'; },
+         say: 'Let\'s copy the holiday photo into Pictures, where it belongs. <strong>Right-click</strong> on <strong>Holiday photo.jpg</strong>: press the <strong>right-hand</strong> mouse button. <em>' + (os === 'mac' ? 'On a trackpad, click with two fingers.' : 'On a touchscreen, press and hold.') + '</em>',
+         hint: 'Use the right-hand mouse button on the photo.'},
+        {screen: c => filesDesk(os, c, 'downloads'), target: 'menu-copy', action: c => { c.menu = null; },
+         say: `A menu appears. <strong>Click ${copyLabel(os)}.</strong> <em>(The shortcut is ${CMDL(os)} + C.)</em>`, hints: {'menu-delete': 'Not that one! Click Copy.', 'menu-open': 'That opens the photo. Click Copy.', 'menu-rename': 'Click Copy.'}},
+        {screen: c => filesDesk(os, c, 'downloads'), target: 'side-pictures', say: '<strong>Click Pictures</strong> on the left.'},
+        {screen: c => filesDesk(os, c, 'pictures'), target: 'rc-empty', action: c => { c.menu = [['menu-newfolder', newFolderLabel(os)], ['menu-paste', pasteLabel(os)]]; c.menuAt = 'left:45%;top:40%'; },
+         say: 'Pictures is empty. <strong>Right-click on the empty white space.</strong>'},
+        {screen: c => filesDesk(os, c, 'pictures'), target: 'menu-paste', action: c => { c.menu = null; c.pasted = true; }, say: `<strong>Click ${pasteLabel(os)}.</strong> <em>(Or ${CMDL(os)} + V.)</em>`,
+         hints: {'menu-newfolder': 'We\'ll make a folder next. First, click ' + pasteLabel(os) + '.'}},
+        {screen: c => filesDesk(os, c, 'pictures'), target: 'rc-empty', action: c => { c.menu = [['menu-newfolder', newFolderLabel(os)], ['menu-paste', pasteLabel(os)]]; c.menuAt = 'left:55%;top:55%'; },
+         say: 'The photo is now in Pictures too. Now make a folder to keep holiday photos together. <strong>Right-click on the empty space again.</strong>', hints: {'rc-photo2': 'Right-click on the empty space, not the photo.'}},
+        {screen: c => filesDesk(os, c, 'pictures'), target: 'menu-newfolder', action: c => { c.menu = null; c.naming = true; }, say: `<strong>Click ${newFolderLabel(os)}.</strong>`},
+        {screen: c => filesDesk(os, c, 'pictures'), target: 'name-ok', require: c => typed(c, 'foldername').length > 0, requireHint: 'Type a name for the folder first, like Holidays.',
+         action: c => { c.naming = false; c.folderMade = true; c.folderName = typed(c, 'foldername'); },
+         say: '<strong>Type a name</strong>, like <strong>Holidays</strong>, then <strong>click OK</strong> (or press Enter).', alias: {'keys-enter': 'name-ok'}},
+        {screen: c => filesDesk(os, c, 'pictures'), question: {q: 'Where do files from emails and websites usually end up?', options: [
+            {t: 'In the Downloads folder', ok: true, why: 'Yes. If you can\'t find something you downloaded, look in Downloads first.'},
+            {t: 'On the desktop', why: 'Usually in Downloads. Look there first if you can\'t find something.'}]}},
+        {screen: c => filesDesk(os, c, 'pictures'), done: true, say: '<strong>Well done!</strong> Right-click is the secret to most things: copy, paste, rename and new folder are all in that menu.'},
+    ], {input: {}}));
+
+    // Wi-Fi
+    function wifiPanel(os, ctx) {
+        const nets = [['net-home', 'Home-WiFi-5G', '🔒'], ['net-cafe', 'Cafe-Free-WiFi', ''], ['net-neighbour', 'Neighbour-Net', '🔒']];
+        const pass = ctx.picked ? `<div class="wf-pass"><p>Enter the network password</p>${field('wifipass', 'Password', ctx)}<button type="button" class="ph-btn ios-blue" data-tap="connect">Connect</button></div>` : '';
+        return `<div class="wf ${os}"><p class="wf-h">${os === 'mac' ? 'Wi-Fi' : 'Wi-Fi networks'}</p>${ctx.connected ? '<p class="wf-ok">✓ Connected to Home-WiFi-5G</p>' : ''}
+            ${nets.map(([id, n, lock]) => `<button type="button" class="wf-net${ctx.picked && id === 'net-home' ? ' on' : ''}" data-tap="${id}">📶 ${n} <small>${lock}</small></button>`).join('')}${pass}</div>`;
+    }
+    pcLesson('pc-wifi', (os) => withCtx([
+        {screen: () => desk(os, {noWifi: true}), target: 'tray-wifi', say: `To connect to Wi-Fi, <strong>click the Wi-Fi symbol</strong> ${os === 'mac' ? 'at the top right of the screen' : 'at the bottom right, near the clock'}.`, hint: os === 'mac' ? 'It\'s in the menu bar at the top right.' : 'It\'s near the clock at the bottom right.'},
+        {screen: c => desk(os, {noWifi: true, overlay: wifiPanel(os, c)}), target: 'net-home', action: c => { c.picked = true; },
+         say: 'Your network\'s name is on the sticker on your router. This practice one is <strong>Home-WiFi-5G</strong>. <strong>Click it.</strong>', hints: {'net-neighbour': 'That\'s your neighbour\'s! Choose Home-WiFi-5G.', 'net-cafe': 'That\'s not your home one. Choose Home-WiFi-5G.', 'tray-wifi': 'The list of Wi-Fi networks is already open. Click Home-WiFi-5G.'}},
+        {screen: c => desk(os, {noWifi: true, overlay: wifiPanel(os, c)}), target: 'connect', require: c => typed(c, 'wifipass') === 'Green-Apple-42', requireHint: 'Type the password exactly: Green-Apple-42 (capital G and A).',
+         action: c => { c.connected = true; c.picked = false; }, say: 'Type the password from the sticker <strong>exactly</strong>: <strong>Green-Apple-42</strong>. Then <strong>click Connect</strong>.', alias: {'keys-enter': 'connect'},
+         hints: {'tray-wifi': 'The Wi-Fi panel is already open. Type the password in the box, then click Connect.'}},
+        {screen: c => desk(os, {overlay: wifiPanel(os, c)}), question: {q: 'You\'re in a café with free Wi-Fi. Is it OK for online banking?', options: [
+            {t: 'Better to wait until home, or use your phone\'s mobile data', ok: true, why: 'Yes. Free Wi-Fi is fine for browsing, but for banking use your home Wi-Fi or mobile data.'},
+            {t: 'Yes, any Wi-Fi is fine', why: 'Free public Wi-Fi is fine for browsing, but save banking for home or mobile data.'}]}},
+        {screen: c => desk(os, {overlay: wifiPanel(os, c)}), done: true, say: '<strong>Well done!</strong> Your computer will remember the password and connect by itself next time.'},
+    ], {input: {}}));
+
+    // Keyboard shortcuts
+    function shortcutDesk(os, ctx) {
+        const k = CMD(os), L = CMDL(os);
+        const keys = `<div class="key-strip">${keyBtn('keys-' + k + '+a', L + ' + A')}${keyBtn('keys-' + k + '+c', L + ' + C')}${keyBtn('keys-' + k + '+v', L + ' + V')}${keyBtn('keys-' + k + '+z', L + ' + Z')}</div>`;
+        const list = 'Shopping list: milk, bread, eggs, teabags, birthday card for Jean';
+        const note = pcWin(os, `Shopping list – ${N.editor[os]}`, `<div class="ed-text${ctx.selected ? ' sel' : ''}">${list}</div>`, {cls: 'note', style: 'left:3%;top:4%;width:52%;'});
+        const mail = pcWin(os, 'New email to Sarah', `<div class="em-field">To: Sarah</div><button type="button" class="em-body${ctx.inMail ? ' focus' : ''}" data-tap="email-body">${ctx.pasted ? list : (ctx.inMail ? '<span class="caret"></span>' : 'Click here to write…')}</button>`, {cls: 'mail', style: 'left:40%;top:30%;width:56%;'});
+        return desk(os, {running: ['text', 'mail'], pinned: ['files', 'browser', 'text', 'mail'], appName: ctx.inMail ? 'Mail' : N.editor[os], windows: note + mail, overlay: keys});
+    }
+    pcLesson('pc-shortcuts', (os) => withCtx([
+        {screen: c => shortcutDesk(os, c), target: `keys-${CMD(os)}+a`, action: c => { c.selected = true; },
+         say: `Keyboard shortcuts save lots of clicking. <strong>${CMDL(os)}</strong> is the key ${os === 'mac' ? 'either side of the space bar, marked ⌘' : 'at the bottom left of the keyboard'}. To select all the writing, hold <strong>${CMDL(os)}</strong> and press <strong>A</strong>. <em>Use your real keyboard, or the buttons on screen.</em>`},
+        {screen: c => shortcutDesk(os, c), target: `keys-${CMD(os)}+c`, action: c => { c.copied = true; }, say: `It's highlighted. Now copy it: <strong>${CMDL(os)} + C</strong>.`},
+        {screen: c => shortcutDesk(os, c), target: 'email-body', action: c => { c.inMail = true; }, say: 'Copied! <strong>Click inside the email</strong> to Sarah, where it says "Click here to write".'},
+        {screen: c => shortcutDesk(os, c), target: `keys-${CMD(os)}+v`, action: c => { c.pasted = true; }, say: `Now paste: <strong>${CMDL(os)} + V</strong>.`},
+        {screen: c => shortcutDesk(os, c), question: {q: `Oops, you've deleted something by mistake. Which shortcut undoes it?`, options: [
+            {t: `${CMDL(os)} + Z`, ok: true, why: `Yes. ${CMDL(os)} + Z undoes the last thing you did, in almost every app. Press it again to undo more.`},
+            {t: 'Escape', why: `Escape closes menus. ${CMDL(os)} + Z is undo.`}]}},
+        {screen: c => shortcutDesk(os, c), question: {q: 'How do you take a screenshot (a picture of the screen)?', options: [
+            {t: os === 'windows' ? 'Windows key + Shift + S, then drag over what you want' : os === 'mac' ? 'Shift + ⌘ Cmd + 4, then drag over what you want' : 'Press the Print Screen key (PrtSc)', ok: true,
+             why: os === 'windows' ? 'Yes. It\'s copied, and a notification lets you save it. The Print Screen key also works.' : os === 'mac' ? 'Yes. The picture is saved on your desktop. Shift + ⌘ Cmd + 3 takes the whole screen.' : 'Yes. Linux Mint saves it in your Pictures folder. Shift + Print Screen lets you choose an area.'},
+            {t: 'Take a photo of the screen with your phone', why: 'That works, but a screenshot is much clearer. ' + (os === 'windows' ? 'Windows key + Shift + S.' : os === 'mac' ? 'Shift + ⌘ Cmd + 4.' : 'Press Print Screen.')}]}},
+        {screen: c => shortcutDesk(os, c), done: true, say: `<strong>Well done!</strong> The big four: <strong>${CMDL(os)} + C</strong> copy, <strong>V</strong> paste, <strong>Z</strong> undo, <strong>A</strong> select all. They work in nearly every app.`},
+    ], {}));
+
+    // Installing apps safely
+    function storeWin(os, ctx) {
+        const rows = [['get-fake1', 'Office Suite Pro for Word', 'QuickDev Apps', '£29.99/year', true, '3.1'], ['get-real', 'LibreOffice', 'The Document Foundation', 'Free', false, '4.5'],
+                      ['get-fake2', 'Docs Editor Free', 'AppMakers', 'Free · In-app purchases', false, '2.7']];
+        const inner = !ctx.searched
+            ? `<button type="button" class="st-searchbar" data-tap="search">${ICON.search}<span>Search apps</span></button><div class="st-card"><span>FEATURED</span><strong>Apps for your new computer</strong></div>`
+            : `<div class="st-searchbar">${ICON.search}<span>office</span></div><div class="st-results">${rows.map(([id, n, dev, price, ad, rate]) => `<div class="st-row">${appIcon(id === 'get-real' ? '#0ea5e9' : '#94a3b8', PCI.writer)}
+                <div class="st-info"><strong>${n}</strong><span>${dev}${ad ? ' <em class="st-ad">Ad</em>' : ''}</span><span class="st-meta">${rate} ★ · ${price}</span></div>
+                <button type="button" class="st-get" data-tap="${id}">${id === 'get-real' && ctx.installed ? 'Open' : (os === 'mac' ? 'Get' : 'Install')}</button></div>`).join('')}</div>
+                ${ctx.busy ? '<p class="app-note">Installing LibreOffice…</p>' : ''}`;
+        return pcWin(os, N.store[os], `<div class="pc-store">${inner}<p class="ph-small">Practice store: names and prices are examples.</p></div>`, {cls: 'store'});
+    }
+    pcLesson('pc-install', (os) => withCtx([
+        {screen: () => desk(os), target: 'app-store', say: `The safest place to get apps is the built-in store: <strong>${N.store[os]}</strong>. <strong>Click it.</strong>`},
+        {screen: c => desk(os, {running: ['store'], appName: 'App Store', windows: storeWin(os, c)}), target: 'search', action: c => { c.searched = true; },
+         say: 'You want something to write letters with, like Word. <strong>Click the search box.</strong> We\'ll search for "office".'},
+        {screen: c => desk(os, {running: ['store'], appName: 'App Store', windows: storeWin(os, c)}), target: 'get-real',
+         say: '<strong>LibreOffice</strong> is a free alternative to Microsoft Office, made by <strong>The Document Foundation</strong>. Check who made it, then <strong>click ' + (os === 'mac' ? 'Get' : 'Install') + ' next to LibreOffice</strong>.',
+         hints: {'get-fake1': 'That one\'s an advert, and charges £29.99 a year. LibreOffice is free.', 'get-fake2': 'That\'s by AppMakers and has in-app purchases. Choose LibreOffice, by The Document Foundation.'}},
+        {screen: c => desk(os, {running: ['store'], appName: 'App Store', windows: storeWin(os, {...c, installed: !c.busy})}), wait: 1400,
+         question: {q: 'A website pop-up says "Your PC is slow! Download Speed Booster now". What do you do?', options: [
+            {t: 'Close it. Only install apps from the store or the maker\'s own website', ok: true, why: 'Exactly. Pop-ups offering "boosters" or "cleaners" are often junk or worse.'},
+            {t: 'Download it, it might help', why: 'These are often junk or harmful. Only install from the store or the maker\'s own website.'}]}},
+        {screen: c => desk(os, {running: ['store'], appName: 'App Store', windows: storeWin(os, {...c, searched: true, installed: true})}), done: true,
+         say: '<strong>Well done!</strong> LibreOffice is installed. Check the maker, ignore ads, and be wary of "free" apps that ask for money later.'},
+    ], {}));
+
+    // Updates
+    function settingsWin(os, ctx, page) {
+        if (os === 'windows') {
+            const side = [['home', 'Home'], ['system', 'System'], ['bluetooth', 'Bluetooth & devices'], ['network', 'Network & internet'], ['accounts', 'Accounts'], ['privacy', 'Privacy & security'], ['update', 'Windows Update']];
+            const pages = {
+                home: '<h3>Home</h3><p class="app-note">Recommended settings and your account.</p>',
+                update: `<h3>Windows Update</h3>${ctx.updated ? '<p class="wu-ok">✓ You\'re up to date</p>' : ctx.ready ? `<p class="app-note">Restart required to finish installing updates.</p><button type="button" class="ph-btn ios-blue small" data-tap="restart">Restart now</button>`
+                    : `<p class="app-note"><strong>Updates available</strong><br>2026-10 Cumulative Update for Windows 11<br>${ctx.busy ? 'Downloading… 45%' : ''}</p>${ctx.busy ? '' : '<button type="button" class="ph-btn ios-blue small" data-tap="download">Download &amp; install all</button>'}`}`,
+                privacy: `<h3>Privacy &amp; security</h3><button type="button" class="recent" data-tap="win-security"><strong>Windows Security</strong><small>Antivirus, firewall and device protection</small></button>`,
+            };
+            return pcWin(os, 'Settings', `<div class="sw"><div class="sw-side">${side.map(([id, t]) => `<button type="button" class="${id === page ? 'on' : ''}" data-tap="side-${id}">${t}</button>`).join('')}</div><div class="sw-main">${pages[page] || ''}</div></div>`, {cls: 'settings'});
+        }
+        if (os === 'mac') {
+            const side = [['wifi', 'Wi-Fi'], ['bluetooth', 'Bluetooth'], ['general', 'General'], ['privacy', 'Privacy & Security'], ['users', 'Users & Groups']];
+            const pages = {
+                general: '<h3>General</h3><button type="button" class="recent" data-tap="software-update"><strong>Software Update</strong></button><div class="recent"><strong>About</strong></div><div class="recent"><strong>Storage</strong></div>',
+                update: `<h3>Software Update</h3>${ctx.updated ? '<p class="wu-ok">✓ Your Mac is up to date</p>' : `<p class="app-note"><strong>macOS update available</strong><br>${ctx.busy ? 'Downloading… about 10 minutes remaining' : 'Security and bug fixes'}</p>${ctx.busy ? '' : '<button type="button" class="ph-btn ios-blue small" data-tap="update-now">Update Now</button>'}`}
+                    <div class="set-row static"><span>Automatic updates</span><span class="set-val">On</span></div>`,
+                privacy: `<h3>Privacy &amp; Security</h3><p class="app-note"><strong>Security</strong><br>Allow applications from:</p>
+                    <button type="button" class="recent" data-tap="allow-store">${ctx.allow === 'store' ? '◉' : '○'} App Store</button><button type="button" class="recent" data-tap="allow-known">${ctx.allow !== 'store' && ctx.allow !== 'anywhere' || ctx.allow === 'known' ? '◉' : '○'} App Store &amp; Known Developers</button>`,
+            };
+            return pcWin(os, 'System Settings', `<div class="sw"><div class="sw-side">${side.map(([id, t]) => `<button type="button" class="${id === page || (page === 'update' && id === 'general') ? 'on' : ''}" data-tap="side-${id}">${t}</button>`).join('')}</div><div class="sw-main">${pages[page] || '<h3>System Settings</h3>'}</div></div>`, {cls: 'settings'});
+        }
+        return '';
+    }
+    function updateManager(os, ctx) {
+        return pcWin(os, 'Update Manager', `<div class="um">${ctx.updated ? '<p class="wu-ok">✓ Your system is up to date</p>' : `<div class="um-list">${['Firefox web browser', 'Linux kernel (security)', 'LibreOffice', 'System libraries'].map(t => `<div>☑ ${t}</div>`).join('')}</div>
+            ${ctx.busy ? '<p class="app-note">Installing updates…</p>' : '<button type="button" class="ph-btn and-green small" data-tap="install">Install Updates</button>'}`}</div>`, {cls: 'um-win'})
+            + (ctx.auth ? `<div class="pc-dialog"><p><strong>Authentication required</strong></p><p class="ph-small">Enter your password to install updates. (Practice: entered for you.)</p><div class="pc-pw">••••••••</div>
+                <div class="pc-dbtns"><button type="button" data-tap="auth-cancel">Cancel</button><button type="button" class="pri" data-tap="auth-ok">Authenticate</button></div></div>` : '');
+    }
+    pcLesson('pc-updates', (os) => withCtx((os === 'windows' ? [
+        {screen: () => desk(os), target: 'start', say: 'Updates fix security holes that scammers use. Let\'s check for them. <strong>Click Start.</strong>'},
+        {screen: () => desk(os, {overlay: startMenu(os)}), target: 'open-settings', say: '<strong>Click Settings</strong> (the cog).'},
+        {screen: c => desk(os, {running: ['settings'], windows: settingsWin(os, c, 'home')}), target: 'side-update', say: '<strong>Click Windows Update</strong>, at the bottom of the list on the left.'},
+        {screen: c => desk(os, {running: ['settings'], windows: settingsWin(os, c, 'update')}), target: 'download', say: 'Updates are waiting. <strong>Click Download &amp; install all.</strong>'},
+        {screen: c => desk(os, {running: ['settings'], windows: settingsWin(os, {...c, ready: !c.busy}, 'update')}), wait: 1400, target: 'restart', action: c => { c.updated = true; },
+         say: 'Save anything you\'re working on first, then <strong>click Restart now</strong>.'},
+    ] : os === 'mac' ? [
+        {screen: () => desk(os), target: 'apple-menu', say: 'Updates fix security holes that scammers use. <strong>Click the Apple menu</strong> (the logo) at the top left.'},
+        {screen: () => desk(os, {overlay: '<div class="mb-drop"><button type="button" data-tap="about" data-fun="about">About This Mac</button><button type="button" data-tap="menu-settings">System Settings…</button><button type="button" data-tap="sleep">Sleep</button><button type="button" data-tap="restart-menu">Restart…</button><button type="button" data-tap="shutdown">Shut Down…</button></div>'}),
+         target: 'menu-settings', say: '<strong>Click System Settings…</strong>'},
+        {screen: c => desk(os, {running: ['settings'], appName: 'System Settings', windows: settingsWin(os, c, 'general')}), target: 'software-update', say: 'You\'re in General. <strong>Click Software Update.</strong>'},
+        {screen: c => desk(os, {running: ['settings'], appName: 'System Settings', windows: settingsWin(os, c, 'update')}), target: 'update-now', say: 'An update is ready. Plug in your charger, then <strong>click Update Now</strong>.'},
+        {screen: c => desk(os, {running: ['settings'], appName: 'System Settings', windows: settingsWin(os, {...c, updated: !c.busy}, 'update')}), wait: 1400, say: 'Your Mac downloads it, then restarts to install it.',
+         question: {q: 'Automatic updates are on. Do you still need to do anything?', options: [
+            {t: 'Just restart when it asks, and leave it plugged in overnight now and then', ok: true, why: 'Yes. Updates often install overnight. Restarting when asked finishes them.'},
+            {t: 'Turn automatic updates off', why: 'Keep them on: they keep you safe. Just restart when your Mac asks.'}]}},
+    ] : [
+        {screen: () => desk(os, {badge: true}), target: 'tray-update', say: 'Updates fix security holes. In Linux Mint, the <strong>shield</strong> near the clock shows a dot when updates are waiting. <strong>Click the shield.</strong>'},
+        {screen: c => desk(os, {badge: true, running: ['update'], pinned: ['files', 'browser', 'update'], windows: updateManager(os, c)}), target: 'install', action: c => { c.auth = true; }, say: 'Update Manager lists them all. <strong>Click Install Updates.</strong>'},
+        {screen: c => desk(os, {badge: true, running: ['update'], pinned: ['files', 'browser', 'update'], windows: updateManager(os, c)}), target: 'auth-ok', action: c => { c.auth = false; },
+         say: 'Linux asks for <strong>your password</strong> before changing anything important. That\'s a good thing. <strong>Click Authenticate.</strong>', hints: {'auth-cancel': 'That cancels the updates. Click Authenticate.'}},
+        {screen: c => desk(os, {running: ['update'], pinned: ['files', 'browser', 'update'], windows: updateManager(os, {...c, updated: !c.busy})}), wait: 1400,
+         question: {q: 'How often should you install updates?', options: [
+            {t: 'Whenever the shield shows a dot: it only takes a minute', ok: true, why: 'Yes. Linux Mint rarely needs a restart, except for some security updates.'},
+            {t: 'Once a year', why: 'Install them whenever the shield shows a dot. It only takes a minute.'}]}},
+    ]).concat([
+        {screen: () => desk(os), done: true, say: '<strong>Well done!</strong> Your computer is up to date. Keeping it updated is the single best thing you can do to stay safe.'},
+    ]), {}));
+
+    // ---------- Course: Moving on from Windows 10 ----------
+    function win10Settings(ctx, page) {
+        const tiles = [['tile-system', '💻', 'System', 'Display, sound, about'], ['tile-devices', '🖨️', 'Devices', 'Bluetooth, printers'], ['tile-network', '🌐', 'Network & Internet', 'Wi-Fi'],
+                       ['tile-accounts', '👤', 'Accounts', 'Your accounts'], ['tile-update', '🔄', 'Update & Security', 'Windows Update']];
+        let inner;
+        if (page === 'home') inner = `<div class="w10-tiles">${tiles.map(([id, ic, t, s]) => `<button type="button" data-tap="${id}"><span>${ic}</span><strong>${t}</strong><small>${s}</small></button>`).join('')}</div>`;
+        else if (page === 'about') inner = `<button type="button" class="w10-back" data-tap="back">← Home</button><h3>About</h3><div class="w10-spec"><div><span>Edition</span><b>Windows 10 Home</b></div><div><span>Version</span><b>22H2</b></div><div><span>Device name</span><b>MARGARET-LAPTOP</b></div></div>`;
+        else if (page === 'update') inner = `<button type="button" class="w10-back" data-tap="back">← Home</button><h3>Windows Update</h3>
+            ${ctx.enrolled ? '<p class="wu-ok">✓ Your PC is enrolled in Extended Security Updates</p><p class="app-note">Security updates until 12 October 2027.</p>' : `<div class="w10-esu"><strong>Windows 10 support has ended</strong><p>Your PC doesn't meet the requirements to run Windows 11. Enroll in Extended Security Updates to keep getting security updates.</p>
+            <button type="button" class="ph-btn ios-blue small" data-tap="enroll">Enroll now</button></div>`}`;
+        else inner = `<h3>Extended Security Updates</h3><p class="app-note">Choose how to enroll:</p>
+            <button type="button" class="recent" data-tap="esu-backup"><strong>Back up your PC settings</strong><small>Free, with a Microsoft account</small></button>
+            <button type="button" class="recent" data-tap="esu-points"><strong>Use 1,000 Microsoft Rewards points</strong></button>
+            <button type="button" class="recent" data-tap="esu-buy"><strong>One-time purchase</strong><small>Paid</small></button>${ctx.busy ? '<p class="app-note">Enrolling…</p>' : ''}`;
+        return pcWin('windows', 'Settings', `<div class="w10-set">${inner}</div>`, {cls: 'settings w10'});
+    }
+    const w10 = (opts = {}) => desk('windows', {win10: true, ...opts});
+
+    pcLesson('pc-check-windows', () => withCtx([
+        {screen: () => w10(), target: 'start', say: 'If your computer looks like this, with Start at the far left, it may be <strong>Windows 10</strong>. Let\'s check. <strong>Click Start.</strong>'},
+        {screen: () => w10({overlay: startMenu('windows')}), target: 'open-settings', say: '<strong>Click Settings</strong> (the cog).'},
+        {screen: c => w10({running: ['settings'], windows: win10Settings(c, 'home')}), target: 'tile-system', say: '<strong>Click System.</strong>'},
+        {screen: c => w10({running: ['settings'], windows: win10Settings(c, 'about')}),
+         question: {q: 'It says Windows 10 Home. What does that mean in 2026?', options: [
+            {t: 'Microsoft stopped normal support in October 2025. It still works, but needs Extended Security Updates to stay safe', ok: true,
+             why: 'Yes. The free Extended Security Updates programme for home users now runs until 12 October 2027. After that, Windows 10 gets no more security fixes.'},
+            {t: 'Nothing, Windows 10 will be updated for ever', why: 'Normal support ended in October 2025. Extended Security Updates now run until 12 October 2027, then stop.'}]}},
+        {screen: c => w10({running: ['settings'], windows: win10Settings(c, 'about')}), target: 'back', say: '<strong>Click ← Home</strong> to go back.'},
+        {screen: c => w10({running: ['settings'], windows: win10Settings(c, 'home')}), target: 'tile-update', say: '<strong>Click Update &amp; Security.</strong>'},
+        {screen: c => w10({running: ['settings'], windows: win10Settings(c, 'update')}), target: 'enroll', say: 'This laptop is too old for Windows 11, so Windows offers <strong>Extended Security Updates</strong>. <strong>Click Enroll now.</strong>'},
+        {screen: c => w10({running: ['settings'], windows: win10Settings(c, 'esu')}), target: 'esu-backup', action: c => { c.enrolled = true; },
+         say: 'The free way is to back up your settings to a Microsoft account. <strong>Click Back up your PC settings.</strong>', hints: {'esu-buy': 'You don\'t need to pay. Choose the free backup option.', 'esu-points': 'That works if you have the points, but the backup option is free for everyone.'}},
+        {screen: c => w10({running: ['settings'], windows: win10Settings(c, 'update')}),
+         question: {q: 'What are your options before October 2027?', options: [
+            {t: 'Upgrade to Windows 11 if it can, buy a new computer, or switch an older one to Linux Mint (free)', ok: true, why: 'Yes. Linux Mint is free and runs well on older laptops. The next lessons show where things are on a Mac and in Linux Mint.'},
+            {t: 'Keep using Windows 10 after 2027 for banking', why: 'After October 2027 it gets no security fixes, so it isn\'t safe for banking. Upgrade, replace or switch to Linux Mint.'}]}},
+        {screen: c => w10({running: ['settings'], windows: win10Settings(c, 'update')}), done: true,
+         say: '<strong>Well done!</strong> You know which Windows you have and how to keep it safe until October 2027. Watch out for calls or pop-ups offering to "upgrade" you for a fee: they\'re scams.'},
+    ], {}), ['windows']);
+
+    pcLesson('pc-mac-tour', () => withCtx([
+        {screen: () => desk('mac'), target: 'app-browser',
+         say: 'Moving from Windows? On a Mac, apps live in the <strong>Dock</strong> at the bottom, and each app\'s menus are in the <strong>menu bar</strong> at the top. <strong>Click Safari</strong>, the web browser, in the Dock.'},
+        {screen: () => desk('mac', {running: ['browser'], appName: 'Safari', windows: pcWin('mac', 'Safari', browserHome('mac'))}), target: 'win-close',
+         say: 'The window buttons are at the <strong>top left</strong> on a Mac. <strong>Click the red one</strong> to close the window.'},
+        {screen: () => desk('mac', {running: ['browser'], appName: 'Safari'}), target: 'rc-dock-browser',
+         say: 'The window has gone, but see the <strong>dot under Safari</strong> in the Dock? It\'s still running. To quit it, <strong>right-click Safari in the Dock</strong> (two fingers on a trackpad).', hint: 'Right-click (or two-finger click) on the Safari icon in the Dock.',
+         hints: {'app-browser': 'A normal click opens it again. Right-click it instead.'}},
+        {screen: () => desk('mac', {running: ['browser'], appName: 'Safari', overlay: '<div class="ctx-menu dockmenu"><button type="button" data-tap="new-window">New Window</button><button type="button" data-tap="options">Options</button><button type="button" data-tap="menu-quit">Quit</button></div>'}),
+         target: 'menu-quit', say: '<strong>Click Quit.</strong> <em>(The shortcut is ⌘ Cmd + Q.)</em>'},
+        {screen: () => desk('mac'), target: 'apple-menu', say: 'Settings live under the <strong>Apple menu</strong> (the logo) at the top left. <strong>Click it.</strong>'},
+        {screen: () => desk('mac', {overlay: '<div class="mb-drop"><button type="button" data-tap="about" data-fun="about">About This Mac</button><button type="button" data-tap="menu-settings">System Settings…</button><button type="button" data-tap="restart-menu">Restart…</button><button type="button" data-tap="shutdown">Shut Down…</button></div>'}),
+         target: 'menu-settings', say: 'Shut Down and Restart are here too. <strong>Click System Settings…</strong>'},
+        {screen: c => desk('mac', {running: ['settings'], appName: 'System Settings', windows: settingsWin('mac', c, 'general')}),
+         question: {q: 'On Windows you copy with Ctrl + C. What\'s it on a Mac?', options: [
+            {t: '⌘ Cmd + C', ok: true, why: 'Yes. Most Windows shortcuts use ⌘ Cmd on a Mac instead of Ctrl: ⌘ C, ⌘ V, ⌘ Z, ⌘ A.'},
+            {t: 'Ctrl + C, the same', why: 'On a Mac it\'s ⌘ Cmd + C. Most Ctrl shortcuts become ⌘ Cmd.'}]}},
+        {screen: c => desk('mac', {running: ['settings'], appName: 'System Settings', windows: settingsWin('mac', c, 'general')}), done: true,
+         say: '<strong>Well done!</strong> Dock at the bottom, menus at the top, window buttons top left, ⌘ Cmd instead of Ctrl, and the Apple menu for settings and shutting down.'},
+    ], {}), ['mac']);
+
+    pcLesson('pc-mint-tour', () => withCtx([
+        {screen: () => desk('linux'), target: 'start',
+         say: '<strong>Linux Mint</strong> is a free system that works a lot like Windows, and runs well on older computers. Your apps are in the <strong>Menu</strong>, bottom left, like the Start button. <strong>Click Menu.</strong>'},
+        {screen: () => desk('linux', {overlay: startMenu('linux', [['writer', 'open-writer'], ['update', 'open-update']])}), target: 'open-writer',
+         say: 'Linux Mint comes with free apps already installed. For letters, use <strong>LibreOffice Writer</strong>, which works like Microsoft Word. <strong>Click it.</strong>'},
+        {screen: () => desk('linux', {running: ['writer'], pinned: ['files', 'browser', 'writer'], windows: pcWin('linux', 'Untitled 1 – LibreOffice Writer', '<div class="lw"><div class="lw-tools">File  Edit  View  Insert  Format  <b>B</b> <i>I</i> <u>U</u></div><div class="lw-page">Dear Sir or Madam,<span class="caret"></span></div></div>', {max: true})}),
+         question: {q: 'Can you open Word documents that people email you?', options: [
+            {t: 'Yes. LibreOffice opens and saves Word (.docx) files', ok: true, why: 'Yes. When saving something to send to a Word user, choose the Word format (.docx) in Save As.'},
+            {t: 'No, you need Windows for that', why: 'LibreOffice opens and saves Word (.docx) files, so you can swap documents with Word users.'}]}},
+        {screen: () => desk('linux', {running: ['writer'], pinned: ['files', 'browser', 'writer'], windows: pcWin('linux', 'Untitled 1 – LibreOffice Writer', '<div class="lw"><div class="lw-page">Dear Sir or Madam,</div></div>', {max: true})}),
+         target: 'win-close', say: 'The window buttons are at the top right, just like Windows. <strong>Click ✕</strong> to close Writer.'},
+        {screen: () => desk('linux'), target: 'start', say: 'Now let\'s find where to get more apps. <strong>Click Menu</strong> again.'},
+        {screen: () => desk('linux', {overlay: startMenu('linux', [['writer', 'open-writer'], ['update', 'open-update']])}), target: 'open-store',
+         say: '<strong>Software Manager</strong> is Linux Mint\'s free app store. <strong>Click it.</strong>'},
+        {screen: () => desk('linux', {running: ['store'], windows: pcWin('linux', 'Software Manager', `<div class="pc-store"><div class="st-searchbar">${ICON.search}<span>Search</span></div>
+            <div class="sm-cats">${['Internet', 'Office', 'Graphics', 'Sound & video', 'Games', 'Accessibility'].map(t => `<span>${t}</span>`).join('')}</div><p class="app-note">Thousands of free apps, checked by Linux Mint.</p></div>`, {max: true})}),
+         question: {q: 'Do you need to buy antivirus for Linux Mint?', options: [
+            {t: 'No. Keep it updated, get apps from Software Manager, and you\'re well protected', ok: true, why: 'Yes. Linux has few viruses. Updates and the built-in firewall do the job. Scams in emails and websites still apply, so stay alert.'},
+            {t: 'Yes, the most expensive one', why: 'No. Keep it updated and get apps from Software Manager. Watch out for email and website scams as usual.'}]}},
+        {screen: () => desk('linux'), done: true,
+         say: '<strong>Well done!</strong> Menu bottom left, close top right, LibreOffice for documents, Firefox for the web, Software Manager for apps, and the shield for updates.'},
+    ], {}), ['linux']);
+
+    pcLesson('pc-move-files', (os) => withCtx([
+        {screen: c => desk(os, {overlay: c.usb ? `<div class="pc-toast">💾 USB stick connected</div>` : '<button type="button" class="usb-plug" data-tap="plug">Plug in USB stick</button>'}), target: 'plug', action: c => { c.usb = true; },
+         say: 'Before you swap computers, copy your files to a <strong>USB stick</strong>. Push it into a USB slot on the side of the computer. Here, <strong>click Plug in USB stick</strong>.'},
+        {screen: c => desk(os, {overlay: '<div class="pc-toast">💾 USB stick connected</div>'}), target: 'app-files', say: `<strong>Open ${N.files[os]}.</strong>`},
+        {screen: c => filesDesk(os, c, 'home'), target: 'rc-documents', action: c => { c.menu = [['menu-open', 'Open'], ['menu-copy', 'Copy'], ['menu-rename', 'Rename']]; c.menuAt = 'left:30%;top:22%'; },
+         say: 'Your letters are in <strong>Documents</strong>. <strong>Right-click the Documents folder.</strong> <em>(Do the same for Pictures afterwards.)</em>'},
+        {screen: c => filesDesk(os, c, 'home'), target: 'menu-copy', action: c => { c.menu = null; }, say: '<strong>Click Copy.</strong>'},
+        {screen: c => filesDesk(os, c, 'home'), target: 'side-usb', say: 'Your USB stick is on the left. <strong>Click USB stick.</strong>'},
+        {screen: c => filesDesk(os, c, 'usb'), target: 'rc-empty', action: c => { c.menu = [['menu-newfolder', newFolderLabel(os)], ['menu-paste', pasteLabel(os)]]; c.menuAt = 'left:45%;top:40%'; }, say: 'It\'s empty. <strong>Right-click on the empty space.</strong>'},
+        {screen: c => filesDesk(os, c, 'usb'), target: 'menu-paste', action: c => { c.menu = null; c.copying = true; }, say: `<strong>Click ${pasteLabel(os)}.</strong>`},
+        {screen: c => filesDesk(os, {...c, copied: !c.busy, progress: c.busy ? 'Copying 214 items… 1 minute left' : ''}, 'usb'), wait: 1400, target: 'rc-usb',
+         action: c => { c.copied = true; c.menu = [['menu-eject', 'Eject']]; c.menuAt = 'left:6%;top:62%'; },
+         say: 'Done! Before you pull the stick out, <strong>eject</strong> it so nothing gets damaged. <strong>Right-click USB stick</strong> on the left.'},
+        {screen: c => filesDesk(os, c, 'usb'), target: 'menu-eject', action: c => { c.menu = null; c.usb = false; }, say: '<strong>Click Eject.</strong> Then it\'s safe to take it out.'},
+        {screen: c => filesDesk(os, c, 'home'), question: {q: 'Another way to move files to a new computer?', options: [
+            {t: 'Online storage: OneDrive, iCloud or Google Drive', ok: true, why: 'Yes. Upload from the old computer, sign in on the new one, and they\'re there. A USB stick is a good extra copy too.'},
+            {t: 'Email every file to yourself one by one', why: 'That would take ages! Use a USB stick or online storage like OneDrive, iCloud or Google Drive.'}]}},
+        {screen: c => filesDesk(os, c, 'home'), done: true, say: '<strong>Well done!</strong> On the new computer, plug the stick in, open it, and copy the folders into your Documents and Pictures.'},
+    ], {}));
+
+    function chromeWin(os, ctx) {
+        const bar = ctx.synced ? '<div class="br-bookmarks">★ BBC Weather  ★ NHS App  ★ Bridlington bus times  ★ Recipes</div>' : '';
+        const profile = `<button type="button" class="br-profile" data-tap="profile" aria-label="Profile">${ctx.synced ? 'M' : '👤'}</button>`;
+        const menu = ctx.menu ? '<div class="ctx-menu" style="right:8px;top:62px"><span class="cm-h">Not signed in</span><button type="button" data-tap="sync">Turn on sync…</button><button type="button" data-tap="guest">Open guest profile</button></div>' : '';
+        const signin = ctx.signin ? `<div class="pc-dialog wide"><p><strong>Sign in with Google</strong></p><p class="ph-small">margaret.smith@example.com</p><div class="pc-pw">••••••••</div><p class="ph-small">(Practice: entered for you.)</p>
+            <div class="pc-dbtns"><button type="button" class="pri" data-tap="next">Next</button></div></div>` : '';
+        const confirm = ctx.confirm ? '<div class="pc-dialog wide"><p><strong>Turn on sync?</strong></p><p class="ph-small">Your bookmarks, passwords and history will be saved to your Google Account and appear on all your devices.</p><div class="pc-dbtns"><button type="button" data-tap="cancel">Cancel</button><button type="button" class="pri" data-tap="yes-in">Yes, I\'m in</button></div></div>' : '';
+        return pcWin(os, 'Chrome', `<div class="br"><div class="br-bar"><span class="br-tab">New tab</span>${profile}</div><div class="br-url">🔍 Search Google or type a URL</div>${bar}
+            <div class="br-page"><div class="br-logo">Chrome</div><input class="br-search" data-fun-input="web" placeholder="Search" aria-label="Search"><p class="br-note"></p>${ctx.busy ? '<p class="app-note">Syncing your bookmarks…</p>' : ''}</div>${menu}${signin}${confirm}</div>`, {max: true});
+    }
+    pcLesson('pc-browser-sync', (os) => withCtx([
+        {screen: () => desk(os, {pinned: ['files', 'chrome', 'store', 'settings']}), target: 'app-chrome',
+         say: 'If you used <strong>Chrome</strong> on your old computer, signing in brings your bookmarks and saved passwords to the new one. (Firefox and Edge work the same way.) <strong>Click Chrome.</strong>'},
+        {screen: c => desk(os, {running: ['chrome'], pinned: ['files', 'chrome', 'store', 'settings'], appName: 'Chrome', windows: chromeWin(os, c)}), target: 'profile', action: c => { c.menu = true; },
+         say: '<strong>Click the person icon</strong> at the top right.'},
+        {screen: c => desk(os, {running: ['chrome'], pinned: ['files', 'chrome', 'store', 'settings'], appName: 'Chrome', windows: chromeWin(os, c)}), target: 'sync', action: c => { c.menu = false; c.signin = true; },
+         say: '<strong>Click Turn on sync…</strong>', hints: {guest: 'A guest profile doesn\'t save anything. Click Turn on sync.'}},
+        {screen: c => desk(os, {running: ['chrome'], pinned: ['files', 'chrome', 'store', 'settings'], appName: 'Chrome', windows: chromeWin(os, c)}), target: 'next', action: c => { c.signin = false; c.confirm = true; },
+         say: 'Sign in with the <strong>same Google account</strong> you used on the old computer. <strong>Click Next.</strong>'},
+        {screen: c => desk(os, {running: ['chrome'], pinned: ['files', 'chrome', 'store', 'settings'], appName: 'Chrome', windows: chromeWin(os, c)}), target: 'yes-in', action: c => { c.confirm = false; c.synced = true; },
+         say: '<strong>Click Yes, I\'m in.</strong>', hints: {cancel: 'That stops sync. Click Yes, I\'m in.'}},
+        {screen: c => desk(os, {running: ['chrome'], pinned: ['files', 'chrome', 'store', 'settings'], appName: 'Chrome', windows: chromeWin(os, {...c, synced: !c.busy})}), wait: 1400,
+         question: {q: 'Your bookmarks are back. Is saving passwords in your browser safe?', options: [
+            {t: 'Yes, if your Google account has a strong password and 2-step verification', ok: true, why: 'Yes. It\'s much safer than reusing one password everywhere. Protect the account itself with 2-step verification.'},
+            {t: 'No, write them on a sticky note on the screen instead', why: 'A browser password manager is far safer than a note on the screen, as long as your account has 2-step verification.'}]}},
+        {screen: c => desk(os, {running: ['chrome'], pinned: ['files', 'chrome', 'store', 'settings'], appName: 'Chrome', windows: chromeWin(os, {...c, synced: true})}), done: true,
+         say: '<strong>Well done!</strong> Your bookmarks and passwords have followed you. On a public or shared computer, don\'t turn on sync.'},
+    ], {}));
+
+    // ---------- Course: Staying safe on a computer ----------
+    function scareware(os, ctx) {
+        if (ctx.left) return desk(os, {running: ['browser'], appName: N.browser[os]});
+        const page = `<div class="scare"><strong>⚠️ ${os === 'mac' ? 'Apple' : os === 'windows' ? 'Windows' : 'System'} Security Alert ⚠️</strong>
+            <p>Your computer is INFECTED with 5 viruses! Your bank details and photos are at risk.</p><p>Do not turn off your computer. Call support now:</p><b>0808 157 0123</b>
+            <div class="scare-btns"><button type="button" data-tap="call-btn">Call now</button><button type="button" data-tap="fake-close">Close</button></div>
+            <small>(Practice scam page. The number is not real.)</small></div>`;
+        const leave = ctx.leaveAsk ? '<div class="pc-dialog"><p><strong>Leave site?</strong></p><p class="ph-small">Changes you made may not be saved.</p><div class="pc-dbtns"><button type="button" data-tap="stay">Stay</button><button type="button" class="pri" data-tap="leave">Leave</button></div></div>' : '';
+        if (!ctx.exited) return `<div class="pc-full">${page}<div class="key-strip">${keyBtn('keys-escape', 'Esc')}</div>${leave}</div>`;
+        return desk(os, {running: ['browser'], appName: N.browser[os], windows: pcWin(os, N.browser[os], `<div class="br"><div class="br-bar"><span class="br-tab">Security Alert <button type="button" data-tap="tab-close" aria-label="Close tab">✕</button></span></div><div class="br-url">⚠️ http://pc-help-alert.example.top</div>${page}</div>`, {max: true}) + leave});
+    }
+    pcLesson('pc-scareware', (os) => withCtx([
+        {screen: c => scareware(os, c), question: {q: 'This has suddenly filled your screen while browsing. Is it real?', options: [
+            {t: 'No. It\'s a fake website trying to scare you into calling scammers', ok: true, why: 'Exactly. Real warnings never show a phone number to ring. Don\'t call it and don\'t click anything on the page.'},
+            {t: 'Yes, call the number quickly', why: 'Never call. It\'s a fake page. The "support" people will try to take control of your computer and your money.'}]}},
+        {screen: c => scareware(os, c), target: 'keys-escape', action: c => { c.exited = true; },
+         say: 'It\'s filled the whole screen so you can\'t see how to close it. Press the <strong>Esc</strong> key (top left of the keyboard) to leave full screen.',
+         hints: {'call-btn': 'Never! Press the Esc key.', 'fake-close': 'Buttons on the page may be traps. Press the Esc key on your keyboard instead.'}},
+        {screen: c => scareware(os, c), target: 'tab-close', action: c => { c.leaveAsk = true; }, say: 'Now you can see the browser. <strong>Close the tab</strong> with its ✕.',
+         hints: {'call-btn': 'Don\'t click anything on the page. Close the tab with its ✕.', 'fake-close': 'That\'s part of the scam page. Use the ✕ on the tab itself.'}},
+        {screen: c => scareware(os, c), target: 'leave', action: c => { c.leftAsk = false; c.left = true; }, say: 'It tries to keep you there. <strong>Click Leave.</strong>', hints: {stay: 'Click Leave.'}},
+        {screen: c => scareware(os, c), question: {q: 'What if it won\'t close at all?', options: [
+            {t: os === 'windows' ? 'Press Ctrl + Shift + Esc to open Task Manager, choose the browser and click End task' : os === 'mac' ? 'Press ⌘ Cmd + Option + Esc and Force Quit the browser' : 'Right-click the browser on the panel and choose Close, or restart the computer',
+             ok: true, why: 'Yes. When you open the browser again, don\'t let it restore the old pages. Restarting the computer also works.'},
+            {t: 'Ring the number to get help closing it', why: 'Never ring it. ' + (os === 'windows' ? 'Use Ctrl + Shift + Esc (Task Manager) to close the browser.' : os === 'mac' ? 'Use ⌘ Cmd + Option + Esc to Force Quit.' : 'Close the browser from the panel, or restart.')}]}},
+        {screen: c => scareware(os, c), done: true, say: '<strong>Well done!</strong> Your computer was never infected: it was just a web page. If you did ring a number like this, contact your bank and change your passwords from another device.'},
+    ], {}));
+
+    function secWin(os, ctx) {
+        if (os === 'windows') {
+            return pcWin(os, 'Windows Security', `<div class="sec"><h3>Virus &amp; threat protection</h3><p class="wu-ok">✓ No current threats</p>
+                <p class="app-note">Last scan: ${ctx.scanned ? 'just now (0 threats found)' : '3 days ago'}</p>${ctx.busy ? '<p class="app-note">Quick scan running… 12,840 files scanned</p>' : (ctx.scanned ? '' : '<button type="button" class="ph-btn ios-blue small" data-tap="quick-scan">Quick scan</button>')}
+                <div class="sec-tiles"><span>✓ Virus protection</span><span>✓ Firewall</span><span>✓ App &amp; browser control</span></div></div>`, {cls: 'settings'});
+        }
+        return pcWin(os, 'Firewall Configuration', `<div class="sec"><div class="set-row static"><span>Status</span><button type="button" class="fw-toggle" data-tap="fw-toggle" aria-label="Firewall on or off">${tog(!!ctx.fwOn)}</button></div>
+            <p class="app-note">Incoming: Deny · Outgoing: Allow</p>${ctx.fwOn ? '<p class="wu-ok">✓ Firewall is on</p>' : ''}</div>`, {cls: 'settings'});
+    }
+    pcLesson('pc-security-check', (os) => withCtx((os === 'windows' ? [
+        {screen: () => desk(os), target: 'start', say: 'Windows has free antivirus built in, called <strong>Windows Security</strong>. Let\'s check it\'s working. <strong>Click Start.</strong>'},
+        {screen: () => desk(os, {overlay: startMenu(os)}), target: 'open-settings', say: '<strong>Click Settings.</strong>'},
+        {screen: c => desk(os, {running: ['settings'], windows: settingsWin(os, c, 'home')}), target: 'side-privacy', say: '<strong>Click Privacy &amp; security</strong> on the left.'},
+        {screen: c => desk(os, {running: ['settings'], windows: settingsWin(os, c, 'privacy')}), target: 'win-security', say: '<strong>Click Windows Security.</strong>'},
+        {screen: c => desk(os, {running: ['shield'], pinned: ['files', 'browser', 'shield'], windows: secWin(os, c)}), target: 'quick-scan', action: c => { c.scanned = true; },
+         say: 'Green ticks mean you\'re protected. For peace of mind, <strong>click Quick scan</strong>.'},
+        {screen: c => desk(os, {running: ['shield'], pinned: ['files', 'browser', 'shield'], windows: secWin(os, {...c, scanned: !c.busy})}), wait: 1400,
+         question: {q: 'Do you need to pay for another antivirus as well?', options: [
+            {t: 'No. Windows Security is enough for most people, and two can slow the computer down', ok: true, why: 'Yes. Keep Windows updated and Windows Security on. Paid ones often just add pop-ups and subscriptions.'},
+            {t: 'Yes, the more the better', why: 'Two antivirus programs can clash and slow things down. Windows Security is enough for most people.'}]}},
+    ] : os === 'mac' ? [
+        {screen: () => desk(os), target: 'apple-menu', say: 'Macs have free protection built in that checks apps and files in the background. Let\'s check one setting. <strong>Click the Apple menu</strong> (the logo).'},
+        {screen: () => desk(os, {overlay: '<div class="mb-drop"><button type="button" data-tap="about" data-fun="about">About This Mac</button><button type="button" data-tap="menu-settings">System Settings…</button><button type="button" data-tap="shutdown">Shut Down…</button></div>'}),
+         target: 'menu-settings', say: '<strong>Click System Settings…</strong>'},
+        {screen: c => desk(os, {running: ['settings'], appName: 'System Settings', windows: settingsWin(os, c, 'general')}), target: 'side-privacy', say: '<strong>Click Privacy &amp; Security</strong> on the left.'},
+        {screen: c => desk(os, {running: ['settings'], appName: 'System Settings', windows: settingsWin(os, c, 'privacy')}),
+         question: {q: '"Allow applications from App Store & Known Developers" is chosen. Should you change it?', options: [
+            {t: 'No, leave it. It blocks apps from unknown makers', ok: true, why: 'Yes. If a website tells you to change this to install something, that\'s a big warning sign.'},
+            {t: 'Yes, allow apps from anywhere', why: 'Leave it as it is. It stops apps from unknown makers. A website telling you to change it is a warning sign.'}]}},
+        {screen: c => desk(os, {running: ['settings'], appName: 'System Settings', windows: settingsWin(os, c, 'privacy')}),
+         question: {q: 'Do you need to buy antivirus for a Mac?', options: [
+            {t: 'Most people don\'t. Keep it updated and only install apps from trusted places', ok: true, why: 'Yes. Updates and the built-in protection do the job. Pop-ups saying your Mac is infected are scams.'},
+            {t: 'Yes, whichever pop-up offers it', why: 'Pop-ups offering Mac antivirus are usually scams. Keep your Mac updated instead.'}]}},
+    ] : [
+        {screen: () => desk(os), target: 'start', say: 'Linux Mint has a built-in <strong>firewall</strong>, which blocks unwanted connections. It\'s off until you turn it on. <strong>Click Menu.</strong>'},
+        {screen: () => desk(os, {overlay: startMenu(os, [['fw', 'open-firewall']])}), target: 'open-firewall', say: '<strong>Click Firewall.</strong> <em>(Search the Menu for "firewall" if you can\'t see it.)</em>'},
+        {screen: c => desk(os, {running: ['fw'], pinned: ['files', 'browser', 'fw'], windows: secWin(os, c)}), target: 'fw-toggle', action: c => { c.fwOn = true; }, say: '<strong>Click the Status switch</strong> to turn the firewall on.'},
+        {screen: c => desk(os, {running: ['fw'], pinned: ['files', 'browser', 'fw'], windows: secWin(os, c)}),
+         question: {q: 'What else keeps Linux Mint safe?', options: [
+            {t: 'Installing updates when the shield shows a dot, and getting apps from Software Manager', ok: true, why: 'Yes. And the usual rules: be careful with email links and pop-ups.'},
+            {t: 'Nothing else is needed', why: 'Keep installing updates and get apps from Software Manager. Email and website scams still apply.'}]}},
+    ]).concat([
+        {screen: () => desk(os), done: true, say: '<strong>Well done!</strong> Your computer\'s built-in protection is on. Updates, care with links, and only installing from trusted places do the rest.'},
+    ]), {}));
+
+    function webmail(os, ctx) {
+        const inbox = `<div class="wm-list"><button type="button" class="wm-row unread" data-tap="open-scam"><strong>Parcel Delivery</strong><span>We missed you: rearrange delivery today</span></button>
+            <div class="wm-row"><strong>Sarah</strong><span>Photos from Sunday</span></div><div class="wm-row"><strong>Bridlington Walkers</strong><span>Saturday's walk</span></div></div>`;
+        const mail = `<div class="wm-mail"><p><strong>Parcel Delivery</strong> &lt;support@parcel-redelivery.example.top&gt;</p><p>We tried to deliver your parcel today but nobody was home. A fee of £1.45 is needed to rearrange delivery.</p>
+            <a class="wm-link" data-hover="hover-link" data-tap="click-link" role="button" tabindex="0">Rearrange delivery</a>
+            ${ctx.hovered ? '<p class="wm-status">http://parcel-redelivery.example.top/pay-fee</p>' : ''}
+            <div class="wm-actions"><button type="button" data-tap="report">⚠️ Report phishing</button><button type="button" data-tap="reply">Reply</button></div></div>`;
+        return desk(os, {running: ['browser'], appName: N.browser[os], windows: pcWin(os, 'Mail', `<div class="wm">${ctx.opened && !ctx.reported ? mail : inbox}${ctx.reported ? '<p class="wu-ok">✓ Reported and moved to Junk</p>' : ''}</div>`, {max: true})});
+    }
+    pcLesson('pc-email-links', (os) => withCtx([
+        {screen: c => webmail(os, c), target: 'open-scam', action: c => { c.opened = true; }, say: 'Here\'s your email, in the browser. <strong>Open the Parcel Delivery email.</strong>'},
+        {screen: c => webmail(os, c), target: 'hover-link', action: c => { c.hovered = true; },
+         say: 'On a computer you can check where a link really goes <strong>without clicking it</strong>. <strong>Move the mouse over "Rearrange delivery"</strong> and keep it still. <em>(On a touchscreen, press and hold it.)</em>',
+         hints: {'click-link': 'Don\'t click it! Just rest the mouse pointer over it.'}, hint: 'Rest the mouse pointer over the blue link, without clicking.'},
+        {screen: c => webmail(os, c), question: {q: 'The real address appears at the bottom: parcel-redelivery.example.top. Is it safe?', options: [
+            {t: 'No. It\'s not a real delivery company\'s website, and they want a fee', ok: true, why: 'Yes. Couriers don\'t charge small fees by email or text. The real address gives it away.'},
+            {t: 'Yes, it says "parcel" in it', why: 'Anyone can put "parcel" in a web address. It isn\'t a real courier, and the fee is the scam.'}]}},
+        {screen: c => webmail(os, c), target: 'report', action: c => { c.reported = true; }, say: '<strong>Click Report phishing.</strong> You can also forward scam emails to report@phishing.gov.uk.', hints: {reply: 'Never reply to scammers. Click Report phishing.', 'click-link': 'Don\'t click the link! Report it instead.'}},
+        {screen: c => webmail(os, c), done: true, say: '<strong>Well done!</strong> Hover before you click: if the address doesn\'t match the company, don\'t click.'},
+    ], {}));
+
+    // ======================================================================================
+    // Practice phone: every app works, all the time, with easter eggs. Anything that isn't the lesson's
+    // current step opens a working practice app on top ("Back to the lesson" puts the step back).
+    // ======================================================================================
+    const PH_FROM_TAP = {phone: 'ph-phone', messages: 'ph-messages', camera: 'ph-camera', photos: 'ph-photos', mail: 'ph-mail', clock: 'ph-clock',
+        weather: 'ph-weather', maps: 'ph-maps', settings: 'ph-settings', store: 'ph-store'};
+    const phState = screen => screen._pfun || (screen._pfun = {wall: -1, airplane: false, wifi: true, bt: true, dark: false, torch: false, bright: 100,
+        dnd: false, text: 0, build: 0, taps: [], photos: [], sms: [], snakeBest: 0, installed: []});
+    const PH_WALLS = ['linear-gradient(160deg,#f97316,#db2777 55%,#7c3aed)', 'linear-gradient(#7dd3fc 0 45%, #0ea5e9 45% 62%, #fde68a 62%)',
+        'radial-gradient(1.5px 1.5px at 20% 30%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 70% 60%, #fff 50%, transparent 51%), radial-gradient(2px 2px at 45% 15%, #fff 50%, transparent 51%), linear-gradient(#0b1026, #312e81)',
+        'linear-gradient(160deg,#16a34a,#065f46)', '#111'];
+
+    const phToast = (screen, text, ms = 2600) => {
+        const t = document.createElement('div');
+        t.className = 'ph-toast'; t.textContent = text;
+        screen.appendChild(t); setTimeout(() => t.remove(), ms);
+    };
+
+    // A full-screen practice app on top of whatever the lesson is showing.
+    function phOpen(screen, p, title, inner, opts = {}) {
+        const st = phState(screen);
+        screen.querySelectorAll('.phf').forEach(x => x.remove());
+        const f = document.createElement('div');
+        f.className = `phf ph-${p}${st.dark ? ' dark' : ''}${opts.cls ? ' ' + opts.cls : ''}` + (calm() ? '' : ' fx-phopen');
+        f.style.setProperty('--ts', 1 + st.text * 0.12);
+        f.innerHTML = `${statusBar(p)}${title !== null ? `<div class="phf-head"><button type="button" data-fun="ph-close" aria-label="Back">${p === 'ios' ? '‹' : '←'}</button><strong>${title}</strong>${opts.right || ''}</div>` : ''}
+            <div class="phf-body">${inner}</div><button type="button" class="ph-homebar-btn phf-home" data-fun="ph-close" aria-label="Home"></button>`;
+        screen.appendChild(f);
+        phDecorate(screen, p);
+        return f;
+    }
+
+    // ---------- Phone (dialer) with secret codes ----------
+    const DIAL_EGGS = {
+        '*#06#': 'IMEI: 35 209900 176148 1 (practice number). This is the real code to find your phone\'s IMEI.',
+        '999': 'This is a practice phone, so it can\'t ring 999. In a real emergency, ring 999 or 112.',
+        '112': 'This is a practice phone, so it can\'t ring 112. 112 works just like 999 in the UK and across Europe.',
+        '159': '159 connects you safely to your own bank. Use it if a call about your money worries you.',
+        '7726': '7726 is where you forward scam texts. It spells "SPAM" on old phone keypads!',
+        '123': 'speaking-clock',
+        '1471': 'Telephone number 07700 900842 called today at 11:20. (Practice. 1471 tells you who last rang your landline.)',
+        '01189998819991197253': 'That\'s the emergency number from The IT Crowd. Have you tried turning it off and on again?',
+        '101': '101 is the police number for things that aren\'t emergencies.',
+        '111': '111 is NHS help when it\'s urgent but not an emergency.',
+    };
+    function phDialer(screen, p, typed = '') {
+        const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'];
+        const f = phOpen(screen, p, 'Phone', `<div class="phd"><div class="phd-num">${esc(typed) || '<span class="phd-ph">Enter a number</span>'}</div>
+            <div class="phd-pad">${keys.map(k => `<button type="button" data-fun="ph-key" data-k="${k}">${k}</button>`).join('')}</div>
+            <div class="phd-row"><span></span><button type="button" class="phd-call" data-fun="ph-call" aria-label="Call">${UI.phone}</button><button type="button" class="phd-del" data-fun="ph-del" aria-label="Delete">⌫</button></div>
+            <p class="phd-msg"></p></div>`, {cls: 'dial'});
+        f.dataset.typed = typed;
+        if (DIAL_EGGS[typed] && typed.startsWith('*')) f.querySelector('.phd-msg').textContent = DIAL_EGGS[typed];
+    }
+
+    // ---------- Messages ----------
+    const SMS_THREADS = [
+        ['Mum', '#f472b6', [['them', 'I thought LOL meant "lots of love". I\'ve been putting it on everything!'], ['them', 'Is that why your auntie hasn\'t replied?'], ['them', 'Sent from my iPad']]],
+        ['Unknown', '#94a3b8', [['them', 'Congratulations! You\'ve won a FREE phone. Click here to claim: prize-winner.example'], ['note', 'This is a scam. Don\'t tap the link: forward it to 7726, then delete it.']]],
+        ['Sarah', '#a78bfa', [['them', 'Dad\'s learning to use emojis 😂'], ['them', 'He sent me an aubergine and said "for tea tonight?" 🍆']]],
+        ['Dentist', '#38bdf8', [['them', 'Reminder: your appointment is on Tuesday at 10:30. Reply Y to confirm.']]],
+    ];
+    const MUM_REPLIES = ['Who is this?', 'Ring me, I can\'t read texts without my glasses', 'Lovely! 👍', 'Did you get my last message? I sent it to the cat by mistake.', 'Sent from my iPad', 'OK love xx'];
+    function phMessages(screen, p, open = -1) {
+        const st = phState(screen);
+        if (open < 0) {
+            phOpen(screen, p, 'Messages', `<div class="phl">${SMS_THREADS.map(([n, c, msgs], k) => `<button type="button" class="phl-row" data-fun="ph-thread" data-n="${k}">${avatar(n[0], c)}<span><strong>${n}</strong><small>${esc(msgs[0][1]).slice(0, 48)}…</small></span></button>`).join('')}</div>`);
+            return;
+        }
+        const [name, , msgs] = SMS_THREADS[open];
+        const mine = st.sms.filter(m => m.t === open);
+        const bubbles = msgs.map(([who, t]) => who === 'note' ? `<p class="phm-note">${esc(t)}</p>` : `<div class="wa-bubble ${who === 'me' ? 'me sms' : 'them'}"><span>${esc(t)}</span></div>`).join('')
+            + mine.map(m => `<div class="wa-bubble ${m.me ? 'me sms' : 'them'}"><span>${esc(m.text)}</span></div>`).join('');
+        const f = phOpen(screen, p, name, `<div class="phm"><div class="wa-thread">${bubbles}</div>
+            <div class="msg-bar"><label class="app-field"><input class="phm-in" placeholder="Text message" aria-label="Text message"></label><button type="button" class="wa-send" data-fun="ph-send" data-n="${open}" aria-label="Send">${UI.send}</button></div></div>`);
+        const th = f.querySelector('.wa-thread'); th.scrollTop = th.scrollHeight;
+        f.querySelector('.phm-in').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); f.querySelector('[data-fun="ph-send"]').click(); } });
+    }
+
+    // ---------- Camera and Photos ----------
+    const PH_PICS = [['🌅', 'linear-gradient(#7c3aed, #f97316 60%, #1e3a8a 60%)'], ['🐶', 'linear-gradient(#93c5fd 0 50%, #fde68a 50%)'], ['🌻', 'linear-gradient(#bae6fd 0 45%, #4ade80 45%)'],
+        ['🎂', 'linear-gradient(#fce7f3, #fbcfe8)'], ['🏰', 'linear-gradient(#93c5fd 0 60%, #a3a3a3 60%)'], ['🐦🍟', 'linear-gradient(#7dd3fc 0 55%, #fde68a 55%)']];
+    function phCamera(screen, p) {
+        const st = phState(screen);
+        phOpen(screen, p, null, `<div class="phc${st.selfie ? ' selfie' : ''}"><div class="phc-view">${st.selfie ? '<span class="phc-face">🙂</span>' : '<span class="phc-sun">☀️</span><span class="phc-sea"></span>'}<span class="phc-grid"></span></div>
+            <div class="phc-modes"><span>VIDEO</span><b>PHOTO</b><span>PORTRAIT</span></div>
+            <div class="phc-bar"><button type="button" class="phc-thumb" data-fun="ph-photos-open" aria-label="Photos">${st.photos.length ? (st.photos[st.photos.length - 1] ? '🙂' : '🌅') : ''}</button>
+            <button type="button" class="cam-shutter" data-fun="ph-shutter" aria-label="Take photo"></button><button type="button" class="phc-flip" data-fun="ph-flip" aria-label="Flip camera">${UI.flip}</button></div></div>`, {cls: 'cam'});
+    }
+    function phPhotos(screen, p, view = -1) {
+        const st = phState(screen);
+        const all = PH_PICS.concat(st.photos.map(s => [s ? '🙂' : '🌅', s ? 'linear-gradient(#fde68a, #fca5a5)' : 'linear-gradient(#7dd3fc 0 45%, #0ea5e9 45% 62%, #fde68a 62%)']));
+        if (view >= 0) {
+            const [ic, bg] = all[view];
+            phOpen(screen, p, view === 5 ? 'The seagull strikes again' : 'Photo', `<div class="php-big" style="background:${bg}"><span>${ic}</span></div>${view === 5 ? '<p class="phm-note">Caught in the act on Bridlington seafront. The chips were not recovered.</p>' : ''}`);
+            return;
+        }
+        phOpen(screen, p, 'Photos', `<div class="php-grid">${all.map(([ic, bg], k) => `<button type="button" data-fun="ph-photo" data-n="${k}" style="background:${bg}" aria-label="Photo ${k + 1}"><span>${ic}</span></button>`).join('')}</div>`);
+    }
+
+    // ---------- Clock (live), Weather, Maps ----------
+    function phClock(screen, p) {
+        const f = phOpen(screen, p, 'Clock', `<div class="phk"><div class="phk-now"></div><div class="phk-date"></div>
+            <div class="phk-sw"><span class="phk-sw-t">00:00.0</span><button type="button" data-fun="ph-sw">Start</button><button type="button" data-fun="ph-sw-reset">Reset</button></div>
+            <div class="phk-zones"><div><span>London</span><b data-tz="Europe/London"></b></div><div><span>New York</span><b data-tz="America/New_York"></b></div><div><span>Sydney</span><b data-tz="Australia/Sydney"></b></div><div><span>Narnia</span><b>Always winter</b></div></div></div>`);
+        const tick = () => {
+            if (!f.isConnected) return;
+            const d = today();
+            f.querySelector('.phk-now').textContent = d.toLocaleTimeString('en-GB');
+            f.querySelector('.phk-date').textContent = d.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long'});
+            f.querySelectorAll('[data-tz]').forEach(b => { b.textContent = d.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit', timeZone: b.dataset.tz}); });
+            if (f._sw && f._sw.run) { const ms = Date.now() - f._sw.t0 + f._sw.acc; f.querySelector('.phk-sw-t').textContent = `${String(Math.floor(ms / 60000)).padStart(2, '0')}:${String(Math.floor(ms / 1000) % 60).padStart(2, '0')}.${Math.floor(ms / 100) % 10}`; }
+            requestAnimationFrame(tick);
+        };
+        f._sw = {run: false, t0: 0, acc: 0};
+        tick();
+    }
+    function phWeather(screen, p) {
+        const d = today(), winter = d.getMonth() === 11 || d.getMonth() < 2;
+        phOpen(screen, p, 'Weather', `<div class="phw${winter ? ' winter' : ''}"><p class="phw-place">Bridlington</p><button type="button" class="phw-big" data-fun="ph-sun" aria-label="Today's weather">${winter ? '❄️' : '⛅'}</button>
+            <p class="phw-temp">${winter ? '4°' : '13°'}</p><p>${winter ? 'Cold, with snow flurries' : 'Sunny spells, breezy'}</p>
+            <div class="wx">${[['Fri', '🌧️', '11°'], ['Sat', '🌬️', '10°'], ['Sun', '☀️', '14°'], ['Mon', '⛅', '12°']].map(([a, ic, t]) => `<div><b>${a}</b><span>${ic}</span>${t}</div>`).join('')}</div>
+            <p class="phm-note">Seagull warning: <strong>high</strong>. Guard your chips.</p></div>`);
+    }
+    const MAP_EGGS = {narnia: 'Through the wardrobe, then keep walking past the lamp post.', home: 'There\'s no place like home. 🏠', 'the moon': '238,855 miles. Traffic is light.',
+        chips: 'Nearest chippy: anywhere on Bridlington seafront. 🍟', 'north pole': 'Santa\'s workshop. Closed until December. 🎅', bridlington: 'Bridlington, East Riding of Yorkshire. Lovely spot!',
+        'flamborough': 'Flamborough Head: lighthouse, cliffs and puffins. 🐦'};
+    function phMaps(screen, p, note = '') {
+        const f = phOpen(screen, p, null, `<div class="maps-app phmap"><div class="mp-map"><span class="mp-me"></span>${note ? '<span class="mp-pin"></span>' : ''}</div>
+            <div class="mp-top"><label class="mp-search">${ICON.search}<input class="phmap-in" placeholder="Search Maps" aria-label="Search Maps"></label></div>
+            ${note ? `<div class="mp-card"><strong>${esc(note)}</strong></div>` : ''}</div>`, {cls: 'mapsf'});
+        const inp = f.querySelector('.phmap-in');
+        inp.addEventListener('keydown', e => {
+            if (e.key !== 'Enter') return;
+            const q = inp.value.trim().toLowerCase();
+            phMaps(screen, p, MAP_EGGS[q] || (q ? `"${inp.value.trim()}": this practice map only knows a few places. Try Bridlington, Flamborough or Narnia.` : ''));
+        });
+    }
+
+    // ---------- Settings (with the developer-mode easter egg) ----------
+    function phSettings(screen, p) {
+        const st = phState(screen);
+        const row = (id, label, on) => `<div class="phs-row"><span>${label}</span><button type="button" class="wf-switch" data-fun="ph-toggle" data-k="${id}" aria-label="${label}">${tog(on)}</button></div>`;
+        phOpen(screen, p, 'Settings', `<div class="phs">
+            <div class="phs-group">${row('airplane', p === 'ios' ? 'Airplane Mode' : 'Airplane mode', st.airplane)}${row('wifi', 'Wi-Fi', st.wifi)}${row('bt', 'Bluetooth', st.bt)}</div>
+            <div class="phs-group">${row('dark', 'Dark mode', st.dark)}${row('dnd', 'Do Not Disturb', st.dnd)}
+                <div class="phs-row"><span>Text size</span><span class="phs-size"><button type="button" data-fun="ph-text" data-d="-1" aria-label="Smaller">A</button><button type="button" data-fun="ph-text" data-d="1" class="big" aria-label="Bigger">A</button></span></div></div>
+            <div class="phs-group"><button type="button" class="phs-row" data-fun="ph-wall"><span>Wallpaper</span><span class="set-chev">›</span></button>
+                <button type="button" class="phs-row" data-fun="ph-about"><span>${p === 'ios' ? 'About' : 'About phone'}</span><span class="set-chev">›</span></button></div></div>`);
+    }
+    function phAbout(screen, p) {
+        phOpen(screen, p, p === 'ios' ? 'About' : 'About phone', `<div class="phs"><div class="phs-group">
+            <div class="phs-row"><span>Name</span><b>Margaret's phone</b></div>
+            <div class="phs-row"><span>Model</span><b>${p === 'ios' ? 'iPhone Practice' : 'Practice Pixel'}</b></div>
+            <button type="button" class="phs-row" data-fun="ph-osver"><span>${p === 'ios' ? 'iOS version' : 'Android version'}</span><b>${p === 'ios' ? '27 (practice)' : '17 (practice)'}</b></button>
+            <div class="phs-row"><span>Storage</span><b>Plenty for photos of the grandchildren</b></div>
+            ${p === 'android' ? '<button type="button" class="phs-row" data-fun="ph-build"><span>Build number</span><b>PRACTICE.2026.10</b></button>' : '<div class="phs-row"><span>Serial number</span><b>P4R7-ACT1CE</b></div>'}
+            </div><p class="phm-note phs-egg"></p></div>`);
+    }
+
+    // ---------- Store with Snake ----------
+    function phStore(screen, p) {
+        const st = phState(screen);
+        const apps = [['snake', '🐍', 'Snake \'97', 'The classic game from old mobile phones.'], ['torch', '🔦', 'Super Bright Torch FREE', 'Contains ads · In-app purchases'], ['knit', '🧶', 'Knitting Patterns', 'Coming soon to this practice store.']];
+        phOpen(screen, p, p === 'ios' ? 'App Store' : 'Play Store', `<div class="pc-store">${apps.map(([id, ic, n, d]) => `<div class="st-row"><span class="fun-app-ic">${ic}</span><div class="st-info"><strong>${n}</strong><span>${d}</span></div>
+            <button type="button" class="st-get" data-fun="ph-get" data-app="${id}">${st.installed.includes(id) ? 'Open' : (p === 'ios' ? 'Get' : 'Install')}</button></div>`).join('')}<p class="phm-note phst-note"></p></div>`);
+    }
+    function phSnake(screen, p) {
+        const st = phState(screen);
+        const f = phOpen(screen, p, 'Snake \'97', `<div class="snk"><div class="snk-top"><span>Score: <b class="snk-score">0</b></span><span>Best: <b>${st.snakeBest}</b></span></div>
+            <canvas width="240" height="240" class="snk-c" aria-label="Snake game"></canvas><p class="snk-msg">Tap a direction (or use the arrow keys) to start</p>
+            <div class="snk-pad"><button type="button" data-dir="0,-1" aria-label="Up">▲</button><button type="button" data-dir="-1,0" aria-label="Left">◀</button><button type="button" data-dir="1,0" aria-label="Right">▶</button><button type="button" data-dir="0,1" aria-label="Down">▼</button></div></div>`, {cls: 'snakef'});
+        const c = f.querySelector('canvas'), g = c.getContext('2d'), N = 12, S = 20;
+        let snake, dir, food, timer = 0, score, alive = false;
+        const place = () => { do { food = [Math.floor(Math.random() * N), Math.floor(Math.random() * N)]; } while (snake.some(s => s[0] === food[0] && s[1] === food[1])); };
+        const draw = () => {
+            g.fillStyle = '#9bbc0f'; g.fillRect(0, 0, 240, 240);
+            g.fillStyle = '#306230'; snake.forEach(([x, y]) => g.fillRect(x * S + 1, y * S + 1, S - 2, S - 2));
+            g.fillStyle = '#0f380f'; g.fillRect(food[0] * S + 5, food[1] * S + 5, S - 10, S - 10);
+        };
+        const reset = () => { snake = [[5, 6], [4, 6], [3, 6]]; dir = [1, 0]; score = 0; place(); draw(); };
+        const step = () => {
+            if (!f.isConnected) return clearInterval(timer);
+            const h = [(snake[0][0] + dir[0] + N) % N, (snake[0][1] + dir[1] + N) % N];
+            if (snake.some(s => s[0] === h[0] && s[1] === h[1])) {
+                alive = false; clearInterval(timer); st.snakeBest = Math.max(st.snakeBest, score);
+                f.querySelector('.snk-msg').textContent = `Game over! Score ${score}. Tap a direction to play again.`; return;
+            }
+            snake.unshift(h);
+            if (h[0] === food[0] && h[1] === food[1]) { score++; f.querySelector('.snk-score').textContent = score; place(); } else snake.pop();
+            draw();
+        };
+        const turn = d => {
+            if (!alive) { reset(); alive = true; f.querySelector('.snk-msg').textContent = ''; clearInterval(timer); timer = setInterval(step, 170); }
+            if (d[0] !== -dir[0] || d[1] !== -dir[1]) dir = d;
+        };
+        f.querySelectorAll('.snk-pad button').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); turn(b.dataset.dir.split(',').map(Number)); }));
+        const keys = {arrowup: [0, -1], arrowdown: [0, 1], arrowleft: [-1, 0], arrowright: [1, 0]};
+        const key = e => { if (!f.isConnected) return document.removeEventListener('keydown', key); const d = keys[e.key.toLowerCase()]; if (d) { e.preventDefault(); turn(d); } };
+        document.addEventListener('keydown', key);
+        let sx = 0, sy = 0;
+        c.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY; });
+        c.addEventListener('pointerup', e => { const dx = e.clientX - sx, dy = e.clientY - sy; if (Math.max(Math.abs(dx), Math.abs(dy)) > 20) turn(Math.abs(dx) > Math.abs(dy) ? [Math.sign(dx), 0] : [0, Math.sign(dy)]); });
+        reset();
+    }
+
+    // ---------- Control centre / quick settings (tap the status bar) ----------
+    function phControl(screen, p) {
+        const st = phState(screen);
+        const old = screen.querySelector('.phcc');
+        if (old) { old.remove(); return; }
+        const t = (k, ic, label, on) => `<button type="button" class="phcc-t${on ? ' on' : ''}" data-fun="ph-cc" data-k="${k}"><span>${ic}</span>${label}</button>`;
+        screen.insertAdjacentHTML('beforeend', `<div class="phcc ph-${p}">${statusBar(p)}<div class="phcc-grid">${t('airplane', '✈️', 'Airplane', st.airplane)}${t('wifi', '📶', 'Wi-Fi', st.wifi)}${t('bt', '🔵', 'Bluetooth', st.bt)}${t('dnd', '🌙', 'Do Not Disturb', st.dnd)}${t('torch', '🔦', 'Torch', st.torch)}${t('dark', '🌓', 'Dark mode', st.dark)}</div>
+            <label class="phcc-slide">☀️<input type="range" min="30" max="100" value="${st.bright}" data-fun-range="bright" aria-label="Brightness"></label>
+            <button type="button" class="cc-close" data-fun="ph-cc-close">${p === 'ios' ? 'Swipe up to close' : 'Close'}</button></div>`);
+        screen.querySelector('[data-fun-range="bright"]').addEventListener('input', e => { st.bright = +e.target.value; phDecorate(screen, p); });
+        phDecorate(screen, p);
+    }
+
+    // After every redraw: wallpaper, dimming, torch, airplane, seasons.
+    function phDecorate(screen, p) {
+        const st = phState(screen);
+        screen.querySelectorAll('.ph-home').forEach(h => { if (st.wall >= 0) h.style.background = PH_WALLS[st.wall]; });
+        screen.style.setProperty('--dim', String((100 - st.bright) / 100 * 0.7));
+        screen.classList.toggle('ph-dimmed', st.bright < 100);
+        screen.classList.toggle('ph-torch', !!st.torch);
+        screen.querySelectorAll('.ph-status-r').forEach(r => { if (st.airplane && !r.querySelector('.st-plane')) r.insertAdjacentHTML('afterbegin', '<span class="st-plane">✈</span>'); if (!st.airplane) r.querySelectorAll('.st-plane').forEach(x => x.remove()); });
+        const home = screen.querySelector('.ph-home');
+        const d = today(), mo = d.getMonth() + 1, day = d.getDate();
+        if (home && !calm() && !home.querySelector('.season')) {
+            let season = '';
+            if (mo === 12 || (mo === 1 && day <= 6)) season = `<div class="season snow" aria-hidden="true">${Array.from({length: 14}, (_, k) => `<i style="left:${(k * 37) % 100}%;animation-duration:${6 + (k % 5)}s;animation-delay:-${(k * 1.3) % 7}s;font-size:${8 + (k % 4) * 3}px">❄</i>`).join('')}</div>`;
+            if (mo === 10 && day >= 24) season = '<div class="season halloween" aria-hidden="true"><span class="pumpkin">🎃</span><span class="bat">🦇</span></div>';
+            if (mo === 2 && day === 14) season = `<div class="season hearts" aria-hidden="true">${Array.from({length: 8}, (_, k) => `<i style="left:${k * 12 + 3}%;animation-delay:-${k * 0.9}s">💕</i>`).join('')}</div>`;
+            if (season) home.insertAdjacentHTML('afterbegin', season);
+        }
+    }
+
+    // Long-press: on an app makes the icons wiggle (like a real home screen); on the wallpaper changes it.
+    function phAttach(screen, getP) {
+        let timer = 0;
+        screen.addEventListener('pointerdown', e => {
+            const home = e.target.closest('.ph-home');
+            if (!home || e.target.closest('[data-hold], .phf, .phcc, .ph-pull')) return;
+            const onApp = e.target.closest('.ph-app');
+            timer = setTimeout(() => {
+                screen._swallow = true;
+                if (onApp) {
+                    home.classList.add('jiggle');
+                    if (!home.querySelector('.jiggle-done')) home.insertAdjacentHTML('beforeend', '<button type="button" class="jiggle-done" data-fun="ph-jiggle-done">Done</button>');
+                } else {
+                    const st = phState(screen); st.wall = (st.wall + 1) % PH_WALLS.length; phDecorate(screen, getP()); phToast(screen, 'New wallpaper');
+                }
+            }, 650);
+        });
+        const stop = () => clearTimeout(timer);
+        screen.addEventListener('pointerup', stop);
+        screen.addEventListener('pointerleave', stop);
+        screen.addEventListener('pointermove', e => { if (Math.abs(e.movementX) + Math.abs(e.movementY) > 6) stop(); });
+    }
+
+    // Everything the practice phone's apps do.
+    function phFun(screen, p, el) {
+        const st = phState(screen);
+        const what = el.dataset.fun;
+        const f = el.closest && el.closest('.phf');
+        switch (what) {
+            case 'ph-close': { const x = screen.querySelector('.phf'); if (!x) return; if (calm()) x.remove(); else { x.classList.add('fx-phclose'); setTimeout(() => x.remove(), 200); } return; }
+            case 'ph-phone': return phDialer(screen, p);
+            case 'ph-key': return phDialer(screen, p, (f.dataset.typed + el.dataset.k).slice(0, 20));
+            case 'ph-del': return phDialer(screen, p, f.dataset.typed.slice(0, -1));
+            case 'ph-call': {
+                const n = f.dataset.typed, egg = DIAL_EGGS[n.replace(/\s/g, '')];
+                const msg = f.querySelector('.phd-msg');
+                if (egg === 'speaking-clock') { const t = today(); msg.textContent = `"At the third stroke, the time will be ${t.getHours()} ${String(t.getMinutes()).padStart(2, '0')} and ${t.getSeconds()} seconds… beep, beep, beep." (The old speaking clock!)`; return; }
+                msg.textContent = egg || (n ? 'This practice phone can\'t make real calls. Try 123, 1471 or *#06#…' : 'Type a number first.');
+                return;
+            }
+            case 'ph-messages': return phMessages(screen, p);
+            case 'ph-thread': return phMessages(screen, p, +el.dataset.n);
+            case 'ph-send': {
+                const inp = f.querySelector('.phm-in'), text = inp.value.trim(), t = +el.dataset.n;
+                if (!text) return;
+                st.sms.push({t, me: true, text});
+                if (t === 0) st.sms.push({t, me: false, text: MUM_REPLIES[Math.floor(Math.random() * MUM_REPLIES.length)]});
+                if (t === 1) st.sms.push({t, me: false, text: 'Please send your bank details to claim your prize!!! (It\'s a scam. Block this number.)'});
+                if (t === 3 && /^y(es)?$/i.test(text)) st.sms.push({t, me: false, text: 'Thank you, your appointment is confirmed. 🦷'});
+                return phMessages(screen, p, t);
+            }
+            case 'ph-camera': return phCamera(screen, p);
+            case 'ph-shutter': {
+                st.photos.push(!!st.selfie);
+                const fl = document.createElement('div'); fl.className = 'phc-flash'; f.appendChild(fl); setTimeout(() => fl.remove(), 300);
+                const th = f.querySelector('.phc-thumb'); th.textContent = st.selfie ? '🙂' : '🌅';
+                return;
+            }
+            case 'ph-flip': st.selfie = !st.selfie; return phCamera(screen, p);
+            case 'ph-photos': case 'ph-photos-open': return phPhotos(screen, p);
+            case 'ph-photo': return phPhotos(screen, p, +el.dataset.n);
+            case 'ph-mail': return phOpen(screen, p, 'Mail', `<div class="phl">${MAILS.map(([from, subj, body], k) => `<details class="phl-mail"><summary><strong>${esc(from)}</strong><small>${esc(subj)}</small></summary>${esc(body).split('\n').map(l => `<p>${l}</p>`).join('')}</details>`).join('')}</div>`);
+            case 'ph-clock': return phClock(screen, p);
+            case 'ph-sw': { const sw = f._sw; if (sw.run) { sw.acc += Date.now() - sw.t0; sw.run = false; el.textContent = 'Start'; } else { sw.t0 = Date.now(); sw.run = true; el.textContent = 'Stop'; } return; }
+            case 'ph-sw-reset': f._sw = {run: false, t0: 0, acc: 0}; f.querySelector('.phk-sw-t').textContent = '00:00.0'; f.querySelector('[data-fun="ph-sw"]').textContent = 'Start'; return;
+            case 'ph-weather': return phWeather(screen, p);
+            case 'ph-sun': { st.sunTaps = (st.sunTaps || 0) + 1; if (st.sunTaps % 5 === 0) phToast(screen, '☀️ Sun cream on! It\'s practically the Costa del Bridlington.'); el.classList.remove('spin'); void el.offsetWidth; el.classList.add('spin'); return; }
+            case 'ph-maps': return phMaps(screen, p);
+            case 'ph-settings': return phSettings(screen, p);
+            case 'ph-toggle': case 'ph-cc': {
+                const k = el.dataset.k; st[k] = !st[k];
+                if (k === 'torch' && st.torch) phToast(screen, '🔦 Torch on. (The screen glows instead of the light on the back.)');
+                if (k === 'airplane') phToast(screen, st.airplane ? '✈️ Airplane mode on: no calls, texts or mobile data.' : 'Airplane mode off.');
+                if (what === 'ph-cc') { screen.querySelector('.phcc').remove(); phControl(screen, p); } else phSettings(screen, p);
+                phDecorate(screen, p);
+                return;
+            }
+            case 'ph-cc-close': { const c = screen.querySelector('.phcc'); if (c) c.remove(); return; }
+            case 'ph-text': st.text = Math.max(-1, Math.min(4, st.text + +el.dataset.d)); return phSettings(screen, p);
+            case 'ph-wall': st.wall = (st.wall + 1) % PH_WALLS.length; phDecorate(screen, p); phToast(screen, 'Wallpaper changed. Go home to see it!'); return;
+            case 'ph-about': return phAbout(screen, p);
+            case 'ph-build': {
+                st.build++;
+                const note = f.querySelector('.phs-egg');
+                note.textContent = st.build >= 7 ? '🎉 You are now a developer! (A real Android secret: tap Build number 7 times.)' : st.build >= 3 ? `You are now ${7 - st.build} steps away from being a developer.` : '';
+                return;
+            }
+            case 'ph-osver': {
+                st.osTaps = (st.osTaps || 0) + 1;
+                if (st.osTaps % 3 === 0) {
+                    const egg = document.createElement('div'); egg.className = 'ph-osegg'; egg.innerHTML = p === 'ios' ? '<span>✨</span><b>Thank you for practising!</b>' : '<span>🤖</span><b>Practice 17</b>';
+                    f.appendChild(egg); setTimeout(() => egg.remove(), 2600);
+                }
+                return;
+            }
+            case 'ph-store': return phStore(screen, p);
+            case 'ph-get': {
+                const id = el.dataset.app;
+                if (id === 'torch') { f.querySelector('.phst-note').textContent = 'You don\'t need a torch app: it\'s built into your phone\'s quick settings. Free torch apps are often full of adverts, or worse!'; return; }
+                if (id === 'knit') { f.querySelector('.phst-note').textContent = 'Just for show in the practice store.'; return; }
+                if (st.installed.includes(id)) return phSnake(screen, p);
+                el.textContent = 'Installing…'; el.disabled = true;
+                setTimeout(() => { st.installed.push(id); if (el.isConnected) { el.textContent = 'Open'; el.disabled = false; } }, 900);
+                return;
+            }
+            case 'ph-generic': return phOpen(screen, p, el.dataset.label || 'App', `<div class="phg"><span>${el.querySelector ? (el.querySelector('.ph-icon') || {}).outerHTML || '' : ''}</span><p>This practice app is part of its own lesson. Have a look through the Learn courses to try it properly.</p></div>`);
+            case 'ph-jiggle-done': { const h = screen.querySelector('.ph-home'); if (h) { h.classList.remove('jiggle'); el.remove(); } return; }
+            case 'ph-status': {
+                // Tapping the clock five times quickly: confetti.
+                st.taps = st.taps.filter(t => Date.now() - t < 2000).concat(Date.now());
+                if (st.taps.length >= 5) {
+                    st.taps = [];
+                    const c = document.createElement('div'); c.className = 'ph-confetti';
+                    c.innerHTML = Array.from({length: 24}, (_, k) => `<i style="left:${(k * 41) % 100}%;background:hsl(${k * 47},85%,55%);animation-delay:${(k % 6) * 0.08}s"></i>`).join('');
+                    screen.appendChild(c); setTimeout(() => c.remove(), 2200); phToast(screen, '🎉 You found a secret!');
+                    return;
+                }
+                return phControl(screen, p);
+            }
+        }
+    }
+
     function start(root) {
         const name = root.dataset.sim;
         const build = SCENARIOS[name];
         if (!build) return;
         const doneKey = 'sim-done:' + name;
+        // Practice computers (Windows, Mac, Linux) use the same engine as the practice phone.
+        const isPC = !!build.device;
+        const OSES = build.oses || (isPC ? ['windows', 'mac', 'linux'] : ['ios', 'android']);
+        const storeKey = isPC ? 'sim-os' : 'sim-platform';
+        if (isPC) root.classList.add('pc');
         let platform = null, steps = [], i = 0, misses = 0, ctx = {};
-        try { platform = localStorage.getItem('sim-platform'); } catch (e) {}
+        try { platform = localStorage.getItem(storeKey); } catch (e) {}
+        const CHOICES = {
+            ios: ['iPhone', 'Made by Apple'], android: ['Android', 'Samsung, Google Pixel, Motorola and others'],
+            windows: ['Windows', 'Most laptops and desktop PCs'], mac: ['Mac', 'Made by Apple: MacBook, iMac'], linux: ['Linux', 'Linux Mint, Ubuntu and others'],
+        };
+        const notSure = isPC
+            ? 'Look at your screen. Windows has a Start button (four little squares) at the bottom. A Mac has an Apple logo at the top left. Linux Mint has a Menu button at the bottom left.'
+            : 'An iPhone has an Apple logo (an apple with a bite out of it) on the back. If yours doesn\'t, it\'s almost certainly an Android phone.';
 
         root.innerHTML = `
             <div class="sim-choose" hidden>
-                <h3>Which phone do you have?</h3>
-                <div class="sim-choose-btns">
-                    <button type="button" data-platform="ios"><strong>iPhone</strong><span>Made by Apple</span></button>
-                    <button type="button" data-platform="android"><strong>Android</strong><span>Samsung, Google Pixel, Motorola and others</span></button>
+                <h3>Which ${isPC ? 'computer do you use' : 'phone do you have'}?</h3>
+                <div class="sim-choose-btns${OSES.length > 2 ? ' three' : ''}">
+                    ${OSES.map(o => `<button type="button" data-platform="${o}"><strong>${CHOICES[o][0]}</strong><span>${CHOICES[o][1]}</span></button>`).join('')}
                 </div>
-                <details><summary>Not sure?</summary><p>An iPhone has an Apple logo (an apple with a bite out of it) on the back. If yours doesn't, it's almost certainly an Android phone.</p></details>
+                <details><summary>Not sure?</summary><p>${notSure}</p></details>
             </div>
             <div class="sim-stage" hidden>
                 <div class="sim-panel">
@@ -3104,11 +4767,11 @@
                     <div class="sim-tools">
                         <button type="button" class="btn-quiet sim-show" hidden>Show me where</button>
                         <button type="button" class="btn-link sim-back">Back a step</button>
-                        <button type="button" class="btn-link sim-switch">Switch phone</button>
+                        <button type="button" class="btn-link sim-switch"${OSES.length < 2 ? ' hidden' : ''}>Switch ${isPC ? 'computer' : 'phone'}</button>
                     </div>
                 </div>
                 <div class="sim-phone-wrap">
-                    <p class="sim-banner">PRACTICE PHONE: not real. Nothing you do here is sent anywhere.</p>
+                    <p class="sim-banner">PRACTICE ${isPC ? 'COMPUTER' : 'PHONE'}: not real. Nothing you do here is sent anywhere.</p>
                     <div class="sim-phone"><div class="sim-screen"></div></div>
                 </div>
             </div>`;
@@ -3122,20 +4785,41 @@
         const hint = root.querySelector('.sim-hint');
         const showBtn = root.querySelector('.sim-show');
 
+        // Practice computer animations: a window animates out before the next step, and in after it.
+        let animating = false, lastId = null, wasMin = false, restoring = false, shiftTap = false, lastPointer = 'mouse';
+        function advance(id) {
+            lastId = id;
+            const ms = isPC ? pcAnimOut(screen, platform, id, shiftTap) : 0;
+            const go = () => { animating = false; restoring = wasMin; wasMin = id === 'win-min'; i += 1; render(); };
+            if (ms) { animating = true; setTimeout(go, ms); } else go();
+        }
+
         function begin(p) {
             platform = p;
-            try { localStorage.setItem('sim-platform', p); } catch (e) {}
+            if (OSES.length > 1) { try { localStorage.setItem(storeKey, p); } catch (e) {} }
             steps = build(p);
             i = 0;
             ctx = {input: {}, ...(steps.start || {})};
             choose.hidden = true;
             stage.hidden = false;
-            phone.className = 'sim-phone ' + p;
+            phone.className = 'sim-phone ' + (isPC ? 'sim-pc ' : '') + p;
             render(false);
+        }
+
+        // When someone wanders off into the practice apps, "Show me where" becomes "Back to the lesson".
+        let wandering = false;
+        function wander(el) {
+            if (el && /^(close|menu-close|max|ph-close|ph-cc-close|ph-jiggle-done)$/.test(el.dataset.fun || '')) return;
+            wandering = true;
+            showBtn.hidden = false;
+            showBtn.textContent = 'Back to the lesson';
         }
 
         function render(focus = true) {
             const step = steps[i];
+            wandering = false;
+            showBtn.textContent = 'Show me where';
+            const prevTitle = isPC ? (screen.querySelector('.pcw:not(.egg) .pcw-title') || {}).textContent : null;
             misses = 0;
             hint.textContent = '';
             showBtn.hidden = true;
@@ -3144,13 +4828,16 @@
             question.innerHTML = '';
             root.querySelector('.sim-back').hidden = i === 0;
             ctx.pos = 0;  // how far through a sequence (passcode digits, fingerprint touches)
-            const draw = c => { screen.innerHTML = step.screen(c); bindInputs(); };
+            const draw = c => { screen.innerHTML = step.screen(c); bindInputs(); if (isPC) pcDecorate(screen, platform); else phDecorate(screen, platform); };
             if (step.wait) {
                 draw({...ctx, busy: true, installed: false});
                 setTimeout(() => { if (steps[i] === step) draw(ctx); }, step.wait);
             } else {
                 draw(ctx);
             }
+            if (isPC) pcAnimIn(screen, platform, lastId, prevTitle, restoring);
+            lastId = null;
+            restoring = false;
             if (step.question) askQuestion(step.question);
             if (step.done) finish();
             if (focus) {
@@ -3195,15 +4882,21 @@
 
         function finish() {
             try { localStorage.setItem(doneKey, '1'); } catch (e) {}
-            question.innerHTML = '<button type="button" class="btn-quiet sim-again">Try it again</button>';
+            // Next to "Try it again", a way on to the next lesson. It uses the page's own "Done, next lesson"
+            // button, so the lesson is still ticked off in their progress.
+            const pageNext = document.querySelector('article.lesson .lesson-done');
+            const last = pageNext && pageNext.getAttribute('href').includes('#course-done');
+            question.innerHTML = `<div class="sim-finish"><button type="button" class="btn-quiet sim-again">Try it again</button>${pageNext
+                ? `<button type="button" class="btn-primary sim-next-lesson">Good work! ${last ? 'Now finish the course' : 'Why not try the next lesson'} &rarr;</button>` : ''}</div>`;
             question.querySelector('.sim-again').addEventListener('click', () => begin(platform));
+            if (pageNext) question.querySelector('.sim-next-lesson').addEventListener('click', () => pageNext.click());
             root.dispatchEvent(new CustomEvent('sim:done', {bubbles: true}));
         }
 
         // A tap on the practice phone: id is the button's data-tap; keyboard is true for Enter/Space presses.
         function handleTap(id, keyboard) {
             const step = steps[i];
-            if (!step || step.question || step.done) return;
+            if (!step || step.question || step.done || animating) return;
             if (step.alias && step.alias[id]) id = step.alias[id];  // e.g. swiping the home bar up = tapping it
             // Sequences: a passcode typed digit by digit, or a sensor touched several times.
             if (step.sequence) {
@@ -3213,6 +4906,7 @@
                     if (ctx.pos < step.sequence.length) {
                         screen.innerHTML = step.screen(ctx);
                         bindInputs();
+                        if (isPC) pcDecorate(screen, platform); else phDecorate(screen, platform);
                         const again = screen.querySelector(`[data-tap="${id}"]`);
                         if (again && keyboard) again.focus();  // keep keyboard users on the keypad
                         return;
@@ -3234,8 +4928,7 @@
                     return;
                 }
                 if (step.action) step.action(ctx);
-                i += 1;
-                render();
+                advance(id);
                 return;
             }
             const free = (step.free || []).includes(id);
@@ -3245,6 +4938,7 @@
                 hint.textContent = '';
                 screen.innerHTML = step.screen(ctx);
                 bindInputs();
+                if (isPC) pcDecorate(screen, platform); else phDecorate(screen, platform);
                 return;
             }
             hint.textContent = (step.hints && step.hints[id]) || ('Not quite. ' + (step.hint || 'Have another look at the instructions.'));
@@ -3259,11 +4953,15 @@
         // tap ID becomes e.g. "swipe-left"; each swipe area also has a small button to tap instead.
         let holdTimer = null, held = false, startX = 0, startY = 0, swipeArea = null;
         screen.addEventListener('pointerdown', e => {
-            const hold = e.target.closest('[data-hold]');
+            lastPointer = e.pointerType;
+            // On a touchscreen, pressing and holding also stands in for right-clicking and for hovering the mouse.
+            const touchy = e.pointerType !== 'mouse';
+            const hold = e.target.closest(touchy ? '[data-hold], [data-rclick], [data-hover]' : '[data-hold]');
             held = false;
             if (hold) {
+                const holdId = hold.dataset.hold || hold.dataset.rclick || hold.dataset.hover;
                 hold.classList.add('holding');
-                holdTimer = setTimeout(() => { held = true; hold.classList.remove('holding'); handleTap(hold.dataset.hold, false); }, 700);
+                holdTimer = setTimeout(() => { held = true; hold.classList.remove('holding'); handleTap(holdId, false); }, 700);
             }
             swipeArea = e.target.closest('[data-swipe]');
             startX = e.clientX;
@@ -3285,7 +4983,87 @@
         screen.addEventListener('pointerleave', cancelHold);
         screen.addEventListener('pointercancel', cancelHold);
 
+        // Right-click (computer lessons). A plain left-click on a right-click target gets a gentle hint.
+        screen.addEventListener('contextmenu', e => {
+            const rc = e.target.closest('[data-rclick]');
+            if (!rc && isPC && e.target.closest('.pc-area') && !e.target.closest('.pcw, .ctx-menu')) {
+                e.preventDefault();
+                pcFun(screen, platform, {dataset: {fun: 'desk-menu'}}, e);
+                return;
+            }
+            if (!rc) return;
+            e.preventDefault();
+            handleTap(rc.dataset.rclick, false);
+        });
+        // Hovering the mouse over something, like a link, to see where it goes.
+        screen.addEventListener('pointerover', e => {
+            const h = e.target.closest('[data-hover]');
+            if (!h || e.pointerType !== 'mouse') return;
+            const step = steps[i];
+            if (step && step.target === h.dataset.hover) handleTap(h.dataset.hover, false);
+        });
+        // The bin easter egg: double-click to open it (a single tap on a touchscreen, or a single click on a Mac Dock).
+        screen.addEventListener('dblclick', e => {
+            const el = isPC && e.target.closest('[data-egg], [data-egg-act="item"]');
+            if (el) pcEgg(screen, platform, el, 'open');
+        });
         screen.addEventListener('click', e => {
+            if (screen._swallow) { screen._swallow = false; e.preventDefault(); return; }
+            shiftTap = e.shiftKey;
+            if (!isPC) {
+                const step = steps[i];
+                const isStep = el => el && el.dataset.tap && step && !step.question && !step.done
+                    && (step.target === el.dataset.tap || (step.sequence || []).includes(el.dataset.tap) || !!(step.alias && step.alias[el.dataset.tap]));
+                const funEl = e.target.closest('[data-fun]');
+                if (funEl && !isStep(funEl)) { phFun(screen, platform, funEl); wander(funEl); return; }
+                // Home screen apps that aren't the step open a working practice app.
+                const appEl = e.target.closest('.ph-app[data-tap]');
+                if (appEl && !isStep(appEl) && !(step && step.hints && step.hints[appEl.dataset.tap])) {
+                    const label = (appEl.querySelector('span:last-child') || {}).textContent || 'App';
+                    phFun(screen, platform, {dataset: {fun: PH_FROM_TAP[appEl.dataset.tap] || 'ph-generic', label}, querySelector: q => appEl.querySelector(q), closest: () => null});
+                    wander(appEl);
+                    return;
+                }
+                // The status bar opens quick settings (tap the clock 5 times for a surprise).
+                if (e.target.closest('.ph-status') && !e.target.closest('.phcc')) {
+                    phFun(screen, platform, {dataset: {fun: 'ph-status'}, closest: () => null});
+                    wander(null);
+                    return;
+                }
+            }
+            const eggEl = isPC && e.target.closest('[data-egg], [data-egg-act]');
+            if (eggEl) {
+                if (eggEl.disabled) return;
+                const quick = lastPointer !== 'mouse' || e.detail === 0;
+                const dock = eggEl.dataset.egg && eggEl.classList.contains('pc-pin');
+                const how = (eggEl.dataset.egg || eggEl.dataset.eggAct === 'item') ? (quick || dock ? 'open' : 'select') : 'act';
+                pcEgg(screen, platform, eggEl, how);
+                return;
+            }
+            if (isPC) {
+                // Close the desktop menu or calendar when clicking anywhere else.
+                if (!e.target.closest('.desk-menu')) screen.querySelectorAll('.desk-menu').forEach(m => m.remove());
+                if (!e.target.closest('.cal-pop, [data-fun="clock"]')) screen.querySelectorAll('.cal-pop').forEach(m => m.remove());
+                const step = steps[i];
+                const isStep = el => el && el.dataset.tap && step && !step.question && !step.done
+                    && (step.target === el.dataset.tap || (step.sequence || []).includes(el.dataset.tap) || !!(step.alias && step.alias[el.dataset.tap]));
+                let funEl = e.target.closest('[data-fun]');
+                // The "Connecting to Wi-Fi" lesson has its own Wi-Fi panel: while it's open, the Wi-Fi symbol stays part of the lesson.
+                if (funEl && funEl.dataset.fun === 'wifi' && screen.querySelector('.wf:not(.fun-wifi)')) funEl = null;
+                if (funEl && !isStep(funEl)) { pcFun(screen, platform, funEl, e); wander(funEl); return; }
+                // Taskbar, Dock, Start menu and other app buttons: open the practice app, unless the lesson has a tip for that click.
+                const tapEl = e.target.closest('[data-tap]');
+                if (tapEl && !funEl && FUN_FROM_TAP[tapEl.dataset.tap] && !isStep(tapEl) && !(tapEl.dataset.tap === 'tray-wifi' && screen.querySelector('.wf:not(.fun-wifi)')) && !(step && step.hints && step.hints[tapEl.dataset.tap])) {
+                    if (pcApp(screen, platform, FUN_FROM_TAP[tapEl.dataset.tap], tapEl)) { wander(tapEl); return; }
+                }
+            }
+            const rc = e.target.closest('[data-rclick]');
+            if (rc && !e.target.closest('[data-tap]')) {
+                if (held) { held = false; return; }
+                if (e.detail === 0) handleTap(rc.dataset.rclick, true);
+                else hint.textContent = 'Right-click it: press the right-hand mouse button. On a Mac trackpad, click with two fingers. On a touchscreen, press and hold.';
+                return;
+            }
             const hold = e.target.closest('[data-hold]');
             if (hold) {
                 if (e.detail === 0) handleTap(hold.dataset.hold, true);  // Enter or Space
@@ -3297,10 +5075,36 @@
             if (btn) handleTap(btn.dataset.tap, e.detail === 0);
         });
 
-        showBtn.addEventListener('click', () => {
+        if (isPC) pcAttach(screen, () => platform);
+        else phAttach(screen, () => platform);
+        screen._redraw = () => { if (!steps[i]) return; screen.innerHTML = steps[i].screen(ctx); bindInputs(); if (isPC) pcDecorate(screen, platform); else phDecorate(screen, platform); };
+
+        // Keyboard shortcuts on a real keyboard, e.g. Ctrl+C becomes "keys-ctrl+c" (Cmd is "cmd", Option is "alt").
+        document.addEventListener('keydown', e => {
+            if (!isPC || stage.hidden || !steps[i]) return;
+            if (!root.contains(document.activeElement) && document.activeElement !== document.body) return;
+            pcKonami(screen, platform, e.key);
+            if (/input|textarea/i.test(document.activeElement.tagName) && !(steps[i].alias && steps[i].alias['keys-enter'] && e.key === 'Enter')) return;
+            const key = e.key === ' ' ? 'space' : e.key.toLowerCase();
+            if (['control', 'meta', 'alt', 'shift'].includes(key)) return;
+            const id = 'keys-' + [e.ctrlKey && 'ctrl', e.metaKey && 'cmd', e.altKey && 'alt', e.shiftKey && 'shift', key].filter(Boolean).join('+');
             const step = steps[i];
             const want = step.sequence ? step.sequence[ctx.pos] : step.target;
-            const target = screen.querySelector(`[data-tap="${want}"], [data-hold="${want}"]`);
+            if ((want && want.startsWith('keys-') && id === want) || (step.alias && step.alias[id])) {
+                e.preventDefault();
+                handleTap(id, true);
+            }
+        });
+
+        showBtn.addEventListener('click', () => {
+            if (wandering) {
+                wandering = false;
+                showBtn.textContent = 'Show me where';
+                if (screen._redraw) screen._redraw();
+            }
+            const step = steps[i];
+            const want = step.sequence ? step.sequence[ctx.pos] : step.target;
+            const target = screen.querySelector(`[data-tap="${want}"], [data-hold="${want}"], [data-rclick="${want}"], [data-hover="${want}"]`);
             if (!target) return;
             target.classList.add('sim-glow');
             target.focus();
@@ -3322,7 +5126,7 @@
         const wrap = root.querySelector('.sim-phone-wrap');
         const panel = root.querySelector('.sim-panel');
         function fit() {
-            if (window.innerWidth >= 760) {
+            if (isPC || window.innerWidth >= 760) {
                 phone.style.transform = '';
                 wrap.style.height = '';
                 return;
@@ -3336,7 +5140,8 @@
         window.addEventListener('resize', fit);
         new MutationObserver(fit).observe(stage, {attributes: true, attributeFilter: ['hidden']});
 
-        if (platform === 'ios' || platform === 'android') begin(platform);
+        if (OSES.includes(platform)) begin(platform);
+        else if (OSES.length === 1) begin(OSES[0]);
         else choose.hidden = false;
         fit();
     }

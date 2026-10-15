@@ -39,8 +39,8 @@
     {"@context": "https://schema.org", "@type": "Course", "description": "A frozen phone, no signal, too many notifications, autocorrect getting it wrong, and connecting headphones.", "educationalLevel": "Beginner", "hasPart": [{"@type": "LearningResource", "name": "Frozen phone? Force it to restart", "url": "https://jamesgartshore.co.uk/learn/fixing-problems/frozen-phone/"}, {"@type": "LearningResource", "name": "No signal? The Airplane mode trick", "url": "https://jamesgartshore.co.uk/learn/fixing-problems/airplane-reset/"}, {"@type": "LearningResource", "name": "Too many notifications?", "url": "https://jamesgartshore.co.uk/learn/fixing-problems/notifications/"}, {"@type": "LearningResource", "name": "Autocorrect changing your words?", "url": "https://jamesgartshore.co.uk/learn/fixing-problems/autocorrect/"}, {"@type": "LearningResource", "name": "Connecting headphones and the car", "url": "https://jamesgartshore.co.uk/learn/fixing-problems/bluetooth/"}], "inLanguage": "en-GB", "isAccessibleForFree": true, "name": "Fixing common problems", "provider": {"@type": "Person", "name": "James Gartshore", "url": "https://jamesgartshore.co.uk/about/"}, "timeRequired": "PT18M", "url": "https://jamesgartshore.co.uk/learn/fixing-problems/"}
     </script>
 
-    <link rel="stylesheet" href="../../style.css?v=24f15ccc">
-    <script src="../../site.js?v=3b852a44" defer></script>
+    <link rel="stylesheet" href="../../style.css?v=cecca909">
+    <script src="../../site.js?v=cff25b83" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -163,15 +163,28 @@
         
     <a class="back" href="../">&larr; All courses</a>
     <article class="course" data-course="fixing-problems" data-coming="0" data-lessons="frozen-phone,airplane-reset,notifications,autocorrect,bluetooth">
-        <span class="course-badge">Free course &middot; 5 lessons &middot; about 18 minutes</span>
-        <h1>Fixing common problems</h1>
+        <header class="course-head">
+            <span class="course-icon" aria-hidden="true">🔧</span>
+            <div>
+                <h1>Fixing common problems</h1>
+                <ul class="course-chips">
+                    <li>Free</li><li>5 lessons</li><li>About 18 minutes</li>
+                    <li>📱 Practice phone</li>
+                </ul>
+            </div>
+        </header>
         <p class="lede">A frozen phone, no signal, too many notifications, autocorrect getting it wrong, and connecting headphones.</p>
         <p><strong>Who it's for:</strong> Anyone whose phone sometimes plays up. Most problems have a quick fix you can do yourself.</p>
 
         <div class="course-start">
-            <a class="btn-primary" id="course-go" href="frozen-phone/">Start the course</a>
-            <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            <a class="btn-primary" id="course-go" href="frozen-phone/">Start the course &rarr;</a>
+            <div class="course-progress-wrap">
+                <span class="cc-bar" id="course-bar" hidden><span></span></span>
+                <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            </div>
         </div>
+
+        
 
         <h2>Lessons</h2>
         <ol class="lesson-list">
@@ -179,7 +192,7 @@
             <li data-lesson="frozen-phone">
                 <a href="frozen-phone/">
                     <span class="lesson-num" aria-hidden="true">1</span>
-                    <span class="lesson-text"><strong>Frozen phone? Force it to restart</strong><span>Get a stuck phone working again, without losing anything.</span></span>
+                    <span class="lesson-text"><strong>Frozen phone? Force it to restart <em class="up-next" hidden>Up next</em></strong><span>Get a stuck phone working again, without losing anything.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">3 min</span></span>
                 </a>
             </li>
@@ -187,7 +200,7 @@
             <li data-lesson="airplane-reset">
                 <a href="airplane-reset/">
                     <span class="lesson-num" aria-hidden="true">2</span>
-                    <span class="lesson-text"><strong>No signal? The Airplane mode trick</strong><span>Make your phone reconnect when it says No service.</span></span>
+                    <span class="lesson-text"><strong>No signal? The Airplane mode trick <em class="up-next" hidden>Up next</em></strong><span>Make your phone reconnect when it says No service.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">3 min</span></span>
                 </a>
             </li>
@@ -195,7 +208,7 @@
             <li data-lesson="notifications">
                 <a href="notifications/">
                     <span class="lesson-num" aria-hidden="true">3</span>
-                    <span class="lesson-text"><strong>Too many notifications?</strong><span>Stop apps nagging you, and find a message you swiped away by mistake.</span></span>
+                    <span class="lesson-text"><strong>Too many notifications? <em class="up-next" hidden>Up next</em></strong><span>Stop apps nagging you, and find a message you swiped away by mistake.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">4 min</span></span>
                 </a>
             </li>
@@ -203,7 +216,7 @@
             <li data-lesson="autocorrect">
                 <a href="autocorrect/">
                     <span class="lesson-num" aria-hidden="true">4</span>
-                    <span class="lesson-text"><strong>Autocorrect changing your words?</strong><span>Turn autocorrect off, or teach it words it keeps getting wrong.</span></span>
+                    <span class="lesson-text"><strong>Autocorrect changing your words? <em class="up-next" hidden>Up next</em></strong><span>Turn autocorrect off, or teach it words it keeps getting wrong.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">4 min</span></span>
                 </a>
             </li>
@@ -211,7 +224,7 @@
             <li data-lesson="bluetooth">
                 <a href="bluetooth/">
                     <span class="lesson-num" aria-hidden="true">5</span>
-                    <span class="lesson-text"><strong>Connecting headphones and the car</strong><span>Pair wireless headphones, a speaker or your car with Bluetooth.</span></span>
+                    <span class="lesson-text"><strong>Connecting headphones and the car <em class="up-next" hidden>Up next</em></strong><span>Pair wireless headphones, a speaker or your car with Bluetooth.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">4 min</span></span>
                 </a>
             </li>
@@ -237,6 +250,17 @@
             </div>
             <button type="button" class="btn-primary no-print" data-print="certificate">Print my certificate</button>
         </section>
+        
+
+        
+        <aside class="next-course" aria-labelledby="next-course-h">
+            <h2 id="next-course-h">What next?</h2>
+            <a class="course-card small" href="../spotting-scams/">
+                <span class="cc-icon" aria-hidden="true">🕵️</span>
+                <span class="cc-body"><h3>Spotting scams</h3><span class="cc-summary">Learn the warning signs that almost every scam uses, then practise spotting scam texts, emails, phone calls and websites, and know exactly what to do if you&#39;re caught out.</span>
+                <span class="cc-meta">6 lessons &middot; 32 min</span></span>
+            </a>
+        </aside>
         
 
         <div class="callout">

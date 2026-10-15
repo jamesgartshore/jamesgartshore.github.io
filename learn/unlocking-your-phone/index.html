@@ -39,8 +39,8 @@
     {"@context": "https://schema.org", "@type": "Course", "description": "Set up quick, safe ways to unlock your phone and approve downloads and payments, practising every step on a pretend phone first.", "educationalLevel": "Beginner", "hasPart": [{"@type": "LearningResource", "name": "Setting a passcode", "url": "https://jamesgartshore.co.uk/learn/unlocking-your-phone/passcode/"}, {"@type": "LearningResource", "name": "Face ID and Face Unlock", "url": "https://jamesgartshore.co.uk/learn/unlocking-your-phone/face-id/"}, {"@type": "LearningResource", "name": "Touch ID and fingerprints", "url": "https://jamesgartshore.co.uk/learn/unlocking-your-phone/fingerprint/"}, {"@type": "LearningResource", "name": "Using them safely every day", "url": "https://jamesgartshore.co.uk/learn/unlocking-your-phone/everyday/"}], "inLanguage": "en-GB", "isAccessibleForFree": true, "name": "Face ID, fingerprints and passcodes", "provider": {"@type": "Person", "name": "James Gartshore", "url": "https://jamesgartshore.co.uk/about/"}, "timeRequired": "PT23M", "url": "https://jamesgartshore.co.uk/learn/unlocking-your-phone/"}
     </script>
 
-    <link rel="stylesheet" href="../../style.css?v=24f15ccc">
-    <script src="../../site.js?v=3b852a44" defer></script>
+    <link rel="stylesheet" href="../../style.css?v=cecca909">
+    <script src="../../site.js?v=cff25b83" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -163,15 +163,28 @@
         
     <a class="back" href="../">&larr; All courses</a>
     <article class="course" data-course="unlocking-your-phone" data-coming="0" data-lessons="passcode,face-id,fingerprint,everyday">
-        <span class="course-badge">Free course &middot; 4 lessons &middot; about 23 minutes</span>
-        <h1>Face ID, fingerprints and passcodes</h1>
+        <header class="course-head">
+            <span class="course-icon" aria-hidden="true">🔒</span>
+            <div>
+                <h1>Face ID, fingerprints and passcodes</h1>
+                <ul class="course-chips">
+                    <li>Free</li><li>4 lessons</li><li>About 23 minutes</li>
+                    <li>📱 Practice phone</li>
+                </ul>
+            </div>
+        </header>
         <p class="lede">Set up quick, safe ways to unlock your phone and approve downloads and payments, practising every step on a pretend phone first.</p>
         <p><strong>Who it's for:</strong> Anyone with an iPhone or Android phone who wants it locked safely, without the hassle of typing a code every time.</p>
 
         <div class="course-start">
-            <a class="btn-primary" id="course-go" href="passcode/">Start the course</a>
-            <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            <a class="btn-primary" id="course-go" href="passcode/">Start the course &rarr;</a>
+            <div class="course-progress-wrap">
+                <span class="cc-bar" id="course-bar" hidden><span></span></span>
+                <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            </div>
         </div>
+
+        
 
         <h2>Lessons</h2>
         <ol class="lesson-list">
@@ -179,7 +192,7 @@
             <li data-lesson="passcode">
                 <a href="passcode/">
                     <span class="lesson-num" aria-hidden="true">1</span>
-                    <span class="lesson-text"><strong>Setting a passcode</strong><span>Why every phone needs a passcode, how to choose a good one, and how to set it up.</span></span>
+                    <span class="lesson-text"><strong>Setting a passcode <em class="up-next" hidden>Up next</em></strong><span>Why every phone needs a passcode, how to choose a good one, and how to set it up.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -187,7 +200,7 @@
             <li data-lesson="face-id">
                 <a href="face-id/">
                     <span class="lesson-num" aria-hidden="true">2</span>
-                    <span class="lesson-text"><strong>Face ID and Face Unlock</strong><span>Unlock your phone just by looking at it, and what to know before you set it up.</span></span>
+                    <span class="lesson-text"><strong>Face ID and Face Unlock <em class="up-next" hidden>Up next</em></strong><span>Unlock your phone just by looking at it, and what to know before you set it up.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -195,7 +208,7 @@
             <li data-lesson="fingerprint">
                 <a href="fingerprint/">
                     <span class="lesson-num" aria-hidden="true">3</span>
-                    <span class="lesson-text"><strong>Touch ID and fingerprints</strong><span>Add your fingerprint to unlock with a touch, with tips to make it work reliably.</span></span>
+                    <span class="lesson-text"><strong>Touch ID and fingerprints <em class="up-next" hidden>Up next</em></strong><span>Add your fingerprint to unlock with a touch, with tips to make it work reliably.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -203,7 +216,7 @@
             <li data-lesson="everyday">
                 <a href="everyday/">
                     <span class="lesson-num" aria-hidden="true">4</span>
-                    <span class="lesson-text"><strong>Using them safely every day</strong><span>Approving downloads and payments, what to do when it doesn&#39;t work, and extra protection if your phone is stolen.</span></span>
+                    <span class="lesson-text"><strong>Using them safely every day <em class="up-next" hidden>Up next</em></strong><span>Approving downloads and payments, what to do when it doesn&#39;t work, and extra protection if your phone is stolen.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -229,6 +242,17 @@
             </div>
             <button type="button" class="btn-primary no-print" data-print="certificate">Print my certificate</button>
         </section>
+        
+
+        
+        <aside class="next-course" aria-labelledby="next-course-h">
+            <h2 id="next-course-h">What next?</h2>
+            <a class="course-card small" href="../phone-safety/">
+                <span class="cc-icon" aria-hidden="true">🛡️</span>
+                <span class="cc-body"><h3>Keeping your phone safe</h3><span class="cc-summary">Block nuisance calls, report scam texts, keep your phone updated, set up your Medical ID and find a lost phone.</span>
+                <span class="cc-meta">5 lessons &middot; 26 min</span></span>
+            </a>
+        </aside>
         
 
         <div class="callout">

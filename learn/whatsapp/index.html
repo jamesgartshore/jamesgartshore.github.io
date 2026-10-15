@@ -39,8 +39,8 @@
     {"@context": "https://schema.org", "@type": "Course", "description": "Set up WhatsApp step by step on a practice phone, then learn to send messages, photos and voice notes, make video calls and stay safe.", "educationalLevel": "Beginner", "hasPart": [{"@type": "LearningResource", "name": "Setting up WhatsApp", "url": "https://jamesgartshore.co.uk/learn/whatsapp/setting-up/"}, {"@type": "LearningResource", "name": "Messages, photos and voice notes", "url": "https://jamesgartshore.co.uk/learn/whatsapp/messages/"}, {"@type": "LearningResource", "name": "Video calls and group chats", "url": "https://jamesgartshore.co.uk/learn/whatsapp/calls-and-groups/"}, {"@type": "LearningResource", "name": "Staying safe on WhatsApp", "url": "https://jamesgartshore.co.uk/learn/whatsapp/staying-safe/"}], "inLanguage": "en-GB", "isAccessibleForFree": true, "name": "Getting started with WhatsApp", "provider": {"@type": "Person", "name": "James Gartshore", "url": "https://jamesgartshore.co.uk/about/"}, "timeRequired": "PT30M", "url": "https://jamesgartshore.co.uk/learn/whatsapp/"}
     </script>
 
-    <link rel="stylesheet" href="../../style.css?v=24f15ccc">
-    <script src="../../site.js?v=3b852a44" defer></script>
+    <link rel="stylesheet" href="../../style.css?v=cecca909">
+    <script src="../../site.js?v=cff25b83" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -163,15 +163,28 @@
         
     <a class="back" href="../">&larr; All courses</a>
     <article class="course" data-course="whatsapp" data-coming="0" data-lessons="setting-up,messages,calls-and-groups,staying-safe">
-        <span class="course-badge">Free course &middot; 4 lessons &middot; about 30 minutes</span>
-        <h1>Getting started with WhatsApp</h1>
+        <header class="course-head">
+            <span class="course-icon" aria-hidden="true">💬</span>
+            <div>
+                <h1>Getting started with WhatsApp</h1>
+                <ul class="course-chips">
+                    <li>Free</li><li>4 lessons</li><li>About 30 minutes</li>
+                    <li>📱 Practice phone</li>
+                </ul>
+            </div>
+        </header>
         <p class="lede">Set up WhatsApp step by step on a practice phone, then learn to send messages, photos and voice notes, make video calls and stay safe.</p>
         <p><strong>Who it's for:</strong> Anyone new to WhatsApp, on an iPhone or an Android phone.</p>
 
         <div class="course-start">
-            <a class="btn-primary" id="course-go" href="setting-up/">Start the course</a>
-            <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            <a class="btn-primary" id="course-go" href="setting-up/">Start the course &rarr;</a>
+            <div class="course-progress-wrap">
+                <span class="cc-bar" id="course-bar" hidden><span></span></span>
+                <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            </div>
         </div>
+
+        
 
         <h2>Lessons</h2>
         <ol class="lesson-list">
@@ -179,7 +192,7 @@
             <li data-lesson="setting-up">
                 <a href="setting-up/">
                     <span class="lesson-num" aria-hidden="true">1</span>
-                    <span class="lesson-text"><strong>Setting up WhatsApp</strong><span>Download WhatsApp safely, add your number and name, and practise every step on a pretend phone first.</span></span>
+                    <span class="lesson-text"><strong>Setting up WhatsApp <em class="up-next" hidden>Up next</em></strong><span>Download WhatsApp safely, add your number and name, and practise every step on a pretend phone first.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">8 min</span></span>
                 </a>
             </li>
@@ -187,7 +200,7 @@
             <li data-lesson="messages">
                 <a href="messages/">
                     <span class="lesson-num" aria-hidden="true">2</span>
-                    <span class="lesson-text"><strong>Messages, photos and voice notes</strong><span>Start a chat, send messages, photos and voice notes, and learn what the ticks mean.</span></span>
+                    <span class="lesson-text"><strong>Messages, photos and voice notes <em class="up-next" hidden>Up next</em></strong><span>Start a chat, send messages, photos and voice notes, and learn what the ticks mean.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">7 min</span></span>
                 </a>
             </li>
@@ -195,7 +208,7 @@
             <li data-lesson="calls-and-groups">
                 <a href="calls-and-groups/">
                     <span class="lesson-num" aria-hidden="true">3</span>
-                    <span class="lesson-text"><strong>Video calls and group chats</strong><span>Make free video calls, use the call buttons, and keep busy groups under control.</span></span>
+                    <span class="lesson-text"><strong>Video calls and group chats <em class="up-next" hidden>Up next</em></strong><span>Make free video calls, use the call buttons, and keep busy groups under control.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">7 min</span></span>
                 </a>
             </li>
@@ -203,7 +216,7 @@
             <li data-lesson="staying-safe">
                 <a href="staying-safe/">
                     <span class="lesson-num" aria-hidden="true">4</span>
-                    <span class="lesson-text"><strong>Staying safe on WhatsApp</strong><span>Turn on two-step verification, stop strangers adding you to groups, and block and report scammers.</span></span>
+                    <span class="lesson-text"><strong>Staying safe on WhatsApp <em class="up-next" hidden>Up next</em></strong><span>Turn on two-step verification, stop strangers adding you to groups, and block and report scammers.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">8 min</span></span>
                 </a>
             </li>
@@ -229,6 +242,17 @@
             </div>
             <button type="button" class="btn-primary no-print" data-print="certificate">Print my certificate</button>
         </section>
+        
+
+        
+        <aside class="next-course" aria-labelledby="next-course-h">
+            <h2 id="next-course-h">What next?</h2>
+            <a class="course-card small" href="../unlocking-your-phone/">
+                <span class="cc-icon" aria-hidden="true">🔒</span>
+                <span class="cc-body"><h3>Face ID, fingerprints and passcodes</h3><span class="cc-summary">Set up quick, safe ways to unlock your phone and approve downloads and payments, practising every step on a pretend phone first.</span>
+                <span class="cc-meta">4 lessons &middot; 23 min</span></span>
+            </a>
+        </aside>
         
 
         <div class="callout">

@@ -39,8 +39,8 @@
     {"@context": "https://schema.org", "@type": "Course", "description": "Block nuisance calls, report scam texts, keep your phone updated, set up your Medical ID and find a lost phone.", "educationalLevel": "Beginner", "hasPart": [{"@type": "LearningResource", "name": "Blocking nuisance calls", "url": "https://jamesgartshore.co.uk/learn/phone-safety/block-calls/"}, {"@type": "LearningResource", "name": "Reporting scam texts to 7726", "url": "https://jamesgartshore.co.uk/learn/phone-safety/report-texts/"}, {"@type": "LearningResource", "name": "Software updates", "url": "https://jamesgartshore.co.uk/learn/phone-safety/updates/"}, {"@type": "LearningResource", "name": "Medical ID and emergency contacts", "url": "https://jamesgartshore.co.uk/learn/phone-safety/medical-id/"}, {"@type": "LearningResource", "name": "Finding a lost phone", "url": "https://jamesgartshore.co.uk/learn/phone-safety/find-phone/"}], "inLanguage": "en-GB", "isAccessibleForFree": true, "name": "Keeping your phone safe", "provider": {"@type": "Person", "name": "James Gartshore", "url": "https://jamesgartshore.co.uk/about/"}, "timeRequired": "PT26M", "url": "https://jamesgartshore.co.uk/learn/phone-safety/"}
     </script>
 
-    <link rel="stylesheet" href="../../style.css?v=24f15ccc">
-    <script src="../../site.js?v=3b852a44" defer></script>
+    <link rel="stylesheet" href="../../style.css?v=cecca909">
+    <script src="../../site.js?v=cff25b83" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -163,15 +163,28 @@
         
     <a class="back" href="../">&larr; All courses</a>
     <article class="course" data-course="phone-safety" data-coming="0" data-lessons="block-calls,report-texts,updates,medical-id,find-phone">
-        <span class="course-badge">Free course &middot; 5 lessons &middot; about 26 minutes</span>
-        <h1>Keeping your phone safe</h1>
+        <header class="course-head">
+            <span class="course-icon" aria-hidden="true">🛡️</span>
+            <div>
+                <h1>Keeping your phone safe</h1>
+                <ul class="course-chips">
+                    <li>Free</li><li>5 lessons</li><li>About 26 minutes</li>
+                    <li>📱 Practice phone</li>
+                </ul>
+            </div>
+        </header>
         <p class="lede">Block nuisance calls, report scam texts, keep your phone updated, set up your Medical ID and find a lost phone.</p>
         <p><strong>Who it's for:</strong> Everyone with a smartphone, especially if you get nuisance calls or scam texts.</p>
 
         <div class="course-start">
-            <a class="btn-primary" id="course-go" href="block-calls/">Start the course</a>
-            <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            <a class="btn-primary" id="course-go" href="block-calls/">Start the course &rarr;</a>
+            <div class="course-progress-wrap">
+                <span class="cc-bar" id="course-bar" hidden><span></span></span>
+                <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            </div>
         </div>
+
+        
 
         <h2>Lessons</h2>
         <ol class="lesson-list">
@@ -179,7 +192,7 @@
             <li data-lesson="block-calls">
                 <a href="block-calls/">
                     <span class="lesson-num" aria-hidden="true">1</span>
-                    <span class="lesson-text"><strong>Blocking nuisance calls</strong><span>Block a number that keeps calling, and silence or filter unknown callers.</span></span>
+                    <span class="lesson-text"><strong>Blocking nuisance calls <em class="up-next" hidden>Up next</em></strong><span>Block a number that keeps calling, and silence or filter unknown callers.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -187,7 +200,7 @@
             <li data-lesson="report-texts">
                 <a href="report-texts/">
                     <span class="lesson-num" aria-hidden="true">2</span>
-                    <span class="lesson-text"><strong>Reporting scam texts to 7726</strong><span>Forward scam texts to 7726, for free, so networks can block them.</span></span>
+                    <span class="lesson-text"><strong>Reporting scam texts to 7726 <em class="up-next" hidden>Up next</em></strong><span>Forward scam texts to 7726, for free, so networks can block them.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -195,7 +208,7 @@
             <li data-lesson="updates">
                 <a href="updates/">
                     <span class="lesson-num" aria-hidden="true">3</span>
-                    <span class="lesson-text"><strong>Software updates</strong><span>Keep your phone updated to fix security problems, and turn on automatic updates.</span></span>
+                    <span class="lesson-text"><strong>Software updates <em class="up-next" hidden>Up next</em></strong><span>Keep your phone updated to fix security problems, and turn on automatic updates.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -203,7 +216,7 @@
             <li data-lesson="medical-id">
                 <a href="medical-id/">
                     <span class="lesson-num" aria-hidden="true">4</span>
-                    <span class="lesson-text"><strong>Medical ID and emergency contacts</strong><span>Store allergies, conditions and an emergency contact that paramedics can see.</span></span>
+                    <span class="lesson-text"><strong>Medical ID and emergency contacts <em class="up-next" hidden>Up next</em></strong><span>Store allergies, conditions and an emergency contact that paramedics can see.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -211,7 +224,7 @@
             <li data-lesson="find-phone">
                 <a href="find-phone/">
                     <span class="lesson-num" aria-hidden="true">5</span>
-                    <span class="lesson-text"><strong>Finding a lost phone</strong><span>Switch on Find My or Find Hub, then make a lost phone ring or lock it.</span></span>
+                    <span class="lesson-text"><strong>Finding a lost phone <em class="up-next" hidden>Up next</em></strong><span>Switch on Find My or Find Hub, then make a lost phone ring or lock it.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -237,6 +250,17 @@
             </div>
             <button type="button" class="btn-primary no-print" data-print="certificate">Print my certificate</button>
         </section>
+        
+
+        
+        <aside class="next-course" aria-labelledby="next-course-h">
+            <h2 id="next-course-h">What next?</h2>
+            <a class="course-card small" href="../emergency/">
+                <span class="cc-icon" aria-hidden="true">🚑</span>
+                <span class="cc-body"><h3>In an emergency</h3><span class="cc-summary">Set up Emergency SOS and alerts, protect your phone from thieves, deal with a tracker alert, and tell 999 exactly where you are.</span>
+                <span class="cc-meta">5 lessons &middot; 23 min</span></span>
+            </a>
+        </aside>
         
 
         <div class="callout">

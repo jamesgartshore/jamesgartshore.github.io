@@ -39,8 +39,8 @@
     {"@context": "https://schema.org", "@type": "Course", "description": "The NHS App, your banking app, paying with your phone, train tickets and bus journeys, on pretend apps first.", "educationalLevel": "Beginner", "hasPart": [{"@type": "LearningResource", "name": "The NHS App", "url": "https://jamesgartshore.co.uk/learn/health-money-travel/nhs-app/"}, {"@type": "LearningResource", "name": "Your banking app", "url": "https://jamesgartshore.co.uk/learn/health-money-travel/banking/"}, {"@type": "LearningResource", "name": "Paying with your phone", "url": "https://jamesgartshore.co.uk/learn/health-money-travel/contactless/"}, {"@type": "LearningResource", "name": "Train tickets on your phone", "url": "https://jamesgartshore.co.uk/learn/health-money-travel/trains/"}, {"@type": "LearningResource", "name": "Bus journeys with Maps", "url": "https://jamesgartshore.co.uk/learn/health-money-travel/bus-maps/"}, {"@type": "LearningResource", "name": "Paying for parking by app", "url": "https://jamesgartshore.co.uk/learn/health-money-travel/parking/"}, {"@type": "LearningResource", "name": "Check your phone plan with one text", "url": "https://jamesgartshore.co.uk/learn/health-money-travel/phone-plan/"}], "inLanguage": "en-GB", "isAccessibleForFree": true, "name": "Health, money and travel", "provider": {"@type": "Person", "name": "James Gartshore", "url": "https://jamesgartshore.co.uk/about/"}, "timeRequired": "PT37M", "url": "https://jamesgartshore.co.uk/learn/health-money-travel/"}
     </script>
 
-    <link rel="stylesheet" href="../../style.css?v=24f15ccc">
-    <script src="../../site.js?v=3b852a44" defer></script>
+    <link rel="stylesheet" href="../../style.css?v=cecca909">
+    <script src="../../site.js?v=cff25b83" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -163,15 +163,28 @@
         
     <a class="back" href="../">&larr; All courses</a>
     <article class="course" data-course="health-money-travel" data-coming="0" data-lessons="nhs-app,banking,contactless,trains,bus-maps,parking,phone-plan">
-        <span class="course-badge">Free course &middot; 7 lessons &middot; about 37 minutes</span>
-        <h1>Health, money and travel</h1>
+        <header class="course-head">
+            <span class="course-icon" aria-hidden="true">🚆</span>
+            <div>
+                <h1>Health, money and travel</h1>
+                <ul class="course-chips">
+                    <li>Free</li><li>7 lessons</li><li>About 37 minutes</li>
+                    <li>📱 Practice phone</li>
+                </ul>
+            </div>
+        </header>
         <p class="lede">The NHS App, your banking app, paying with your phone, train tickets and bus journeys, on pretend apps first.</p>
         <p><strong>Who it's for:</strong> Anyone who&#39;d like to use their phone for prescriptions, banking, shopping or travel, safely.</p>
 
         <div class="course-start">
-            <a class="btn-primary" id="course-go" href="nhs-app/">Start the course</a>
-            <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            <a class="btn-primary" id="course-go" href="nhs-app/">Start the course &rarr;</a>
+            <div class="course-progress-wrap">
+                <span class="cc-bar" id="course-bar" hidden><span></span></span>
+                <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            </div>
         </div>
+
+        
 
         <h2>Lessons</h2>
         <ol class="lesson-list">
@@ -179,7 +192,7 @@
             <li data-lesson="nhs-app">
                 <a href="nhs-app/">
                     <span class="lesson-num" aria-hidden="true">1</span>
-                    <span class="lesson-text"><strong>The NHS App</strong><span>Order repeat prescriptions and check appointments in the NHS App.</span></span>
+                    <span class="lesson-text"><strong>The NHS App <em class="up-next" hidden>Up next</em></strong><span>Order repeat prescriptions and check appointments in the NHS App.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -187,7 +200,7 @@
             <li data-lesson="banking">
                 <a href="banking/">
                     <span class="lesson-num" aria-hidden="true">2</span>
-                    <span class="lesson-text"><strong>Your banking app</strong><span>Check your balance, spot payments you don&#39;t recognise and freeze your card.</span></span>
+                    <span class="lesson-text"><strong>Your banking app <em class="up-next" hidden>Up next</em></strong><span>Check your balance, spot payments you don&#39;t recognise and freeze your card.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -195,7 +208,7 @@
             <li data-lesson="contactless">
                 <a href="contactless/">
                     <span class="lesson-num" aria-hidden="true">3</span>
-                    <span class="lesson-text"><strong>Paying with your phone</strong><span>Add your card to Apple Pay or Google Wallet, and pay in shops.</span></span>
+                    <span class="lesson-text"><strong>Paying with your phone <em class="up-next" hidden>Up next</em></strong><span>Add your card to Apple Pay or Google Wallet, and pay in shops.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -203,7 +216,7 @@
             <li data-lesson="trains">
                 <a href="trains/">
                     <span class="lesson-num" aria-hidden="true">4</span>
-                    <span class="lesson-text"><strong>Train tickets on your phone</strong><span>Plan a journey, add your Senior Railcard and buy a ticket on your phone.</span></span>
+                    <span class="lesson-text"><strong>Train tickets on your phone <em class="up-next" hidden>Up next</em></strong><span>Plan a journey, add your Senior Railcard and buy a ticket on your phone.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -211,7 +224,7 @@
             <li data-lesson="bus-maps">
                 <a href="bus-maps/">
                     <span class="lesson-num" aria-hidden="true">5</span>
-                    <span class="lesson-text"><strong>Bus journeys with Maps</strong><span>Plan a bus journey with live times, and find out where to catch it.</span></span>
+                    <span class="lesson-text"><strong>Bus journeys with Maps <em class="up-next" hidden>Up next</em></strong><span>Plan a bus journey with live times, and find out where to catch it.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -219,7 +232,7 @@
             <li data-lesson="parking">
                 <a href="parking/">
                     <span class="lesson-num" aria-hidden="true">6</span>
-                    <span class="lesson-text"><strong>Paying for parking by app</strong><span>Pay for a car park with your phone, and add time without going back to the car.</span></span>
+                    <span class="lesson-text"><strong>Paying for parking by app <em class="up-next" hidden>Up next</em></strong><span>Pay for a car park with your phone, and add time without going back to the car.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">4 min</span></span>
                 </a>
             </li>
@@ -227,7 +240,7 @@
             <li data-lesson="phone-plan">
                 <a href="phone-plan/">
                     <span class="lesson-num" aria-hidden="true">7</span>
-                    <span class="lesson-text"><strong>Check your phone plan with one text</strong><span>Find out if you&#39;re out of contract, and turn off roaming before a trip.</span></span>
+                    <span class="lesson-text"><strong>Check your phone plan with one text <em class="up-next" hidden>Up next</em></strong><span>Find out if you&#39;re out of contract, and turn off roaming before a trip.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">4 min</span></span>
                 </a>
             </li>
@@ -253,6 +266,17 @@
             </div>
             <button type="button" class="btn-primary no-print" data-print="certificate">Print my certificate</button>
         </section>
+        
+
+        
+        <aside class="next-course" aria-labelledby="next-course-h">
+            <h2 id="next-course-h">What next?</h2>
+            <a class="course-card small" href="../computer-basics/">
+                <span class="cc-icon" aria-hidden="true">💻</span>
+                <span class="cc-body"><h3>Computer basics: Windows, Mac and Linux</h3><span class="cc-summary">Windows, files and folders, Wi-Fi, keyboard shortcuts, installing apps safely and updates, practised on a pretend computer that looks like yours.</span>
+                <span class="cc-meta">6 lessons &middot; 26 min</span></span>
+            </a>
+        </aside>
         
 
         <div class="callout">

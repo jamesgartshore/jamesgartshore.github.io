@@ -39,8 +39,8 @@
     {"@context": "https://schema.org", "@type": "Course", "description": "Set up Emergency SOS and alerts, protect your phone from thieves, deal with a tracker alert, and tell 999 exactly where you are.", "educationalLevel": "Beginner", "hasPart": [{"@type": "LearningResource", "name": "Emergency SOS and emergency contacts", "url": "https://jamesgartshore.co.uk/learn/emergency/emergency-sos/"}, {"@type": "LearningResource", "name": "Emergency Alerts", "url": "https://jamesgartshore.co.uk/learn/emergency/emergency-alerts/"}, {"@type": "LearningResource", "name": "Protecting your phone from thieves", "url": "https://jamesgartshore.co.uk/learn/emergency/theft-protection/"}, {"@type": "LearningResource", "name": "\"A tracker is moving with you\"", "url": "https://jamesgartshore.co.uk/learn/emergency/tracker-alert/"}, {"@type": "LearningResource", "name": "Calling 999 when you don\u0027t know where you are", "url": "https://jamesgartshore.co.uk/learn/emergency/lost-999/"}], "inLanguage": "en-GB", "isAccessibleForFree": true, "name": "In an emergency", "provider": {"@type": "Person", "name": "James Gartshore", "url": "https://jamesgartshore.co.uk/about/"}, "timeRequired": "PT23M", "url": "https://jamesgartshore.co.uk/learn/emergency/"}
     </script>
 
-    <link rel="stylesheet" href="../../style.css?v=24f15ccc">
-    <script src="../../site.js?v=3b852a44" defer></script>
+    <link rel="stylesheet" href="../../style.css?v=cecca909">
+    <script src="../../site.js?v=cff25b83" defer></script>
     <script>
         // Apply saved display choices before the page draws, so nothing jumps or flashes.
         (function () {
@@ -163,15 +163,28 @@
         
     <a class="back" href="../">&larr; All courses</a>
     <article class="course" data-course="emergency" data-coming="0" data-lessons="emergency-sos,emergency-alerts,theft-protection,tracker-alert,lost-999">
-        <span class="course-badge">Free course &middot; 5 lessons &middot; about 23 minutes</span>
-        <h1>In an emergency</h1>
+        <header class="course-head">
+            <span class="course-icon" aria-hidden="true">🚑</span>
+            <div>
+                <h1>In an emergency</h1>
+                <ul class="course-chips">
+                    <li>Free</li><li>5 lessons</li><li>About 23 minutes</li>
+                    <li>📱 Practice phone</li>
+                </ul>
+            </div>
+        </header>
         <p class="lede">Set up Emergency SOS and alerts, protect your phone from thieves, deal with a tracker alert, and tell 999 exactly where you are.</p>
         <p><strong>Who it's for:</strong> Everyone. These take a few minutes to set up now, and could make all the difference later.</p>
 
         <div class="course-start">
-            <a class="btn-primary" id="course-go" href="emergency-sos/">Start the course</a>
-            <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            <a class="btn-primary" id="course-go" href="emergency-sos/">Start the course &rarr;</a>
+            <div class="course-progress-wrap">
+                <span class="cc-bar" id="course-bar" hidden><span></span></span>
+                <span class="course-progress" id="course-progress" aria-live="polite"></span>
+            </div>
         </div>
+
+        
 
         <h2>Lessons</h2>
         <ol class="lesson-list">
@@ -179,7 +192,7 @@
             <li data-lesson="emergency-sos">
                 <a href="emergency-sos/">
                     <span class="lesson-num" aria-hidden="true">1</span>
-                    <span class="lesson-text"><strong>Emergency SOS and emergency contacts</strong><span>Call 999 by pressing a button five times, and let your family know where you are.</span></span>
+                    <span class="lesson-text"><strong>Emergency SOS and emergency contacts <em class="up-next" hidden>Up next</em></strong><span>Call 999 by pressing a button five times, and let your family know where you are.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -187,7 +200,7 @@
             <li data-lesson="emergency-alerts">
                 <a href="emergency-alerts/">
                     <span class="lesson-num" aria-hidden="true">2</span>
-                    <span class="lesson-text"><strong>Emergency Alerts</strong><span>Make sure your phone will warn you about serious danger nearby, like flooding.</span></span>
+                    <span class="lesson-text"><strong>Emergency Alerts <em class="up-next" hidden>Up next</em></strong><span>Make sure your phone will warn you about serious danger nearby, like flooding.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">3 min</span></span>
                 </a>
             </li>
@@ -195,7 +208,7 @@
             <li data-lesson="theft-protection">
                 <a href="theft-protection/">
                     <span class="lesson-num" aria-hidden="true">3</span>
-                    <span class="lesson-text"><strong>Protecting your phone from thieves</strong><span>Make a stolen phone useless to a thief, and find your IMEI number.</span></span>
+                    <span class="lesson-text"><strong>Protecting your phone from thieves <em class="up-next" hidden>Up next</em></strong><span>Make a stolen phone useless to a thief, and find your IMEI number.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">6 min</span></span>
                 </a>
             </li>
@@ -203,7 +216,7 @@
             <li data-lesson="tracker-alert">
                 <a href="tracker-alert/">
                     <span class="lesson-num" aria-hidden="true">4</span>
-                    <span class="lesson-text"><strong>&#34;A tracker is moving with you&#34;</strong><span>What to do if your phone warns you about an unknown tracker, like an AirTag.</span></span>
+                    <span class="lesson-text"><strong>&#34;A tracker is moving with you&#34; <em class="up-next" hidden>Up next</em></strong><span>What to do if your phone warns you about an unknown tracker, like an AirTag.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">4 min</span></span>
                 </a>
             </li>
@@ -211,7 +224,7 @@
             <li data-lesson="lost-999">
                 <a href="lost-999/">
                     <span class="lesson-num" aria-hidden="true">5</span>
-                    <span class="lesson-text"><strong>Calling 999 when you don&#39;t know where you are</strong><span>Give 999 your exact location with three words, and other ways to reach 999.</span></span>
+                    <span class="lesson-text"><strong>Calling 999 when you don&#39;t know where you are <em class="up-next" hidden>Up next</em></strong><span>Give 999 your exact location with three words, and other ways to reach 999.</span></span>
                     <span class="lesson-state"><span class="visually-hidden">Status: </span><span class="lesson-state-text">5 min</span></span>
                 </a>
             </li>
@@ -237,6 +250,17 @@
             </div>
             <button type="button" class="btn-primary no-print" data-print="certificate">Print my certificate</button>
         </section>
+        
+
+        
+        <aside class="next-course" aria-labelledby="next-course-h">
+            <h2 id="next-course-h">What next?</h2>
+            <a class="course-card small" href="../apps-and-privacy/">
+                <span class="cc-icon" aria-hidden="true">🔐</span>
+                <span class="cc-body"><h3>Apps, accounts and privacy</h3><span class="cc-summary">Find and remove a bad app, cancel subscriptions you forgot about, turn off AI features, protect your account, and tidy up Facebook.</span>
+                <span class="cc-meta">7 lessons &middot; 40 min</span></span>
+            </a>
+        </aside>
         
 
         <div class="callout">
