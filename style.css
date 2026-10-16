@@ -1508,3 +1508,4 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
 .aj .l { width: 1em; height: 1em; }
 @media (max-width: 700px) { .cu .l { width: 24px; height: 24px; } .ds .l { width: 30px; height: 30px; } }
 .ez .l { width: 26px; height: 26px; margin-bottom: 4px; }
+.ld li a { display: inline-flex; align-items: center; gap: 6px; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
