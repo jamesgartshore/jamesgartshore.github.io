@@ -1,3 +1,4 @@
+/* Built copy, replaced on every build: edit templates/_site/style.css instead. */
 /* Blog styles, shared by every page. build_site.py copies this to site/style.css. */
 :root {
     color-scheme: light;
@@ -660,6 +661,7 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     align-items: center;
     gap: 8px;
     margin-top: 10px;
+    margin-bottom: 10px;
     background: var(--tint);
     color: var(--heading);
     border: 2px solid var(--tint-strong);

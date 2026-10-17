@@ -1,3 +1,4 @@
+/* Built copy, replaced on every build: edit templates/_site/sim.js instead. */
 // Practice phone for Learn lessons: a pretend iPhone or Android screen that people tap through, step by
 // step. Nothing is real: no app is installed, nothing is sent anywhere, and the phone number is a made-up
 // one from the range set aside for TV and films. Icons are Lucide's plain icons, never the real logos.

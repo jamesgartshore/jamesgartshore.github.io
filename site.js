@@ -1,3 +1,4 @@
+/* Built copy, replaced on every build: edit templates/_site/site.js instead. */
 // Blog scripts, shared by every page (build_site.py copies this to site/site.js).
 
 // Top menu: highlight the current page, and the "Menu" button on phones.
