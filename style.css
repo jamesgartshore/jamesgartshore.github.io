@@ -1137,7 +1137,15 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
    Photos in a row share its width by their shape, so they line up at the same height. */
 .xm { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
 .us { display: flex; gap: 10px; }
-.ky { display: block; min-width: 0; border-radius: 10px; overflow: hidden; background: var(--tint); }
+.ky { display: block; min-width: 0; border-radius: 10px; overflow: hidden; background: var(--tint);
+           border: 0; padding: 0; font: inherit; cursor: zoom-in; }
+/* Full-size photo viewer (site.js) */
+.amu { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; }
+.amu::backdrop { background: rgba(0, 0, 0, 0.85); }
+.amu img { display: block; max-width: 96vw; max-height: 86vh; width: auto; height: auto; border-radius: 8px; margin: 0 auto; }
+.amu p { color: #fff; text-align: center; margin: 10px 0 0; }
+.amu .amt { position: fixed; top: 12px; right: 12px; background: #fff; color: #000; border: 0; border-radius: 999px;
+                          font: inherit; font-weight: 700; padding: 10px 16px; cursor: pointer; }
 .ky img { display: block; width: 100%; max-width: none; height: auto; margin: 0; border: 0; border-radius: 0; }
 .ky:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; }
 @media (max-width: 600px) {
@@ -1542,3 +1550,49 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     .alf .alb { display: none; }
     .alc { position: fixed; left: 12px; right: 12px; top: 72px; width: auto; }
 }
+
+/* ---------- Printable guides (printables/, printables.py) ---------- */
+.amw { display: grid; gap: 12px; margin: 18px 0 26px; }
+.alx { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px;
+              background: var(--card, transparent); color: inherit; text-decoration: none; }
+.alx:hover { border-color: var(--link); }
+.aly { flex: none; width: 46px; height: 46px; border-radius: 10px; background: var(--tint); color: var(--link); display: grid; place-items: center; }
+.aly .l { width: 26px; height: 26px; }
+.alz { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.alz strong { color: var(--heading); font-size: 1.1rem; }
+.aml { color: var(--muted); font-size: 0.875rem; }
+.alw { margin: 22px 0; }
+.amg { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 8px; }
+.amg a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 10px; font-weight: 700; text-decoration: none; }
+.amd { background: var(--header-bg); color: #fff; } /* dark blue in both themes, so white text stays readable */
+.amh { border: 2px solid var(--link); color: var(--link); }
+.amg .l { width: 22px; height: 22px; }
+.amm { margin-top: 24px; }
+/* The guide itself, shown as text on the page (the paper layout, made to fit any screen). */
+.amc .amn { border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin: 0 0 18px; background: var(--card, transparent); }
+.amc .ame, .amc .ami, .amc .done { display: none; }
+.amc .amp { display: flex; gap: 14px; align-items: center; border-bottom: 3px solid var(--link); padding-bottom: 12px; margin-bottom: 14px; }
+.amc .amq { flex: none; width: 48px; height: 48px; border-radius: 10px; background: var(--link); color: #fff; display: grid; place-items: center; }
+.amc .amq svg { width: 30px; height: 30px; }
+.amc .amp h2 { font-size: 1.35rem; margin: 0; }
+.amc .amp p { margin: 4px 0 0; color: var(--muted); }
+.amc .amb { border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+.amc .alv { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.amc .alv h2 { margin: 0; font-size: 1.15rem; }
+.amc .alv svg { width: 26px; height: 26px; color: var(--link); flex: none; }
+.amc .amf { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--heading); color: var(--bg, #fff); display: grid; place-items: center; font-weight: 800; }
+.amc .amj { margin: 0 0 10px; }
+.amc .ama { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.amc .phone { background: var(--tint); border-radius: 10px; padding: 10px 14px; }
+.amc .phone.ca { grid-column: 1 / -1; }
+.amc .phone h3 { margin: 0 0 4px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--link); }
+.amc .phone ol, .amc .phone ul { margin: 0; padding-left: 22px; }
+.amc .alu, .amc .amo { font-weight: 700; }
+.amc .note { color: var(--muted); font-size: 0.9375rem; margin: 8px 0 0; }
+.amc .tip { background: var(--note-bg); border-left: 5px solid #ffb81c; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; }
+.amc .amv { background: var(--urgent-bg); border-left: 5px solid var(--urgent-text); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; }
+.amc .ams { font-size: 1.2rem; margin: 0 0 10px; }
+.amc .amx { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.amc .py { display: flex; gap: 10px; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+.amc .py svg { flex: none; width: 26px; height: 26px; color: var(--urgent-text); }
+.amc .py strong { display: block; color: var(--heading); }

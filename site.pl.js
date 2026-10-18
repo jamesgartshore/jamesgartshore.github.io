@@ -45,6 +45,26 @@ const LU = (name, cls = '') => LUCIDE[name] ? `<svg class="l${cls ? ' ' + cls : 
     });
 })();
 
+// Photo galleries: tap a photo to see it full size (Esc, the button or tapping outside closes it).
+(function () {
+    const items = document.querySelectorAll('[data-photo]');
+    if (!items.length || !window.HTMLDialogElement) return;
+    const dlg = document.createElement('dialog');
+    dlg.className = 'amu';
+    dlg.innerHTML = '<button type="button" class="amt">Zamknij</button><img alt=""><p></p>';
+    document.body.appendChild(dlg);
+    const big = dlg.querySelector('img'), caption = dlg.querySelector('p');
+    items.forEach(btn => btn.addEventListener('click', () => {
+        const img = btn.querySelector('img');
+        big.src = img.currentSrc || img.src;
+        big.alt = img.alt;
+        caption.textContent = img.alt;
+        dlg.showModal();
+    }));
+    dlg.querySelector('.amt').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+})();
+
 (function () {
     const links = [...document.querySelectorAll('.ale a:not(.yh)')];
     const here = location.href.split('#')[0];

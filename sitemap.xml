@@ -10,6 +10,12 @@
   <url><loc>https://jamesgartshore.co.uk/accessibility/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/learn/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/groups/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/printables/space-and-battery/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/learn/first-steps/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/learn/first-steps/touch/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/learn/first-steps/wifi/</loc></url>
@@ -119,6 +125,7 @@
   <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/news/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/braille-day5/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/dyspraxia-day7/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/landline-switchover/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/braille-day4/</loc><lastmod>2026-10-17</lastmod></url>
@@ -226,6 +233,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/braille-day4/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/braille-day4/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/braille-day4/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/braille-day5/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/contact/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/contact/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/contact/</loc></url>
@@ -1877,6 +1897,84 @@
   <url><loc>https://jamesgartshore.co.uk/tr/phone-emergency/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/phone-emergency/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/phone-emergency/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/printables/easier-to-see/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/printables/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/printables/keep-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/printables/space-and-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/printables/spot-a-scam/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/printables/video-call/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/printables/video-call/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/privacy/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/privacy/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/privacy/</loc></url>
