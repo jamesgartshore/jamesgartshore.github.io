@@ -718,7 +718,7 @@
                 <label class="qe"><span class="f">Message</span><input type="text" data-input="msg" placeholder="Message" value="${esc((ctx.input && ctx.input.msg) || '')}" autocomplete="off"></label>
                 <button type="button" class="fy" data-tap="camera" aria-label="Camera">${UI.camera}</button>
                 <button type="button" class="ic" data-tap="send" aria-label="Send">${UI.send}</button>
-                <button type="button" class="ve" data-tap="mic" aria-label="Microphone (voice note)">${UI.mic}</button></div>`;
+                <button type="button" class="alr" data-tap="mic" aria-label="Microphone (voice note)">${UI.mic}</button></div>`;
         return `<div class="cg wd ph-${p} ahj">${statusBar(p)}
             <div class="ri"><span class="ahi">‹</span>${avatar(name[0] === '+' ? '?' : name[0], bg)}
                 <button type="button" class="nj" data-tap="group-info"><strong>${name}</strong><small>${sub}</small></button>
@@ -1932,7 +1932,7 @@
 
     function shotScreen(p, ctx) {
         const thumb = ctx.shot && !ctx.saved
-            ? `<button type="button" class="uz" data-tap="thumb" aria-label="Screenshot preview"><span class="adk"></span></button>
+            ? `<button type="button" class="alp" data-tap="thumb" aria-label="Screenshot preview"><span class="adk"></span></button>
                ${p === 'android' ? '<div class="rf"><button type="button" data-tap="shot-share">Share</button><button type="button" data-tap="shot-edit">Edit</button></div>' : ''}` : '';
         const sheet = ctx.shareSheet ? `<div class="ei"><div class="cv"><p><strong>Share screenshot</strong></p>
             <div class="xe"><button type="button" data-tap="share-sarah">${avatar('S', '#f472b6')}<span>Sarah</span></button>
@@ -2002,7 +2002,7 @@
         const card = ctx.pinned ? `<div class="gz"><strong>${ADDRESS}</strong><small>0.8 miles · 4 min by car</small>
             <button type="button" class="ce co" data-tap="directions">Directions</button></div>` : '';
         return `<div class="cg pr ph-${p}">${statusBar(p)}
-            <div class="ra">${ctx.pinned ? '<span class="un" aria-hidden="true"></span>' : ''}<span class="pt" aria-hidden="true"></span></div>
+            <div class="ra">${ctx.pinned ? '<span class="alm" aria-hidden="true"></span>' : ''}<span class="pt" aria-hidden="true"></span></div>
             <div class="rb">${box}${bubble}</div>${results}${card}${homeIndicator(p)}</div>`;
     }
 
@@ -2124,7 +2124,7 @@
         }
         const add = page === 'alarms' ? `<button type="button" class="gx" data-tap="add" aria-label="Add alarm">${UI.plus}</button>` : '';
         return `<div class="cg qt ph-${p}">${statusBar(p)}<div class="pd"><strong>${page === 'world' ? (p === 'ios' ? 'World Clock' : 'Clock') : (p === 'ios' ? 'Alarms' : 'Alarm')}</strong>${add}</div>
-            <div class="aeg">${inner}</div><div class="pe">${tabs}</div>${homeIndicator(p)}</div>`;
+            <div class="aeg">${inner}</div><div class="alq">${tabs}</div>${homeIndicator(p)}</div>`;
     }
 
     function alarmEdit(p, ctx) {
@@ -2526,7 +2526,7 @@
                 <li>⟦bus⟧ <strong>121</strong> towards Hull · 10:15 · <b class="ahy">On time</b></li><li>Get off at <strong>Hull Paragon Interchange</strong> (24 stops)</li></ol>
                 <button type="button" class="ce co" data-tap="start">Start</button></div>`;
         }
-        return `<div class="cg pr ph-${p}">${statusBar(p)}<div class="ra">${page === 'place' || page === 'trip' ? '<span class="un" aria-hidden="true"></span>' : ''}<span class="pt" aria-hidden="true"></span>
+        return `<div class="cg pr ph-${p}">${statusBar(p)}<div class="ra">${page === 'place' || page === 'trip' ? '<span class="alm" aria-hidden="true"></span>' : ''}<span class="pt" aria-hidden="true"></span>
             ${page === 'modes' || page === 'routes' || page === 'trip' ? '<span class="aes" aria-hidden="true"></span>' : ''}</div>${page === 'map' || page === 'suggest' || page === 'place' ? top : ''}${card}${homeIndicator(p)}</div>`;
     }
 
@@ -2866,7 +2866,7 @@
     ], {});
 
     SCENARIOS['new-phone'] = (p) => withCtx([
-        {screen: () => `<div class="na ph-${p}">${statusBar(p)}<h3>${p === 'ios' ? 'Hello' : 'Hi there'}</h3><button type="button" class="ce co" data-tap="start">${p === 'ios' ? 'Swipe up to open' : 'Get started'}</button>${homeIndicator(p)}</div>`,
+        {screen: () => `<div class="alk ph-${p}">${statusBar(p)}<h3>${p === 'ios' ? 'Hello' : 'Hi there'}</h3><button type="button" class="ce co" data-tap="start">${p === 'ios' ? 'Swipe up to open' : 'Get started'}</button>${homeIndicator(p)}</div>`,
          target: 'start', say: `Your new phone is out of the box and switched on. Keep your <strong>old phone</strong> nearby, charged and on Wi-Fi. <strong>Tap ${p === 'ios' ? 'Swipe up to open' : 'Get started'}.</strong>`},
         {screen: () => list(p, p === 'ios' ? 'Quick Start' : 'Copy apps &amp; data', [], {noBack: true, top: `<p class="cf">${p === 'ios' ? 'Bring your old iPhone near this one to set it up with your Apple Account.' : 'Copy your apps, photos, contacts and more from your old phone.'}</p>
             <button type="button" class="ce ${p === 'ios' ? 'co' : 'dk'}" data-tap="use-old">${p === 'ios' ? 'Continue on your old iPhone' : 'Use your old device'}</button>
@@ -2916,11 +2916,11 @@
         ]),
         {screen: () => list(p, 'Reset', [], {noBack: true, overlay: dialog(p, p === 'ios' ? 'Erase This iPhone?' : 'Erase all data?', 'All photos, messages and apps will be deleted.', [['cancel', 'Cancel'], ['confirm-erase', p === 'ios' ? 'Erase' : 'Erase all data']])}),
          target: 'confirm-erase', say: 'Only do this once your photos are safely on your new phone or backed up. <strong>Tap ' + (p === 'ios' ? 'Erase' : 'Erase all data') + '.</strong> <em>(Practice: nothing is deleted.)</em>'},
-        {screen: () => `<div class="na ph-${p}">${statusBar(p)}<h3>${p === 'ios' ? 'Hello' : 'Hi there'}</h3><p class="cf">Ready for its next owner</p>${homeIndicator(p)}</div>`,
+        {screen: () => `<div class="alk ph-${p}">${statusBar(p)}<h3>${p === 'ios' ? 'Hello' : 'Hi there'}</h3><p class="cf">Ready for its next owner</p>${homeIndicator(p)}</div>`,
          question: {q: 'One last thing before you hand it over?', options: [
             {t: 'Take out the SIM card (and any memory card)', ok: true, why: 'Yes. The SIM has your phone number on it. Pop it out with the little tool or a paper clip.'},
             {t: 'Nothing else', why: 'Take out your SIM card, and any memory card. Your number is on the SIM.'}]}},
-        {screen: () => `<div class="na ph-${p}">${statusBar(p)}<h3>${p === 'ios' ? 'Hello' : 'Hi there'}</h3><p class="cf">Ready for its next owner</p>${homeIndicator(p)}</div>`, done: true,
+        {screen: () => `<div class="alk ph-${p}">${statusBar(p)}<h3>${p === 'ios' ? 'Hello' : 'Hi there'}</h3><p class="cf">Ready for its next owner</p>${homeIndicator(p)}</div>`, done: true,
          say: '<strong>Well done!</strong> Sign out, wipe, remove the SIM: in that order. The "Hello" screen means it\'s ready for someone else.'},
     ], {});
 
@@ -3271,7 +3271,7 @@
             ? '<span class="afm"><button type="button" class="ze" data-egg-act="close" aria-label="Close window"></button><button type="button" class="abq" data-egg-act="close" aria-label="Minimise"></button><button type="button" class="abp" data-egg-act="max" aria-label="Full screen"></button></span>'
             : '<span class="ahm"><button type="button" data-egg-act="close" aria-label="Minimise">—</button><button type="button" data-egg-act="max" aria-label="Maximise">▢</button><button type="button" class="afp" data-egg-act="close" aria-label="Close">⟦x⟧</button></span>';
         return `<div class="iu">${os === 'mac' ? ctrls : ''}<span class="ka">${egg.title}</span>${os === 'mac' ? '' : ctrls}</div>
-            <div class="ht"><div class="no"><button type="button" data-egg-act="empty" ${left.length ? '' : 'disabled'}>⟦trash-2⟧ ${egg.empty}</button></div>${list}${info}${state.fx || ''}</div>${dlg}`;
+            <div class="ht"><div class="alo"><button type="button" data-egg-act="empty" ${left.length ? '' : 'disabled'}>⟦trash-2⟧ ${egg.empty}</button></div>${list}${info}${state.fx || ''}</div>${dlg}`;
     }
 
     // Clicks on the bin icon and inside the bin window. kind: 'open', 'select', or an action from data-egg-act.
@@ -4526,7 +4526,7 @@
         chips: 'Nearest chippy: anywhere on Bridlington seafront. 🍟', 'north pole': 'Santa\'s workshop. Closed until December. 🎅', bridlington: 'Bridlington, East Riding of Yorkshire. Lovely spot!',
         'flamborough': 'Flamborough Head: lighthouse, cliffs and puffins. 🐦'};
     function phMaps(screen, p, note = '') {
-        const f = phOpen(screen, p, null, `<div class="pr abh"><div class="ra"><span class="pt"></span>${note ? '<span class="un"></span>' : ''}</div>
+        const f = phOpen(screen, p, null, `<div class="pr abh"><div class="ra"><span class="pt"></span>${note ? '<span class="alm"></span>' : ''}</div>
             <div class="rb"><label class="ln">${ICON.search}<input class="afc" placeholder="Search Maps" aria-label="Search Maps"></label></div>
             ${note ? `<div class="gz"><strong>${esc(note)}</strong></div>` : ''}</div>`, {cls: 'mapsf'});
         const inp = f.querySelector('.afc');
@@ -4569,7 +4569,7 @@
         const st = phState(screen);
         const f = phOpen(screen, p, 'Snake \'97', `<div class="akp"><div class="ahc"><span>Score: <b class="ado">0</b></span><span>Best: <b>${st.snakeBest}</b></span></div>
             <canvas width="240" height="240" class="aiz" aria-label="Snake game"></canvas><p class="vy">Tap a direction (or use the arrow keys) to start</p>
-            <div class="la"><button type="button" data-dir="0,-1" aria-label="Up">▲</button><button type="button" data-dir="-1,0" aria-label="Left">◀</button><button type="button" data-dir="1,0" aria-label="Right">▶</button><button type="button" data-dir="0,1" aria-label="Down">▼</button></div></div>`, {cls: 'snakef'});
+            <div class="aln"><button type="button" data-dir="0,-1" aria-label="Up">▲</button><button type="button" data-dir="-1,0" aria-label="Left">◀</button><button type="button" data-dir="1,0" aria-label="Right">▶</button><button type="button" data-dir="0,1" aria-label="Down">▼</button></div></div>`, {cls: 'snakef'});
         const c = f.querySelector('canvas'), g = c.getContext('2d'), N = 12, S = 20;
         let snake, dir, food, timer = 0, score, alive = false;
         const place = () => { do { food = [Math.floor(Math.random() * N), Math.floor(Math.random() * N)]; } while (snake.some(s => s[0] === food[0] && s[1] === food[1])); };
@@ -4594,7 +4594,7 @@
             if (!alive) { reset(); alive = true; f.querySelector('.vy').textContent = ''; clearInterval(timer); timer = setInterval(step, 170); }
             if (d[0] !== -dir[0] || d[1] !== -dir[1]) dir = d;
         };
-        f.querySelectorAll('.la button').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); turn(b.dataset.dir.split(',').map(Number)); }));
+        f.querySelectorAll('.aln button').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); turn(b.dataset.dir.split(',').map(Number)); }));
         const keys = {arrowup: [0, -1], arrowdown: [0, 1], arrowleft: [-1, 0], arrowright: [1, 0]};
         const key = e => { if (!f.isConnected) return document.removeEventListener('keydown', key); const d = keys[e.key.toLowerCase()]; if (d) { e.preventDefault(); turn(d); } };
         document.addEventListener('keydown', key);
@@ -4766,14 +4766,15 @@
     function simSpeak(sp) {
         if (!sp || !('speechSynthesis' in window) || !simVoiceOn()) return;
         speechSynthesis.cancel();
-        const all = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang));
-        const gb = all.filter(v => v.lang === 'en-GB');
+        const pageLang = (document.documentElement.lang || 'en').toLowerCase(), short = pageLang.split('-')[0];
+        const all = speechSynthesis.getVoices().filter(v => v.lang.toLowerCase().startsWith(short));
+        const gb = all.filter(v => short === 'en' ? v.lang === 'en-GB' : true);
         const pool = gb.length ? gb : all;
         const female = /female|hazel|susan|libby|sonia|maisie|kate|serena|zira|jenny|aria|martha|emma|amy/i;
         const male = /\bmale\b|george|ryan|daniel|thomas|oliver|arthur|guy|david|mark|james|brian/i;
         const v = sp.who === 'f' ? pool.find(x => female.test(x.name)) : pool.find(x => male.test(x.name) && !female.test(x.name));
         const u = new SpeechSynthesisUtterance(sp.text);
-        u.lang = 'en-GB';
+        u.lang = short === 'en' ? 'en-GB' : pageLang;
         if (v || pool[0]) u.voice = v || pool[0];
         u.rate = sp.who === 'robot' ? 1.02 : 0.97;
         u.pitch = sp.who === 'robot' ? 0.35 : !v && sp.who === 'f' ? 1.25 : !v && sp.who === 'm' ? 0.8 : 1;

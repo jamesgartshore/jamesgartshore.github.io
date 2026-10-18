@@ -92,7 +92,7 @@
 }
 :root[data-theme="contrast"] main a, :root[data-theme="contrast"] footer a { text-decoration: underline; }
 :root[data-theme="contrast"] .bd, :root[data-theme="contrast"] article,
-:root[data-theme="contrast"] .z, :root[data-theme="contrast"] .aa { border: 2px solid #ffffff; }
+:root[data-theme="contrast"] .akx, :root[data-theme="contrast"] .aa { border: 2px solid #ffffff; }
 /* Images in dark mode: a slightly softer white so posters don't glare */
 :root[data-theme="dark"] article img, :root[data-theme="dark"] .bd img { filter: brightness(0.92); }
 @media (prefers-color-scheme: dark) {
@@ -231,7 +231,7 @@ a.cl:hover { text-decoration: underline; }
 .dz h2 { margin: 10px 0 6px; font-size: 1.25rem; color: var(--heading); }
 .dz ul { margin: 0; padding-left: 20px; }
 .dz li { margin-bottom: 6px; }
-.dz .do { color: var(--muted); font-size: 1rem; }
+.dz .alh { color: var(--muted); font-size: 1rem; }
 .ey { margin-top: 32px; }
 .ey h2 { color: var(--heading); }
 .bd h3 { margin: 0 0 6px; font-size: 1.1875rem; color: var(--heading); line-height: 1.25; }
@@ -379,7 +379,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .an { display: flex; flex-direction: column; line-height: 1.15; }
 .ak { font-size: 1.625rem; font-weight: 800; }
 .ar { font-size: 0.9375rem; opacity: 0.9; }
-.w { display: flex; gap: 8px; flex: 0 0 auto; }
+.akw { display: flex; gap: 8px; flex: 0 0 auto; }
 .r {
     display: inline-flex;
     align-items: center;
@@ -398,8 +398,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .r:hover, .r[aria-expanded="true"] { background: white; color: #005EB8; }
 .r svg { width: 20px; height: 20px; }
 .ax { display: none; }
-.au { padding-bottom: 14px; }
-.au ul {
+.ale { padding-bottom: 14px; }
+.ale ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -407,7 +407,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     flex-wrap: wrap;
     gap: 6px;
 }
-.au a {
+.ale a {
     display: block;
     color: white;
     text-decoration: none;
@@ -416,9 +416,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     border-radius: 999px;
     border: 2px solid transparent;
 }
-.au a:hover { border-color: rgba(255, 255, 255, 0.7); }
-.au a[aria-current="page"] { background: white; color: #005EB8; }
-.au .yh::after { content: " \2197"; font-size: 0.85em; }
+.ale a:hover { border-color: rgba(255, 255, 255, 0.7); }
+.ale a[aria-current="page"] { background: white; color: #005EB8; }
+.ale .yh::after { content: " \2197"; font-size: 0.85em; }
 /* ---------- Display options panel ---------- */
 .aa {
     background: var(--card);
@@ -574,7 +574,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .h strong { display: block; font-size: 1rem; color: var(--heading); }
 .h small { display: block; font-size: 0.875rem; color: var(--muted); line-height: 1.35; }
-.e {
+.akv {
     flex: 0 0 auto;
     position: relative;
     width: 50px;
@@ -583,7 +583,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     background: var(--border);
     transition: background 0.15s;
 }
-.e::after {
+.akv::after {
     content: "";
     position: absolute;
     top: 3px;
@@ -596,8 +596,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     transition: transform 0.15s;
 }
 .h[aria-checked="true"] { border-color: var(--blue); }
-.h[aria-checked="true"] .e { background: var(--blue); }
-.h[aria-checked="true"] .e::after { transform: translateX(22px); }
+.h[aria-checked="true"] .akv { background: var(--blue); }
+.h[aria-checked="true"] .akv::after { transform: translateX(22px); }
 .bh {
     display: flex;
     align-items: center;
@@ -606,7 +606,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     margin-top: 16px;
     flex-wrap: wrap;
 }
-.ay {
+.alg {
     background: none;
     border: none;
     color: var(--link);
@@ -636,9 +636,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 :root[data-theme="contrast"] .h[aria-checked="true"] { border-color: #ffff00; box-shadow: 0 0 0 2px #ffff00; }
 :root[data-theme="contrast"] .m[aria-pressed="true"]::after,
 :root[data-theme="contrast"] .c[aria-pressed="true"]::after { background: #ffff00; color: #000000; }
-:root[data-theme="contrast"] .e { background: #000000; box-shadow: inset 0 0 0 2px #ffffff; }
-:root[data-theme="contrast"] .h[aria-checked="true"] .e { background: #ffff00; box-shadow: none; }
-:root[data-theme="contrast"] .h[aria-checked="true"] .e::after { background: #000000; }
+:root[data-theme="contrast"] .akv { background: #000000; box-shadow: inset 0 0 0 2px #ffffff; }
+:root[data-theme="contrast"] .h[aria-checked="true"] .akv { background: #ffff00; box-shadow: none; }
+:root[data-theme="contrast"] .h[aria-checked="true"] .akv::after { background: #000000; }
 @media (max-width: 520px) {
     .am { grid-template-columns: repeat(2, 1fr); }
     .aa { padding: 18px 14px 16px; }
@@ -688,21 +688,21 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     .r { padding: 8px 10px; gap: 6px; }
     .ar { display: none; }
     .r .v { display: none; }
-    .au { display: none; }
-    .au.open { display: block; }
-    .au ul { flex-direction: column; gap: 4px; }
-    .au a { padding: 12px 14px; border-radius: 10px; font-size: 1.125rem; }
+    .ale { display: none; }
+    .ale.open { display: block; }
+    .ale ul { flex-direction: column; gap: 4px; }
+    .ale a { padding: 12px 14px; border-radius: 10px; font-size: 1.125rem; }
 }
 /* "Get new tips by email" box (follow.it form, restyled to match the site) */
-.z {
+.akx {
     background: var(--dark-blue);
     color: white;
     border-radius: 12px;
     padding: 20px 24px 16px;
     margin-top: 28px;
 }
-.z h2 { margin: 0 0 4px; font-size: 1.375rem; }
-.z p { margin: 0 0 14px; opacity: 0.9; }
+.akx h2 { margin: 0 0 4px; font-size: 1.375rem; }
+.akx p { margin: 0 0 14px; opacity: 0.9; }
 .av {
     display: flex;
     flex-wrap: wrap;
@@ -736,13 +736,13 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     cursor: pointer;
 }
 .av button:hover, .afj:hover { background: #ffd47a; }
-.z .at { font-size: 0.875rem; margin: 12px 0 0; opacity: 0.8; }
-.z .at a { color: white; }
+.akx .at { font-size: 0.875rem; margin: 12px 0 0; opacity: 0.8; }
+.akx .at a { color: white; }
 @media (max-width: 600px) {
     .av button { width: 100%; }
 }
 /* "Found this tip useful? Get my tips by email" line at the end of each post */
-.de {
+.ali {
     display: flex;
     align-items: center;
     gap: 14px;
@@ -755,10 +755,10 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     text-decoration: none;
     line-height: 1.4;
 }
-.de:hover { border-color: var(--blue); }
-.de strong { color: var(--heading); }
-.de span { text-decoration: underline; text-decoration-color: transparent; }
-.de:hover span { text-decoration-color: var(--blue); }
+.ali:hover { border-color: var(--blue); }
+.ali strong { color: var(--heading); }
+.ali span { text-decoration: underline; text-decoration-color: transparent; }
+.ali:hover span { text-decoration-color: var(--blue); }
 .cr { flex: 0 0 auto; width: 48px; height: 48px; }
 /* Get help page */
 .zj {
@@ -790,8 +790,8 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     background: #ffff00; color: #000000; text-decoration: none;
 }
 :root[data-theme="contrast"] .gp a { border: 2px solid #ffffff; }
-:root[data-theme="contrast"] .de:hover { border-color: #ffff00; }
-:root[data-theme="contrast"] .de:hover span { text-decoration-color: #ffff00; }
+:root[data-theme="contrast"] .ali:hover { border-color: #ffff00; }
+:root[data-theme="contrast"] .ali:hover span { text-decoration-color: #ffff00; }
 @media (prefers-contrast: more) {
     :root:not([data-theme]) .gp a:hover, :root:not([data-theme]) .gp a:focus-visible {
         background: #ffff00; color: #000000; text-decoration: none;
@@ -1449,8 +1449,8 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
     .ec { align-items: flex-start; }
 }
 /* Listen button on every page: the paragraph being read is highlighted. */
-.ir { background: #fff3a8; color: #111 !important; border-radius: 4px; box-shadow: 0 0 0 4px #fff3a8; transition: background 0.2s; }
-.ir * { color: #111 !important; }
+.alj { background: #fff3a8; color: #111 !important; border-radius: 4px; box-shadow: 0 0 0 4px #fff3a8; transition: background 0.2s; }
+.alj * { color: #111 !important; }
 @media print {
     .aq { display: none !important; }
 }
@@ -1511,3 +1511,25 @@ html[data-links="underline"] main a, html[data-links="underline"] footer a { tex
 @media (max-width: 700px) { .cu .l { width: 24px; height: 24px; } .ds .l { width: 30px; height: 30px; } }
 .ez .l { width: 26px; height: 26px; margin-bottom: 4px; }
 .ld li a { display: inline-flex; align-items: center; gap: 6px; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Language button (flags: flag-icons, MIT) and translated pages ---------- */
+.akz { position: relative; }
+.alf .ala { width: 24px; height: 18px; border-radius: 3px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5); object-fit: cover; }
+.alc { position: absolute; right: 0; top: calc(100% + 8px); z-index: 50; width: 260px; max-height: min(70vh, 560px); overflow-y: auto;
+             background: var(--card); color: var(--text); border: 2px solid var(--border); border-radius: 14px; padding: 8px; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25); }
+.alc[hidden] { display: none; }
+.aky { margin: 4px 8px 6px; font-weight: 800; color: var(--heading); }
+.alc ul { list-style: none; margin: 0; padding: 0; }
+.alc a { display: grid; grid-template-columns: 28px 1fr; column-gap: 10px; align-items: center; padding: 8px 10px; border-radius: 10px; color: var(--text); text-decoration: none; }
+.alc a:hover, .alc a:focus-visible { background: var(--tint); }
+.alc a[aria-current="true"] { background: var(--tint); font-weight: 800; }
+.alc img { grid-row: span 2; width: 28px; height: 21px; border-radius: 3px; box-shadow: 0 0 0 1px var(--border); object-fit: cover; }
+.alc span { font-weight: 700; color: var(--heading); }
+.alc small { color: var(--muted); font-size: 0.8125rem; }
+.ald { margin: 0 0 16px; padding: 10px 14px; border-radius: 10px; background: var(--tint); color: var(--text); font-size: 0.9375rem; }
+[dir="rtl"] .alc { right: auto; left: 0; }
+[dir="rtl"] .dc { direction: ltr; }
+@media (max-width: 700px) {
+    .alf .alb { display: none; }
+    .alc { position: fixed; left: 12px; right: 12px; top: 72px; width: auto; }
+}

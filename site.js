@@ -6,13 +6,52 @@
 const LUCIDE = {"check":"<path d=\"M20 6 9 17l-5-5\" />","thumbs-up":"<path d=\"M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z\" /><path d=\"M7 10v12\" />"};
 const LU = (name, cls = '') => LUCIDE[name] ? `<svg class="l${cls ? ' ' + cls : ''}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${LUCIDE[name]}</svg>` : '';
 
+// Language button: shows the list of languages; the choice is remembered for next time.
 (function () {
-    const links = [...document.querySelectorAll('.au a:not(.yh)')];
+    const btn = document.querySelector('.alf');
+    const menu = document.getElementById('bq');
+    if (!btn || !menu) return;
+    const setOpen = open => { menu.hidden = !open; btn.setAttribute('aria-expanded', String(open)); };
+    btn.addEventListener('click', e => { e.stopPropagation(); setOpen(menu.hidden); if (!menu.hidden) (menu.querySelector('a[aria-current]') || menu.querySelector('a')).focus(); });
+    document.addEventListener('click', e => { if (!menu.hidden && !menu.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { setOpen(false); btn.focus(); } });
+    menu.addEventListener('click', e => { const a = e.target.closest('a[data-lang]'); if (a) { try { localStorage.setItem('lang', a.dataset.lang); } catch (err) {} } });
+
+    // Keep the chosen language everywhere. On a translated page, remember it. On an English page,
+    // go to the chosen language's version if there is one; if not (English-only page), keep the flag
+    // showing the chosen language and point the links at that language's pages.
+    const pageLang = menu.querySelector('a[aria-current]');
+    const here = pageLang ? pageLang.dataset.lang : 'en';
+    let saved = null;
+    try { saved = localStorage.getItem('lang'); } catch (err) {}
+    if (here !== 'en') { try { localStorage.setItem('lang', here); } catch (err) {} return; }
+    if (!saved || saved === 'en') return;
+    const pick = menu.querySelector(`a[data-lang="${saved}"]`);
+    if (!pick) return;
+    if (document.querySelector('link[rel="alternate"][hreflang]')) { location.replace(pick.href); return; }
+    const flag = btn.querySelector('.ala'), name = btn.querySelector('.alb');
+    const pickImg = pick.querySelector('img'), pickName = pick.querySelector('span');
+    if (flag && pickImg) flag.src = pickImg.src;
+    if (name && pickName) name.textContent = pickName.textContent;
+    menu.querySelectorAll('a[aria-current]').forEach(a => a.removeAttribute('aria-current'));
+    pick.setAttribute('aria-current', 'true');
+    const root = pick.href.slice(0, pick.href.indexOf(`/${saved}/`) + 1);
+    // Every page is translated; files (images, the feed, downloads) are not.
+    document.querySelectorAll('a[href]').forEach(a => {
+        if (a.closest('#bq') || !a.href.startsWith(root)) return;
+        const rest = a.href.slice(root.length), path = rest.split(/[?#]/)[0];
+        if (/^[a-z]{2}\//.test(path) || /^google/.test(path)) return;
+        if (path === '' || path.endsWith('/') || path.endsWith('.html')) a.href = root + saved + '/' + rest;
+    });
+})();
+
+(function () {
+    const links = [...document.querySelectorAll('.ale a:not(.yh)')];
     const here = location.href.split('#')[0];
     const best = links.filter(a => here.startsWith(a.href)).sort((a, b) => b.href.length - a.href.length)[0];
     if (best) best.setAttribute('aria-current', 'page');
 
-    const menuBtn = document.getElementById('z');
+    const menuBtn = document.getElementById('bt');
     const nav = document.getElementById('n');
     menuBtn.addEventListener('click', () => {
         const open = nav.classList.toggle('open');
@@ -108,7 +147,7 @@ const LU = (name, cls = '') => LUCIDE[name] ? `<svg class="l${cls ? ' ' + cls : 
 
 // Tech words page: word search.
 (function () {
-    const input = document.getElementById('au');
+    const input = document.getElementById('bu');
     if (!input) return;
     const words = [...document.querySelectorAll('.eh')];
     const groups = [...document.querySelectorAll('.cy')];
@@ -125,12 +164,12 @@ const LU = (name, cls = '') => LUCIDE[name] ? `<svg class="l${cls ? ' ' + cls : 
 // app needed), highlighting each paragraph as it's read. Skips practice phones, forms, buttons and menus.
 // Hidden if the browser can't speak.
 (function () {
-    const btn = document.getElementById('w');
+    const btn = document.getElementById('bs');
     if (!btn || !('speechSynthesis' in window)) return;
     btn.hidden = false;
     const label = btn.querySelector('span');
     const article = btn.closest('article') || document.querySelector('main') || document.body;
-    const SKIP = '.dc, nav, form, button, .no-listen, .aq, .bs, .be, .dj, .cx, .ey, .z, .feedback, [hidden], noscript, script, .dy, .eb';
+    const SKIP = '.dc, nav, form, button, .no-listen, .aq, .bs, .be, .dj, .cx, .ey, .akx, .feedback, [hidden], noscript, script, .dy, .eb';
 
     function blocks() {
         if (btn.dataset.listen === 'post') return [article.querySelector('h1'), ...article.querySelectorAll('.dz li, article > p')];
@@ -142,23 +181,25 @@ const LU = (name, cls = '') => LUCIDE[name] ? `<svg class="l${cls ? ' ' + cls : 
         speechSynthesis.cancel();
         btn.setAttribute('aria-pressed', 'false');
         label.textContent = btn.dataset.label || 'Listen';
-        document.querySelectorAll('.ir').forEach(el => el.classList.remove('ir'));
+        document.querySelectorAll('.alj').forEach(el => el.classList.remove('alj'));
     }
 
     btn.addEventListener('click', () => {
         if (btn.getAttribute('aria-pressed') === 'true') { stop(); return; }
         speechSynthesis.cancel();
         const voices = speechSynthesis.getVoices();
-        const voice = voices.find(v => v.lang === 'en-GB') || voices.find(v => v.lang.startsWith('en'));
+        const pageLang = (document.documentElement.lang || 'en').toLowerCase(), short = pageLang.split('-')[0];
+        const voice = short === 'en' ? (voices.find(v => v.lang === 'en-GB') || voices.find(v => v.lang.startsWith('en')))
+            : (voices.find(v => v.lang.toLowerCase().startsWith(short)) || null);
         const els = blocks().filter(el => el && el.textContent.trim());
         els.forEach((el, i) => {
             const u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, ' ').trim());
-            u.lang = 'en-GB';
+            u.lang = short === 'en' ? 'en-GB' : pageLang;
             u.rate = 0.95;
             if (voice) u.voice = voice;
             u.onstart = () => {
-                document.querySelectorAll('.ir').forEach(x => x.classList.remove('ir'));
-                el.classList.add('ir');
+                document.querySelectorAll('.alj').forEach(x => x.classList.remove('alj'));
+                el.classList.add('alj');
                 const r = el.getBoundingClientRect();
                 if (r.top < 0 || r.bottom > window.innerHeight) el.scrollIntoView({block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
             };
@@ -424,7 +465,7 @@ document.querySelectorAll('#ax, .eg').forEach(form => {
                 cont.querySelector('strong').textContent = card.dataset.title;
                 cont.querySelector('.rs > span').textContent = `Lesson ${n + 1} of ${all.length}: ${titles[n]}`;
                 cont.hidden = false;
-                const start = document.getElementById('ay');
+                const start = document.getElementById('bv');
                 if (start) start.hidden = true;
             }
         }
