@@ -8,6 +8,24 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Getting online makes everyday life easier</title>
+        <link>https://jamesgartshore.co.uk/get-online-week/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/get-online-week/</guid>
+        <pubDate>Mon, 19 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Getting online and staying connected</category>
+        <description>This week is Get Online Week, a national campaign to help more people feel confident using the internet. Being online has become part of everyday life,...</description>
+    </item>
+    
+    <item>
+        <title>It sounds like your family. It might not be.</title>
+        <link>https://jamesgartshore.co.uk/scam-voice-clone/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/scam-voice-clone/</guid>
+        <pubDate>Mon, 19 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Scams and staying safe</category>
+        <description>I wanted to share a warning about a scam that&#39;s becoming more common: phone calls using a copy of a family member&#39;s voice.</description>
+    </item>
+    
+    <item>
         <title>Control your phone with your voice</title>
         <link>https://jamesgartshore.co.uk/braille-day5/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/braille-day5/</guid>
@@ -257,24 +275,6 @@
         <pubDate>Tue, 06 Oct 2026 09:00:00 +0000</pubDate>
         <category>Getting online and staying connected</category>
         <description>I just wanted to share a quick tip about QR codes.</description>
-    </item>
-    
-    <item>
-        <title>Check your heating and hot water timers</title>
-        <link>https://jamesgartshore.co.uk/heating-timers/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/heating-timers/</guid>
-        <pubDate>Tue, 29 Sep 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>With colder weather approaching, now is a good time to check your heating and hot water timers.</description>
-    </item>
-    
-    <item>
-        <title>Test your heating before winter</title>
-        <link>https://jamesgartshore.co.uk/heating-check/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/heating-check/</guid>
-        <pubDate>Mon, 28 Sep 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>With winter approaching, now is a good time to test your heating, especially if it hasn&#39;t been used much this year.</description>
     </item>
     
 </channel>

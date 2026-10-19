@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-10-19</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/help/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/glossary/</loc></url>
@@ -119,12 +119,14 @@
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-north-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-central-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/hutton-sra/</loc></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-10-19</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/health-and-wellbeing/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/money/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-19</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/news/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/get-online-week/</loc><lastmod>2026-10-19</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/scam-voice-clone/</loc><lastmod>2026-10-19</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/braille-day5/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/dyspraxia-day7/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/landline-switchover/</loc><lastmod>2026-10-18</lastmod></url>
@@ -441,6 +443,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/food-apps/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/food-apps/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/food-apps/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/get-online-week/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/get-online-week/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/glossary/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/glossary/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/glossary/</loc></url>
@@ -2027,6 +2042,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/satnav/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/satnav/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/satnav/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/scam-voice-clone/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/scam-voice-clone/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/scary-popup-ads/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/scary-popup-ads/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/scary-popup-ads/</loc></url>
