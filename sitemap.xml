@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-10-19</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/help/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/glossary/</loc></url>
@@ -119,12 +119,21 @@
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-north-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-central-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/hutton-sra/</loc></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/health-and-wellbeing/</loc><lastmod>2026-10-18</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/money/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-19</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/health-and-wellbeing/</loc><lastmod>2026-10-20</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/money/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/news/</loc><lastmod>2026-10-08</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/get-online-day3/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/phone-stolen/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/reopen-closed-page/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/switch-network/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/braille-day7/</loc><lastmod>2026-10-20</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/get-online-day2/</loc><lastmod>2026-10-20</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/library-ebooks/</loc><lastmod>2026-10-20</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/phone-battery/</loc><lastmod>2026-10-20</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/braille-day6/</loc><lastmod>2026-10-19</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/get-online-week/</loc><lastmod>2026-10-19</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/scam-voice-clone/</loc><lastmod>2026-10-19</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/braille-day5/</loc><lastmod>2026-10-18</lastmod></url>
@@ -248,6 +257,32 @@
   <url><loc>https://jamesgartshore.co.uk/tr/braille-day5/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/braille-day5/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/braille-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/braille-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/braille-day7/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/contact/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/contact/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/contact/</loc></url>
@@ -443,6 +478,32 @@
   <url><loc>https://jamesgartshore.co.uk/tr/food-apps/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/food-apps/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/food-apps/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/get-online-day2/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/get-online-day3/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/get-online-day3/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/get-online-week/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/get-online-week/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/get-online-week/</loc></url>
@@ -1847,6 +1908,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/learn/whatsapp/staying-safe/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/learn/whatsapp/staying-safe/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/learn/whatsapp/staying-safe/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/library-ebooks/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/mental-health-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/mental-health-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/mental-health-day/</loc></url>
@@ -1899,6 +1973,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/pc-safety/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/pc-safety/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/pc-safety/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/phone-battery/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/phone-battery/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/phone-emergency/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/phone-emergency/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/phone-emergency/</loc></url>
@@ -1912,6 +1999,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/phone-emergency/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/phone-emergency/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/phone-emergency/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/phone-stolen/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/phone-stolen/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/printables/easier-to-see/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/printables/easier-to-see/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/printables/easier-to-see/</loc></url>
@@ -2016,6 +2116,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/qr/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/qr/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/qr/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/reopen-closed-page/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/reopen-closed-page/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/restart-a-heart/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/restart-a-heart/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/restart-a-heart/</loc></url>
@@ -2120,6 +2233,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/sessions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/sessions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/sessions/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/switch-network/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/switch-network/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/time2volunteer-awards/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/time2volunteer-awards/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/time2volunteer-awards/</loc></url>
