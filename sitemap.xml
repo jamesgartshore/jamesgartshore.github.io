@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/help/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/glossary/</loc></url>
@@ -120,11 +120,15 @@
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-central-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/hutton-sra/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/fake-news-and-online-info/</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/health-and-wellbeing/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/money/</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/news/</loc><lastmod>2026-10-08</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/clocks-go-back/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/get-online-day6/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/media-literacy-day1/</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/get-online-day5/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/google-storage-full/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/wear-it-pink/</loc><lastmod>2026-10-23</lastmod></url>
@@ -290,6 +294,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/braille-day7/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/braille-day7/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/clocks-go-back/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/clocks-go-back/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/contact/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/contact/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/contact/</loc></url>
@@ -537,6 +554,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/get-online-day5/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/get-online-day5/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/get-online-day5/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/get-online-day6/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/get-online-day6/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/get-online-week/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/get-online-week/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/get-online-week/</loc></url>
@@ -1967,6 +1997,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/library-ebooks/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/library-ebooks/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/media-literacy-day1/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/media-literacy-day1/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/mental-health-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/mental-health-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/mental-health-day/</loc></url>
@@ -2344,6 +2387,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/topics/everyday-tech/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/topics/everyday-tech/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/topics/everyday-tech/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/topics/fake-news-and-online-info/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/topics/fake-news-and-online-info/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/topics/getting-online-and-staying-connected/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/topics/getting-online-and-staying-connected/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/topics/getting-online-and-staying-connected/</loc></url>

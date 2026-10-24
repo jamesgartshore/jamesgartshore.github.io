@@ -8,6 +8,33 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Clocks Go Back</title>
+        <link>https://jamesgartshore.co.uk/clocks-go-back/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/clocks-go-back/</guid>
+        <pubDate>Sat, 24 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Just a quick reminder that the clocks go back an hour tonight, at 2am on Sunday morning. That means an extra hour in bed, but also a few clocks to check.</description>
+    </item>
+    
+    <item>
+        <title>Get Online Week Day 6</title>
+        <link>https://jamesgartshore.co.uk/get-online-day6/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/get-online-day6/</guid>
+        <pubDate>Sat, 24 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Getting online and staying connected</category>
+        <description>It&#39;s day six of Get Online Week, and today&#39;s tips are about staying close to family and friends.</description>
+    </item>
+    
+    <item>
+        <title>Media Literacy Week Day 1</title>
+        <link>https://jamesgartshore.co.uk/media-literacy-day1/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/media-literacy-day1/</guid>
+        <pubDate>Sat, 24 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Fake news and online info</category>
+        <description>Today is the start of Global Media and Information Literacy Week, which is all about being able to tell what&#39;s real and what&#39;s not online. With so many...</description>
+    </item>
+    
+    <item>
         <title>Get Online Week Day 5</title>
         <link>https://jamesgartshore.co.uk/get-online-day5/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/get-online-day5/</guid>
@@ -248,33 +275,6 @@
         <pubDate>Fri, 16 Oct 2026 09:00:00 +0000</pubDate>
         <category>Money</category>
         <description>Today is World Food Day, so I wanted to share some free apps that can help you save money on food and stop good food from going to waste.</description>
-    </item>
-    
-    <item>
-        <title>Restart a Heart</title>
-        <link>https://jamesgartshore.co.uk/restart-a-heart/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/restart-a-heart/</guid>
-        <pubDate>Fri, 16 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Health and wellbeing</category>
-        <description>Today is Restart a Heart Day, so I wanted to share some free apps and websites that can help you learn CPR and be ready to help if someone&#39;s heart stops.</description>
-    </item>
-    
-    <item>
-        <title>Braille Week Day 2</title>
-        <link>https://jamesgartshore.co.uk/braille-day2/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/braille-day2/</guid>
-        <pubDate>Thu, 15 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Health and wellbeing</category>
-        <description>It&#39;s day two of National Braille Week, and today is also White Cane Safety Day, so I wanted to share some free apps that help people with sight loss...</description>
-    </item>
-    
-    <item>
-        <title>Dyspraxia Day 4</title>
-        <link>https://jamesgartshore.co.uk/dyspraxia-day4/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/dyspraxia-day4/</guid>
-        <pubDate>Thu, 15 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Health and wellbeing</category>
-        <description>It&#39;s day four of Dyspraxia Awareness Week, and today I wanted to share some free tools that make reading easier.</description>
     </item>
     
 </channel>
