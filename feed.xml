@@ -8,6 +8,51 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Family Learning</title>
+        <link>https://jamesgartshore.co.uk/family-learning/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/family-learning/</guid>
+        <pubDate>Wed, 28 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Getting online and staying connected</category>
+        <description>With half term here and October being Family Learning Festival month, I wanted to share some free apps and websites you can enjoy with the...</description>
+    </item>
+    
+    <item>
+        <title>Media Literacy Week Day 5</title>
+        <link>https://jamesgartshore.co.uk/media-literacy-day5/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/media-literacy-day5/</guid>
+        <pubDate>Wed, 28 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Fake news and online info</category>
+        <description>It&#39;s day five of Global Media and Information Literacy Week, and today&#39;s tips are about WhatsApp forwards and chain messages.</description>
+    </item>
+    
+    <item>
+        <title>National Databank Free SIM</title>
+        <link>https://jamesgartshore.co.uk/national-databank/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/national-databank/</guid>
+        <pubDate>Wed, 28 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Did you know there&#39;s free mobile data for people who can&#39;t afford it? The National Databank, run by the charity Good Things Foundation, gives out free...</description>
+    </item>
+    
+    <item>
+        <title>Media Literacy Week Day 4</title>
+        <link>https://jamesgartshore.co.uk/media-literacy-day4/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/media-literacy-day4/</guid>
+        <pubDate>Tue, 27 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Fake news and online info</category>
+        <description>It&#39;s day four of Global Media and Information Literacy Week, and today I wanted to share some built-in Facebook tools that let you take more control...</description>
+    </item>
+    
+    <item>
+        <title>What the NHS App Can Do</title>
+        <link>https://jamesgartshore.co.uk/nhs-app-guide/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/nhs-app-guide/</guid>
+        <pubDate>Tue, 27 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Health and wellbeing</category>
+        <description>Tired of ringing the doctors at 8am? The free NHS App puts lots of your GP services on your phone.</description>
+    </item>
+    
+    <item>
         <title>Add a Bank Card to Google Wallet</title>
         <link>https://jamesgartshore.co.uk/google-wallet/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/google-wallet/</guid>
@@ -230,51 +275,6 @@
         <pubDate>Mon, 19 Oct 2026 09:00:00 +0000</pubDate>
         <category>Health and wellbeing</category>
         <description>It&#39;s day six of National Braille Week, and today&#39;s tips are for computers and laptops.</description>
-    </item>
-    
-    <item>
-        <title>Get Online Week</title>
-        <link>https://jamesgartshore.co.uk/get-online-week/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/get-online-week/</guid>
-        <pubDate>Mon, 19 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Getting online and staying connected</category>
-        <description>This week is Get Online Week, a national campaign to help more people feel confident using the internet. Being online has become part of everyday life,...</description>
-    </item>
-    
-    <item>
-        <title>Voice Clone Scam</title>
-        <link>https://jamesgartshore.co.uk/scam-voice-clone/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/scam-voice-clone/</guid>
-        <pubDate>Mon, 19 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Scams and staying safe</category>
-        <description>I wanted to share a warning about a scam that&#39;s becoming more common: phone calls using a copy of a family member&#39;s voice.</description>
-    </item>
-    
-    <item>
-        <title>Braille Week Day 5</title>
-        <link>https://jamesgartshore.co.uk/braille-day5/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/braille-day5/</guid>
-        <pubDate>Sun, 18 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Health and wellbeing</category>
-        <description>It&#39;s day five of National Braille Week, and today I wanted to share how you can control your phone using just your voice.</description>
-    </item>
-    
-    <item>
-        <title>Dyspraxia Day 7</title>
-        <link>https://jamesgartshore.co.uk/dyspraxia-day7/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/dyspraxia-day7/</guid>
-        <pubDate>Sun, 18 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Health and wellbeing</category>
-        <description>It&#39;s the last day of Dyspraxia Awareness Week, and I wanted to finish by sharing some support for adults and students, because dyspraxia doesn&#39;t stop...</description>
-    </item>
-    
-    <item>
-        <title>Landline Switchover</title>
-        <link>https://jamesgartshore.co.uk/landline-switchover/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/landline-switchover/</guid>
-        <pubDate>Sun, 18 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>I wanted to share something important for anyone who has a personal alarm, like a pendant or a fall alarm, that works through their home phone line.</description>
     </item>
     
 </channel>
