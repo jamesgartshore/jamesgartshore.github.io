@@ -8,6 +8,33 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Delete Emails on Your Phone</title>
+        <link>https://jamesgartshore.co.uk/delete-emails/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/delete-emails/</guid>
+        <pubDate>Sat, 31 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Is your email inbox full of old messages, offers and newsletters? Here&#39;s how to clear them out on your phone, using the Gmail app.</description>
+    </item>
+    
+    <item>
+        <title>Halloween</title>
+        <link>https://jamesgartshore.co.uk/halloween/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/halloween/</guid>
+        <pubDate>Sat, 31 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>With Halloween tonight, I wanted to share a few ways tech can help, whether you&#39;re looking forward to trick or treaters or would rather have a quiet...</description>
+    </item>
+    
+    <item>
+        <title>Media Literacy Week Day 8</title>
+        <link>https://jamesgartshore.co.uk/media-literacy-day8/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/media-literacy-day8/</guid>
+        <pubDate>Sat, 31 Oct 2026 09:00:00 +0000</pubDate>
+        <category>Fake news and online info</category>
+        <description>It&#39;s the last day of Global Media and Information Literacy Week, so I wanted to finish with some free resources for helping children and grandchildren...</description>
+    </item>
+    
+    <item>
         <title>Media Literacy Week Day 7</title>
         <link>https://jamesgartshore.co.uk/media-literacy-day7/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/media-literacy-day7/</guid>
@@ -248,33 +275,6 @@
         <pubDate>Thu, 22 Oct 2026 09:00:00 +0000</pubDate>
         <category>Everyday tech</category>
         <description>When family or friends visit and ask for your Wi-Fi password, there&#39;s no need to read out a long jumble of letters and numbers. Most Android phones can...</description>
-    </item>
-    
-    <item>
-        <title>Get Online Week Day 3</title>
-        <link>https://jamesgartshore.co.uk/get-online-day3/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/get-online-day3/</guid>
-        <pubDate>Wed, 21 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Scams and staying safe</category>
-        <description>It&#39;s day three of Get Online Week, and today&#39;s tips are about free tools that help you stay safe from scams.</description>
-    </item>
-    
-    <item>
-        <title>Phone Stolen</title>
-        <link>https://jamesgartshore.co.uk/phone-stolen/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/phone-stolen/</guid>
-        <pubDate>Wed, 21 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Scams and staying safe</category>
-        <description>I wanted to share what to do if your phone is ever lost or stolen, and a couple of things worth doing now, just in case.</description>
-    </item>
-    
-    <item>
-        <title>Reopen a Closed Web Page</title>
-        <link>https://jamesgartshore.co.uk/reopen-closed-page/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/reopen-closed-page/</guid>
-        <pubDate>Wed, 21 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Have you ever closed an important web page on your phone by mistake, like a form you were filling in or a page you needed? Don&#39;t panic, you can usually...</description>
     </item>
     
 </channel>
