@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-11-02</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/help/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/glossary/</loc></url>
@@ -119,13 +119,18 @@
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-north-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-central-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/hutton-sra/</loc></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-11-02</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/fake-news-and-online-info/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/health-and-wellbeing/</loc><lastmod>2026-10-30</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/money/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/money/</loc><lastmod>2026-11-01</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-30</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/news/</loc><lastmod>2026-10-08</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/phone-files-folders/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/separate-accounts/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/phone-running-slow/</loc><lastmod>2026-11-01</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/scam-bank-calls/</loc><lastmod>2026-11-01</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/world-savings-day/</loc><lastmod>2026-11-01</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/delete-emails/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/halloween/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/media-literacy-day8/</loc><lastmod>2026-10-31</lastmod></url>
@@ -2342,6 +2347,32 @@
   <url><loc>https://jamesgartshore.co.uk/tr/phone-emergency/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/phone-emergency/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/phone-emergency/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/phone-files-folders/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/phone-running-slow/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/phone-running-slow/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/phone-stolen/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/phone-stolen/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/phone-stolen/</loc></url>
@@ -2524,6 +2555,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/satnav/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/satnav/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/satnav/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/scam-bank-calls/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/scam-bank-calls/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/scam-voice-clone/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/scam-voice-clone/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/scam-voice-clone/</loc></url>
@@ -2550,6 +2594,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/scary-popup-ads/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/scary-popup-ads/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/scary-popup-ads/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/separate-accounts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/separate-accounts/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/sessions/bridlington-central-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/sessions/bridlington-central-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/sessions/bridlington-central-library/</loc></url>
@@ -2758,6 +2815,19 @@
   <url><loc>https://jamesgartshore.co.uk/tr/wifi-qr-share/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ta/wifi-qr-share/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/wifi-qr-share/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ru/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/zh/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ar/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/es/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/tr/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ta/world-savings-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/world-savings-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/world-stroke-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/world-stroke-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ru/world-stroke-day/</loc></url>

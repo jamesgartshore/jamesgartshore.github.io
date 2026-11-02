@@ -11,6 +11,8 @@
 
 Free tips to spot, block and report scams by text, phone call, email and online, plus simple ways to keep your phone and computer safe.
 
+- [Separate Accounts](https://jamesgartshore.co.uk/separate-accounts/): I wanted to share a simple tip that can make a big difference to keeping your computer safe: using separate accounts for different things.
+- [Bank Call Scams](https://jamesgartshore.co.uk/scam-bank-calls/): I wanted to share a warning about one of the most costly scams going round at the moment: phone calls from people pretending to be your bank or the police.
 - [Get Online Week Day 4](https://jamesgartshore.co.uk/get-online-day4/): It's day four of Get Online Week, and today I wanted to talk about passwords, because they're something almost everyone struggles with.
 - [Phone Still Safe](https://jamesgartshore.co.uk/phone-updates/): I wanted to share a quick check you can do to see if your phone is still safe to use for things like banking and email.
 - [Get Online Week Day 3](https://jamesgartshore.co.uk/get-online-day3/): It's day three of Get Online Week, and today's tips are about free tools that help you stay safe from scams.
@@ -65,6 +67,7 @@ Free apps and phone features that help with health, accessibility and wellbeing,
 
 Free tools to cut your bills, find lost pensions, check subscriptions and save money on food and everyday costs.
 
+- [World Savings Day](https://jamesgartshore.co.uk/world-savings-day/): Yesterday was World Savings Day, so I wanted to share some free tools that can make saving a little easier, even when money is tight.
 - [Pension Tracing Day](https://jamesgartshore.co.uk/pension-tracing/): Today is National Pension Tracing Day, so I wanted to share some free government tools that can help you track down any pensions you may have lost...
 - [Switch Phone Network](https://jamesgartshore.co.uk/switch-network/): I wanted to share a really easy way to switch your mobile phone network and keep your number, without having to ring up and be talked into staying.
 - [Cut Your Bills](https://jamesgartshore.co.uk/cut-bills/): Today is the International Day for the Eradication of Poverty, so I wanted to share some free tools that can help you cut the cost of your broadband...
@@ -96,6 +99,8 @@ News about my volunteering and this site, with photos from local events.
 
 Handy tips for everyday technology, from phones and sat navs to old devices and emergency features.
 
+- [Find Files and Folders on Your Phone](https://jamesgartshore.co.uk/phone-files-folders/): Downloaded a form or a letter on your phone and can't find it? Everything on your phone is kept in folders, and the Files app helps you find them.
+- [Phone Running Slow](https://jamesgartshore.co.uk/phone-running-slow/): Is your Android phone getting slower? Apps leave clutter behind as you use them. These free steps tidy it up, without losing any of your photos or...
 - [Delete Emails on Your Phone](https://jamesgartshore.co.uk/delete-emails/): Is your email inbox full of old messages, offers and newsletters? Here's how to clear them out on your phone, using the Gmail app.
 - [Halloween](https://jamesgartshore.co.uk/halloween/): With Halloween tonight, I wanted to share a few ways tech can help, whether you're looking forward to trick or treaters or would rather have a quiet...
 - [Young People on Social Media](https://jamesgartshore.co.uk/kids-social-media/): If you've got children or grandchildren on social media, here are some simple, free ways to help keep them safer. Most social media apps are for ages...

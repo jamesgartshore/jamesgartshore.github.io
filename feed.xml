@@ -8,6 +8,51 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Find Files and Folders on Your Phone</title>
+        <link>https://jamesgartshore.co.uk/phone-files-folders/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/phone-files-folders/</guid>
+        <pubDate>Mon, 02 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Downloaded a form or a letter on your phone and can&#39;t find it? Everything on your phone is kept in folders, and the Files app helps you find them.</description>
+    </item>
+    
+    <item>
+        <title>Separate Accounts</title>
+        <link>https://jamesgartshore.co.uk/separate-accounts/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/separate-accounts/</guid>
+        <pubDate>Mon, 02 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Scams and staying safe</category>
+        <description>I wanted to share a simple tip that can make a big difference to keeping your computer safe: using separate accounts for different things.</description>
+    </item>
+    
+    <item>
+        <title>Phone Running Slow</title>
+        <link>https://jamesgartshore.co.uk/phone-running-slow/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/phone-running-slow/</guid>
+        <pubDate>Sun, 01 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Is your Android phone getting slower? Apps leave clutter behind as you use them. These free steps tidy it up, without losing any of your photos or...</description>
+    </item>
+    
+    <item>
+        <title>Bank Call Scams</title>
+        <link>https://jamesgartshore.co.uk/scam-bank-calls/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/scam-bank-calls/</guid>
+        <pubDate>Sun, 01 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Scams and staying safe</category>
+        <description>I wanted to share a warning about one of the most costly scams going round at the moment: phone calls from people pretending to be your bank or the police.</description>
+    </item>
+    
+    <item>
+        <title>World Savings Day</title>
+        <link>https://jamesgartshore.co.uk/world-savings-day/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/world-savings-day/</guid>
+        <pubDate>Sun, 01 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Money</category>
+        <description>Yesterday was World Savings Day, so I wanted to share some free tools that can make saving a little easier, even when money is tight.</description>
+    </item>
+    
+    <item>
         <title>Delete Emails on Your Phone</title>
         <link>https://jamesgartshore.co.uk/delete-emails/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/delete-emails/</guid>
@@ -230,51 +275,6 @@
         <pubDate>Fri, 23 Oct 2026 09:00:00 +0000</pubDate>
         <category>Everyday tech</category>
         <description>Has your phone or email told you &#34;your Google storage is full&#34;? Don&#39;t panic: it isn&#39;t your phone that&#39;s full. It&#39;s the free online space Google gives you.</description>
-    </item>
-    
-    <item>
-        <title>Wear It Pink</title>
-        <link>https://jamesgartshore.co.uk/wear-it-pink/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/wear-it-pink/</guid>
-        <pubDate>Fri, 23 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Health and wellbeing</category>
-        <description>Today is Wear It Pink day for Breast Cancer Now, so I wanted to share some free ways your phone can help remind you to check your chest regularly.</description>
-    </item>
-    
-    <item>
-        <title>Get Online Week Day 4</title>
-        <link>https://jamesgartshore.co.uk/get-online-day4/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/get-online-day4/</guid>
-        <pubDate>Thu, 22 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Scams and staying safe</category>
-        <description>It&#39;s day four of Get Online Week, and today I wanted to talk about passwords, because they&#39;re something almost everyone struggles with.</description>
-    </item>
-    
-    <item>
-        <title>Phone Still Safe</title>
-        <link>https://jamesgartshore.co.uk/phone-updates/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/phone-updates/</guid>
-        <pubDate>Thu, 22 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Scams and staying safe</category>
-        <description>I wanted to share a quick check you can do to see if your phone is still safe to use for things like banking and email.</description>
-    </item>
-    
-    <item>
-        <title>Stammering Awareness Day</title>
-        <link>https://jamesgartshore.co.uk/stammering-day/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/stammering-day/</guid>
-        <pubDate>Thu, 22 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Health and wellbeing</category>
-        <description>Today is International Stammering Awareness Day, so I wanted to share some free tech that can make life a bit easier for anyone who stammers.</description>
-    </item>
-    
-    <item>
-        <title>Share Wi-Fi with a QR Code</title>
-        <link>https://jamesgartshore.co.uk/wifi-qr-share/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/wifi-qr-share/</guid>
-        <pubDate>Thu, 22 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>When family or friends visit and ask for your Wi-Fi password, there&#39;s no need to read out a long jumble of letters and numbers. Most Android phones can...</description>
     </item>
     
 </channel>
