@@ -11,6 +11,8 @@
 
 Free tips to spot, block and report scams by text, phone call, email and online, plus simple ways to keep your phone and computer safe.
 
+- [WhatsApp Scams](https://jamesgartshore.co.uk/scam-whatsapp/): I wanted to share a warning about two WhatsApp scams that are really common at the moment.
+- [Scam Calls](https://jamesgartshore.co.uk/scam-cold-calls/): I wanted to share some ways to cut down on scam and nuisance calls, as there's a new type going round that's worth knowing about.
 - [Separate Accounts](https://jamesgartshore.co.uk/separate-accounts/): I wanted to share a simple tip that can make a big difference to keeping your computer safe: using separate accounts for different things.
 - [Bank Call Scams](https://jamesgartshore.co.uk/scam-bank-calls/): I wanted to share a warning about one of the most costly scams going round at the moment: phone calls from people pretending to be your bank or the police.
 - [Get Online Week Day 4](https://jamesgartshore.co.uk/get-online-day4/): It's day four of Get Online Week, and today I wanted to talk about passwords, because they're something almost everyone struggles with.
@@ -40,6 +42,7 @@ How to check whether photos, videos, news stories and health claims you see onli
 
 Free apps and phone features that help with health, accessibility and wellbeing, from Medical ID to tools for sight loss and dyspraxia.
 
+- [999 Deaf Access](https://jamesgartshore.co.uk/deaf-999/): I wanted to share some free services that let people who are deaf, hard of hearing or find it hard to speak contact 999 in an emergency. Many people...
 - [NHS App for Carers and Families](https://jamesgartshore.co.uk/nhs-app-family/): Do you help a parent, partner or family member with their health? With their permission, you can order their prescriptions and book their appointments...
 - [World Stroke Day](https://jamesgartshore.co.uk/world-stroke-day/): Today is World Stroke Day, so I wanted to share how to spot the signs of a stroke, and how your phone can help in an emergency.
 - [What the NHS App Can Do](https://jamesgartshore.co.uk/nhs-app-guide/): Tired of ringing the doctors at 8am? The free NHS App puts lots of your GP services on your phone.
@@ -67,6 +70,7 @@ Free apps and phone features that help with health, accessibility and wellbeing,
 
 Free tools to cut your bills, find lost pensions, check subscriptions and save money on food and everyday costs.
 
+- [Subscriptions Check](https://jamesgartshore.co.uk/subscriptions-check/): I wanted to share a quick money-saving tip: checking for subscriptions you might be paying for without realising.
 - [World Savings Day](https://jamesgartshore.co.uk/world-savings-day/): Yesterday was World Savings Day, so I wanted to share some free tools that can make saving a little easier, even when money is tight.
 - [Pension Tracing Day](https://jamesgartshore.co.uk/pension-tracing/): Today is National Pension Tracing Day, so I wanted to share some free government tools that can help you track down any pensions you may have lost...
 - [Switch Phone Network](https://jamesgartshore.co.uk/switch-network/): I wanted to share a really easy way to switch your mobile phone network and keep your number, without having to ring up and be talked into staying.
@@ -99,6 +103,12 @@ News about my volunteering and this site, with photos from local events.
 
 Handy tips for everyday technology, from phones and sat navs to old devices and emergency features.
 
+- [Scan a Document with Your Phone](https://jamesgartshore.co.uk/phone-scan-pdf/): Did you know you can scan a letter, form or receipt with your phone and turn it into a PDF, ready to email, without a scanner? The free Google Drive...
+- [Laptop Help on Universal Credit](https://jamesgartshore.co.uk/universal-credit-laptop/): I'm often asked if you can get a free laptop on Universal Credit. There's no automatic laptop that comes with it, but there are places that may be able...
+- [Open PDFs on Your Phone](https://jamesgartshore.co.uk/pdf-on-phone/): Letters, forms, tickets and bills often arrive as PDF files. People often ask me which app they need to open them. The good news is your phone can...
+- [Bonfire Night](https://jamesgartshore.co.uk/bonfire-night/): It's Bonfire Night tomorrow! 🎆 Here are a few ways your phone can help you enjoy it safely.
+- [Check Your Laptop for Viruses](https://jamesgartshore.co.uk/laptop-malware-clean/): Worried your laptop might have a virus? Windows comes with a free virus checker, and here's how to run its most thorough scan yourself.
+- [Free Apps and Free Trials](https://jamesgartshore.co.uk/free-apps-trials/): Lots of apps say they're "free", but some make their money in other ways: adverts, paid extras, or free trials that quietly turn into weekly or monthly...
 - [Find Files and Folders on Your Phone](https://jamesgartshore.co.uk/phone-files-folders/): Downloaded a form or a letter on your phone and can't find it? Everything on your phone is kept in folders, and the Files app helps you find them.
 - [Phone Running Slow](https://jamesgartshore.co.uk/phone-running-slow/): Is your Android phone getting slower? Apps leave clutter behind as you use them. These free steps tidy it up, without losing any of your photos or...
 - [Delete Emails on Your Phone](https://jamesgartshore.co.uk/delete-emails/): Is your email inbox full of old messages, offers and newsletters? Here's how to clear them out on your phone, using the Gmail app.
