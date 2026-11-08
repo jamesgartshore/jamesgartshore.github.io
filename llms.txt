@@ -11,6 +11,7 @@
 
 Free tips to spot, block and report scams by text, phone call, email and online, plus simple ways to keep your phone and computer safe.
 
+- [Scam Emails](https://jamesgartshore.co.uk/scam-emails/): I wanted to share a warning about scam emails, as there are a lot going round at the moment pretending to be from well-known organisations.
 - [WhatsApp Scams](https://jamesgartshore.co.uk/scam-whatsapp/): I wanted to share a warning about two WhatsApp scams that are really common at the moment.
 - [Scam Calls](https://jamesgartshore.co.uk/scam-cold-calls/): I wanted to share some ways to cut down on scam and nuisance calls, as there's a new type going round that's worth knowing about.
 - [Separate Accounts](https://jamesgartshore.co.uk/separate-accounts/): I wanted to share a simple tip that can make a big difference to keeping your computer safe: using separate accounts for different things.
@@ -103,6 +104,11 @@ News about my volunteering and this site, with photos from local events.
 
 Handy tips for everyday technology, from phones and sat navs to old devices and emergency features.
 
+- [Lest we forget](https://jamesgartshore.co.uk/remembrance/): Remembrance Sunday is today, 8 November, and Armistice Day is on Wednesday 11 November. On both days there is a two-minute silence at 11am.
+- [Move Files to a New Laptop](https://jamesgartshore.co.uk/transfer-files-laptop/): Got a new laptop? Here's how to bring your photos and documents across from your old one. All you need is a USB memory stick.
+- [WhatsApp Video Call](https://jamesgartshore.co.uk/whatsapp-video-call/): If you've got WhatsApp, you can video call your family for free over Wi-Fi and see each other's faces. Here's how.
+- [Take a Screenshot](https://jamesgartshore.co.uk/phone-screenshot/): Did you know you can take a picture of whatever is on your phone's screen? It's called a screenshot, and it's handy for keeping a ticket, a booking or...
+- [Wipe an Old Laptop](https://jamesgartshore.co.uk/wipe-old-laptop/): Getting rid of an old laptop? Before you sell it, give it away or recycle it, wipe it clean. Your photos, emails, saved passwords and banking details...
 - [Scan a Document with Your Phone](https://jamesgartshore.co.uk/phone-scan-pdf/): Did you know you can scan a letter, form or receipt with your phone and turn it into a PDF, ready to email, without a scanner? The free Google Drive...
 - [Laptop Help on Universal Credit](https://jamesgartshore.co.uk/universal-credit-laptop/): I'm often asked if you can get a free laptop on Universal Credit. There's no automatic laptop that comes with it, but there are places that may be able...
 - [Open PDFs on Your Phone](https://jamesgartshore.co.uk/pdf-on-phone/): Letters, forms, tickets and bills often arrive as PDF files. People often ask me which app they need to open them. The good news is your phone can...

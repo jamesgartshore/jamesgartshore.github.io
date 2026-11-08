@@ -8,6 +8,60 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Lest we forget</title>
+        <link>https://jamesgartshore.co.uk/remembrance/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/remembrance/</guid>
+        <pubDate>Sun, 08 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Remembrance Sunday is today, 8 November, and Armistice Day is on Wednesday 11 November. On both days there is a two-minute silence at 11am.</description>
+    </item>
+    
+    <item>
+        <title>Move Files to a New Laptop</title>
+        <link>https://jamesgartshore.co.uk/transfer-files-laptop/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/transfer-files-laptop/</guid>
+        <pubDate>Sun, 08 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Got a new laptop? Here&#39;s how to bring your photos and documents across from your old one. All you need is a USB memory stick.</description>
+    </item>
+    
+    <item>
+        <title>WhatsApp Video Call</title>
+        <link>https://jamesgartshore.co.uk/whatsapp-video-call/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/whatsapp-video-call/</guid>
+        <pubDate>Sun, 08 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>If you&#39;ve got WhatsApp, you can video call your family for free over Wi-Fi and see each other&#39;s faces. Here&#39;s how.</description>
+    </item>
+    
+    <item>
+        <title>Take a Screenshot</title>
+        <link>https://jamesgartshore.co.uk/phone-screenshot/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/phone-screenshot/</guid>
+        <pubDate>Sat, 07 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Did you know you can take a picture of whatever is on your phone&#39;s screen? It&#39;s called a screenshot, and it&#39;s handy for keeping a ticket, a booking or...</description>
+    </item>
+    
+    <item>
+        <title>Scam Emails</title>
+        <link>https://jamesgartshore.co.uk/scam-emails/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/scam-emails/</guid>
+        <pubDate>Sat, 07 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Scams and staying safe</category>
+        <description>I wanted to share a warning about scam emails, as there are a lot going round at the moment pretending to be from well-known organisations.</description>
+    </item>
+    
+    <item>
+        <title>Wipe an Old Laptop</title>
+        <link>https://jamesgartshore.co.uk/wipe-old-laptop/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/wipe-old-laptop/</guid>
+        <pubDate>Sat, 07 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Getting rid of an old laptop? Before you sell it, give it away or recycle it, wipe it clean. Your photos, emails, saved passwords and banking details...</description>
+    </item>
+    
+    <item>
         <title>999 Deaf Access</title>
         <link>https://jamesgartshore.co.uk/deaf-999/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/deaf-999/</guid>
@@ -221,60 +275,6 @@
         <pubDate>Thu, 29 Oct 2026 09:00:00 +0000</pubDate>
         <category>Health and wellbeing</category>
         <description>Today is World Stroke Day, so I wanted to share how to spot the signs of a stroke, and how your phone can help in an emergency.</description>
-    </item>
-    
-    <item>
-        <title>Family Learning</title>
-        <link>https://jamesgartshore.co.uk/family-learning/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/family-learning/</guid>
-        <pubDate>Wed, 28 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Getting online and staying connected</category>
-        <description>With half term here and October being Family Learning Festival month, I wanted to share some free apps and websites you can enjoy with the...</description>
-    </item>
-    
-    <item>
-        <title>Media Literacy Week Day 5</title>
-        <link>https://jamesgartshore.co.uk/media-literacy-day5/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/media-literacy-day5/</guid>
-        <pubDate>Wed, 28 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Fake news and online info</category>
-        <description>It&#39;s day five of Global Media and Information Literacy Week, and today&#39;s tips are about WhatsApp forwards and chain messages.</description>
-    </item>
-    
-    <item>
-        <title>National Databank Free SIM</title>
-        <link>https://jamesgartshore.co.uk/national-databank/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/national-databank/</guid>
-        <pubDate>Wed, 28 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Did you know there&#39;s free mobile data for people who can&#39;t afford it? The National Databank, run by the charity Good Things Foundation, gives out free...</description>
-    </item>
-    
-    <item>
-        <title>Media Literacy Week Day 4</title>
-        <link>https://jamesgartshore.co.uk/media-literacy-day4/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/media-literacy-day4/</guid>
-        <pubDate>Tue, 27 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Fake news and online info</category>
-        <description>It&#39;s day four of Global Media and Information Literacy Week, and today I wanted to share some built-in Facebook tools that let you take more control...</description>
-    </item>
-    
-    <item>
-        <title>What the NHS App Can Do</title>
-        <link>https://jamesgartshore.co.uk/nhs-app-guide/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/nhs-app-guide/</guid>
-        <pubDate>Tue, 27 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Health and wellbeing</category>
-        <description>Tired of ringing the doctors at 8am? The free NHS App puts lots of your GP services on your phone.</description>
-    </item>
-    
-    <item>
-        <title>Add a Bank Card to Google Wallet</title>
-        <link>https://jamesgartshore.co.uk/google-wallet/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/google-wallet/</guid>
-        <pubDate>Mon, 26 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Did you know you can pay with your phone instead of your bank card? Adding your card to Google Wallet means you can still pay if you&#39;ve left your purse...</description>
     </item>
     
 </channel>
