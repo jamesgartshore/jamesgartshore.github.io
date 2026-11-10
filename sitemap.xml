@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/help/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/glossary/</loc></url>
@@ -119,13 +119,16 @@
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-north-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-central-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/hutton-sra/</loc></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/fake-news-and-online-info/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/health-and-wellbeing/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/money/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-30</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/news/</loc><lastmod>2026-10-08</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/block-caller/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/phone-antivirus/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/scam-texts/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/iphone-indicator-dots/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/no-charger/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/send-photo-message/</loc><lastmod>2026-11-09</lastmod></url>
@@ -242,6 +245,13 @@
   <url><loc>https://jamesgartshore.co.uk/lt/arthritis-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/bg/arthritis-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/arthritis-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/block-caller/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/block-caller/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/block-caller/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/block-caller/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/block-caller/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/block-caller/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/block-caller/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/bonfire-night/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/bonfire-night/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ro/bonfire-night/</loc></url>
@@ -1411,6 +1421,13 @@
   <url><loc>https://jamesgartshore.co.uk/lt/pension-tracing/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/bg/pension-tracing/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/pension-tracing/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/phone-antivirus/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/phone-antivirus/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/phone-antivirus/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/phone-antivirus/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/phone-antivirus/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/phone-antivirus/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/phone-antivirus/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/phone-battery/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/phone-battery/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ro/phone-battery/</loc></url>
@@ -1579,6 +1596,13 @@
   <url><loc>https://jamesgartshore.co.uk/lt/scam-emails/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/bg/scam-emails/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/scam-emails/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/scam-texts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/scam-texts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/scam-texts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/scam-texts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/scam-texts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/scam-texts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/scam-texts/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/scam-voice-clone/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/scam-voice-clone/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ro/scam-voice-clone/</loc></url>
