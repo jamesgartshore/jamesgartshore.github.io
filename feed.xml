@@ -8,6 +8,33 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>iPhone Coloured Dots</title>
+        <link>https://jamesgartshore.co.uk/iphone-indicator-dots/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/iphone-indicator-dots/</guid>
+        <pubDate>Mon, 09 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Have you ever noticed a little coloured dot, or a coloured bubble behind the time, at the top of your iPhone screen? It&#39;s your iPhone telling you what...</description>
+    </item>
+    
+    <item>
+        <title>No Charger In The Box</title>
+        <link>https://jamesgartshore.co.uk/no-charger/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/no-charger/</guid>
+        <pubDate>Mon, 09 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Bought a new phone or laptop, or thinking of it? Check the box, because some don&#39;t come with a charger any more.</description>
+    </item>
+    
+    <item>
+        <title>Send a Photo on WhatsApp</title>
+        <link>https://jamesgartshore.co.uk/send-photo-message/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/send-photo-message/</guid>
+        <pubDate>Mon, 09 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Here&#39;s how to send a photo to family on WhatsApp, whether it&#39;s the grandchildren, the garden or a letter you need help with.</description>
+    </item>
+    
+    <item>
         <title>Lest we forget</title>
         <link>https://jamesgartshore.co.uk/remembrance/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/remembrance/</guid>
@@ -248,33 +275,6 @@
         <pubDate>Fri, 30 Oct 2026 09:00:00 +0000</pubDate>
         <category>Getting online and staying connected</category>
         <description>Today is World Online Networking Day, which is all about making and keeping connections online. Whether you&#39;d like to get back in touch with old...</description>
-    </item>
-    
-    <item>
-        <title>Young People on Social Media</title>
-        <link>https://jamesgartshore.co.uk/kids-social-media/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/kids-social-media/</guid>
-        <pubDate>Thu, 29 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>If you&#39;ve got children or grandchildren on social media, here are some simple, free ways to help keep them safer. Most social media apps are for ages...</description>
-    </item>
-    
-    <item>
-        <title>Media Literacy Week Day 6</title>
-        <link>https://jamesgartshore.co.uk/media-literacy-day6/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/media-literacy-day6/</guid>
-        <pubDate>Thu, 29 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Fake news and online info</category>
-        <description>It&#39;s day six of Global Media and Information Literacy Week, and today I wanted to talk about health information online.</description>
-    </item>
-    
-    <item>
-        <title>World Stroke Day</title>
-        <link>https://jamesgartshore.co.uk/world-stroke-day/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/world-stroke-day/</guid>
-        <pubDate>Thu, 29 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Health and wellbeing</category>
-        <description>Today is World Stroke Day, so I wanted to share how to spot the signs of a stroke, and how your phone can help in an emergency.</description>
     </item>
     
 </channel>
