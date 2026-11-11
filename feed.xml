@@ -8,6 +8,33 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Remember a relative who served</title>
+        <link>https://jamesgartshore.co.uk/armistice-war-records/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/armistice-war-records/</guid>
+        <pubDate>Wed, 11 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Today is Armistice Day. If you’d like to find out more about a relative who died in the First or Second World War, there’s a free website that can help.</description>
+    </item>
+    
+    <item>
+        <title>Do You Need a New Phone</title>
+        <link>https://jamesgartshore.co.uk/phone-upgrade-need/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/phone-upgrade-need/</guid>
+        <pubDate>Wed, 11 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Has a phone shop told you it&#39;s time to upgrade to the latest model? Before you spend hundreds of pounds, it&#39;s worth knowing that shop staff are often...</description>
+    </item>
+    
+    <item>
+        <title>Medication Reminder</title>
+        <link>https://jamesgartshore.co.uk/tablet-reminder/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/tablet-reminder/</guid>
+        <pubDate>Wed, 11 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Here&#39;s a simple way to make sure you never forget your tablets. Your phone&#39;s alarm can go off at the same time every day, with its own name.</description>
+    </item>
+    
+    <item>
         <title>Block a Nuisance Caller</title>
         <link>https://jamesgartshore.co.uk/block-caller/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/block-caller/</guid>
@@ -248,33 +275,6 @@
         <pubDate>Sun, 01 Nov 2026 09:00:00 +0000</pubDate>
         <category>Money</category>
         <description>Yesterday was World Savings Day, so I wanted to share some free tools that can make saving a little easier, even when money is tight.</description>
-    </item>
-    
-    <item>
-        <title>Delete Emails on Your Phone</title>
-        <link>https://jamesgartshore.co.uk/delete-emails/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/delete-emails/</guid>
-        <pubDate>Sat, 31 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Is your email inbox full of old messages, offers and newsletters? Here&#39;s how to clear them out on your phone, using the Gmail app.</description>
-    </item>
-    
-    <item>
-        <title>Halloween</title>
-        <link>https://jamesgartshore.co.uk/halloween/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/halloween/</guid>
-        <pubDate>Sat, 31 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>With Halloween tonight, I wanted to share a few ways tech can help, whether you&#39;re looking forward to trick or treaters or would rather have a quiet...</description>
-    </item>
-    
-    <item>
-        <title>Media Literacy Week Day 8</title>
-        <link>https://jamesgartshore.co.uk/media-literacy-day8/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/media-literacy-day8/</guid>
-        <pubDate>Sat, 31 Oct 2026 09:00:00 +0000</pubDate>
-        <category>Fake news and online info</category>
-        <description>It&#39;s the last day of Global Media and Information Literacy Week, so I wanted to finish with some free resources for helping children and grandchildren...</description>
     </item>
     
 </channel>
