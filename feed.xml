@@ -8,6 +8,87 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Save a New Contact</title>
+        <link>https://jamesgartshore.co.uk/save-contact/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/save-contact/</guid>
+        <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>If someone new rings you, save their name in your phone. Then next time, you&#39;ll see who it is before you answer.</description>
+    </item>
+    
+    <item>
+        <title>Calls keep dropping indoors? Use Wi-Fi calling</title>
+        <link>https://jamesgartshore.co.uk/wifi-calling/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/wifi-calling/</guid>
+        <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Does your mobile signal drop out indoors? Wi-Fi calling lets your phone make and take calls over your home Wi-Fi instead.</description>
+    </item>
+    
+    <item>
+        <title>World Diabetes Day</title>
+        <link>https://jamesgartshore.co.uk/world-diabetes-day/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/world-diabetes-day/</guid>
+        <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>It&#39;s World Diabetes Day. Whether you have diabetes or want to lower your risk, these free tools can help.</description>
+    </item>
+    
+    <item>
+        <title>Giving to Children in Need? Give safely</title>
+        <link>https://jamesgartshore.co.uk/children-in-need-giving/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/children-in-need-giving/</guid>
+        <pubDate>Fri, 13 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>BBC Children in Need is on BBC One tonight from 7pm. Big appeals like this sometimes attract fake donation links, so here’s how to give safely.</description>
+    </item>
+    
+    <item>
+        <title>Phone Torch</title>
+        <link>https://jamesgartshore.co.uk/phone-torch/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/phone-torch/</guid>
+        <pubDate>Fri, 13 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>With the darker evenings, here&#39;s a reminder that every smartphone has a torch built in. Handy for finding the keyhole or reading a menu.</description>
+    </item>
+    
+    <item>
+        <title>World Kindness Day</title>
+        <link>https://jamesgartshore.co.uk/world-kindness-day/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/world-kindness-day/</guid>
+        <pubDate>Fri, 13 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>It&#39;s World Kindness Day today. A little kindness with tech can mean a lot to someone who&#39;s struggling, or who&#39;s on their own.</description>
+    </item>
+    
+    <item>
+        <title>Location Permissions</title>
+        <link>https://jamesgartshore.co.uk/location-permissions/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/location-permissions/</guid>
+        <pubDate>Thu, 12 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Did you know some apps can see where you are all the time, even when you&#39;re not using them? It only takes a few taps to check.</description>
+    </item>
+    
+    <item>
+        <title>Winter Fuel Payment Texts</title>
+        <link>https://jamesgartshore.co.uk/scam-alert-winter-fuel/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/scam-alert-winter-fuel/</guid>
+        <pubDate>Thu, 12 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Scams and staying safe</category>
+        <description>Winter Fuel Payments start going out from mid-November, and scam texts about them are going round again.</description>
+    </item>
+    
+    <item>
+        <title>Talk Instead of Typing</title>
+        <link>https://jamesgartshore.co.uk/voice-typing/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/voice-typing/</guid>
+        <pubDate>Thu, 12 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>If the keyboard on your phone is fiddly, you can talk to it instead and it writes your message for you.</description>
+    </item>
+    
+    <item>
         <title>Remember a relative who served</title>
         <link>https://jamesgartshore.co.uk/armistice-war-records/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/armistice-war-records/</guid>
@@ -194,87 +275,6 @@
         <pubDate>Wed, 04 Nov 2026 09:00:00 +0000</pubDate>
         <category>Everyday tech</category>
         <description>It&#39;s Bonfire Night tomorrow! 🎆 Here are a few ways your phone can help you enjoy it safely.</description>
-    </item>
-    
-    <item>
-        <title>Check Your Laptop for Viruses</title>
-        <link>https://jamesgartshore.co.uk/laptop-malware-clean/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/laptop-malware-clean/</guid>
-        <pubDate>Wed, 04 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Worried your laptop might have a virus? Windows comes with a free virus checker, and here&#39;s how to run its most thorough scan yourself.</description>
-    </item>
-    
-    <item>
-        <title>WhatsApp Scams</title>
-        <link>https://jamesgartshore.co.uk/scam-whatsapp/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/scam-whatsapp/</guid>
-        <pubDate>Wed, 04 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Scams and staying safe</category>
-        <description>I wanted to share a warning about two WhatsApp scams that are really common at the moment.</description>
-    </item>
-    
-    <item>
-        <title>Free Apps and Free Trials</title>
-        <link>https://jamesgartshore.co.uk/free-apps-trials/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/free-apps-trials/</guid>
-        <pubDate>Tue, 03 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Lots of apps say they&#39;re &#34;free&#34;, but some make their money in other ways: adverts, paid extras, or free trials that quietly turn into weekly or monthly...</description>
-    </item>
-    
-    <item>
-        <title>Scam Calls</title>
-        <link>https://jamesgartshore.co.uk/scam-cold-calls/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/scam-cold-calls/</guid>
-        <pubDate>Tue, 03 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Scams and staying safe</category>
-        <description>I wanted to share some ways to cut down on scam and nuisance calls, as there&#39;s a new type going round that&#39;s worth knowing about.</description>
-    </item>
-    
-    <item>
-        <title>Find Files and Folders on Your Phone</title>
-        <link>https://jamesgartshore.co.uk/phone-files-folders/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/phone-files-folders/</guid>
-        <pubDate>Mon, 02 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Downloaded a form or a letter on your phone and can&#39;t find it? Everything on your phone is kept in folders, and the Files app helps you find them.</description>
-    </item>
-    
-    <item>
-        <title>Separate Accounts</title>
-        <link>https://jamesgartshore.co.uk/separate-accounts/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/separate-accounts/</guid>
-        <pubDate>Mon, 02 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Scams and staying safe</category>
-        <description>I wanted to share a simple tip that can make a big difference to keeping your computer safe: using separate accounts for different things.</description>
-    </item>
-    
-    <item>
-        <title>Phone Running Slow</title>
-        <link>https://jamesgartshore.co.uk/phone-running-slow/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/phone-running-slow/</guid>
-        <pubDate>Sun, 01 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Is your Android phone getting slower? Apps leave clutter behind as you use them. These free steps tidy it up, without losing any of your photos or...</description>
-    </item>
-    
-    <item>
-        <title>Bank Call Scams</title>
-        <link>https://jamesgartshore.co.uk/scam-bank-calls/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/scam-bank-calls/</guid>
-        <pubDate>Sun, 01 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Scams and staying safe</category>
-        <description>I wanted to share a warning about one of the most costly scams going round at the moment: phone calls from people pretending to be your bank or the police.</description>
-    </item>
-    
-    <item>
-        <title>World Savings Day</title>
-        <link>https://jamesgartshore.co.uk/world-savings-day/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/world-savings-day/</guid>
-        <pubDate>Sun, 01 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Money</category>
-        <description>Yesterday was World Savings Day, so I wanted to share some free tools that can make saving a little easier, even when money is tight.</description>
     </item>
     
 </channel>
