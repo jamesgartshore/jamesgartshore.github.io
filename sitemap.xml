@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/</loc><lastmod>2026-11-20</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/help/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/glossary/</loc></url>
@@ -119,13 +119,19 @@
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-north-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/bridlington-central-library/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/sessions/hutton-sra/</loc></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/scams-and-staying-safe/</loc><lastmod>2026-11-20</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/fake-news-and-online-info/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/health-and-wellbeing/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/money/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/getting-online-and-staying-connected/</loc><lastmod>2026-10-30</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/topics/news/</loc><lastmod>2026-10-08</lastmod></url>
-  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/topics/everyday-tech/</loc><lastmod>2026-11-20</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/nhs-health-check/</loc><lastmod>2026-11-20</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/scam-ads-shops/</loc><lastmod>2026-11-20</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/stop-app-alerts/</loc><lastmod>2026-11-20</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/carers-rights-day/</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/live-captions/</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://jamesgartshore.co.uk/toilet-map/</loc><lastmod>2026-11-19</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/phone-magnifier/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/power-cut-105/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://jamesgartshore.co.uk/stop-think-fraud/</loc><lastmod>2026-11-17</lastmod></url>
@@ -349,6 +355,13 @@
   <url><loc>https://jamesgartshore.co.uk/lt/braille-day7/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/bg/braille-day7/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/braille-day7/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/carers-rights-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/carers-rights-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/carers-rights-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/carers-rights-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/carers-rights-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/carers-rights-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/carers-rights-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/children-in-need-giving/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/children-in-need-giving/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ro/children-in-need-giving/</loc></url>
@@ -1350,6 +1363,13 @@
   <url><loc>https://jamesgartshore.co.uk/lt/library-ebooks/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/bg/library-ebooks/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/library-ebooks/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/live-captions/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/live-captions/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/live-captions/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/live-captions/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/live-captions/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/live-captions/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/live-captions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/location-permissions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/location-permissions/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ro/location-permissions/</loc></url>
@@ -1441,6 +1461,13 @@
   <url><loc>https://jamesgartshore.co.uk/lt/nhs-app-guide/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/bg/nhs-app-guide/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/nhs-app-guide/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/nhs-health-check/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/nhs-health-check/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/nhs-health-check/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/nhs-health-check/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/nhs-health-check/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/nhs-health-check/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/nhs-health-check/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/no-charger/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/no-charger/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ro/no-charger/</loc></url>
@@ -1686,6 +1713,13 @@
   <url><loc>https://jamesgartshore.co.uk/lt/save-contact/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/bg/save-contact/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/save-contact/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/scam-ads-shops/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/scam-ads-shops/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/scam-ads-shops/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/scam-ads-shops/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/scam-ads-shops/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/scam-ads-shops/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/scam-ads-shops/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/scam-alert-winter-fuel/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/scam-alert-winter-fuel/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ro/scam-alert-winter-fuel/</loc></url>
@@ -1791,6 +1825,13 @@
   <url><loc>https://jamesgartshore.co.uk/lt/stammering-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/bg/stammering-day/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/stammering-day/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/stop-app-alerts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/stop-app-alerts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/stop-app-alerts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/stop-app-alerts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/stop-app-alerts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/stop-app-alerts/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/stop-app-alerts/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/stop-think-fraud/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/stop-think-fraud/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ro/stop-think-fraud/</loc></url>
@@ -1826,6 +1867,13 @@
   <url><loc>https://jamesgartshore.co.uk/lt/time2volunteer-awards/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/bg/time2volunteer-awards/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/uk/time2volunteer-awards/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pl/toilet-map/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lv/toilet-map/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/ro/toilet-map/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/pt/toilet-map/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/lt/toilet-map/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/bg/toilet-map/</loc></url>
+  <url><loc>https://jamesgartshore.co.uk/uk/toilet-map/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/pl/topics/everyday-tech/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/lv/topics/everyday-tech/</loc></url>
   <url><loc>https://jamesgartshore.co.uk/ro/topics/everyday-tech/</loc></url>
