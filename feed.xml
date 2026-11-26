@@ -8,6 +8,15 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Check Your Mobile Data</title>
+        <link>https://jamesgartshore.co.uk/check-data-usage/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/check-data-usage/</guid>
+        <pubDate>Thu, 26 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Your phone plan gives you a set amount of mobile data each month. Here&#39;s how to check how much you&#39;ve used, so you don&#39;t go over and get charged extra.</description>
+    </item>
+    
+    <item>
         <title>Bright Sky: free, private help with domestic abuse</title>
         <link>https://jamesgartshore.co.uk/bright-sky-app/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/bright-sky-app/</guid>
@@ -266,15 +275,6 @@
         <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
         <category>Everyday tech</category>
         <description>Does your phone keep changing the words you type? Here is how to turn off autocorrect in Settings, step by step, in plain English.</description>
-    </item>
-    
-    <item>
-        <title>Unwell? Free NHS help, no GP wait</title>
-        <link>https://jamesgartshore.co.uk/self-care-nhs-online/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/self-care-nhs-online/</guid>
-        <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>It’s Self Care Week. For everyday illnesses, these free NHS services can help without waiting for a GP appointment.</description>
     </item>
     
 </channel>
