@@ -8,6 +8,42 @@
     <atom:link href="https://jamesgartshore.co.uk/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
+        <title>Show your phone’s photos on the TV</title>
+        <link>https://jamesgartshore.co.uk/cast-to-tv/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/cast-to-tv/</guid>
+        <pubDate>Fri, 27 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Here’s a lovely way to share photos with visitors: put them on the TV.</description>
+    </item>
+    
+    <item>
+        <title>Join a Video Meeting from a Link</title>
+        <link>https://jamesgartshore.co.uk/join-video-meeting/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/join-video-meeting/</guid>
+        <pubDate>Fri, 27 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>More doctors, clubs and families use video calls now. If you&#39;re sent a link to join one, here&#39;s what to do. Zoom, Teams and Google Meet all work the...</description>
+    </item>
+    
+    <item>
+        <title>Is that Black Friday deal really a deal?</title>
+        <link>https://jamesgartshore.co.uk/black-friday-price-history/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/black-friday-price-history/</guid>
+        <pubDate>Thu, 26 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Black Friday is tomorrow. Many “deals” aren’t as good as they look, so here’s how to check.</description>
+    </item>
+    
+    <item>
+        <title>Black Friday Shopping Safety</title>
+        <link>https://jamesgartshore.co.uk/black-friday-safe/</link>
+        <guid isPermaLink="true">https://jamesgartshore.co.uk/black-friday-safe/</guid>
+        <pubDate>Thu, 26 Nov 2026 09:00:00 +0000</pubDate>
+        <category>Everyday tech</category>
+        <description>Black Friday is on 27 November, with Cyber Monday on the 30th. There are real bargains about, but scammers also set up fake shops and fake deals at...</description>
+    </item>
+    
+    <item>
         <title>Check Your Mobile Data</title>
         <link>https://jamesgartshore.co.uk/check-data-usage/</link>
         <guid isPermaLink="true">https://jamesgartshore.co.uk/check-data-usage/</guid>
@@ -239,42 +275,6 @@
         <pubDate>Tue, 17 Nov 2026 09:00:00 +0000</pubDate>
         <category>Everyday tech</category>
         <description>Left your glasses in the other room? Your phone&#39;s camera makes a great magnifying glass for tiny print on medicine boxes, menus and bills.</description>
-    </item>
-    
-    <item>
-        <title>Power cut? Call 105</title>
-        <link>https://jamesgartshore.co.uk/power-cut-105/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/power-cut-105/</guid>
-        <pubDate>Tue, 17 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Power cut? Call 105, free, 24 hours a day, in England, Scotland and Wales. Here is what to do and what to keep ready before winter.</description>
-    </item>
-    
-    <item>
-        <title>Stop. Think. Check. Then act.</title>
-        <link>https://jamesgartshore.co.uk/stop-think-fraud/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/stop-think-fraud/</guid>
-        <pubDate>Tue, 17 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>It’s International Fraud Awareness Week. Scammers rely on rushing you, so a few seconds of thinking is your best protection.</description>
-    </item>
-    
-    <item>
-        <title>Anti-Bullying Week</title>
-        <link>https://jamesgartshore.co.uk/anti-bullying-week/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/anti-bullying-week/</guid>
-        <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>It&#39;s Anti-Bullying Week, and this year&#39;s theme is &#34;Break the Silence&#34;. If a child or grandchild is being bullied online, here&#39;s how you can help.</description>
-    </item>
-    
-    <item>
-        <title>Stop Autocorrect</title>
-        <link>https://jamesgartshore.co.uk/autocorrect-off/</link>
-        <guid isPermaLink="true">https://jamesgartshore.co.uk/autocorrect-off/</guid>
-        <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
-        <category>Everyday tech</category>
-        <description>Does your phone keep changing the words you type? Here is how to turn off autocorrect in Settings, step by step, in plain English.</description>
     </item>
     
 </channel>
